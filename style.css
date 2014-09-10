@@ -1,0 +1,797 @@
+/* 	-----------------------------
+	Foundry Theme Stylesheet
+	-----------------------------
+	Theme Name: 	Apocrypha2
+	Theme URI: 		http://tamrielfoundry.com
+	Description: 	Apocrypha is a minimalistic template for developing WordPress into a responsive social membership site using the bbPress and BuddyPress plugins.
+	Version: 		2.0
+	Tags: 			bbpress, buddypress, responsive
+	Author: 		Andrew Clayton
+	Author URI: 	http://tamrielfoundry.com
+	Updated:		9-8-2014
+	Copyright(c):	2014 Andrew Clayton.  All rights reserved.
+
+----------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 - Setup
+	1.1 - Import Fonts
+2.0 - Non-structural Elements
+	2.1 - Text
+	2.2 - Forms
+3.0 - Primary Structure
+	3.1 - Header
+	3.2 - Body
+	3.3 - Footer
+	3.4 - Sidebar
+	3.5 - Showcase
+	3.6 - Breadcrumbs
+	3.7 - Pagination
+4.0 - Admin Bar
+5.0 - Primary Menu
+6.0 - Posts
+7.0 - Comments
+8.0 - bbPress
+	8.1 - Forum Headers
+	8.2 - Forum Archive
+	8.3 - Single Forum
+	8.4 - Single Topic
+----------------------------------------------------------------
+
+COLOR PALETTE:
+Link-inactive: 			#C5772B
+Link-active: 			#FFB14C
+Input background: 		#DAD6CF
+
+*/
+
+/*--------------------------------------------------------------
+	1.0 - SETUP
+--------------------------------------------------------------*/
+
+/* CSS Reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+/* Border-Box */
+html{box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}
+
+
+/*---------------------------------------------
+	1.1 - Import Fonts
+----------------------------------------------*/
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cinzel-Regular'), url(http://themes.googleusercontent.com/static/fonts/cinzel/v2/mLL0ZqnXRx3m16FnBy9gcg.woff) format('woff');
+	}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+	}
+
+/*--------------------------------------------------------------
+	2.0 - NON STRUCTURAL ELEMENTS
+--------------------------------------------------------------*/
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	}
+
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	background-image: url("images/backgrounds/bg-loop.jpg");
+	background-position: 50% 0;
+	position: relative;
+	font-family: 'Open Sans' , 'Sans-Serif';
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 20px;
+	color: #CCC;
+	}
+
+/*---------------------------------------------
+	2.1 - Text
+----------------------------------------------*/
+
+/* Links */
+a {
+	color: #c5772b;
+	text-decoration: none;
+	-webkit-transition: color 0.2s;
+	-moz-transition: color 0.2s;
+	-ms-transition: color 0.2s;
+	-o-transition: color 0.2s;
+	transition: color 0.2s;
+	cursor: pointer;
+	}
+a:hover { 
+	color: #ffb14c; 
+	}
+
+/* Headers */
+h1 {
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.75em; 
+	font-weight: bold;
+	margin-bottom: 0.5em; 	
+	}
+
+h2 {
+	font-size: 1.25em; 
+	margin-bottom: 0.5em; 
+	font-weight: bold; 
+	}
+
+h3 {
+	font-family: Cinzel , 'Book Antiqua' , Serif;
+	font-size: 1.25em;
+	margin-bottom: 0.5em;
+	}
+
+/* Icons */
+i.fa {
+	margin: 0 3px 0 0;
+	}
+	
+	
+/*---------------------------------------------
+	2.2 - Forms
+----------------------------------------------*/
+form {
+	width: 100%;
+	float: left;
+	margin: 1em 0;
+	}
+
+fieldset {
+	clear: both;
+	}
+
+/* Form Fields */
+input[type="text"],
+input[type="password"],
+input[type="url"],
+input[type="file"],
+input[type="search"],
+select {
+	height: 1.75em;
+	line-height: 1.75em;
+	margin: 3px 5px;
+	padding: 0 4px;
+	background: #DAD6CF;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #000;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	color: #000;
+	}
+
+/* Checkboxes and Radios */
+input[type="checkbox"] {
+	height: 16px;
+	width: 16px;
+	margin: 7px 5px;
+	display: none;
+	}
+input[type="checkbox"] + label {
+	display: inline-block;
+	}
+	
+input[type="checkbox"] + label:before {
+	width: 16px;
+	display: inline-block;
+	position: relative;
+	top: 2px;
+	font-family: FontAwesome;
+	font-size: 16px;
+	padding-right: 1px;	
+	}
+	
+input[type=radio] + label:before { 
+	content: "\f10c"; 
+	}
+input[type=radio]:checked + label:before { 
+	content: "\f05d";
+	color: #FFB14C;
+	}
+input[type="checkbox"] + label:before { 
+	content: "\f096"; 
+	}
+input[type="checkbox"]:checked + label:before { 
+	content: "\f046"; 
+	color: #FFB14C;
+	}
+
+/* Placeholder Values */
+::-webkit-input-placeholder { color: #666; }
+:-moz-placeholder { color: #666; }
+::-moz-placeholder { color: #666; }
+:-ms-input-placeholder { color: #666; }
+
+
+/* Buttons */
+button,
+a.button {
+	height: 2em;
+	display: inline-block;
+	position: relative;
+	padding: 0 0.5em;
+	margin: 3px 5px;
+	background: -ms-linear-gradient(top, #DDD, #D1CBBC);
+    background: -moz-linear-gradient(top, #DDD, #D1CBBC);
+	background: -o-linear-gradient(top, #DDD, #D1CBBC);
+	background: -webkit-linear-gradient(top, #DDD, #D1CBBC);
+	border: 1px solid #111;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #000;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1em;
+	font-weight: normal;
+	color: #111;
+	cursor: pointer;
+	}
+a.button {
+	line-height: 1.8em;
+	}
+
+button:hover,
+a.button:hover {
+	color: #C60;
+	box-shadow: 0 0 10px #c60;
+	}
+
+
+
+/*---------------------------------------------
+	2.3 - Media
+----------------------------------------------*/
+
+/* Images */
+img {
+	max-width: 100%;
+	}
+
+/* Avatars */
+img.avatar {
+	border: 1px solid #000;
+	border-radius: 2px;
+	}
+
+/*---------------------------------------------
+	2.4 - Notifications
+----------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+	3.0 - PRIMARY STRUCTURE
+--------------------------------------------------------------*/
+	
+/*---------------------------------------------
+	3.1 - Header
+----------------------------------------------*/
+div#header-container {
+	width: 100%;
+	float: left;
+	height: 200px;
+	background: #000;
+	background-image: url("images/backgrounds/bg-header.jpg");
+	background-position: 50% 0;
+	}
+
+nav#admin-bar {
+	width: 100%;
+	height: 30px;
+	background: rgba(17,17,17,0.75);
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.75), rgba(34,34,34,0.75));
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.75), rgba(34,34,34,0.75));
+	background: -o-linear-gradient(top, rgba(0,0,0,0.75), rgba(34,34,34,0.75));
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.75), rgba(34,34,34,0.75));
+	border-bottom: 1px solid #000;
+	box-shadow: 0 0 2px #000;
+	}
+
+header#site-header {
+	width: 1200px;
+	height: 120px;
+	margin: 0 auto;
+	position: relative;
+	}
+
+a#site-title {
+	width: 360px;
+	height: 100%;
+	display: block;
+	background-image: url("images/headers/tf-header.png");
+	background-repeat: no-repeat;
+	position: absolute;
+	z-index: 1;
+	}
+
+div#primary-banner {
+	width: 728px;
+	height: 90px;
+	position: absolute;
+	top: 14px;
+	right: 5px;
+	background: rgba(17,17,17,0.5);
+	border: 1px solid #000;
+	text-align: center;
+	line-height: 90px;
+	z-index: 0;
+	}
+
+nav#primary-menu {
+	width: 100%;
+	min-height: 50px;
+	position: relative;
+	background: -moz-linear-gradient(top, rgba(17,17,17,0.9) 0%, rgba(51,51,51,0.9) 50%, rgba(17,17,17,0.9) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(17,17,17,0.9)), color-stop(50%,rgba(51,51,51,0.9)), color-stop(100%,rgba(17,17,17,0.9)));
+	background: -webkit-linear-gradient(top, rgba(17,17,17,0.9) 0%,rgba(51,51,51,0.9) 50%,rgba(17,17,17,0.9) 100%);
+	background: -o-linear-gradient(top, rgba(17,17,17,0.9) 0%,rgba(51,51,51,0.9) 50%,rgba(17,17,17,0.9) 100%);
+	background: -ms-linear-gradient(top, rgba(17,17,17,0.9) 0%,rgba(51,51,51,0.9) 50%,rgba(17,17,17,0.9) 100%);
+	background: linear-gradient(to bottom, rgba(17,17,17,0.9) 0%,rgba(51,51,51,0.9) 50%,rgba(17,17,17,0.9) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6111111', endColorstr='#e6111111',GradientType=0 );
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	box-shadow: 0 0 3px #000;
+	z-index: 999;
+	}
+
+
+/*---------------------------------------------
+	3.2 - Body
+----------------------------------------------*/
+div#main-container {
+	width: 1200px;
+	margin: 0 auto;
+	min-height: 600px;
+	clear: both;
+	}
+
+div#content {
+	width: 100%;
+	float: left;
+	clear: left;
+	margin: 1em 0;
+	padding: 0;
+	}
+
+body.sidebar div#content {
+	width: 75%;
+	}
+
+div#posts {
+	min-height: 600px;
+	display: flex;
+	flex-flow: row wrap;
+	}
+
+div.post {
+	min-height: 200px;
+	min-width: 300px;
+	flex: 1;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid black;
+	margin: 0 1em 1em 0;
+}
+div.post.even {
+	margin-right: 0;
+}
+
+
+
+/*---------------------------------------------
+	3.3 - Footer
+----------------------------------------------*/
+
+/*---------------------------------------------
+	3.4 - Sidebar
+----------------------------------------------*/
+div#primary-sidebar {
+	width: 25%;
+	float: right;
+	margin: 1em 0;
+	padding: 0 0 0 1em;
+	}
+
+/* Widgets */
+.widget {
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	}
+
+.widget-header {
+	margin: 0 0 3px;
+	background: rgba(0,0,0,0.25);
+	border-radius: 3px;
+	border: 1px solid #222;
+	box-shadow: 0 0 5px #000 inset;
+	}
+
+.widget-title {
+	margin: 0;
+	padding: 0.25em 0;
+	font-size: 1em;
+	text-align: center;
+	color: #BBB;
+	text-shadow: 1px 1px #000;
+	}
+
+
+/* Welcome widget */	
+#sidebar-welcome {
+	width: 95%;
+	margin: 0 0 0.5em;
+	font-size: 0.75em;
+	font-style: italic;
+	text-align: center;
+	color: #CCC;
+	line-height: 1.5em;
+	}
+
+/* Social connections */
+.social-widget-links {
+	padding: 0.5em 0 0;
+	font-size: 0.75em;
+	line-height: 1.5em;
+	color: #444;
+	text-align: center;
+	}
+
+/* Featured stream */
+.featured-stream-content { 
+	padding: 0.25em 0.5em;
+	font-size: 0.875em; 
+	}
+.featured-stream-name {	color: #999; }
+.featured-stream-count { float: right; }
+.online .featured-stream-count { color: green; }
+
+/* Online members */
+.online-members {
+	margin: 0 0.5em;
+	font-size: 0.75em;
+	color: #999;
+	}
+
+/* Donation Widget */
+div.donate-widget > p {
+	margin: 0;
+	clear: both;
+	font-size: 0.75em;
+	line-height: 1.5em;
+	}
+
+div.donate-widget > form { 
+	margin: 0; 
+	}
+	
+input#donate-image {
+	width: 200px;
+	display: block;
+	margin: 0 auto;
+	}
+
+/*---------------------------------------------
+	3.5 - Showcase
+----------------------------------------------*/
+div#showcase-container {
+	width: 75%;
+	height: 300px;
+	float: left;
+	margin: 1em 0 0;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	}
+
+/*---------------------------------------------
+	3.6 - Breadcrumbs
+----------------------------------------------*/
+
+/*---------------------------------------------
+	3.7 - Pagination
+----------------------------------------------*/	
+
+
+/*--------------------------------------------------------------
+	4.0 - ADMIN BAR
+--------------------------------------------------------------*/
+div#top-login {
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	}
+
+/* Admin Bar Forms */
+form#top-login-form,
+form#top-search-form {
+	width: auto;
+	height: 100%;
+	float: left;
+	position: relative;
+	margin: 0;
+	font-size: 0.75em;
+	line-height: 30px;
+	}
+form#top-search-form {
+	float: right;
+	}
+
+/* Login Form */
+input#username,
+input#password {
+	width: 150px;
+	float: left;
+	margin: 3px 5px 3px 0;
+	box-shadow: 0 0 1px #000 inset;
+	}
+input#username + label,
+input#password + label {
+	float: left;
+	position: relative;
+	right: 24px;
+	margin-right: -24px;
+	font-size: 14px;
+	color: #000;
+	}
+
+
+input#rememberme {
+	float: left;
+	}
+input#rememberme + label {
+	float: left;
+	margin: 0 5px 0 0;
+	font-size: 0.75em;
+	line-height: 28px;
+	}
+
+button#login-submit,
+a.admin-bar-button {
+	float: left;
+	margin: 3px 3px 3px 0;
+	}
+
+
+
+/* Logged-in Users */
+#top-login-form > a.member-avatar {
+	float: left;
+	margin: 3px 0;
+	}
+span#user-welcome {
+	float: left;
+	margin: 0 5px;
+	}
+
+
+/*--------------------------------------------------------------
+	5.0 - PRIMARY MENU
+--------------------------------------------------------------*/
+div#menu-container {
+	width: 100%;
+	height: 100%;
+	border-top: 1px solid #222;
+	border-bottom: 1px solid #222;
+	}
+
+ul#top-menu {
+	width: 1200px;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+	list-style: none;
+	text-align: center;
+	}
+
+/* Top level items */
+li.top {
+	height: 48px;
+	min-width: 180px;
+	flex: 1;
+	border: 1px solid rgba(0,0,0,0);
+	border-bottom:none;
+	border-radius: 3px 3px 0 0;
+	}
+
+li.top:hover {
+	background: rgb(68,68,68);
+	background: -moz-linear-gradient(top, rgba(68,68,68,1) 0%, rgba(28,28,28,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(68,68,68,1)), color-stop(100%,rgba(28,28,28,1)));
+	background: -webkit-linear-gradient(top, rgba(68,68,68,1) 0%,rgba(28,28,28,1) 100%);
+	background: -o-linear-gradient(top, rgba(68,68,68,1) 0%,rgba(28,28,28,1) 100%);
+	background: -ms-linear-gradient(top, rgba(68,68,68,1) 0%,rgba(28,28,28,1) 100%);
+	background: linear-gradient(to bottom, rgba(68,68,68,1) 0%,rgba(28,28,28,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#1c1c1c',GradientType=0 );
+	border: 1px solid #000;
+	border-bottom: none;
+	box-shadow: 0 0 5px #000;
+	}	
+
+span.top-label {
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	font-size: 1.25em;
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	border: 1px solid rgba(0,0,0,0);
+	border-radius: 3px 3px 0 0;
+	}
+
+li.top:hover > span.top-label {
+	border: 1px solid #444;
+	border-top: 1px solid #555;
+	}
+
+
+/* Menu headers */
+span.top-label > a {
+	color: #CCC;
+	text-shadow: 0 0 8px #000;
+	}
+
+li.top:hover span.top-label > a {
+	color: #F3EAD0;
+	text-shadow: 0 0 8px #EEE;
+	}
+
+/* Dropdown arrows */
+span.top-label > i {
+	text-shadow: 0 0 8px #000;
+	color: #CCC;
+	margin-right: 5px;
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	}
+	
+li.top:hover span.top-label > i {
+	-webkit-transform: initial;
+	-moz-transform: initial;
+	-ms-transform: initial;
+	-o-transform: initial;
+	transform: initial;
+	color: #F3EAD0;
+	text-shadow: 0 0 8px #EEE;
+	}
+
+/* Dropdown containers */
+div.dropdown {
+	height: 0;
+	max-height: 0;
+	overflow: hidden;
+	position: absolute;
+	top: inherit;
+	right: 0;
+	background: rgb(28,28,28); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(28,28,28,1) 0%, rgba(68,68,68,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(28,28,28,1)), color-stop(100%,rgba(68,68,68,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(28,28,28,1) 0%,rgba(68,68,68,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(28,28,28,1) 0%,rgba(68,68,68,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(28,28,28,1) 0%,rgba(68,68,68,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(28,28,28,1) 0%,rgba(68,68,68,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#444444',GradientType=0 ); /* IE6-9 */
+	border: none;
+	border-radius: 0 0 3px 3px;
+	transition: max-height 0.25s ease-out;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	z-index: 10;
+	}
+div.dropdown.full { 
+	width: 100%;
+	}
+div.dropdown.single {
+	width: 20%;
+	min-width:180px;
+	}
+
+
+li.top:hover > div.dropdown {
+	height: auto;
+	max-height: 500px;
+	border: 1px solid #000;
+	transition: max-height 0.25s ease-in;
+	}
+div.dropdown-content {
+	padding: 1em;
+	border: 1px solid #444;
+	border-bottom: 1px solid #555;
+	}
+
+/* Dropdown contents */
+ul.submenu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	}
+ul.submenu > li {
+	margin: 0 0 1em 0;
+	}
+ul.submenu > li:last-child {
+	margin-bottom: 0;
+	}
+ul.submenu a {
+	color: #CCC;
+	text-shadow: 0 0 5px #000;
+	}
+ul.submenu a:hover {
+	color: #F3EAD0;
+	text-shadow: 0 0 10px #EEE;
+	}
+
+/* Quick Scrolling */
+a#menu-scroll-bottom,
+a#footer-scroll-top {
+	display: block;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	right: 10px;
+	top: 8px;
+	background: rgba(102,102,102,0.5);
+	text-align: center;
+	line-height: 32px;
+	font-size: 20px;
+	color: #000;
+	border: 1px solid #000;
+	border-radius: 2px;
+	}
+a#menu-scroll-bottom:hover,
+a#footer-scroll-top:hover {
+	color:#C5772B;
+	box-shadow: 0 0 10px #c60;
+	}
+a#menu-scroll-bottom > i,
+a#footer-scroll-top > i { 
+	margin: 0;
+	}
+
+/*--------------------------------------------------------------
+	6.0 - POSTS
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+	7.0 - COMMENTS
+--------------------------------------------------------------*/
+	
+/*--------------------------------------------------------------
+	8.0 - BBPRESS
+--------------------------------------------------------------*/
+
+/*---------------------------------------------
+	8.1 - Forum Headers
+----------------------------------------------*/
+
+/*---------------------------------------------
+	8.2 - Forum Archive
+----------------------------------------------*/	
+
+/*---------------------------------------------
+	8.3 - Single Forum
+----------------------------------------------*/
+	
+/*---------------------------------------------
+	8.4 - Single Topic
+----------------------------------------------*/
+	
+/*---------------------------------------------
+	8.5 - Forms
+----------------------------------------------*/

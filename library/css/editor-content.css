@@ -1,0 +1,92 @@
+/**
+ * Apocrypha Theme TinyMCE Editor Stylesheet
+ * Andrew Clayton
+ * Version 2.0
+ * 7-24-2014
+ */
+ 
+/*--------------------------------------------------------------
+	1.0 - IMPORT FONTS
+--------------------------------------------------------------*/
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cinzel-Regular'), url(http://themes.googleusercontent.com/static/fonts/cinzel/v2/mLL0ZqnXRx3m16FnBy9gcg.woff) format('woff');
+	}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+	}
+	
+/*--------------------------------------------------------------
+	2.0 - NON STRUCTURAL ELEMENTS
+--------------------------------------------------------------*/
+ 
+body {
+	background: #EEE;
+	font-size: 16px;
+	font-family: 'Open Sans' , 'Sans-Serif';
+	font-weight: normal;
+	line-height: 20px;
+	color: #222;
+	}
+
+/* Text Elements */
+ p {
+	margin: 0 0 1em;
+	}
+
+ul,ol {
+	margin: 0 0 1em;
+	}
+
+a {
+	position: relative;
+	color: #900;
+	text-decoration: none;
+	cursor: pointer;
+	}
+
+a:hover {
+	color: #C00;
+	}
+
+/* Headers */
+h1 {
+	font-family: Cinzel , 'Book Antiqua' , Serif;
+	font-size: 1.75em; 
+	font-weight: bold;
+	margin-bottom: 0.5em; 	
+	}
+
+h2 {
+	font-size: 1.25em; 
+	margin-bottom: 0.5em; 
+	font-weight: bold; 
+	}
+
+h3 {
+	font-family: Cinzel , 'Book Antiqua' , Serif;
+	font-size: 1.25em; 
+	margin-bottom: 0.5em;
+	}
+
+h4 {
+	font-size: 1em;
+	text-transform: uppercase; 
+	margin-bottom: 0.5em;  
+	}
+
+h5 {
+	font-size: 1em; 
+	font-weight: bold; 
+	}
+
+h6 {
+	font-size: 0.875em;
+	margin-bottom: 0; 
+	}

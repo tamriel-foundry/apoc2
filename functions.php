@@ -4,13 +4,13 @@
  * Andrew Clayton
  * Version 2.0
  * 4-29-2014
- 
-----------------------------------------------------------------
->>> TABLE OF CONTENTS:
-----------------------------------------------------------------
-1.0 - Load Core Framework
-2.0 - Scripts and Styles
---------------------------------------------------------------*/
+ *
+ * ----------------------------------------------------------------
+ * >>> TABLE OF CONTENTS:
+ * ----------------------------------------------------------------
+ * 1.0 - Load Core Framework
+ * 2.0 - Scripts and Styles
+ * --------------------------------------------------------------*/
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
@@ -40,7 +40,6 @@ function apoc_setup() {
 	if ( class_exists( 'Apocrypha' ) ) apoc();
 }
 
-
 /*--------------------------------------------------------------
 	2.0 - SCRIPTS AND STYLES
 --------------------------------------------------------------*/
@@ -57,7 +56,7 @@ function apoc_scripts() {
 
 	// Register Styles
 	wp_register_style( 'primary' , THEME_URI . '/style.css' , false , $ver=filemtime( THEME_DIR . "/style.css" ) );
-	wp_register_style( 'font-awesome' , 'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' , false , $ver='4.1.0' );
+	wp_register_style( 'font-awesome' , 'http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' , false , $ver='4.1.0' );
 	
 	// Enqueue Styles
 	wp_enqueue_style( 'font-awesome' );

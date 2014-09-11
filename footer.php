@@ -9,7 +9,7 @@
 	
 	</div><!-- #main-container -->
 
-<!-- Begin Footer -------------------------------------------------------------->
+<!-- Begin Footer -->
 	<div id="footer-container">
 		
 		<div id="footer-divider">
@@ -27,7 +27,7 @@
 		</footer>		
 	</div><!-- #footer-container -->
 	<?php wp_footer(); ?>
-<!-- End Footer ---------------------------------------------------------------->
+<!-- End Footer -->
 	
 </body>
 </html>

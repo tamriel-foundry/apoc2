@@ -289,9 +289,9 @@ class Apoc_Featured_Stream {
 		
 			// List of valid streams as username => twitch name
 			$streams = array(
-				'admin' 			=> 'atropos_nyx', 
-				'subscriber' 		=> 'erlexx', 
-				'subscriber' 		=> 'phazius', 
+				'atropos' 			=> 'atropos_nyx', 
+				'testuser' 			=> 'erlexx', 
+				'test-user' 		=> 'phazius', 
 			);
 			
 			// Shuffle the array
@@ -347,7 +347,7 @@ class Apoc_Featured_Stream {
 			</header>
 			<div class="featured-stream-content <?php echo $class; ?>">
 				<a class="featured-stream-name" href="<?php echo $url; ?>" target="_blank">
-					<?php echo $name; ?>
+					<i class="fa fa-twitch"></i><?php echo $name; ?>
 					<span class="featured-stream-count"><i class="fa fa-power-off"></i><?php echo $viewers; ?></span>
 				</a>
 			</div>
@@ -472,7 +472,7 @@ class Apoc_Sidebar_Stats {
 					<h3 class="widget-title">Foundry Stats</h3>
 				</header>
 				
-				<p class="stat-counter-total">Total Champions: <?php echo number_format( $t, 0 , '' , ',' ); ?></p>
+				<h3 class="stat-counter-total">Total Champions: <?php echo number_format( $t, 0 , '' , ',' ); ?></h3>
 
 				<div id="stats-banner">
 					<div class="banner-top aldmeri" style="height:<?php echo $ah; ?>px">
@@ -490,7 +490,7 @@ class Apoc_Sidebar_Stats {
 							<a class="banner-count" href="<?php echo $groups; ?>ebonheart-pact" title="Ebonheart Pact - <?php echo round( $e * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $e , 0 , '' , ',' ); ?></a>
 						</div>
 					</div>
-				<div>
+				</div>
 			</div><?php
 
 		// Get the contents of the buffer

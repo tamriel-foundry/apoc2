@@ -4,7 +4,7 @@
  * Version 2.0
  * 5-6-2014
 ========================================================================== */
-var	siteurl		= 'http://localhost/foundry/';
+var	siteurl		= 'http://localhost/tamrielfoundry/';
 var themeurl	= siteurl	+ 'wp-content/themes/foundry/';
 var wp_ajax 	= siteurl	+ 'wp-admin/admin-ajax.php';
 var apoc_ajax 	= themeurl	+ "library/ajax.php";

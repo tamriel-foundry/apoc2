@@ -21,7 +21,8 @@ $class = ( 0 == $wp_query->current_post % 2 ) ? 'odd' : 'even';
 	<section class="post-content">
 		<?php apoc_thumbnail(); ?>
 		<div class="post-excerpt">
-			<?php the_excerpt(); ?>
+
+			<?php apoc_custom_excerpt(); ?>
 		</div>
 	</section>	
 	

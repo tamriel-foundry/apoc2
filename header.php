@@ -19,6 +19,7 @@
 	<meta charset="UTF-8">
 	<title><?php apoc_title(); ?></title>
 	<meta name="description" content="<?php apoc_description(); ?>"/>
+ 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="SHORTCUT ICON" href="<?php echo THEME_URI . '/images/icons/favicon.ico'; ?>">
 	<?php wp_head(); ?>	
 </head>
@@ -34,7 +35,7 @@
 		<header id="site-header" role="banner">	
 			<a id="site-title" href="<?php echo SITEURL; ?>" title="<?php echo SITENAME; ?>"></a>
 			<div id="primary-banner">
-				Primary advertisment banner.
+				Primary Ad: Leaderboard - 728x90
 			</div>
 		</header>
 		

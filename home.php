@@ -8,18 +8,18 @@
 ?>
 
 <?php get_header(); ?>
-
-	<?php apoc_primary_sidebar(); ?>
-
-	<div id="showcase-container">
-		<div id="showcase" class="flexslider">
-			Showcase
-		</div>
-		
-		<?php //apoc_recent_discussion(); ?>
-	</div>
 	
 	<div id="content" role="main">
+
+		<div id="showcase-container">
+			<div id="showcase" class="flexslider">
+				Showcase
+			</div>
+			
+			<?php //apoc_recent_discussion(); ?>
+		</div>
+
+		
 		<div id="posts">
 
 			<div id="post1" class="post odd">Post1</div>
@@ -32,5 +32,7 @@
 			<?php endwhile; endif; ?>
 		</div>
 	</div>
+
+	<?php apoc_primary_sidebar(); ?>
 
 <?php //get_footer(); ?>

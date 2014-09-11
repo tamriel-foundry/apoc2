@@ -274,19 +274,83 @@ img.avatar {
 /*--------------------------------------------------------------
 	3.0 - PRIMARY STRUCTURE
 --------------------------------------------------------------*/
+
+div#header-container {
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	background: #000;
+	background-image: url("images/backgrounds/bg-header.jpg");
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+	}
+
+div#main-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	max-width: 1200px;
+	width: 98%;
+	min-height: 600px;
+	margin: 0 auto;
+	clear: both;
+	}
+
+div#content {
+	flex: 3;
+	min-width: 720px;
+	}
+
+
+div#primary-sidebar {
+	flex: 1;
+	min-width: 300px;
+	max-width: 450px;
+	margin-left: 1em;
+	}
+
+div#showcase-container {
+	width: 100%;
+	height: 300px;
+	margin: 0 0 1em;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	}
+
+
+
+
+div#primary-banner {
+	width: 728px;
+	height: 90px;
+	position: absolute;
+	top: 20px;
+	right: 5px;
+	background: rgba(17,17,17,0.75);
+	border: 1px solid #000;
+	text-align: center;
+	line-height: 90px;
+	z-index: 0;
+	}
+
+
+
+div#sidebar-banner {
+	width: 300px;
+	height: 250px;
+	clear: both;
+	margin: 0 auto 0.5em;
+	padding-top: 100px;
+	background: rgba(17,17,17,0.75);
+	border: 1px solid #000;
+	text-align: center;
+}
+
+
 	
 /*---------------------------------------------
 	3.1 - Header
 ----------------------------------------------*/
-div#header-container {
-	width: 100%;
-	float: left;
-	height: 200px;
-	background: #000;
-	background-image: url("images/backgrounds/bg-header.jpg");
-	background-position: 50% 0;
-	}
-
 nav#admin-bar {
 	width: 100%;
 	height: 30px;
@@ -300,8 +364,8 @@ nav#admin-bar {
 	}
 
 header#site-header {
-	width: 1200px;
-	height: 120px;
+	max-width: 1200px;
+	height: 130px;
 	margin: 0 auto;
 	position: relative;
 	}
@@ -316,22 +380,9 @@ a#site-title {
 	z-index: 1;
 	}
 
-div#primary-banner {
-	width: 728px;
-	height: 90px;
-	position: absolute;
-	top: 14px;
-	right: 5px;
-	background: rgba(17,17,17,0.5);
-	border: 1px solid #000;
-	text-align: center;
-	line-height: 90px;
-	z-index: 0;
-	}
-
 nav#primary-menu {
 	width: 100%;
-	min-height: 50px;
+	min-height: 40px;
 	position: relative;
 	background: -moz-linear-gradient(top, rgba(17,17,17,0.9) 0%, rgba(51,51,51,0.9) 50%, rgba(17,17,17,0.9) 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(17,17,17,0.9)), color-stop(50%,rgba(51,51,51,0.9)), color-stop(100%,rgba(17,17,17,0.9)));
@@ -350,24 +401,6 @@ nav#primary-menu {
 /*---------------------------------------------
 	3.2 - Body
 ----------------------------------------------*/
-div#main-container {
-	width: 1200px;
-	margin: 0 auto;
-	min-height: 600px;
-	clear: both;
-	}
-
-div#content {
-	width: 100%;
-	float: left;
-	clear: left;
-	margin: 1em 0;
-	padding: 0;
-	}
-
-body.sidebar div#content {
-	width: 75%;
-	}
 
 div#posts {
 	min-height: 600px;
@@ -377,7 +410,7 @@ div#posts {
 
 div.post {
 	min-height: 200px;
-	min-width: 300px;
+	min-width: 360px;
 	flex: 1;
 	background: rgba(0,0,0,0.25);
 	border: 1px solid black;
@@ -396,14 +429,6 @@ div.post.even {
 /*---------------------------------------------
 	3.4 - Sidebar
 ----------------------------------------------*/
-div#primary-sidebar {
-	width: 25%;
-	float: right;
-	margin: 1em 0;
-	padding: 0 0 0 1em;
-	}
-
-/* Widgets */
 .widget {
 	width: 100%;
 	float: left;
@@ -441,11 +466,22 @@ div#primary-sidebar {
 
 /* Social connections */
 .social-widget-links {
-	padding: 0.5em 0 0;
-	font-size: 0.75em;
-	line-height: 1.5em;
-	color: #444;
+	padding: 0.25em 0 0;
+	display: flex;
+	justify-content: space-around;
 	text-align: center;
+	}
+.social-widget-link {
+	font-size: 0.75em;
+	}
+.social-widget-link > i { 
+	font-size: 24px;
+	color: #AAA;
+	vertical-align: sub;
+	}
+.social-widget-link:hover > i { 
+	color: inherit;
+	text-shadow: 0 0 5px #c60;
 	}
 
 /* Featured stream */
@@ -466,10 +502,10 @@ div#primary-sidebar {
 
 /* Donation Widget */
 div.donate-widget > p {
-	margin: 0;
-	clear: both;
+	margin: 0.5em 0;
 	font-size: 0.75em;
 	line-height: 1.5em;
+	text-align: center;
 	}
 
 div.donate-widget > form { 
@@ -482,17 +518,86 @@ input#donate-image {
 	margin: 0 auto;
 	}
 
+/* Foundry Stats Counter */
+.community-stats { 
+	height: 350px; 
+	}
+.stat-counter-total {
+	width: 80%;
+	margin: 0.5em auto 0;
+	padding: 3px 1em;
+	border: 1px solid #000;
+	text-align: center;
+	background: rgba(0,0,0,0.25);
+	border-radius: 3px;
+	}
+
+#stats-banner {
+	width: 300px;
+	margin: 0 auto;
+}
+#stats-banner div.banner-top {
+	width: 100px;
+	margin: 0 0 0.5em;
+	float: left;
+	position: relative;
+	background-image: url("images/backgrounds/counter-top.png");
+	background-repeat: no-repeat;
+	}
+
+#stats-banner div.banner-bottom {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: -90px;
+	background-image: url("images/backgrounds/counter-bottom.png");
+	background-repeat: no-repeat;
+	}
+
+.banner-top.aldmeri,
+.banner-bottom.aldmeri { background-position: 0 0; }
+.banner-top.daggerfall,
+.banner-bottom.daggerfall { background-position: -100px 0; }
+.banner-top.ebonheart,
+.banner-bottom.ebonheart { background-position: -200px 0; }
+
+a.banner-count {
+	display: block;
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	line-height: 50px;
+	position: relative;
+	top: -35px;
+	background: rgba(17,17,17,0.9);
+	border: 1px solid #000;
+	border-radius: 10px;
+	box-shadow: 0 0 2px #666 inset;
+	font-size: 1.25em;
+	color: #EEE;
+	text-align: center;
+	}
+.aldmeri a.banner-count { text-shadow: 0 0 10px #FF0; }
+.daggerfall a.banner-count { text-shadow: 0 0 10px #0CF; }
+.ebonheart a.banner-count { text-shadow: 0 0 10px #F00; }
+
+.aldmeri a.banner-count:hover { 
+	border: 1px solid #FF0;
+	box-shadow: 0 0 10px #FF0;
+	}
+.daggerfall a.banner-count:hover { 
+	border: 1px solid #0CF;
+	box-shadow: 0 0 10px #0CF; 
+	}
+.ebonheart a.banner-count:hover { 
+	border: 1px solid #F00;
+	box-shadow: 0 0 10px #F00; 
+	}
+
 /*---------------------------------------------
 	3.5 - Showcase
 ----------------------------------------------*/
-div#showcase-container {
-	width: 75%;
-	height: 300px;
-	float: left;
-	margin: 1em 0 0;
-	background: rgba(0,0,0,0.25);
-	border: 1px solid #000;
-	}
+
 
 /*---------------------------------------------
 	3.6 - Breadcrumbs
@@ -507,7 +612,8 @@ div#showcase-container {
 	4.0 - ADMIN BAR
 --------------------------------------------------------------*/
 div#top-login {
-	width: 1200px;
+	width: 98%;
+	max-width: 1200px;
 	height: 100%;
 	margin: 0 auto;
 	}
@@ -522,9 +628,6 @@ form#top-search-form {
 	margin: 0;
 	font-size: 0.75em;
 	line-height: 30px;
-	}
-form#top-search-form {
-	float: right;
 	}
 
 /* Login Form */
@@ -544,8 +647,6 @@ input#password + label {
 	font-size: 14px;
 	color: #000;
 	}
-
-
 input#rememberme {
 	float: left;
 	}
@@ -562,8 +663,6 @@ a.admin-bar-button {
 	margin: 3px 3px 3px 0;
 	}
 
-
-
 /* Logged-in Users */
 #top-login-form > a.member-avatar {
 	float: left;
@@ -573,6 +672,29 @@ span#user-welcome {
 	float: left;
 	margin: 0 5px;
 	}
+
+/* Search Form */
+form#top-search-form {
+	float: right;
+	}
+input#search {
+	width: 150px;
+	padding-right: 20px;
+	margin-right: 0;
+	background: #AAA;
+	}
+input#search:focus {
+	background: #DAD6CF;
+	box-shadow: 0 0 10px #c60;
+	}
+
+input#search + label {
+	display: inline-block;
+	margin: 0 3px 0 -24px;
+	font-size: 14px;
+	color: #111;
+	}
+
 
 
 /*--------------------------------------------------------------
@@ -586,7 +708,7 @@ div#menu-container {
 	}
 
 ul#top-menu {
-	width: 1200px;
+	max-width: 1200px;
 	height: 100%;
 	display: flex;
 	flex-flow: row wrap;
@@ -599,7 +721,7 @@ ul#top-menu {
 
 /* Top level items */
 li.top {
-	height: 48px;
+	height: 38px;
 	min-width: 180px;
 	flex: 1;
 	border: 1px solid rgba(0,0,0,0);
@@ -623,8 +745,8 @@ li.top:hover {
 
 span.top-label {
 	display: block;
-	height: 48px;
-	line-height: 48px;
+	height: 38px;
+	line-height: 38px;
 	font-size: 1.25em;
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	border: 1px solid rgba(0,0,0,0);
@@ -745,7 +867,7 @@ a#footer-scroll-top {
 	width: 32px;
 	height: 32px;
 	right: 10px;
-	top: 8px;
+	bottom: 4px;
 	background: rgba(102,102,102,0.5);
 	text-align: center;
 	line-height: 32px;
@@ -795,3 +917,22 @@ a#footer-scroll-top > i {
 /*---------------------------------------------
 	8.5 - Forms
 ----------------------------------------------*/
+
+
+
+
+
+
+
+
+/* At 720px, content is always full-width */
+@media (max-width: 720px) {
+	div#content { min-width: 100%; }
+	div#primary-sidebar { margin: 0; }
+}
+
+
+
+@media (max-width: 900px) {
+	div#primary-banner { display: none;}
+}

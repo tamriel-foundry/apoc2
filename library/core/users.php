@@ -287,6 +287,8 @@ class Apoc_Avatar {
 			
 			// Maybe wrap the image in a profile link
 			if ( true === $this->link ) {
+
+
 				
 				// Retrieve the profile URL
 				if ( "" == $this->url ) $this->url = bp_core_get_user_domain( $this->user_id );

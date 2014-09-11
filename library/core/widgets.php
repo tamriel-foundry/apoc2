@@ -10,7 +10,7 @@
 	1.0 - Welcome Widget
 --------------------------------------------------------------*/
 function apoc_sidebar_welcome() {
-	echo '<div id="sidebar-welcome" class="widget">Welcome to Tamriel Foundry, your home for theorycrafting, strategies, guides, and discussion in The Elder Scrolls Online.</div>';
+	echo '<div id="sidebar-welcome" class="widget">Welcome to Tamriel Foundry, a community dedicated to theorycrafting, strategies, guides, and discussion in The Elder Scrolls Online.</div>';
 }
 
 /*--------------------------------------------------------------
@@ -39,7 +39,7 @@ function apoc_sidebar_social() {
 	foreach ( $socials as $name => $data ) {
 		$links[] = '<a class="social-widget-link" href="' . $data['url'] . '"><i class="fa ' . $data['icon'] . '"></i>' . $name . '</a>';	
 	}
-	$links = implode( "|" , $links ); 
+	$links = implode( $links ); 
 	
 	// Display the output ?>
 	<div class="widget">
@@ -350,7 +350,6 @@ class Apoc_Featured_Stream {
 					<?php echo $name; ?>
 					<span class="featured-stream-count"><i class="fa fa-power-off"></i><?php echo $viewers; ?></span>
 				</a>
-
 			</div>
 		</div><?php 
 		
@@ -382,8 +381,134 @@ function apoc_sidebar_group() {
 /*--------------------------------------------------------------
 	6.0 - Member Stats
 --------------------------------------------------------------*/
+class Apoc_Sidebar_Stats {
+
+	// Declare properties
+	public $stats	= array();
+	public $html 	= "";
+	public $cached 	= false;
+	
+	// Constructor function
+	function __construct() {
+	
+		// Get the counts
+		$this->stats = $this->get_stats();
+		
+		// Construct the html
+		$this->html = $this->build_html();
+
+		// Print the output
+		$this->display_widget();
+	}
+
+
+	// Get member counts by faction group
+	function get_stats() {
+
+		// Try to retrieve the stats from the cache
+		$stats = wp_cache_get( 'community_stats' , 'apoc' );
+		if ( $stats ) {
+			$this->cached = true;
+		}
+		
+		// Otherwise build from scratch
+		else {
+
+			// Get the faction counts
+			global $wpdb;
+			$counts = $wpdb->get_results(
+				"
+				SELECT meta_value as 'group', COUNT(*) AS 'count' 
+				FROM $wpdb->usermeta
+				WHERE meta_key = 'faction'
+				GROUP BY meta_value
+				UNION ALL
+				SELECT 'total' as 'group', COUNT(DISTINCT user_id) AS count
+				FROM $wpdb->usermeta
+				"
+			, OBJECT_K );
+
+			// Extract the data
+			foreach ( $counts as $group => $count ) {
+				$stats[$group] = $count->count;
+			}
+
+			// Make sure nothing is empty
+			foreach ( array( 'aldmeri' , 'daggerfall' , 'ebonheart') as $faction ) {
+				if ( !isset($stats[$faction]) ) $stats[$faction] = 1;
+			}
+
+			// Store the counts in the cache with 60 minute expiration
+			wp_cache_set( 'community_stats' , $stats , 'apoc' , 3600 );
+		}
+
+		// Return the stats to the class object
+		return $stats;
+	}
+
+	// Get member counts by faction group
+	function build_html() {
+
+		// Get the counts
+		$a = $this->stats['aldmeri'];
+		$d = $this->stats['daggerfall'];
+		$e = $this->stats['ebonheart'];
+		$t = $this->stats['total'];
+
+		// Compute Banner Heights - normalize max to 250px 
+		$l = max( $a , $d , $e );
+		$ah = round( ( $a / $l ) * 200 ) + 50;
+		$dh = round( ( $d / $l ) * 200 ) + 50;
+		$eh = round( ( $e / $l ) * 200 ) + 50;
+
+		// Get the groups slug
+		$groups = SITEURL . '/groups/';
+
+		// Store everything in an output buffer
+		ob_start(); ?>	
+	
+			<div class="widget community-stats">
+				<header class="widget-header">
+					<h3 class="widget-title">Foundry Stats</h3>
+				</header>
+				
+				<p class="stat-counter-total">Total Champions: <?php echo number_format( $t, 0 , '' , ',' ); ?></p>
+
+				<div id="stats-banner">
+					<div class="banner-top aldmeri" style="height:<?php echo $ah; ?>px">
+						<div class="banner-bottom aldmeri">
+							<a class="banner-count" href="<?php echo $groups; ?>aldmeri-dominion" title="Aldmeri Dominion - <?php echo round( $a * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $a , 0 , '' , ',' ); ?></a>
+						</div>
+					</div>
+					<div class="banner-top daggerfall" style="height:<?php echo $dh; ?>px">
+						<div class="banner-bottom daggerfall">
+							<a class="banner-count" href="<?php echo $groups; ?>daggerfall-covenant" title="Daggerfall Covenant - <?php echo round( $d * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $d , 0 , '' , ',' ); ?></a>
+						</div>
+					</div>
+					<div class="banner-top ebonheart" style="height:<?php echo $eh; ?>px">
+						<div class="banner-bottom ebonheart">
+							<a class="banner-count" href="<?php echo $groups; ?>ebonheart-pact" title="Ebonheart Pact - <?php echo round( $e * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $e , 0 , '' , ',' ); ?></a>
+						</div>
+					</div>
+				<div>
+			</div><?php
+
+		// Get the contents of the buffer
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		// Return the html to the class
+		return $html;
+	}
+
+	// Display the widget
+	function display_widget() {
+		if ( !empty( $this->html ) )
+			echo $this->html;
+	}
+}
 function apoc_sidebar_stats() {
-	echo '<div class="widget"><header class="widget-header"><h3 class="widget-title">Foundry Stats</h3></header>Stats here</div>';
+	new Apoc_Sidebar_Stats();
 }
 
 
@@ -400,7 +525,7 @@ function apoc_donate_box() {
 	// Echo the HTML ?>
 	<div class="widget donate-widget">
 		<header class="widget-header"><h3 class="widget-title">Support Us!</h3></header>
-		<p>Please donate to help fund Tamriel Foundry and support further community improvements!</p>
+		<p>Please donate to help support Tamriel Foundry, fund further improvements, and unlock account perks!</p>
 		<form id="donation-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 			<input type="hidden" name="cmd" value="_donations">
 			<input type="hidden" name="business" value="admin@tamrielfoundry.com">

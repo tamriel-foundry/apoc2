@@ -3,7 +3,7 @@
  * Apocrypha Theme User Functions
  * Andrew Clayton
  * Version 2.0
- * 4-29-2014
+ * 9-12-2014
  */
  
 // Exit if accessed directly
@@ -21,7 +21,7 @@ class Apoc_User {
 	public $block;
 
 	/**
-	 * Constructs relevant information regarding a TF user 
+	 * Constructs and computes user information
 	 */	
 	function __construct( $user_id = 0 , $context = 'reply' , $avatar_size = 100 ) {
 	
@@ -37,7 +37,7 @@ class Apoc_User {
 	}
 	
 	/**
-	 * Gets user data for a forum reply or article comment
+	 * Gets user data regarding the particular user
 	 */	
 	function get_data( $user_id ) {
 		
@@ -52,19 +52,18 @@ class Apoc_User {
 		$this->id		= $user_id;
 		$this->fullname = $meta['nickname'];
 		$this->roles	= array_keys( unserialize( $meta[ $prefix . 'capabilities' ] ) );
-		$this->status	= isset( $meta['bp_latest_update'] ) ? maybe_unserialize( $meta['bp_latest_update'] ) : NULL;
-		$this->faction	= isset( $meta['faction'] ) ? $meta['faction'] : NULL;
-		$this->race		= isset( $meta['race'] ) ? $meta['race'] : NULL;
-		$this->class	= isset( $meta['playerclass'] ) ? $meta['playerclass'] : NULL;
-		$this->posts	= isset( $meta['post_count'] ) ? maybe_unserialize( $meta['post_count'] ) : array();
-		$this->guild	= isset( $meta['guild'] ) ? $meta['guild'] : NULL ;
-		$this->bio		= isset( $meta['description'] ) ? do_shortcode( $meta['description'] ) : NULL;
-		$this->sig		= isset( $meta['signature'] ) ? $meta['signature'] : NULL;
-		$this->donor	= isset( $meta['donation_amount'] ) ? $meta['donation_amount'] : NULL;
+		$this->status	= isset( $meta['bp_latest_update'] ) 	? maybe_unserialize( $meta['bp_latest_update'] ) : NULL;
+		$this->faction	= isset( $meta['faction'] ) 			? $meta['faction'] : NULL;
+		$this->race		= isset( $meta['race'] ) 				? $meta['race'] : NULL;
+		$this->class	= isset( $meta['playerclass'] ) 		? $meta['playerclass'] : NULL;
+		$this->posts	= isset( $meta['post_count'] ) 			? maybe_unserialize( $meta['post_count'] ) : array();
+		$this->guild	= isset( $meta['guild'] ) 				? $meta['guild'] : NULL ;
+		$this->bio		= isset( $meta['description'] ) 		? do_shortcode( $meta['description'] ) : NULL;
+		$this->sig		= isset( $meta['signature'] ) 			? $meta['signature'] : NULL;
+		$this->donor	= isset( $meta['donation_amount'] ) 	? $meta['donation_amount'] : NULL;
 		
 		// If the post count is not yet in the database, build it
-		if ( $user_id > 0 && empty( $this->posts ) )
-			apoc_update_post_count( $user_id );
+		if ( $user_id > 0 && empty( $this->posts ) ) apoc_update_post_count( $user_id );
 		
 		// Get some derived data
 		$this->rank		= $this->user_rank( $this->posts );

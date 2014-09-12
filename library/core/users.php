@@ -23,10 +23,11 @@ class Apoc_User {
 	/**
 	 * Constructs relevant information regarding a TF user 
 	 */	
-	function __construct( $user_id = 0 , $context = 'reply' ) {
+	function __construct( $user_id = 0 , $context = 'reply' , $avatar_size = 100 ) {
 	
 		// Set the context
 		$this->context = $context;
+		$this->size = $avatar_size;
 		
 		// Get data for the user
 		$this->get_data( $user_id );
@@ -39,9 +40,6 @@ class Apoc_User {
 	 * Gets user data for a forum reply or article comment
 	 */	
 	function get_data( $user_id ) {
-	
-		// Get the user profile
-		$this->profile	= bp_core_get_user_domain( $user_id );
 		
 		// Get all meta entries for a user
 		$meta = array_map( function( $a ){ return $a[0]; }, get_user_meta( $user_id ) );
@@ -71,6 +69,11 @@ class Apoc_User {
 		// Get some derived data
 		$this->rank		= $this->user_rank( $this->posts );
 		$this->title	= $this->user_title( $user_id );
+
+		// Get the user profile
+		$this->profile	= bp_core_get_user_domain( $user_id );
+		$grammar		= ( substr( $this->fullname , -1) == "s" ) ? $this->fullname . '\'' : $this->fullname . '\'s';
+		$this->link 	= '<a href="' . $this->profile . '" title="Visit ' . $grammar . ' user profile" target="_blank">' . $this->fullname . '</a>';
 	}
 	
 	/**
@@ -85,7 +88,8 @@ class Apoc_User {
 		$block		.= ( isset( $this->guild ) ) ? '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>' : '' ;
 		
 		// Prepare to fetch an avatar
-		$avatar_args = array( 'user_id' => $this->id , 'alliance' => $this->faction , 'race' => $this->race );
+		$avatar_type = $this->size > 100 ? 'full' : 'thumb';
+		$avatar_args = array( 'user_id' => $this->id , 'alliance' => $this->faction , 'race' => $this->race , 'type' => $avatar_type , 'size' => $this->size );
 		
 		// Do some things differently depending on context
 		switch( $context ) {

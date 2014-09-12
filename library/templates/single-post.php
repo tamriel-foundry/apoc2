@@ -11,11 +11,12 @@ global $wp_query;
 $class = ( 0 == $wp_query->current_post % 2 ) ? 'odd' : 'even';
 ?>
 
-<article id="post-<?php the_ID(); ?>" class="post <?php echo $class; ?>">
-	<header class="post-header">
+<article id="post-<?php the_ID(); ?>" class="post <?php echo $class; ?> double-border">
+	<header class="post-header <?php apoc_home_header_class(); ?>">
 		<h2 class="post-title">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
 		</h2>
+		<p class="post-byline"><?php apoc_byline(); ?></p>
 	</header>
 	
 	<section class="post-content">

@@ -53,7 +53,7 @@ function apoc_sidebar_social() {
 }
 
 /*--------------------------------------------------------------
-	3.0 - Recent Topics Widget
+	3.0 - Recent Discussion Widget
 --------------------------------------------------------------*/
 class Apoc_Recent_Discussion {
 
@@ -67,41 +67,43 @@ class Apoc_Recent_Discussion {
 	function __construct() {
 	
 		// Get the topics
-		$this->get_topics();
+		$this->get_activity();
 		
 		// Print the output
 		$this->display_widget();
 	}
 
 	
-	// Get recent topics
-	function get_topics() {
+	// Get recent discussion activity
+	function get_activity() {
 	
 		// Depends on both bbPress and BuddyPress
 		if ( !class_exists( 'bbPress' ) | !class_exists( 'BuddyPress' ) ) return false;
 		
 		// Try to retrieve the widget from the cache
-		$widget = wp_cache_get( 'recent_discussion_topics' , 'apoc' );
+		$widget = wp_cache_get( 'recent_discussion' , 'apoc' );
 		if ( $widget ) {
 			$this->cached = true;
 		}
 		
 		// Otherwise build from scratch
 		else {
+
+			// Declare valid actions
+			$actions = array( 'bbp_topic_create' , 'bbp_reply_create' , 'new_blog_comment' );
 		
 			// Setup query args
 			$args = array(
-				'posts_per_page'	=> $this->number,
-				'show_stickies'		=> false,
-				'max_num_pages'		=> 1,
+				'max'				=> $this->number,
+				'action'			=> implode(',',$actions)
 			);
 			
 			// If topics are found, build the HTML
-			if ( bbp_has_topics( $args ) ) {
+			if ( bp_has_activities( $args ) ) {
 				$this->html = $this->build_html();
 				
 				// Store the new HTML in the cache with 1 minute expiration
-				wp_cache_set( 'recent_discussion_topics' , $this->html , 'apoc' , 60 );
+				wp_cache_set( 'recent_discussion' , $this->html , 'apoc' , 60 );
 			}
 		}
 	}
@@ -118,14 +120,45 @@ class Apoc_Recent_Discussion {
 			<ul class="recent-discussion-list">		
 	
 			<?php // Iterate topics
-			while ( bbp_topics() ) : bbp_the_topic(); ?>
+			while ( bp_activities() ) : bp_the_activity(); 
+
+				// Get the activity user
+				$user = new Apoc_User( bp_get_activity_user_id() , 'directory' , 40 );
+
+				// Get the activity type
+				$post_id 	= bp_get_activity_secondary_item_id();
+				$type 		= bp_get_activity_type();
+
+				// Format activity based on context
+				switch( $type ) {
+					case 'bbp_topic_create' :
+						$link =  '<a href="' . bbp_get_topic_permalink( $post_id )  . '" title="Read topic" target="_blank">' . bbp_get_topic_title( $post_id ) . '</a>';
+						$verb = 'created topic';	
+						break;
+
+					case 'bbp_reply_create' :
+						$link =  '<a href="' . bbp_get_topic_last_reply_url( $post_id ) . '" title="Read reply" target="_blank">' . bbp_get_topic_title( $post_id ) . '</a>';
+						$verb = 'replied to';
+						break;
+
+					case 'new_blog_comment' :
+						$link =  '<a href="' . get_comment_link( $post_id ) . '" title="Read reply" target="_blank">' . get_the_title( $post_id ) . '</a>';
+						$verb = 'commented on';
+						break;
+				}
 				
-				<li class="recent-discussion">			
-					<h5 class="recent-discussion-title"><a href="<?php bbp_topic_last_reply_url(); ?>" title="Read <?php bbp_topic_title(); ?>"><?php bbp_topic_title(); ?></a></h5>
-					<span class="recent-discussion-location"><i class="fa fa-tag"></i><?php bbp_forum_title( bbp_get_topic_forum_id() ); ?></span>
-					<span class="recent-discussion-time"><?php bbp_topic_last_active_time() ?></span>
+				// Get the activity time
+				$time = bp_core_time_since( bp_get_activity_date_recorded() );
+
+				// Output the HTML ?>
+				<li class="recent-discussion double-border">			
+					<?php echo $user->avatar ; ?>
+					<div class="recent-discussion-content">
+						<span class="recent-discussion-title"><?php echo $user->link . ' ' . $verb . ' ' . $link; ?></span>
+						<span class="recent-discussion-time"><?php echo $time; ?>
+					</div>
 				</li>
-				
+			
 			<?php endwhile; ?>
 			</ul>
 		</div><?php 
@@ -291,7 +324,7 @@ class Apoc_Featured_Stream {
 			$streams = array(
 				'atropos' 			=> 'atropos_nyx', 
 				'testuser' 			=> 'erlexx', 
-				'test-user' 		=> 'phazius', 
+				'moderator' 		=> 'phazius', 
 			);
 			
 			// Shuffle the array
@@ -375,7 +408,7 @@ function apoc_sidebar_streams() {
 	6.0 - Featured Group
 --------------------------------------------------------------*/
 function apoc_sidebar_group() {
-	echo '<div class="widget"><header class="widget-header"><h3 class="widget-title">Featured Group</h3></header>Group here</div>';
+	echo '<div class="widget"><header class="widget-header"><h3 class="widget-title">Featured Group</h3></header><div class="featured-group">A recently active group!</div></div>';
 }
 
 /*--------------------------------------------------------------

@@ -13,11 +13,11 @@
 
 		<div id="showcase-container">
 			<div id="showcase" class="flexslider">
-				Showcase
+				Showcase - 512x288
 			</div>
-			
-			<?php //apoc_recent_discussion(); ?>
+			<?php apoc_recent_discussion(); ?>
 		</div>
+
 
 		
 		<div id="posts">

@@ -8,8 +8,6 @@
 ?>
 
 <?php get_header(); ?>
-
-	<?php apoc_primary_sidebar(); ?>
 	
 	<div id="content" role="main">
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -18,6 +16,7 @@
 			<article id="post-<?php the_ID(); ?>" class="post">
 				<header class="post-header">
 					<h1 class="post-title"><?php the_title(); ?></h1>
+					<p class="post-byline"><?php apoc_byline(); ?></p>
 				</header>
 				
 				<section class="post-content">
@@ -34,6 +33,8 @@
 			
 		<?php endwhile; endif; ?>
 	</div>
+
+	<?php apoc_primary_sidebar(); ?>
 	
 	<?php comments_template( '/library/templates/comments.php', true ); ?>
 

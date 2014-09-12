@@ -19,6 +19,9 @@
 2.0 - Non-structural Elements
 	2.1 - Text
 	2.2 - Forms
+	2.3 - Media
+	2.4 - Notifications
+	2.5 - Common Stylings
 3.0 - Primary Structure
 	3.1 - Header
 	3.2 - Body
@@ -106,6 +109,31 @@ body {
 	2.1 - Text
 ----------------------------------------------*/
 
+/* Paragraph */
+p {
+	margin: 0 0 1em;
+	}
+
+/* Lists */
+ul,ol {
+	margin: 0 0 1em;
+	}
+
+ul {
+	list-style: square;
+	padding: 0 0 0 2em;
+	}
+
+ol {
+	list-style: upper-roman;
+	padding: 0 0 0 2.5em;
+	}
+
+li > ul, li > ol {
+	margin: 0;
+	padding: 0 0 0 1.5em;
+	}
+
 /* Links */
 a {
 	color: #c5772b;
@@ -125,14 +153,15 @@ a:hover {
 h1 {
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.75em; 
-	font-weight: bold;
-	margin-bottom: 0.5em; 	
+	text-shadow: 1px 1px #000;
+	margin-bottom: 0.5em; 
 	}
 
 h2 {
 	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
-	font-size: 1.125em;
+	font-size: 1.25em;
 	font-weight: bold;
+	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em; 
 	}
 
@@ -141,6 +170,29 @@ h3 {
 	font-size: 1.25em;
 	margin-bottom: 0.5em;
 	}
+
+/* Quotes */
+blockquote {
+	position: relative;
+	margin: 0 0 1em;
+	padding: 0.5em 1em 0.5em 3em;
+	font-family: 'Palatino Linotype' , 'Book Antiqua' , serif;
+	font-size: 1em;
+	color: #A29C8E;
+	text-shadow: 1px 1px #000;
+	background: rgba(17,17,17,0.25);
+	}
+blockquote:before {
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	font-family: FontAwesome;
+	color: #333;
+	text-shadow: 1px 1px #000;
+	content: "\F10E";
+	font-size: 1.5em;
+	}
+blockquote > p:last-child { margin: 0; }
 
 /* Icons */
 i.fa {
@@ -300,6 +352,18 @@ img.avatar {
 	border-radius: 2px;
 	}
 
+/* Videos */
+iframe, object {
+	box-sizing: content-box;
+	display: block;
+	max-width: 100%;
+	margin: 0 auto 1em;
+	padding: 2px;
+	border: 1px solid #333;
+	background: rgba( 17,17,17,0.5 );
+	box-shadow: 0 0 8px #000;
+	}
+
 /*---------------------------------------------
 	2.4 - Notifications
 ----------------------------------------------*/
@@ -359,6 +423,26 @@ img.avatar {
 .warning:before { content: "\F071"; }
 
 
+/*---------------------------------------------
+	2.5 - Common Stylings
+----------------------------------------------*/
+
+/* Double Borders */
+.double-border { position: relative; }
+.double-border:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid rgba(51,51,51,0.5);
+	}
+.double-border.top:before {	top: 0; }
+
+
 /*--------------------------------------------------------------
 	3.0 - PRIMARY STRUCTURE
 --------------------------------------------------------------*/
@@ -378,7 +462,7 @@ div#main-container {
 	flex-flow: row wrap;
 	justify-content: center;
 	max-width: 1200px;
-	width: 98%;
+	width: 96%;
 	min-height: 600px;
 	margin: 0 auto;
 	clear: both;
@@ -395,14 +479,6 @@ div#primary-sidebar {
 	min-width: 300px;
 	max-width: 450px;
 	margin-left: 1em;
-	}
-
-div#showcase-container {
-	width: 100%;
-	height: 300px;
-	margin: 0 0 1em;
-	background: rgba(0,0,0,0.25);
-	border: 1px solid #000;
 	}
 
 div#footer-container {
@@ -497,7 +573,6 @@ nav#primary-menu {
 ----------------------------------------------*/
 
 div#posts {
-	min-height: 600px;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -505,47 +580,89 @@ div#posts {
 
 .post {
 	min-height: 200px;
-	width: 49%;
-	margin: 0 0 0.5em;
+	width: 100%;
+	float: left;
 	position: relative;
 	}
+.archive .post {
+	width: 49%;
+	margin: 0 0 0.5em;
+	}
 
-/* Header */
+/* Post Header */
 .post-header {
 	width: 100%;
-	height: 50px;
+	height: 100px;
 	margin: 0 0 10px;
 	float: left;
-	background: rgba(0,0,0,0.25);
+	background-image: url("images/headers/post-headers.jpg");
 	border: 1px solid #000;
 	border-radius: 2px;
-	box-shadow: 0 0 5px #111 inset;
+	box-shadow: 0 0 2px #333;
 	}
 
 .post-title {
 	padding: 0 0.5em;
 	margin: 0;
-	line-height: 50px;
+	line-height: 66px;
 	}
+.post-title > a { color: #D1CBBC; }
+.post-title > a:hover { color: #F3EAD0; }
+
+.post-byline {
+	line-height: 24px;
+	margin: 0;
+	padding: 0 1em;
+	font-size: 0.75em;
+	font-style: italic;
+	background: rgba(17,17,17,0.9);
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	box-shadow: 0 0 5px #000;
+	}
+.post-byline > img.avatar {
+	margin: -13px 5px 0;
+	box-shadow: 0 0 5px #000;
+	}
+.post-byline > .post-edit-link {
+	float: right;
+	font-style: normal;
+	}
+
+/* Home and Archive Headers */
+header[class*='home-header-'] { 
+	height: 75px;
+	background-image: url("images/headers/home-headers.jpg"); 
+	}
+header[class*='home-header-'] > .post-title { line-height: 48px; }
+.home-header-1 { background-position: 0 0; }
+.home-header-2 { background-position: 0 -75px; }
+.home-header-3 { background-position: 0 -150px; }
+.home-header-4 { background-position: 0 -225px; }
+.home-header-5 { background-position: 0 -300px; }
+.home-header-6 { background-position: 0 -375px; }
+header[class*='home-header-']:hover { box-shadow: 0 0 10px #c60; }
 
 /* Content */
 .post-content {
 	width: 100%;
 	float: left;
+	font-size: 0.875em;
 	}
 #posts .post-content {
 	min-height: 150px;
-	padding: 0 0.25em 30px;
+	padding: 0 0.25em;
 	}
 
 a.post-thumbnail {
 	float: right;
+	padding: 0 0 30px 0;
 	}
 
 .post-excerpt {
 	height: 100%;
 	margin: 0 160px 0 0;
-	font-size: 0.875em;
+	padding: 0 0 30px 0;
 	}
 
 
@@ -553,9 +670,10 @@ a.post-thumbnail {
 .post-footer {
 	width: 100%;
 	height: 30px;
-	padding: 10px 0.25em 0;
+	padding: 0 0.25em;
 	position: absolute;
 	bottom: 0;
+	line-height: 30px;
 	}
 .post-categories,
 a.comments-link {
@@ -695,6 +813,16 @@ input#donate-image {
 	margin: 0 auto;
 	}
 
+/* Featured Group */
+.featured-group {
+	line-height: 80px;
+	text-align: center;
+	padding: 0.5em 1em;
+	background: rgba(0,0,0,0.25);
+	font-size: 0.875em;
+	color: #A29C8E;
+	}
+
 /* Foundry Stats Counter */
 .community-stats { 
 	height: 350px; 
@@ -777,11 +905,75 @@ a.banner-count {
 /*---------------------------------------------
 	3.5 - Showcase
 ----------------------------------------------*/
+div#showcase-container {
+	display: flex;
+	flex-flow: row-reverse wrap;
+	justify-content: center;
+	width: 100%;
+	}
 
+div#showcase {
+	width: 512px;
+	height: 288px;
+	margin: 0 0 1em;
+	background: rgba(0,0,0,0.5);
+	border: 1px solid #000;
+	text-align: center;
+	line-height: 288px;
+	}
+
+/* Recent discussion */
+#recent-discussion-widget {
+	max-width: 512px;
+	min-width: 240px;
+	flex: 1;
+	margin: 0 1em 1em 0;
+}
+
+
+ul.recent-discussion-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.75em;
+	}
+li.recent-discussion {
+	width: 100%;
+	float: left;
+	padding: 3px 0;
+	}
+.recent-discussion-content {
+	height: 40px;
+	position: relative;
+	margin: 0 0 0 45px;
+	}
+.recent-discussion-title { 
+	display: block;
+	line-height: 1.25em;
+	}
+.recent-discussion-time {
+	position: absolute;
+	bottom: -3px;
+	right: 8px;
+	font-size: 0.875em;
+	color: #A29C8E;
+	}
 
 /*---------------------------------------------
 	3.6 - Breadcrumbs
 ----------------------------------------------*/
+nav.breadcrumbs {
+	float: left;
+	margin: -0.5em 0 0 1em;
+	padding: 0.25em 1em;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #222;
+	border-bottom: none;
+	border-radius: 2px;
+	box-shadow: 0 0 5px #000 inset;
+	font-size: 0.75em;
+	font-style: italic;
+}
 
 /*---------------------------------------------
 	3.7 - Pagination
@@ -907,7 +1099,7 @@ ul#top-menu {
 /* Top level items */
 li.top {
 	height: 38px;
-	min-width: 180px;
+	min-width: 150px;
 	flex: 1;
 	border: 1px solid rgba(0,0,0,0);
 	border-bottom:none;
@@ -1006,7 +1198,7 @@ div.dropdown.full {
 	}
 div.dropdown.single {
 	width: 20%;
-	min-width:180px;
+	min-width:150px;
 	}
 
 
@@ -1048,14 +1240,14 @@ a#menu-scroll-bottom,
 a#footer-scroll-top {
 	display: block;
 	position: absolute;
-	width: 32px;
-	height: 32px;
-	right: 10px;
-	bottom: 4px;
+	width: 24px;
+	height: 24px;
+	right: 4px;
+	bottom: 8px;
 	background: rgba(102,102,102,0.5);
 	text-align: center;
-	line-height: 32px;
-	font-size: 20px;
+	line-height: 24px;
+	font-size: 16px;
 	color: #000;
 	border: 1px solid #000;
 	border-radius: 2px;
@@ -1077,6 +1269,10 @@ a#footer-scroll-top > i {
 /*--------------------------------------------------------------
 	7.0 - COMMENTS
 --------------------------------------------------------------*/
+#comments {
+	min-width: 100%;
+	margin: 0 0 1em;
+	}
 	
 /*--------------------------------------------------------------
 	8.0 - BBPRESS

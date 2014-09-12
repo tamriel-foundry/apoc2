@@ -142,17 +142,16 @@ class Apoc_User {
 		);
 		
 		// Iterate through the ranks, determining where the user's postcount falls
-		$rank = $ranks[$i=0];
-		while ( $posts['total'] >= $rank['next_rank'] ) { 
+		$i=0;
+		while ( $posts['total'] >= $rank[$i]['next_rank'] ) { 
 			$i++; 
-			$rank = $ranks[$i];
 		}
 		
 		// Return a rank array
 		$user_rank = array(
-			'current_rank' 	=> $rank['min_posts'],
-			'next_rank' 	=> $rank['next_rank'],
-			'rank_title'	=> $rank['title']
+			'current_rank' 	=> $ranks[$i]['min_posts'],
+			'next_rank' 	=> $ranks[$i]['next_rank'],
+			'rank_title'	=> $ranks[$i]['title']
 		);
 		return $user_rank;
 	}

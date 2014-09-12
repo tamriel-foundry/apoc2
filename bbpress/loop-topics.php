@@ -11,6 +11,7 @@
 	<div class="forum-content">
 		<h2><?php bbp_forum_title(); ?></h2>
 		<a class="button scroll-respond" href="#respond" title="Create new topic in <?php bbp_forum_title(); ?>"><i class="fa fa-pencil"></i>New Topic</a>
+		<?php bbp_forum_subscription_link(); ?>
 	</div>
 	<div class="forum-count">Posts</div>
 	<div class="forum-freshness">Latest Post</div>

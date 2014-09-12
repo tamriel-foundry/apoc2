@@ -153,6 +153,7 @@ a:hover {
 h1 {
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.75em; 
+	line-height: 1em;
 	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em; 
 	}
@@ -160,6 +161,7 @@ h1 {
 h2 {
 	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.25em;
+	line-height: 1.25em;
 	font-weight: bold;
 	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em; 
@@ -168,6 +170,7 @@ h2 {
 h3 {
 	font-family: Cinzel , 'Book Antiqua' , Serif;
 	font-size: 1.25em;
+	line-height: 1.25em;
 	margin-bottom: 0.5em;
 	}
 
@@ -285,7 +288,9 @@ input[type="checkbox"]:checked + label:before {
 
 /* Buttons */
 button,
-a.button {
+a.button,
+#subscription-controls a,
+#subscription-toggle a {
 	height: 2em;
 	display: inline-block;
 	position: relative;
@@ -313,7 +318,9 @@ a.button {
 	}
 
 button:hover,
-a.button:hover {
+a.button:hover,
+#subscription-controls a:hover,
+#subscription-toggle a:hover {
 	color: #C60;
 	box-shadow: 0 0 10px #c60;
 	}
@@ -594,7 +601,9 @@ div#posts {
 	width: 100%;
 	height: 100px;
 	margin: 0 0 10px;
+	padding: 1em 0 0;
 	float: left;
+	position: relative;
 	background-image: url("images/headers/post-headers.jpg");
 	border: 1px solid #000;
 	border-radius: 2px;
@@ -604,15 +613,17 @@ div#posts {
 .post-title {
 	padding: 0 0.5em;
 	margin: 0;
-	line-height: 66px;
 	}
 .post-title > a { color: #D1CBBC; }
 .post-title > a:hover { color: #F3EAD0; }
 
 .post-byline {
+	width: 100%;
+	position: absolute;
+	bottom: 0.5em;
 	line-height: 24px;
 	margin: 0;
-	padding: 0 1em;
+	padding: 0 1em 0 70px;
 	font-size: 0.75em;
 	font-style: italic;
 	background: rgba(17,17,17,0.9);
@@ -621,7 +632,9 @@ div#posts {
 	box-shadow: 0 0 5px #000;
 	}
 .post-byline > img.avatar {
-	margin: -13px 5px 0;
+	position: absolute;
+	top: -12px;
+	left: 1em;
 	box-shadow: 0 0 5px #000;
 	}
 .post-byline > .post-edit-link {
@@ -634,7 +647,10 @@ header[class*='home-header-'] {
 	height: 75px;
 	background-image: url("images/headers/home-headers.jpg"); 
 	}
-header[class*='home-header-'] > .post-title { line-height: 48px; }
+header[class*='home-header-'] .post-byline { 
+	bottom: -1px; 
+	padding: 0 1em;
+	}
 .home-header-1 { background-position: 0 0; }
 .home-header-2 { background-position: 0 -75px; }
 .home-header-3 { background-position: 0 -150px; }
@@ -682,7 +698,7 @@ a.comments-link {
 	color: #A29C8E;
 	}
 a.comments-link { float: left; }
-a.comments-link:hover { color: inherit;}
+a.comments-link:hover { color: inherit; }
 
 /*---------------------------------------------
 	3.3 - Footer
@@ -940,7 +956,7 @@ ul.recent-discussion-list {
 li.recent-discussion {
 	width: 100%;
 	float: left;
-	padding: 3px 0;
+	padding: 5px 0;
 	}
 .recent-discussion-content {
 	height: 40px;
@@ -964,7 +980,7 @@ li.recent-discussion {
 ----------------------------------------------*/
 nav.breadcrumbs {
 	float: left;
-	margin: -0.5em 0 0 1em;
+	margin: -0.5em 0 -1px 1em;
 	padding: 0.25em 1em;
 	background: rgba(0,0,0,0.25);
 	border: 1px solid #222;
@@ -977,7 +993,16 @@ nav.breadcrumbs {
 
 /*---------------------------------------------
 	3.7 - Pagination
-----------------------------------------------*/	
+----------------------------------------------*/
+nav.pagination {
+	width: 100%;
+	float: left;
+	margin: 0.5em 0;
+	padding: 0 1em;
+	font-size: 0.875em;
+	}
+.pagination-count {	float: left; }
+.pagination-links {	float: right; }
 
 
 /*--------------------------------------------------------------
@@ -1242,7 +1267,7 @@ a#footer-scroll-top {
 	position: absolute;
 	width: 24px;
 	height: 24px;
-	right: 4px;
+	right: 8px;
 	bottom: 8px;
 	background: rgba(102,102,102,0.5);
 	text-align: center;
@@ -1273,30 +1298,203 @@ a#footer-scroll-top > i {
 	min-width: 100%;
 	margin: 0 0 1em;
 	}
+
+#respond {
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	}
 	
 /*--------------------------------------------------------------
 	8.0 - BBPRESS
 --------------------------------------------------------------*/
+ol.forums,
+ol.topics,
+ol.replies {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	}
+
+/* Forum Items */
+li.forum,
+li.topic,
+li.reply {
+	width: 100%;
+	padding: 0.5em 0.5em 0;
+	float: left;
+	border-bottom: 1px solid #000;
+	}
+li + li.forum, li + li.topic, li + li.reply { border-top: 1px solid #333; }
+li.forum:last-child, li.topic:last-child, li.reply:last-child { border-bottom: none; }
+
+
+li.forum,
+li.topic,
+.forum-header {
+	display: flex;
+	flex-flow: row wrap;
+	}
 
 /*---------------------------------------------
 	8.1 - Forum Headers
 ----------------------------------------------*/
+.forum-header {
+	width: 100%;
+	min-height: 40px;
+	float: left;
+	padding: 0.5em 0.5em 0;
+	position: relative;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	text-align: center;
+	font-weight: bold;
+	}
+.forum-header:first-child { margin-top: 0; }
+
+.forum-header h2 {
+	margin: 0;
+	float: left;
+	line-height: 22px;
+	text-align: left;
+	}
+
+/* Header buttons */
+.forum-header .forum-collapse {
+	position: absolute;
+	right: 5px;
+	color: #A29C8E;
+	}
+
+.forum-header .scroll-respond {
+	float: left;
+	margin: 0 0 0 1em;
+	font-size: 0.75em;
+	}
+
+
+
+#subscription-controls a,
+#subscription-toggle a {
+	float: left;
+	margin: 0 5px;
+	padding: 1px 0.5em;
+	font-size: 0.75em;
+	}
+
 
 /*---------------------------------------------
 	8.2 - Forum Archive
-----------------------------------------------*/	
+----------------------------------------------*/
+.forum-content {
+	flex: 5;
+	min-width: 300px;
+	margin-bottom: 0.5em;
+	float: left;
+	}
+
+.forum-count {
+	flex: 1;
+	margin-bottom: 0.5em;
+	float: left;
+	text-align: center;
+	line-height: 50px;
+	}
+.forum-header .forum-count { line-height: inherit; }
+
+.forum-freshness {
+	flex: 4;
+	min-width: 300px;
+	margin-bottom: 0.5em;
+	float: left;
+	}
+
+.forum-title {
+	position: relative;
+	line-height: 30px;
+	margin: 0;
+	}
+.forum-title > a { 
+	display: block; 
+	text-shadow: 1px 1px #000;
+	}
+.forum-description {
+	font-size: 0.875em;
+	line-height: 20px;
+	margin: 0;
+	}
+
+.freshest-meta {
+	min-height: 50px;
+	margin-left: 60px;
+	position: relative;
+	overflow: hidden;
+	}
+
+.freshest-title,
+.freshest-author {
+	width: 100%;
+	float: left;
+	font-size: 0.875em;
+	line-height: 25px;
+	}
+.freshest-author {
+	font-size: 0.75em;
+	}
+.freshest-time {
+	position: absolute;
+	right: 5px;
+	bottom: 0;
+	font-size: 0.75em;
+	}
+
 
 /*---------------------------------------------
 	8.3 - Single Forum
 ----------------------------------------------*/
+.single-forum .forum-content {
+	flex: 7;
+	}
+
+.single-forum .forum-freshness {
+	flex: 2;
+	}
+
+.topic .forum-title {
+	font-size: 1.125em;
+	padding-right: 25px;
+	}
 	
+.topic a.last-reply-link {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	color: #999;
+	text-shadow: 1px 1px #000;
+	}
+
+.topic .freshest-time {	left: 0; }
+
+/* New topic form */
+#new-topic-title input {
+	height: 32px;
+	line-height: 24px;
+	font-size: 1em;
+	}
+
 /*---------------------------------------------
 	8.4 - Single Topic
 ----------------------------------------------*/
+
 	
 /*---------------------------------------------
 	8.5 - Forms
 ----------------------------------------------*/
+
+
 
 /* The top banner ad goes away sub 1080 */
 @media (max-width: 1079px) {
@@ -1307,12 +1505,32 @@ a#footer-scroll-top > i {
 @media (max-width: 720px) {
 	div#content { min-width: 100%; }
 	div#primary-sidebar { margin: 0; }
-	.post { width: 100%; }
+	.archive .post { width: 100%; }
+	#recent-discussion-widget{ margin: 0 0 1em;}
+
+
+	/* Shrink Font */
+	h1 { font-size: 1.25em;	}
+	h2 { font-size: 1em;	}
+
+
+
+	/* Hide forum counts */
+	.forum-count{ display: none; }
+
+	/* Hide freshness from forum header */
+	.forum-header .forum-freshness { display: none; }
+
+
 }
 
 /* At 600px, certain things get hidden */
 @media (max-width: 620px) {
 	form#top-search-form,a#lostpass { display:none; }
+
+	/* Hide single-post byline avatar */
+	.post-byline { padding: 0 1em; }
+	.post-byline > img.avatar { display: none; }
 }
 
 

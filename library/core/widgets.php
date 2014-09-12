@@ -21,16 +21,16 @@ function apoc_sidebar_social() {
 	// Define the data
 	$socials = array(
 		'YouTube' 	=> array(
-			'url'	=> '#',
+			'url'	=> 'https://www.youtube.com/user/TamrielFoundry',
 			'icon'	=> 'fa-youtube-square' ),
 		'Facebook'	=> array(		
-			'url'	=> '#',
+			'url'	=> 'https://www.facebook.com/tamrielfoundry',
 			'icon'	=> 'fa-facebook-square' ),
 		'Twitter'	=> array(
-			'url'	=> '#',
+			'url'	=> 'https://twitter.com/tamrielfoundry',
 			'icon'	=> 'fa-twitter-square' ),
 		'Google+'	=> array(
-			'url'	=> '#',
+			'url'	=> 'https://plus.google.com/+tamrielfoundryESO',
 			'icon'	=> 'fa-google-plus-square' ),
 		);
 		

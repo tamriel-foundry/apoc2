@@ -29,7 +29,7 @@
 	</div>
 	
 	<div class="forum-freshness">
-		<?php bbp_author_link( array( 'post_id' => bbp_get_topic_last_active_id(), 'type' => 'avatar' , 'size' => 50 ) ); ?>
+		<?php echo apoc_get_avatar( array( 'user_id' => bbp_get_reply_author_id(bbp_get_topic_last_active_id()) , 'link' => true , 'size' => 50 )); ?>
 		<div class="freshest-meta">
 			<span class="freshest-author">By <?php bbp_author_link( array( 'post_id' => bbp_get_topic_last_active_id(), 'type' => 'name' ) ); ?></span>
 			<span class="freshest-time"><?php bbp_topic_last_active_time(); ?></span>

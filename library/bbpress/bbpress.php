@@ -3,7 +3,7 @@
  * Apocrypha Theme bbPress Functions
  * Andrew Clayton
  * Version 2.0
- * 5-5-2014
+ * 9-11-2014
 */
 
 // Exit if accessed directly
@@ -49,10 +49,45 @@ class Apoc_bbPress {
 	 * Modify global bbPress filters
 	 */
 	function filters() {
+
+		// Subscribe and Favorite Buttons
+		add_filter( 'bbp_before_get_user_favorites_link_parse_args' 	, array( $this , 'favorite_button' ) );
+		add_filter( 'bbp_before_get_user_subscribe_link_parse_args' 	, array( $this , 'subscribe_button' ) );
+		add_filter( 'bbp_is_subscriptions'								, array( $this , 'subscriptions_component' ) );
 			
-		
-	
 	}	
+
+
+
+
+
+	/** 
+	 * Apply custom styling to favorite and subscribe buttons
+	 * @version 2.0
+	 */
+	function favorite_button( $r ) {
+		$r = array (
+			'favorite'		=> '<i class="fa fa-thumbs-up"></i>This Thread Rocks',
+			'favorited'		=> '<i class="fa fa-thumbs-down"></i>This Got Ugly',
+			'before'    	=> '',
+			'after'     	=> '',
+		);
+		return $r;
+	}
+	function subscribe_button( $r ) {
+		$r = array(
+				'subscribe'		=> '<i class="fa fa-bookmark"></i>Subscribe',
+				'unsubscribe'	=> '<i class="fa fa-remove"></i>Unsubscribe',
+				'before'    	=> '',
+				'after'     	=> '',
+			);
+		return $r;
+	}
+	function subscriptions_component() {
+		if ( bp_is_user() ) return true;
+		else return false;
+	}
+
 	
 	
 }
@@ -99,6 +134,10 @@ function apoc_loop_subforums() {
 		$topic_id		= bbp_is_reply( $reply_id ) ? bbp_get_reply_topic_id( $reply_id ) : $reply_id;
 		$topic_title	= bbp_get_topic_title( $topic_id );
 		$link 			= bbp_get_reply_url( $reply_id );
+
+		// Get the author avatar
+		$user_id 		= bbp_get_reply_author_id( $reply_id );
+		$avatar			= apoc_get_avatar( array( 'user_id' => $user_id , 'link' => true , 'size' => 50 ));
 		
 		// Toggle html class
 		$class			= ( $count % 2 ) ? 'odd' : 'even';
@@ -115,7 +154,7 @@ function apoc_loop_subforums() {
 			</div>
 
 			<div class="forum-freshness">
-				<?php bbp_author_link( array( 'post_id' => $reply_id, 'type' => 'avatar' , 'size' => 50 ) ); ?>
+				<?php echo $avatar; ?>
 				<div class="freshest-meta">
 					<a class="freshest-title" href="<?php echo $link; ?>" title="<?php echo $topic_title; ?>"><?php echo $topic_title; ?></a>
 					<span class="freshest-author">By <?php bbp_author_link( array( 'post_id' => $reply_id, 'type' => 'name' ) ); ?></span>

@@ -281,7 +281,7 @@ class Apoc_Avatar {
 				'type'			=> $this->type,
 				'height'		=> $this->size,
 				'width'			=> $this->size,
-				'no_grav'		=> false,
+				'no_grav'		=> true,
 			));
 			
 			// If the user has not uploaded an avatar, choose one using their profile settings

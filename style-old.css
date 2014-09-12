@@ -1160,7 +1160,7 @@ li.reply:last-child {
 	text-align: center;
 	line-height: 50px;
 	}
-.forum-header .forum-count { line-height: 40px; 	}
+.forum-header .forum-count { line-height: 40px; }
 
 .forum-freshness {
 	width: 39%;

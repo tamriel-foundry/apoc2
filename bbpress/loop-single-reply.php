@@ -15,8 +15,8 @@ $author = new Apoc_User( bbp_get_reply_author_id() , 'reply' );
 	<header class="reply-header">
 		<time class="reply-time" datetime="<?php echo get_the_time( 'Y-m-d\TH:i' ); ?>"><?php echo bp_core_time_since( strtotime( get_the_time( 'c' ) ) , current_time( 'timestamp' ) ); ?></time>
 		<div class="reply-admin-links">
-			<?php bbp_reply_admin_links(); ?>
-			<a class="reply-permalink" href="<?php bbp_reply_url(); ?>">#<?php echo bbp_get_reply_position(); ?></a>
+			<?php apoc_reply_admin_links( bbp_get_reply_id() ); ?>
+			<span><a class="reply-permalink" href="<?php bbp_reply_url(); ?>">#<?php echo bbp_get_reply_position(); ?></a></span>
 		</div>
 	</header>
 	

@@ -80,10 +80,16 @@ $('a#login-logout').click(function(event) {
 });
 
 
+/*! Truncate Sidebar to Content Width */
+if ( $( '.single-post ').length > 0 ) {
+	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 750 ) $( '.widget.group-widget' ).remove();
+	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 500 ) $( '.widget.community-stats' ).remove();
+}
+
 
 /*! Collapsing Respond Form */
-$('#respond .forum-header').append( '<a class="forum-collapse collapsed" href="#"><i class="fa fa-angle-double-left"></i></a>' ).next().hide();
-$('#respond .forum-header h2').click(function(event) {
+$('#respond .forum-header .forum-content').append( '<a class="forum-collapse collapsed" href="#"><i class="fa fa-angle-double-left"></i></a>' ).parent().next().hide();
+$('#respond .forum-header .forum-content h2').click(function(event) {
 	$('#respond .forum-header .forum-collapse').trigger("click");
 });
 

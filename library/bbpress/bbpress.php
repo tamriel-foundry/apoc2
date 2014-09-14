@@ -54,7 +54,10 @@ class Apoc_bbPress {
 		add_filter( 'bbp_before_get_user_favorites_link_parse_args' 	, array( $this , 'favorite_button' ) );
 		add_filter( 'bbp_before_get_user_subscribe_link_parse_args' 	, array( $this , 'subscribe_button' ) );
 		add_filter( 'bbp_is_subscriptions'								, array( $this , 'subscriptions_component' ) );
-			
+
+		// Revision Logs
+		add_filter( 'bbp_get_reply_revision_log'						, array( $this , 'revision_log' ) );
+		add_filter( 'bbp_get_topic_revision_log'						, array( $this , 'revision_log' ) );
 	}	
 
 
@@ -87,6 +90,19 @@ class Apoc_bbPress {
 		if ( bp_is_user() ) return true;
 		else return false;
 	}
+
+
+	/**
+	 * Prepend an icon to the revision log
+	 * @version 2.0
+	 */
+
+	function revision_log( $revision ) {
+		$revision = str_replace( 'revision-log">' , 'revision-log icons-ul double-border top">' , $revision );
+		$revision = str_replace( 'revision-log-item">' , 'revision-log-item"><i class="fa fa-edit"></i>' , $revision );
+		return $revision;
+	}
+
 
 	
 	
@@ -169,6 +185,77 @@ function apoc_loop_subforums() {
 	$output = ob_get_contents();
 	ob_end_clean();
 	echo $output;
+}
+
+
+/**
+ * Output custom bbPress admin links
+ * @version 2.0
+ */
+function apoc_reply_admin_links( $reply_id ) {
+	
+	// Make sure it's a logged-in user
+	if ( !is_user_logged_in() ) return false;
+		
+	// Get post id and setup desired links
+	$links = array();
+	
+	// Add common quote and reply links
+	$links['quote'] 		= apoc_quote_button( 'reply' , $reply_id );
+	$links['reply']			= '<a class="reply-link button button-dark" href="#new-post" title="Quick Reply"><i class="fa fa-reply"></i>Reply</a>';
+	
+	// Topic admin links
+	if( bbp_is_topic( $reply_id ) ) :
+		$links['edit'] 		= bbp_get_topic_edit_link  ( array( 
+								'id'			=> $reply_id,
+								'edit_text' 	=> '<i class="fa fa-pencil"></i>Edit' ) );
+		$links['close']		= bbp_get_topic_close_link ( array( 
+								'id'			=> $reply_id,
+								'close_text'	=> '<i class="fa fa-lock"></i>Close',
+								'open_text'		=> '<i class="fa fa-unlock"></i>Open',		
+								) );
+		$links['stick']		= bbp_get_topic_stick_link ( array(
+								'id'			=> $reply_id,
+								'stick_text' 	=> '<i class="fa fa-thumb-tack"></i>Stick',
+								'unstick_text' 	=> '<i class="fa fa-level-down"></i>Unstick',
+								'super_text' 	=> '<i class="fa fa-bullhorn"></i>Notice', ) );
+		$links['merge']		= bbp_get_topic_merge_link ( array( 'merge_text'=> '<i class="fa fa-code-fork"></i>Merge') );
+		$links['trash']		= bbp_get_topic_trash_link ( array(
+								'id'			=> $reply_id,
+								'trash_text' 	=> '<i class="fa fa-trash"></i>Trash',
+								'restore_text' 	=> '<i class="fa fa-undo"></i>Restore',
+								'delete_text' 	=> '<i class="fa fa-remove"></i>Delete',
+								'sep'			=> '',
+								) );
+									
+	// Reply admin links
+	else :
+		$links['edit'] 		= bbp_get_reply_edit_link (	array( 
+								'id'			=> $reply_id,
+								'edit_text'  	=> '<i class="fa fa-pencil"></i>Edit' ) );
+		$links['move'] 		= bbp_get_reply_move_link (	array( 
+								'id'			=> $reply_id,
+								'split_text' 	=> '<i class="fa fa-arrows"></i>Move' ) );
+		$links['split'] 	= bbp_get_topic_split_link( array( 
+								'id'			=> $reply_id,
+								'split_text' 	=> '<i class="fa fa-code-fork"></i>Split' ) );
+		$links['trash'] 	= bbp_get_reply_trash_link( array( 
+								'id'			=> $reply_id,
+								'trash_text' 	=> '<i class="fa fa-trash"></i>Trash',
+								'restore_text' 	=> '<i class="fa fa-undo"></i>Restore',
+								'delete_text' 	=> '<i class="fa fa-remove"></i>Delete',
+								'sep'			=> '',
+								) );
+	endif;
+	
+	// Get the admin links!
+	bbp_reply_admin_links( array(
+		'id'		=> $reply_id,
+		'before'	=> '',
+		'after'		=> '',
+		'sep'		=> '',
+		'links'		=> $links,
+	));
 }
 
 

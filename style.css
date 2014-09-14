@@ -308,19 +308,38 @@ a.button,
 	border-radius: 2px;
 	box-shadow: 0 0 2px #000;
 	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
-	font-size: 1em;
+	font-size: 12px;
 	font-weight: normal;
+	line-height: 22px;
 	color: #111;
 	cursor: pointer;
 	}
-a.button {
-	line-height: 1.8em;
-	}
+button { line-height: initial; }
+
+a.button-dark,
+.reply-admin-links > a {
+	height: 2em;
+	display: inline-block;
+	position: relative;
+	padding: 0 0.5em;
+	margin: 3px 5px;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #444 inset;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 22px;
+	color: #A29C8E;
+	cursor: pointer;
+}
 
 button:hover,
 a.button:hover,
 #subscription-controls a:hover,
-#subscription-toggle a:hover {
+#subscription-toggle a:hover,
+.reply-admin-links > a:hover {
 	color: #C60;
 	box-shadow: 0 0 10px #c60;
 	}
@@ -333,6 +352,7 @@ a.button:hover,
 
 /* Images */
 img {
+	display: block;
 	max-width: 100%;
 	}
 
@@ -348,9 +368,7 @@ img {
 	}
 
 /* Image Links */
-a:hover > img {
-	border: 1px solid #000;
-	}
+a:hover > img {	box-shadow: 0 0 5px #000; }
 
 /* Avatars */
 img.avatar {
@@ -600,15 +618,21 @@ div#posts {
 .post-header {
 	width: 100%;
 	height: 100px;
-	margin: 0 0 10px;
+	margin: 0 0 0.5em;
 	padding: 1em 0 0;
 	float: left;
 	position: relative;
 	background-image: url("images/headers/post-headers.jpg");
 	border: 1px solid #000;
 	border-radius: 2px;
-	box-shadow: 0 0 2px #333;
+	box-shadow: 0 0 2px #000;
 	}
+.post-header-1 { background-position: 0 0; }
+.post-header-2 { background-position: 0 -100px; }
+.post-header-3 { background-position: 0 -200px; }
+.post-header-4 { background-position: 0 -300px; }
+.post-header-5 { background-position: 0 -400px; }
+.post-header-6 { background-position: 0 -500px; }
 
 .post-title {
 	padding: 0 0.5em;
@@ -645,6 +669,7 @@ div#posts {
 /* Home and Archive Headers */
 header[class*='home-header-'] { 
 	height: 75px;
+	margin-bottom: 10px;
 	background-image: url("images/headers/home-headers.jpg"); 
 	}
 header[class*='home-header-'] .post-byline { 
@@ -657,17 +682,19 @@ header[class*='home-header-'] .post-byline {
 .home-header-4 { background-position: 0 -225px; }
 .home-header-5 { background-position: 0 -300px; }
 .home-header-6 { background-position: 0 -375px; }
-header[class*='home-header-']:hover { box-shadow: 0 0 10px #c60; }
+header[class*='home-header-']:hover { box-shadow: 0 0 5px #000; }
 
 /* Content */
 .post-content {
 	width: 100%;
+	margin: 0.5em 0;
+	padding: 0 0.25em;
 	float: left;
 	font-size: 0.875em;
 	}
-#posts .post-content {
+.archive .post-content {
+	margin: 0;
 	min-height: 150px;
-	padding: 0 0.25em;
 	}
 
 a.post-thumbnail {
@@ -687,10 +714,13 @@ a.post-thumbnail {
 	width: 100%;
 	height: 30px;
 	padding: 0 0.25em;
-	position: absolute;
-	bottom: 0;
 	line-height: 30px;
 	}
+.archive .post-footer {
+	position: absolute;
+	bottom: 0;
+	}
+
 .post-categories,
 a.comments-link {
 	float: right;
@@ -855,35 +885,35 @@ input#donate-image {
 	}
 
 #stats-banner {
-	width: 300px;
-	margin: 0 auto;
+	width: 270px;
+	margin: 0.5em auto;
 	position: relative;
 	z-index: 10;
 }
 #stats-banner div.banner-top {
-	width: 100px;
+	width: 90px;
 	margin: 0 0 0.5em;
 	float: left;
 	position: relative;
-	background-image: url("images/backgrounds/counter-top.png");
+	background-image: url("images/backgrounds/alliance-banners.png");
 	background-repeat: no-repeat;
 	}
 
 #stats-banner div.banner-bottom {
-	width: 100%;
-	height: 100px;
+	width: 90px;
+	height: 120px;
 	position: absolute;
-	bottom: -90px;
-	background-image: url("images/backgrounds/counter-bottom.png");
+	bottom: -120px;
+	background-image: url("images/backgrounds/alliance-banners.png");
 	background-repeat: no-repeat;
 	}
 
-.banner-top.aldmeri,
-.banner-bottom.aldmeri { background-position: 0 0; }
-.banner-top.daggerfall,
-.banner-bottom.daggerfall { background-position: -100px 0; }
-.banner-top.ebonheart,
-.banner-bottom.ebonheart { background-position: -200px 0; }
+.banner-top.aldmeri { background-position: 0 0; }
+.banner-bottom.aldmeri { background-position: 0 100%; }
+.banner-top.daggerfall { background-position: 50% 0; }
+.banner-bottom.daggerfall { background-position: 50% 100%; }
+.banner-top.ebonheart { background-position: 100% 0; }
+.banner-bottom.ebonheart { background-position: 100% 100%; }
 
 a.banner-count {
 	display: block;
@@ -892,7 +922,7 @@ a.banner-count {
 	margin: 0 auto;
 	line-height: 50px;
 	position: relative;
-	top: -35px;
+	top: -10px;
 	background: rgba(17,17,17,0.9);
 	border: 1px solid #000;
 	border-radius: 10px;
@@ -901,9 +931,17 @@ a.banner-count {
 	color: #EEE;
 	text-align: center;
 	}
-.aldmeri a.banner-count { text-shadow: 0 0 10px #FF0; }
-.daggerfall a.banner-count { text-shadow: 0 0 10px #0CF; }
-.ebonheart a.banner-count { text-shadow: 0 0 10px #F00; }
+.aldmeri a.banner-count { 
+	right: -5px;
+	text-shadow: 0 0 10px #FF0; 
+	}
+.daggerfall a.banner-count { 
+	text-shadow: 0 0 10px #0CF; 
+	}
+.ebonheart a.banner-count { 
+	text-shadow: 0 0 10px #F00; 
+	right: 5px;
+	}
 
 .aldmeri a.banner-count:hover { 
 	border: 1px solid #FF0;
@@ -980,7 +1018,7 @@ li.recent-discussion {
 ----------------------------------------------*/
 nav.breadcrumbs {
 	float: left;
-	margin: -0.5em 0 -1px 1em;
+	margin: -0.5em 0 0.5em;
 	padding: 0.25em 1em;
 	background: rgba(0,0,0,0.25);
 	border: 1px solid #222;
@@ -989,7 +1027,7 @@ nav.breadcrumbs {
 	box-shadow: 0 0 5px #000 inset;
 	font-size: 0.75em;
 	font-style: italic;
-}
+	}
 
 /*---------------------------------------------
 	3.7 - Pagination
@@ -998,11 +1036,22 @@ nav.pagination {
 	width: 100%;
 	float: left;
 	margin: 0.5em 0;
-	padding: 0 1em;
+	padding: 0 0.5em;
 	font-size: 0.875em;
 	}
 .pagination-count {	float: left; }
 .pagination-links {	float: right; }
+
+nav.pagination .page-numbers {
+	padding: 2px 8px;
+	background: rgba(17,17,0.5);
+	border: 1px solid #000;
+	box-shadow: 0 0 2px #666 inset;
+	}
+nav.pagination .page-numbers.current {
+	background: rgba(51,51,51,0.5);
+
+	}
 
 
 /*--------------------------------------------------------------
@@ -1299,6 +1348,60 @@ a#footer-scroll-top > i {
 	margin: 0 0 1em;
 	}
 
+ol#comment-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	}
+
+
+/* User blocks */
+.reply-author > p {
+	margin: 0;
+	font-size: 0.75em;
+	}
+
+.reply-author .member-name,
+.reply-author .member-avatar {
+	display: block;
+	width: 100%;
+	font-size: 0.875em;
+	}
+
+.reply-author .member-avatar > img {
+	float: none;
+	margin: 0 auto 0.5em;
+	}
+
+.user-title {
+	font-style: italic;
+	}
+	
+.user-exp {
+	width: 100px;
+	height: 10px;
+	margin: 1px auto;
+	clear: both;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	border-radius: 4px;
+	box-shadow: 0 0 2px #444 inset;
+	}
+
+.user-expbar {
+	height: 4px;
+	margin: 2px;
+	background: #69c;
+	border-radius: 3px 2px 2px 3px;
+	box-shadow: 0 0 2px #0CF inset;
+	}
+
+
+
+
+
 #respond {
 	width: 100%;
 	float: left;
@@ -1320,32 +1423,27 @@ ol.replies {
 
 /* Forum Items */
 li.forum,
-li.topic,
-li.reply {
+li.topic {
+	display: flex;
+	flex-flow: row wrap;
 	width: 100%;
-	padding: 0.5em 0.5em 0;
 	float: left;
 	border-bottom: 1px solid #000;
 	}
-li + li.forum, li + li.topic, li + li.reply { border-top: 1px solid #333; }
-li.forum:last-child, li.topic:last-child, li.reply:last-child { border-bottom: none; }
+li + li.forum, li + li.topic { border-top: 1px solid #333; }
+li.forum:last-child, li.topic:last-child { border-bottom: none; }
 
-
-li.forum,
-li.topic,
-.forum-header {
-	display: flex;
-	flex-flow: row wrap;
-	}
 
 /*---------------------------------------------
 	8.1 - Forum Headers
 ----------------------------------------------*/
 .forum-header {
+	display: flex;
+	flex-flow: row wrap;
 	width: 100%;
 	min-height: 40px;
 	float: left;
-	padding: 0.5em 0.5em 0;
+	margin: 0.5em 0 0;
 	position: relative;
 	background: rgba(0,0,0,0.25);
 	border: 1px solid #000;
@@ -1358,14 +1456,20 @@ li.topic,
 .forum-header h2 {
 	margin: 0;
 	float: left;
-	line-height: 22px;
 	text-align: left;
+	}
+
+.forum-header .forum-content,
+.forum-header .forum-count,
+.forum-header .forum-freshness {
+	line-height: 24px;
 	}
 
 /* Header buttons */
 .forum-header .forum-collapse {
 	position: absolute;
 	right: 5px;
+	bottom: 8px;
 	color: #A29C8E;
 	}
 
@@ -1376,12 +1480,15 @@ li.topic,
 	}
 
 
+#subscription-toggle {
+	display: block;
+	float: left;
+	}
 
 #subscription-controls a,
 #subscription-toggle a {
 	float: left;
 	margin: 0 5px;
-	padding: 1px 0.5em;
 	font-size: 0.75em;
 	}
 
@@ -1392,23 +1499,23 @@ li.topic,
 .forum-content {
 	flex: 5;
 	min-width: 300px;
-	margin-bottom: 0.5em;
+	margin: 0.5em;
 	float: left;
 	}
 
 .forum-count {
 	flex: 1;
-	margin-bottom: 0.5em;
+	margin: 0.5em 0;
 	float: left;
 	text-align: center;
 	line-height: 50px;
 	}
-.forum-header .forum-count { line-height: inherit; }
+
 
 .forum-freshness {
 	flex: 4;
 	min-width: 300px;
-	margin-bottom: 0.5em;
+	margin: 0.5em;
 	float: left;
 	}
 
@@ -1488,7 +1595,88 @@ li.topic,
 /*---------------------------------------------
 	8.4 - Single Topic
 ----------------------------------------------*/
+li.reply { 
+	width: 100%;
+	float: left;
+}
 
+.reply-body {
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	}
+
+.reply-author {
+	flex: 1;
+	min-width: 150px;
+	margin: 0.5em 0;
+	text-align: center;
+	}
+
+.reply-content {
+	flex: 9;
+	min-width: 275px;
+	min-height: 200px;
+	margin: 0.5em 0;
+	padding: 0 0 25px;
+	position: relative;
+	font-size: 0.875em;
+	}
+
+.reply-header {
+	width: 100%;
+	float: left;
+	padding: 0.5em 1em;
+	font-size: 0.875em;
+	background: rgba(0,0,0,0.1);
+	border: 1px solid #000;
+	box-shadow: 0 0 2px #444 inset;
+	}
+
+.reply-time {
+	float: left;
+	font-size: 0.875em;
+	line-height: 22px;
+	}
+
+.reply-admin-links {
+	float: right;
+	}
+.reply-admin-links > a {
+	margin: 0 3px 0 0;
+	}
+.reply-admin-links .reply-permalink { 
+	float: right;
+	color: #A29C8E; 
+	margin-left: 3px;
+	}
+a.bbp-topic-super-sticky-link { margin-left: -4px; }
+
+
+/* Revision Log */
+ul.bbp-topic-revision-log,
+ul.bbp-reply-revision-log {
+	margin: 0;
+	padding: 0.25em 0 0;
+	position: absolute;
+	bottom: 0px;
+	list-style: none;
+	font-size: 12px;
+	color: #A29C8E;
+	}
+
+ul.bbp-topic-revision-log img.avatar,
+ul.bbp-reply-revision-log img.avatar {
+	display: inline-block;
+	float: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 4px;
+	border-radius: 0;
+	opacity: 0.75;
+	}
+	
 	
 /*---------------------------------------------
 	8.5 - Forms
@@ -1496,13 +1684,23 @@ li.topic,
 
 
 
-/* The top banner ad goes away sub 1080 */
+
+
+
+
+
+
+
+
+/* Below 1080px */
 @media (max-width: 1079px) {
 	div#primary-banner { display: none;}
 }
 
-/* At 720px, content is always full-width */
-@media (max-width: 720px) {
+
+
+/* Below 720px */
+@media (max-width: 719px) {
 	div#content { min-width: 100%; }
 	div#primary-sidebar { margin: 0; }
 	.archive .post { width: 100%; }
@@ -1515,22 +1713,61 @@ li.topic,
 
 
 
-	/* Hide forum counts */
-	.forum-count{ display: none; }
+	/* BBPRESS */
 
-	/* Hide freshness from forum header */
-	.forum-header .forum-freshness { display: none; }
+	/* Hide forum freshness */
+	.forum-freshness{ display: none; }
+
 
 
 }
 
-/* At 600px, certain things get hidden */
-@media (max-width: 620px) {
+/*Below 620px */
+@media (max-width: 619px) {
 	form#top-search-form,a#lostpass { display:none; }
 
 	/* Hide single-post byline avatar */
 	.post-byline { padding: 0 1em; }
 	.post-byline > img.avatar { display: none; }
+
+
+
+
+}
+
+
+/* Less then 460px */
+@media (max-width: 459px) {
+
+
+/* NAVIGATION */
+
+	/* Drop pagination text */
+	div.pagination-count { display: none; }
+
+/* BBPRESS */
+	
+	/* Hide forum count */
+	.forum-count { display: none; }
+
+	/* Hide some elements of the author block */
+	.reply-author > p {
+		display: inline-block;
+		line-height: 25px;
+		margin: 0 1em 0 0;
+	}
+	.reply .member-avatar, .reply .user-exp { display: none; }
+
+	/* Center forum headers */
+	.reply-header .reply-time,
+	.reply-header .reply-admin-links {
+		width: 100%;
+		text-align: center;
+	}
+	.reply-header .reply-admin-links > a {
+		margin: 3px 0;
+	}
+
 }
 
 

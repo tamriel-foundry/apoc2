@@ -12,7 +12,7 @@ $class = ( 0 == $wp_query->current_post % 2 ) ? 'odd' : 'even';
 ?>
 
 <article id="post-<?php the_ID(); ?>" class="post <?php echo $class; ?> double-border">
-	<header class="post-header <?php apoc_home_header_class(); ?>">
+	<header class="post-header <?php apoc_post_header_class('home'); ?>">
 		<h2 class="post-title">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
 		</h2>

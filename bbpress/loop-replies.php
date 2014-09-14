@@ -7,7 +7,7 @@
  */
 ?>
 
-<ol id="topic-<?php bbp_topic_id();?>" class="topic replies">
+<ol id="topic-<?php bbp_topic_id();?>" class="topic replies double-border">
 	<?php while ( bbp_replies() ) : bbp_the_reply(); ?>
 		<?php bbp_get_template_part( 'loop', 'single-reply' ); ?>
 	<?php endwhile; ?>

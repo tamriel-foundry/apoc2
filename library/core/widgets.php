@@ -408,7 +408,7 @@ function apoc_sidebar_streams() {
 	6.0 - Featured Group
 --------------------------------------------------------------*/
 function apoc_sidebar_group() {
-	echo '<div class="widget"><header class="widget-header"><h3 class="widget-title">Featured Group</h3></header><div class="featured-group">A recently active group!</div></div>';
+	echo '<div class="widget group-widget"><header class="widget-header"><h3 class="widget-title">Featured Group</h3></header><div class="featured-group">A recently active group!</div></div>';
 }
 
 /*--------------------------------------------------------------
@@ -488,11 +488,11 @@ class Apoc_Sidebar_Stats {
 		$e = $this->stats['ebonheart'];
 		$t = $this->stats['total'];
 
-		// Compute Banner Heights - normalize max to 250px 
+		// Compute Banner Heights - normalize max to 150px 
 		$l = max( $a , $d , $e );
-		$ah = round( ( $a / $l ) * 200 ) + 50;
-		$dh = round( ( $d / $l ) * 200 ) + 50;
-		$eh = round( ( $e / $l ) * 200 ) + 50;
+		$ah = round( ( $a / $l ) * 100 ) + 50;
+		$dh = round( ( $d / $l ) * 100 ) + 50;
+		$eh = round( ( $e / $l ) * 100 ) + 50;
 
 		// Get the groups slug
 		$groups = SITEURL . '/groups/';

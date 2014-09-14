@@ -18,17 +18,18 @@ if ( !defined( 'ABSPATH' ) ) exit;
  *
  * @version 2.0
  */
-function apoc_home_header_class() {
+function apoc_post_header_class( $context ) {
 	
-	if( !isset( apoc()->home_headers ) ) {
+	if( !isset( apoc()->post_headers ) ) {
 		$headers = range( 1 , 6 );
 		shuffle( $headers );
-		apoc()->home_headers = $headers;
+		apoc()->post_headers = $headers;
 	}
 
-	$header = array_shift( apoc()->home_headers );
-	echo 'home-header-' . $header;
+	$header = array_shift( apoc()->post_headers );
+	echo $context . '-header-' . $header;
 }
+
 
 /**
  * Generates a byline for posts and pages

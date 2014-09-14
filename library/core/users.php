@@ -143,7 +143,7 @@ class Apoc_User {
 		
 		// Iterate through the ranks, determining where the user's postcount falls
 		$i=0;
-		while ( $posts['total'] >= $rank[$i]['next_rank'] ) { 
+		while ( $posts['total'] >= $ranks[$i]['next_rank'] ) { 
 			$i++; 
 		}
 		

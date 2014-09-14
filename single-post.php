@@ -14,12 +14,12 @@
 			
 			<?php apoc_breadcrumbs(); ?>
 			<article id="post-<?php the_ID(); ?>" class="post">
-				<header class="post-header">
+				<header class="post-header <?php apoc_post_header_class('post'); ?>">
 					<h1 class="post-title"><?php the_title(); ?></h1>
 					<p class="post-byline"><?php apoc_byline(); ?></p>
 				</header>
 				
-				<section class="post-content">
+				<section class="post-content double-border">
 					<?php the_content(); ?>
 				</section>	
 				

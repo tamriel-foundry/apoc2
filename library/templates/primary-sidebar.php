@@ -13,7 +13,7 @@
 	
 	<?php apoc_sidebar_social(); ?>
 	
-	<?php //apoc_sidebar_streams(); ?>
+	<?php apoc_sidebar_streams(); ?>
 	
 	<?php apoc_sidebar_members(); ?>
 

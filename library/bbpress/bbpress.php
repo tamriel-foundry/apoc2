@@ -188,6 +188,64 @@ function apoc_loop_subforums() {
 }
 
 
+/* 
+ * Display a custom freshness block for subforums
+ * @version 2.0
+ */
+function apoc_topic_byline( $args = '' ) {
+
+	// Default arguments
+	$defaults = array (
+		'topic_id'  => 0,
+		'before'    => '<p class="post-byline">',
+		'after'     => '</p>',
+		'size'		=> 50,
+		'echo'		=> true,
+	);
+	$args = wp_parse_args( $args, $defaults );
+
+	// Validate topic_id
+	$topic_id = bbp_get_topic_id( $args['topic_id'] );
+
+	// Get the author avatar
+	$avatar 		= apoc_get_avatar( array( 'user_id' => bbp_get_topic_author_id() , 'size' => $args['size'] ) );
+
+	// Build the topic description
+	$voice_count	= bbp_get_topic_voice_count ( $topic_id );
+	$reply_count	= bbp_get_topic_reply_count ( $topic_id , true ) + 1;
+	$time_since  	= bbp_get_topic_freshness_link ( $topic_id );
+	$author			= bbp_get_author_link( array( 'post_id' => $topic_id , 'type' => 'name' ) );
+
+	// Singular/Plural
+	$reply_count = sprintf( _n( '%d posts' , '%d posts', $reply_count ) 	, $reply_count );
+	$voice_count = sprintf( _n( '%s member', '%s members', $voice_count	) 	, $voice_count );
+
+	// Topic has replies
+	$last_reply = bbp_get_topic_last_active_id( $topic_id );
+	if ( !empty( $last_reply ) ) :
+		$last_updated_by = bbp_get_author_link( array( 'post_id' => $last_reply, 'type' => 'name' ) );
+		$retstr = sprintf( 'This topic by %1$s contains %2$s by %3$s, and was last updated by %4$s, %5$s.', $author, $reply_count, $voice_count, $last_updated_by, $time_since );
+
+	// Topic has no replies
+	elseif ( ! empty( $voice_count ) && ! empty( $reply_count ) ) :
+		$retstr = sprintf( 'This topic contains %1$s by %2$s.', $reply_count, $voice_count );
+
+	// Topic has no replies and no voices
+	elseif ( empty( $voice_count ) && empty( $reply_count ) ) :
+		$retstr = sprintf( 'This topic has no replies yet.' );
+	endif;
+
+	// Combine the elements together
+	$retstr = $args['before'] . $avatar . '<span>' . $retstr . '</span>' . $args['after'];
+
+	// Return filtered result
+	if ( true == $args['echo'] )
+		echo $retstr;
+	else
+		return $retstr;
+}
+
+
 /**
  * Output custom bbPress admin links
  * @version 2.0

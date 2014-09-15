@@ -25,6 +25,12 @@
 				<?php apoc_single_post(); ?>
 			<?php endwhile; endif; ?>
 		</div>
+
+		<nav class="pagination">
+			<div class="pagination-links">
+				<?php echo paginate_links( array('prev_text' => '&larr;', 'next_text' => '&rarr;') ); ?>
+			</div>
+		</nav>
 	</div>
 
 	<?php apoc_primary_sidebar(); ?>

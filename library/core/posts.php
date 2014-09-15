@@ -56,11 +56,11 @@ function apoc_byline() {
 		if ( is_single() ) :
 			$avatar		= new Apoc_Avatar( array( 'user_id' => $author_ID , 'type' => 'thumb' , 'size' => 50 ) );
 			$category = get_the_term_list( $post_ID, 'category', ' in ' , ', ', '' );
-			$description = $avatar->avatar . 'By ' . $author . ' on ' . $published . $category . $edit_link;			
+			$description = $avatar->avatar . '<span>By ' . $author . ' on ' . $published . $category . $edit_link . '</span>';			
 		
 		// Otherwise, a simple one-liner
 		else : 
-			$description = 'By ' . $author . ' on ' . $published . $edit_link;
+			$description = '<span>By ' . $author . ' on ' . $published . $edit_link . '</span>';
 
 		endif;
 			

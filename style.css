@@ -510,6 +510,7 @@ div#footer-container {
 	width: 100%;
 	float: left;
 	height: 200px;
+	margin: 0.5em 0 0;
 	position: relative;
 	background: rgba(17,17,17,0.5);
 	}
@@ -643,25 +644,31 @@ div#posts {
 
 .post-byline {
 	width: 100%;
+	height: 24px;
 	position: absolute;
 	bottom: 0.5em;
-	line-height: 24px;
 	margin: 0;
 	padding: 0 1em 0 70px;
-	font-size: 0.75em;
-	font-style: italic;
 	background: rgba(17,17,17,0.9);
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	box-shadow: 0 0 5px #000;
+	font-size: 0.75em;
+	font-style: italic;
 	}
+.post-byline > span {
+	display: block;
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+}
 .post-byline > img.avatar {
 	position: absolute;
 	top: -12px;
 	left: 1em;
 	box-shadow: 0 0 5px #000;
 	}
-.post-byline > .post-edit-link {
+.post-byline .post-edit-link {
 	float: right;
 	font-style: normal;
 	}
@@ -1647,7 +1654,8 @@ li.reply {
 	}
 .reply-admin-links .reply-permalink { 
 	float: right;
-	color: #A29C8E; 
+	color: #A29C8E;
+	line-height: 24px;
 	margin-left: 3px;
 	}
 a.bbp-topic-super-sticky-link { margin-left: -4px; }

@@ -9,9 +9,13 @@
 
 <header class="forum-header">
 	<div class="forum-content">
+	<?php if ( bbp_is_topic_archive() ) : ?>
+		<h2>Recent Topics</h2>
+	<?php else : ?>
 		<h2><?php bbp_forum_title(); ?></h2>
 		<a class="button scroll-respond" href="#respond" title="Create new topic in <?php bbp_forum_title(); ?>"><i class="fa fa-pencil"></i>New Topic</a>
 		<?php bbp_forum_subscription_link(); ?>
+	<?php endif; ?>
 	</div>
 	<div class="forum-count">Posts</div>
 	<div class="forum-freshness">Latest Post</div>

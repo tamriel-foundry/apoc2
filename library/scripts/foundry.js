@@ -88,7 +88,7 @@ if ( $( '.single-post ').length > 0 ) {
 
 
 /*! Collapsing Respond Form */
-$('#respond .forum-header .forum-content').append( '<a class="forum-collapse collapsed" href="#"><i class="fa fa-angle-double-left"></i></a>' ).parent().next().hide();
+$('#bbpress #respond .forum-header .forum-content').append( '<a class="forum-collapse collapsed" href="#"><i class="fa fa-angle-double-left"></i></a>' ).parent().next().hide();
 $('#respond .forum-header .forum-content h2').click(function(event) {
 	$('#respond .forum-header .forum-collapse').trigger("click");
 });

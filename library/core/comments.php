@@ -87,9 +87,6 @@ function apoc_comments_template( $comment , $args , $depth ) {
 	include( THEME_DIR . '/library/templates/comment.php' );
 }
 
-
-
-
 /**
  * Quote button for comments and replies
  * @version 2.0
@@ -121,4 +118,12 @@ function apoc_quote_button( $context = 'comment' , $post_id = 0 ) {
 	$quoteButton .= '<i class="fa fa-comment"></i>Quote</a>';
     
 	return $quoteButton;
+}
+
+
+
+/* Temporary spoof */
+function is_comment_edit() {
+
+	return false;
 }

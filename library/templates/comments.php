@@ -3,7 +3,7 @@
  * Apocrypha Theme Comments Template
  * Andrew Clayton
  * Version 2.0
- * 7-22-2014
+ * 9-19-2014
  */
 
 // Exit if accessed directly
@@ -35,6 +35,6 @@ if ( !defined( 'ABSPATH' ) ) exit; ?>
 	</nav>
 	<?php endif; ?>
 
-</div>
+</div><!-- #comments -->
 
-
+<?php apoc_comment_form(); ?>

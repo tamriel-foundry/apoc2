@@ -142,7 +142,8 @@ class Apoc_Recent_Discussion {
 						break;
 
 					case 'new_blog_comment' :
-						$link =  '<a href="' . get_comment_link( $post_id ) . '" title="Read reply" target="_blank">' . get_the_title( $post_id ) . '</a>';
+						$comment = get_comment( $post_id );
+						$link =  '<a href="' . get_comment_link( $post_id ) . '" title="Read reply" target="_blank">' . get_the_title( $comment->comment_post_ID ) . '</a>';
 						$verb = 'commented on';
 						break;
 				}

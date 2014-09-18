@@ -34,5 +34,10 @@ function apoc_single_post() {
 	include( THEME_DIR . '/library/templates/single-post.php' );
 }
 
+// Comment Respond Form
+function apoc_comment_form() {
+	include( THEME_DIR . '/library/templates/respond.php' );
+}
+
 
 ?>

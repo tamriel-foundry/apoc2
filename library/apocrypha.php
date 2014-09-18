@@ -103,15 +103,19 @@ class Apocrypha {
 
 		
 		// Extensions
-		if ( class_exists( 'bbPress' ) ) require( trailingslashit( THEME_DIR ) . 'library/bbpress/bbpress.php' );
-		if ( class_exists( 'BuddyPress' ) )	require( trailingslashit( THEME_DIR ) . 'library/buddypress/buddypress.php' );
 		require( trailingslashit( THEME_DIR ) . 'library/extensions/thumbnail.php' );
+		if ( class_exists( 'bbPress' ) ) 
+			require( trailingslashit( THEME_DIR ) . 'library/bbpress/bbpress.php' );
+		if ( class_exists( 'BuddyPress' ) )	
+			require( trailingslashit( THEME_DIR ) . 'library/buddypress/buddypress.php' );
+
 		
 		// Plugin Supports
 		
 		
 		// Admin Functions
-
+		if ( is_admin() ) 
+			require( trailingslashit( THEME_DIR ) . 'library/admin/posts.php' );
 	}
 	
 	

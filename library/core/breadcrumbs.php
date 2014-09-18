@@ -115,11 +115,68 @@ class Apoc_Breadcrumbs {
 	function wp_crumbs() {
 	
 		// Setup empty trail
-		$trail 	= array();
+		$trail 	= array();	
 		
-		// Temporary placeholder
-		$trail[] = 'WordPress';	
-		
+		// Singular Views
+		if ( is_singular() ) :
+			switch( get_post_type() ) {
+			
+				// Single Posts 
+				case 'post' :
+					
+					// Is the post in a category?
+					$categories = get_the_category();
+					if ( $categories ) {
+
+						// Start with the first category
+						$term = $categories[0];
+				
+						// If the category has a parent, add it to the trail. 
+						if ( 0 != $term->parent ) 
+							$trail = array_merge( $trail, $this->parent_crumbs( $term->parent, 'category' ) );
+
+						// Add the category archive link to the trail. 
+						$trail[] = '<a href="' . get_term_link( $term ) . '" title="' . esc_attr( $term->name ) . '">' . $term->name . '</a>';
+					}
+
+					// Does the post have an ancestor?
+					if ( wp_get_post_parent_id( get_the_ID() ) ) 
+						$trail = array_merge( $trail, $this->parent_crumbs( wp_get_post_parent_id( get_the_ID() ) ) );
+
+					// Editing a comment on this post
+					if ( is_comment_edit() ) :
+						$trail[] = '<a href="' . get_permalink() . '" title="Return to article">' . get_the_title() . '</a>';
+						$trail[] = 'Edit Comment';	
+				
+					// Reading the post
+					else :
+						$trail[] = get_the_title();
+					endif; 
+				break;
+
+
+				// Pages
+				case 'page' :
+					
+					// Does the page have an ancestor?
+					if ( wp_get_post_parent_id( get_the_ID() )  ) 
+						$trail = array_merge( $trail, $this->parent_crumbs( wp_get_post_parent_id( get_the_ID() ) ) );
+					
+					// Otherwise, viewing the page
+					$trail[] = get_the_title();
+				break;
+
+				case 'event' :
+					$trail[] = 'Event';
+					$trail[] = get_the_title();
+				break;
+			}
+
+		// Page Not Found
+		elseif ( is_404() ) : 
+			$trail[] = '404 Page Not Found';		
+		endif;
+
 		// Return the items
 		return $trail;
 	}

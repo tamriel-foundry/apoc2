@@ -278,7 +278,7 @@ function apoc_reply_admin_links( $reply_id ) {
 	
 	// Add common quote and reply links
 	$links['quote'] 		= apoc_quote_button( 'reply' , $reply_id );
-	$links['reply']			= '<a class="reply-link button button-dark" href="#new-post" title="Quick Reply"><i class="fa fa-reply"></i>Reply</a>';
+	$links['reply']			= '<a class="scroll-respond button button-dark" href="#new-post" title="Quick Reply"><i class="fa fa-reply"></i>Reply</a>';
 	
 	// Topic admin links
 	if( bbp_is_topic( $reply_id ) ) :

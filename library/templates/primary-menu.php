@@ -79,19 +79,19 @@
 						</ul>
 					</div>
 
-
-					<?php if ( is_user_logged_in() ) : ?>
 					<div class="col1">
 						<h3 class="double-border">Your Account</h3>
-						<ul class="submenu">						
+						<ul class="submenu">	
+						<?php if ( is_user_logged_in() ) : ?>					
 							<li><a href="<?php echo bp_loggedin_user_link(); ?>">Your Profile</a></li>
 							<li><a href="<?php echo bp_loggedin_user_link() . 'profile/edit/' ?>">Edit Profile</a></li>
 							<li><a href="<?php echo bp_loggedin_user_link() . 'messages/' ?>">Private Messages</a></li>
 							<li><a href="<?php echo bp_loggedin_user_link() . 'settings/' ?>">Account Settings</a></li>
+						<?php else : ?>
+							<li><a href="<?php echo trailingslashit(SITEURL) . 'register'; ?>">Register Account</a></li>
+						<?php endif; ?>
 						</ul>
 					</div>
-					<?php endif; ?>
-
 				</div>
 			</div>	
 		</li>
@@ -102,8 +102,8 @@
 				<div class="dropdown-content">
 					<div class="col1">
 						<ul class="submenu noheader">
-							<li><a href="<?php echo SITEURL . '/development-faq/' ?>">Development Timeline</a></li>
 							<li><a href="<?php echo SITEURL . '/map/' ?>">Interactive Map</a></li>
+							<li><a href="<?php echo SITEURL . '/development-faq/' ?>">Development Timeline</a></li>
 							<li><a href="<?php echo SITEURL . '/ftc/' ?>">Foundry Tactical Combat</a></li>
 						</ul>
 					</div>

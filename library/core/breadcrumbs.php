@@ -225,7 +225,7 @@ class Apoc_Breadcrumbs {
 		// Split, merge, or edit topic
 		elseif ( bbp_is_topic_split() || bbp_is_topic_merge() || bbp_is_topic_edit() ) :
 			$topic_id = get_queried_object_id();
-			$trail = array_merge( $trail, $this->parent_crumbs( bbp_get_topic_forum_id( $topic_id ) ) );
+			$trail = array_merge( $trail, $this->parent_crumbs( $topic_id ) );
 		
 			// Tag the specific task
 			if ( bbp_is_topic_split() ) :		$trail[] = 'Split Topic';

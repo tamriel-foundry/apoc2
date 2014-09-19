@@ -138,6 +138,13 @@ class Apoc_Context {
 		elseif ( is_archive() ) {
 			
 		}
+
+		// 404
+		elseif ( is_404() ) {
+			$classes[] = 'page';
+			$title = "Error - Page Not Found";
+			$desc = "Sorry, but this page does not exist, or is not accessible at this time.";
+		}
 		
 		// Is user not logged in?
 		$classes[]	= ( 0 == get_current_user_id() ) ? 'logged-out' : '';		

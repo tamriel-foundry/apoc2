@@ -95,7 +95,7 @@
 				<div class="form-left">				
 					<input name="bbp_log_topic_edit" id="bbp_log_topic_edit" type="checkbox" value="1" <?php bbp_form_topic_log_edit(); ?> tabindex="<?php bbp_tab_index(); ?>" />
 					<label for="bbp_log_topic_edit">Track Revision?</label>
-				</li>
+				</div>
 				<?php endif; ?>
 				
 				

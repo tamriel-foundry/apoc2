@@ -72,6 +72,7 @@ class Apocrypha {
 		define( 'SITEURL' 			, get_home_url() );
 		define( 'THEME_DIR' 		, get_template_directory() );
 		define( 'THEME_URI' 		, get_template_directory_uri() );
+		define( 'LIB_DIR' 			, trailingslashit( THEME_DIR ) . 'library/' );
 		
 		// Apocrypha theme supports
 		add_theme_support( 'html5' );
@@ -92,30 +93,29 @@ class Apocrypha {
 	private function includes() {
 
 		// Core Functions
-		require( trailingslashit( THEME_DIR ) . 'library/core/ajax.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/breadcrumbs.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/core.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/comments.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/context.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/posts.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/users.php' );
-		require( trailingslashit( THEME_DIR ) . 'library/core/widgets.php' );
+		require( LIB_DIR . 'core/ajax.php' );
+		require( LIB_DIR . 'core/breadcrumbs.php' );
+		require( LIB_DIR . 'core/core.php' );
+		require( LIB_DIR . 'core/comments.php' );
+		require( LIB_DIR . 'core/context.php' );
+		require( LIB_DIR . 'core/posts.php' );
+		require( LIB_DIR . 'core/users.php' );
+		require( LIB_DIR . 'core/widgets.php' );
 
 		
 		// Extensions
-		require( trailingslashit( THEME_DIR ) . 'library/extensions/thumbnail.php' );
-		if ( class_exists( 'bbPress' ) ) 
-			require( trailingslashit( THEME_DIR ) . 'library/bbpress/bbpress.php' );
-		if ( class_exists( 'BuddyPress' ) )	
-			require( trailingslashit( THEME_DIR ) . 'library/buddypress/buddypress.php' );
-
+		require( LIB_DIR . 'extensions/thumbnail.php' );
+		require( LIB_DIR . 'map/map.php' );
 		
 		// Plugin Supports
-		
+		if ( class_exists( 'bbPress' ) ) 
+			require( LIB_DIR . 'bbpress/bbpress.php' );
+		if ( class_exists( 'BuddyPress' ) )	
+			require( LIB_DIR . 'buddypress/buddypress.php' );		
 		
 		// Admin Functions
 		if ( is_admin() ) 
-			require( trailingslashit( THEME_DIR ) . 'library/admin/posts.php' );
+			require( LIB_DIR . 'admin/posts.php' );
 	}
 	
 	

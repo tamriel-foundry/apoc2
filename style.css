@@ -36,6 +36,7 @@
 6.0 - Posts
 	6.1 - Single Posts
 	6.2 - Pages
+	6.X - 404
 7.0 - Comments
 8.0 - bbPress
 	8.1 - Forum Headers
@@ -257,7 +258,7 @@ input[type=url],
 input[type=file],
 input[type=search],
 select {
-	height: 1.75em;
+	height: 2em;
 	line-height: 1.75em;
 	margin: 3px 5px;
 	padding: 0 4px;
@@ -267,6 +268,7 @@ select {
 	box-shadow: 0 0 2px #000;
 	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
 	color: #000;
+	vertical-align: middle;
 	}
 
 input[type=text]:focus,
@@ -278,24 +280,30 @@ input[type=search]:focus {
 	}
 
 /* Checkboxes and Radios */
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
 	height: 16px;
 	width: 16px;
-	margin: 7px 5px;
-	display: none;
+	opacity: 0;
+	cursor: pointer;
+	position: relative;
+	z-index: 100;
+	vertical-align: middle;
 	}
 input[type="checkbox"] + label {
 	display: inline-block;
+	cursor: pointer;
 	}
 	
 input[type="checkbox"] + label:before {
 	width: 16px;
 	display: inline-block;
 	position: relative;
+	margin-left: -8px;
+	left: -8px;
 	top: 2px;
-	font-family: FontAwesome;
-	font-size: 16px;
-	padding-right: 1px;	
+	font-family: 'FontAwesome';
+	font-size: 20px;
 	}
 	
 input[type=radio] + label:before { 
@@ -312,6 +320,11 @@ input[type="checkbox"]:checked + label:before {
 	content: "\f046"; 
 	color: #FFB14C;
 	}
+ul.checkbox-list {
+	margin: 0;
+	list-style: none;
+}
+ul.checkbox-list > li { position: relative; }
 
 /* Placeholder Values */
 ::-webkit-input-placeholder { color: #666; }
@@ -367,7 +380,7 @@ a.button-dark,
 	line-height: 22px;
 	color: #A29C8E;
 	cursor: pointer;
-}
+	}
 
 button:hover,
 a.button:hover,
@@ -378,11 +391,7 @@ a.button:hover,
 	box-shadow: 0 0 6px #c60;
 	}
 
-button[type=submit] {
-	height: 30px;
-	line-height: 28px;
-	font-size: 1em;
-	}
+button[type=submit] { font-size: 1em; }
 
 
 
@@ -1074,7 +1083,8 @@ form#top-search-form {
 
 form#top-login-form {
 	width: 100%;
-	max-width: 600px;
+	max-width: 620px;
+	padding: 3px 0;
 	float: left;
 	}
 .logged-in form#top-login-form { max-width: 300px;}
@@ -1082,52 +1092,58 @@ form#top-login-form {
 form#top-search-form {
 	width: 180px;
 	float: right;
+	padding: 3px 0;
 	text-align: right;
 	}
 
 /* Login Form */
-form#top-login-form > * { float: left; }
+form#top-login-form fieldset > * { float: left; }
 
 input#username,
 input#password {
 	width: 150px;
-	margin: 4px 5px 0 0;
+	height: 24px;
+	margin: 0 3px 0 0;
 	}
 input#username + label,
 input#password + label {
 	position: relative;
-	top: 2px;
+	top: 4px;
 	right: 24px;
 	margin-right: -24px;
 	font-size: 14px;
+	line-height: 14px;
 	color: #000;
 	}
 
+input#rememberme { top: 4px; }
 input#rememberme + label {
-	margin: 0 5px 0 0;
-	font-size: 0.75em;
-	line-height: 28px;
+	margin: 0 3px;
+	font-size: 10px;
+	line-height: 18px;
+	}
+input#rememberme + label:before {
+	top: 4px;
+	left: -2px;
+	margin-left: -16px;
 	}
 
 button#login-submit,
-a.admin-bar-button {
-	margin: 3px 3px 0 0;
-	}
+a.admin-bar-button { margin: 0 3px 0 0;	}
 
 /* Logged-in Users */
-#top-login-form > a.member-avatar {
-	margin: 3px 0;
-	}
 span#user-welcome {
 	margin: 0 5px;
-	line-height: 30px;
+	line-height: 24px;
 	}
 
 /* Search Form */
 input#search {
 	width: 100%;
+	float: left;
 	padding-right: 24px;
-	margin: 4px 0 0;
+	height: 24px;
+	margin: 0;
 	}
 
 input#search + label {
@@ -1487,6 +1503,17 @@ a.post-thumbnail {
 ----------------------------------------------*/
 .page .post-byline { padding-left: 1em; }
 
+
+/*---------------------------------------------
+	6.X - Error 404
+----------------------------------------------*/
+#search-404 { text-align: center; }
+#search-404 input[type=text] { width: 75%; }
+#search-404 button[type=submit] { top: 2px; }
+
+
+
+
 /*--------------------------------------------------------------
 	7.0 - COMMENTS
 --------------------------------------------------------------*/
@@ -1561,6 +1588,12 @@ fieldset.reply-form {
 	padding: 0 1em;
 	}
 
+.reply-form label {	
+	display: inline-block;
+	min-width: 100px;	
+	}
+
+	
 /*--------------------------------------------------------------
 	8.0 - BBPRESS
 --------------------------------------------------------------*/
@@ -1927,13 +1960,13 @@ div.wp-editor-container .mce-statusbar {
 	border: 1px solid #222;
 	color: #111;
 	}
-.html-active .switch-html, .tmce-active .switch-tmce {
+.html-active .wp-editor-tabs .switch-html, .tmce-active .wp-editor-tabs .switch-tmce {
 	background: #dddddd;
 	color: #111;
 	}
 	
 /* Dropdown Panels */
-.mce-container.mce-panel.mce-menu { 
+.wp-editor-tabs .mce-container.mce-panel.mce-menu { 
 	background: #c1bcae;
 	border: 1px solid #333; 
 	}

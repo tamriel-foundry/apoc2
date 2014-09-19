@@ -113,7 +113,7 @@ function apoc_quote_button( $context = 'comment' , $post_id = 0 ) {
 	}
 
     // Create quote link using data attributes to pass parameters
-	$quoteButton = '<a class="quote-link button" href="#respond" title="Click here to quote selected text" ';
+	$quoteButton = '<a class="quote-link scroll-respond button" href="#respond" title="Click here to quote selected text" ';
 	$quoteButton .= 'data-context="' . $context . '" data-id="'.$id.'" data-author="'.$author_name.'" data-date="'.$post_date.'">';
 	$quoteButton .= '<i class="fa fa-comment"></i>Quote</a>';
     

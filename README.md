@@ -2,34 +2,36 @@ apoc2
 =====
 
 The new Tamriel Foundry apocrypha theme!
+Apocrypha2 Theme File Index 
 
-Apocrypha2 Theme File Index 					Progress
-
-404.php			
+```
+FILE 		| PROGRESS
+----------- | -----------
+404.php	| done
 archive-bestof.php
-archive-forum.php								done
-archive-topic.php								done
+archive-forum.php | done
+archive-topic.php | done
 archive.php
 author.php
 calendar.php
 category.php
-footer.php										in-progress
-functions.php									in-progress
-header.php										done
-home.php										done
-page.php										done
+footer.php | in-progress
+functions.php | in-progress
+header.php | done
+home.php | done
+page.php | done
 screenshot.jpg
 search.php
-single-forum.php								done
+single-forum.php | done
 single-reply-edit.php
 single-reply-move.php
-single-topic-edit.php
+single-topic-edit.php | done
 single-topic-merge.php
 single-topic-split.php
-single-topic.php								done
+single-topic.php | done
 singular-event.php
-singular.php									deprecated
-style.css 										in-progress
+singular.php | done (single-page.php)
+style.css | in-progress
 
 	activity/
 		activity-loop.php
@@ -39,18 +41,18 @@ style.css 										in-progress
 		post-form.php
 
 	bbpress/
-		content-single-forum.php				done
-		content-single-topic.php				done
+		content-single-forum.php | done
+		content-single-topic.php | done
 		form-reply-move.php
-		form-reply.php							done
+		form-reply.php | done
 		form-topic-merge.php
 		form-topic-split.php
-		form-topic.php							done
-		loop-replies.php						done
-		loop-single-forum.php					done
-		loop-single-reply.php					done
-		loop-single-topic.php					done
-		loop-topics.php							done
+		form-topic.php | done
+		loop-replies.php | done
+		loop-single-forum.php | done
+		loop-single-reply.php | done
+		loop-single-topic.php | done
+		loop-topics.php | done
 		user-favorites.php
 		user-replies-created.php
 		user-subscriptions.php
@@ -90,65 +92,65 @@ style.css 										in-progress
 
 	library/
 		ajax.php
-		apocrypha.php							in-progress
+		apocrypha.php | in-progress
 
 		admin/
-			ajax.php							in-progress
-			postmeta.php						done
+			ajax.php | in-progress
+			postmeta.php | done
 		
 		css/
-			editor-buttons.css 					done
-			editor-content.css 					done
+			editor-buttons.css  | done
+			editor-content.css  | done
 			entropy-rising.css
 			login-style.css
-			map-style.css
+			map-style.css | done	
 
 		extensions/
-			bbpress.php 						in-progress
-			breadcrumbs.php 					in-progress
-			buddypress.php						in-progress
+			bbpress.php | in-progress
+			breadcrumbs.php | in-progress
+			buddypress.php | in-progress
 			events.php
-			map.php
+			map.php | done
 			search.php
 			shortcodes.php
 			slides.php
-			thumbnail.php 						done
-			widgets.php 						done
+			thumbnail.php  | done
+			widgets.php  | done
 
 		functions/
-			comments.php 						in-progress
-			context.php 						in-progress
-			core.php 							done
-			login.php 							deprecated
+			comments.php | in-progress
+			context.php | in-progress
+			core.php  | done
+			login.php | deprecated
 			pagination.php 						
-			posts.php							done
+			posts.php | done
 			seo.php
-			users.php							in-progress
+			users.php | in-progress
 			
 		js/	
 			buddypress.js
 			colorbox.min.js
 			contactform.js
 			flexslider.min.js
-			foundry.js							in-progress
+			foundry.js | in-progress
 			ga.js
-			map-control.js
+			map-control.js | done
 			qc.js
 		
 		templates/
-			admin-bar.php						done
+			admin-bar.php | done
 			admin-notifications.php
 			adv-search.php
 			comment-edit.php
-			comment.php							done
-			comments.php						done
+			comment.php | done
+			comments.php | done
 			loop-single-event.php
 			loop-single-post.php
-			map.php
-			menu-primary.php					done
-			respond.php							done
+			map.php | done
+			menu-primary.php | done
+			respond.php | done
 			searchform.php
-			sidebar-primary.php					done
+			sidebar-primary.php | done
 			slideshow.php
 	
 	members/	
@@ -195,4 +197,5 @@ style.css 										in-progress
 
 	registration/
 		activate.php
-		register.php							in-progress
+		register.php | in-progress
+```

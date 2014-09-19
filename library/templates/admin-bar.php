@@ -23,9 +23,11 @@ $search		= apoc()->search;
 	<form name="top-login-form" id="top-login-form" action="<?php echo SITEURL . '/wp-login.php'; ?>" method="post">			
 		
 		<?php if ( $logged_in ) : ?>
+		<fieldset>	
 			<?php echo apoc_get_avatar( array( 'user_id' => $user_id , 'size' => 24 , 'link' => true ) ); ?>
 			<span id="user-welcome">Welcome back, <?php echo $user->display_name; ?>.</span>
 			<a id="login-logout" class="admin-bar-button button" href="<?php echo wp_logout_url( $url ); ?>" title="Log out of this account."><i class="fa fa-lock"></i>Log Out</a>
+		</fieldset>
 
 		<?php else : ?>
 		<fieldset>	

@@ -1,0 +1,63 @@
+
+/* 	----------------------------------------------
+	Tamriel Foundry Interactive Map  Stylesheet
+	------------------------------------------- */
+div#map-canvas {
+	flex: 3;
+	max-width: 1200px; 
+	height: 750px; 
+	border: 2px solid #000;
+	border-radius: 3px;
+	box-shadow: 0 0 10px #000;
+	}
+div#map-canvas img { max-width: inherit; }
+
+div#map-sidebar {
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	}
+	
+	
+/* Markers */
+div.marker-window {
+	color: #000;
+	}
+h3.marker-title {
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	text-shadow: none;
+	font-weight: bold;
+	}
+	
+/* Form */
+form#map-controls {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	margin: 1em 0;
+	}
+
+#map-controls > fieldset {
+	flex: 1;
+	margin: 0 0.5em;
+	min-width: 200px;
+	}
+
+#map-controls h2 {
+	margin: 0 0 0.25em;
+	padding: 0 0.5em 0.25em;
+	}
+
+select#zone-select {
+	width: 90%;
+	height: 2em;
+	font-size: 1.125em;
+	}
+
+/* Map Markers */
+h3.marker-title { 
+	margin: 0; 
+	} 
+p.marker-content { 
+	margin: 0.5em 0; 
+	}

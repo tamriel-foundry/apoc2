@@ -188,6 +188,24 @@ function apoc_loop_subforums() {
 }
 
 
+/*---------------------------------------------
+3.0 - SINGLE TOPICS
+----------------------------------------------*/
+function apoc_topic_header_class( $topic_id = 0 ) {
+	$topic_id = bbp_get_topic_id( $topic_id );
+	
+	// Generate some classes
+	$classes = array();
+	$classes[] = 'page-header-' . rand(1,6);
+	$classes[] = bbp_is_topic_sticky( $topic_id, false ) ? 'sticky'       : '';
+	$classes[] = bbp_is_topic_super_sticky( $topic_id  ) ? 'super-sticky' : '';
+	$classes[] = 'status-' . get_post_status( $topic_id );
+	
+	// Output it
+	echo join( ' ', $classes );
+}
+
+
 /* 
  * Display a custom freshness block for subforums
  * @version 2.0
@@ -276,7 +294,7 @@ function apoc_reply_admin_links( $reply_id ) {
 								'id'			=> $reply_id,
 								'stick_text' 	=> '<i class="fa fa-thumb-tack"></i>Stick',
 								'unstick_text' 	=> '<i class="fa fa-level-down"></i>Unstick',
-								'super_text' 	=> '<i class="fa fa-bullhorn"></i>Notice', ) );
+								'super_text' 	=> '<i class="fa fa-paperclip"></i>Notice', ) );
 		$links['merge']		= bbp_get_topic_merge_link ( array( 'merge_text'=> '<i class="fa fa-code-fork"></i>Merge') );
 		$links['trash']		= bbp_get_topic_trash_link ( array(
 								'id'			=> $reply_id,

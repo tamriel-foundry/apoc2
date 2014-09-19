@@ -4,198 +4,190 @@ apoc2
 The new Tamriel Foundry apocrypha theme!
 Apocrypha2 Theme File Index 
 
-```
-FILE 		| PROGRESS
------------ | -----------
+ROOT THEME					| PROGRESS
+----------------------------| -----------
 404.php	| done
-archive-bestof.php
-archive-forum.php | done
-archive-topic.php | done
-archive.php
-author.php
-calendar.php
-category.php
-footer.php | in-progress
-functions.php | in-progress
-header.php | done
-home.php | done
-page.php | done
-screenshot.jpg
-search.php
-single-forum.php | done
-single-reply-edit.php
-single-reply-move.php
-single-topic-edit.php | done
-single-topic-merge.php
-single-topic-split.php
-single-topic.php | done
-singular-event.php
-singular.php | done (single-page.php)
-style.css | in-progress
+archive-bestof.php			|
+archive-forum.php			| done
+archive-topic.php			| done
+archive.php					|
+author.php					|
+calendar.php				|
+category.php				|
+footer.php					| in-progress
+functions.php				| in-progress
+header.php					| done
+home.php					| done
+page.php					| done
+screenshot.jpg				|
+search.php					|
+single-forum.php			| done
+single-reply-edit.php		|
+single-reply-move.php		|
+single-topic-edit.php		| done
+single-topic-merge.php		|
+single-topic-split.php		|
+single-topic.php			| done
+singular-event.php			|
+singular.php				| done (single-page.php)
+style.css					| in-progress
 
-	activity/
-		activity-loop.php
-		comment.php
-		entry.php
-		index.php
-		post-form.php
+ACTIVITY					| PROGRESS
+----------------------------| -----------
+activity-loop.php			|
+comment.php					|
+entry.php					|
+index.php					|
+post-form.php				|
 
-	bbpress/
-		content-single-forum.php | done
-		content-single-topic.php | done
-		form-reply-move.php
-		form-reply.php | done
-		form-topic-merge.php
-		form-topic-split.php
-		form-topic.php | done
-		loop-replies.php | done
-		loop-single-forum.php | done
-		loop-single-reply.php | done
-		loop-single-topic.php | done
-		loop-topics.php | done
-		user-favorites.php
-		user-replies-created.php
-		user-subscriptions.php
-		user-topics-created.php
+BBPRESS						| PROGRESS
+----------------------------| -----------
+content-single-forum.php	| done
+content-single-topic.php	| done
+form-reply-move.php			|
+form-reply.php				| done
+form-topic-merge.php		|
+form-topic-split.php		|
+form-topic.php				| done
+loop-replies.php			| done
+loop-single-forum.php		| done
+loop-single-reply.php		| done
+loop-single-topic.php		| done
+loop-topics.php				| done
+user-favorites.php			|
+user-replies-created.php	|
+user-subscriptions.php		|
+user-topics-created.php		|
 
-	groups/
-		create.php
-		groups-loop.php
-		index.php
-		forum/topic-edit.php
-		single/
-			activity.php
-			admin.php
-			forum.php
-			forum/merge.php
-			forum/move.php
-			forum/reply-edit.php
-			forum/single-forum.php
-			forum/split.php
-			forum/topic.php
-			front.php
-			group-header.php
-			home.php
-			members.php
-			request-membership.php
-		send-invites.php
+GROUPS						| PROGRESS
+----------------------------| -----------
+create.php					|
+groups-loop.php				|
+index.php					|
+forum/topic-edit.php		|
+single/activity.php			|
+single/admin.php			|
+single/forum.php			|
+single/forum/merge.php		|
+single/forum/move.php		|
+single/forum/reply-edit.php	|
+single/forum/single-forum.php |
+single/forum/split.php		|
+single/forum/topic.php		|
+single/front.php			|
+single/group-header.php		|
+single/home.php				|
+single/members.php			|
+single/request-membership.php |
+single/send-invites.php		|
 
-	guild/
-		application-form.php
-		guild-application.php
-		guild-header.php
-		guild-home.php
-		guild-menu.php
-		guild-post.php
-		guild-roster.php
-		guild-sidebar.php
+GUILD						| PROGRESS
+----------------------------| -----------
+application-form.php		|
+guild-application.php		|
+guild-header.php			|
+guild-home.php				|
+guild-menu.php				|
+guild-post.php				|
+guild-roster.php			|
+guild-sidebar.php			|
 
-	library/
-		ajax.php
-		apocrypha.php | in-progress
-
-		admin/
-			ajax.php | in-progress
-			postmeta.php | done
-		
-		css/
-			editor-buttons.css  | done
-			editor-content.css  | done
-			entropy-rising.css
-			login-style.css
-			map-style.css | done	
-
-		extensions/
-			bbpress.php | in-progress
-			breadcrumbs.php | in-progress
-			buddypress.php | in-progress
-			events.php
-			map.php | done
-			search.php
-			shortcodes.php
-			slides.php
-			thumbnail.php  | done
-			widgets.php  | done
-
-		functions/
-			comments.php | in-progress
-			context.php | in-progress
-			core.php  | done
-			login.php | deprecated
-			pagination.php 						
-			posts.php | done
-			seo.php
-			users.php | in-progress
-			
-		js/	
-			buddypress.js
-			colorbox.min.js
-			contactform.js
-			flexslider.min.js
-			foundry.js | in-progress
-			ga.js
-			map-control.js | done
-			qc.js
-		
-		templates/
-			admin-bar.php | done
-			admin-notifications.php
-			adv-search.php
-			comment-edit.php
-			comment.php | done
-			comments.php | done
-			loop-single-event.php
-			loop-single-post.php
-			map.php | done
-			menu-primary.php | done
-			respond.php | done
-			searchform.php
-			sidebar-primary.php | done
-			slideshow.php
+LIBRARY						| PROGRESS
+----------------------------| -----------
+ajax.php					|
+apocrypha.php				| in-progress
+admin/ajax.php				| in-progress
+admin/postmeta.php			| done
+css/editor-buttons.css 		| done
+css/editor-content.css 		| done
+css/entropy-rising.css		|
+css/login-style.css			|
+css/map-style.css			| done	
+extensions/bbpress.php		| in-progress
+extensions/breadcrumbs.php	| in-progress
+extensions/buddypress.php	| in-progress
+extensions/events.php		|
+extensions/map.php			| done
+extensions/search.php		|
+extensions/shortcodes.php	|
+extensions/slides.php		|
+extensions/thumbnail.php 	| done
+extensions/widgets.php 		| done
+functions/comments.php		| in-progress
+functions/context.php		| in-progress
+functions/core.php 			| done
+functions/login.php			| deprecated
+functions/pagination.php 	|					
+functions/posts.php			| done
+functions/seo.php			|
+functions/users.php			| in-progress
+js/buddypress.js			|
+js/colorbox.min.js			|
+js/contactform.js			|
+js/flexslider.min.js		|
+js/foundry.js				| in-progress
+js/ga.js					|
+js/map-control.js			| done
+js/qc.js					|
+templates/admin-bar.php		| done
+templates/admin-notifications.php |
+templates/adv-search.php	|
+templates/comment-edit.php	|
+templates/comment.php		| done
+templates/comments.php		| done
+templates/loop-single-event.php 	|
+templates/loop-single-post.php		|
+templates/map.php			| done
+templates/menu-primary.php	| done
+templates/respond.php		| done
+templates/searchform.php	|
+templates/sidebar-primary.php | done
+templates/slideshow.php		|
 	
-	members/	
-		index.php
-		members-loop.php
-		single/
-			activity.php
-			forums.php
-			friends.php
-			friends/requests.php
-			groups.php
-			groups/invites.php
-			home.php
-			infractions.php
-			infractions/notes.php
-			infractions/warning.php
-			member-header.php
-			messages.php
-			messages/compose.php
-			messages/messages-loop.php
-			messages/single.php
-			notifications.php
-			notifications/notifications-loop.php
-			notifications/read.php
-			notifications/unread.php
-			profile.php
-			profile/change-avatar.php
-			profile/edit.php
-			settings.php
-			settings/capabilities.php
-			settings/delete-account.php
-			settings/general.php
-			settings/notifications.php
+MEMBERS						| PROGRESS
+----------------------------| -----------
+index.php					|
+members-loop.php			|
+single/activity.php			|
+single/forums.php			|
+single/friends.php			|
+single/friends/requests.php	|
+single/groups.php			|
+single/groups/invites.php	|
+single/home.php				|
+single/infractions.php		|
+single/infractions/notes.php|
+single/infractions/warning.php |
+single/member-header.php	|
+single/messages.php			|
+single/messages/compose.php	|
+single/messages/messages-loop.php|
+single/messages/single.php	|
+single/notifications.php	|
+single/notifications/notifications-loop.php	|
+single/notifications/read.php	|
+single/notifications/unread.php	|
+single/profile.php			|
+single/profile/change-avatar.php|
+single/profile/edit.php		|
+single/settings.php			|
+single/settings/capabilities.php|
+single/settings/delete-account.php|
+single/settings/general.php	|
+single/settings/notifications.php|
 
-	pages/
-		classes/dragonknight.php
-		classes/nightblade.php
-		classes/sorcerer.php
-		classes/templar.php
-		development-faq.php
-		page-class.php
-		page-contact.php
-		page-submit-guild.php
+PAGES						| PROGRESS
+----------------------------| -----------
+classes/dragonknight.php	|
+classes/nightblade.php		|
+classes/sorcerer.php		|
+classes/templar.php			|
+development-faq.php			|
+page-class.php				|
+page-contact.php			|
+page-submit-guild.php		|
 
-	registration/
-		activate.php
-		register.php | in-progress
-```
+REGISTRATION				| PROGRESS
+----------------------------| -----------
+activate.php				|
+register.php				| in-progress

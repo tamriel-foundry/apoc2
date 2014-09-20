@@ -25,7 +25,7 @@ function apoc_comments_link() {
 	if( $count == 0 ) :
 		$link .= 'Leave a Comment';
 	elseif ( $count >= 1 ) :
-		$link .= 'Comments <span class="comments-link-count activity-count">' . $count . '</span>';
+		$link .= 'Comments: <span class="comments-link-count activity-count">' . $count . '</span>';
 	endif;
 	$link .= '</a>';
 	

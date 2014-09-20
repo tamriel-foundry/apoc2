@@ -158,7 +158,8 @@ class Apocrypha {
 		$this->title			= $context->title;
 		$this->description		= $context->description;
 		$this->url				= $context->url;
-		$this->body_class		= $context->body_class;
+		$this->classes			= $context->classes;
+		$this->crumbs			= $context->crumbs;
 		$this->page				= $context->page;
 		$this->search			= $context->search;
 	}

@@ -76,7 +76,7 @@ function interactiveMap( zone ) {
 		zoomControl: true,
 		mapTypeControl: true,
 		mapTypeControlOptions: { mapTypeIds: [ 'tamriel' , 'coldharbour' ] },
-		backgroundColor: "black",
+		backgroundColor: "#111",
 		draggableCursor: "crosshair",
 	};
 	esomap = new google.maps.Map( document.getElementById('map-canvas') , mapOptions );

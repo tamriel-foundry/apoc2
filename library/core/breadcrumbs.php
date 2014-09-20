@@ -252,8 +252,20 @@ class Apoc_Breadcrumbs {
 		// Setup empty trail
 		$trail 	= array();
 		
+			
+		// Registration
+		if ( bp_is_register_page() ) :
+			$trail[] = "User Registration";
+
+		// Activation
+		elseif ( bp_is_activation_page() ) :
+			$trail[] = "Account Activation";
+
+
 		// Temporary placeholder
-		$trail[] = 'BuddyPress';
+		else :
+			$trail[] = 'BuddyPress';
+		endif;
 		
 		// Return the items
 		return $trail;

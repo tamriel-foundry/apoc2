@@ -13,8 +13,8 @@
 		<?php apoc_breadcrumbs(); ?>
 		
 		<header class="post-header <?php apoc_post_header_class('post'); ?>">
-			<h1 class="post-title"><?php echo apoc()->title; ?></h1>
-			<p class="post-byline"><?php echo apoc()->description; ?></p>
+			<h1 class="post-title"><?php apoc_title(); ?></h1></h1>
+			<p class="post-byline"><?php apoc_description(); ?></p>		
 		</header>
 
 		<div id="map-container">

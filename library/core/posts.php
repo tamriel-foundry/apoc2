@@ -69,7 +69,6 @@ function apoc_byline() {
 		$description = get_post_meta( $post_ID , 'description' , true );
 		if ( current_user_can( 'edit_post' , $post_ID ) )
 			$description = $description . '<a class="post-edit-link" href="' . get_edit_post_link( $post_ID ) . '" title="Edit this post" target="_blank">Edit</a>';
-	
 	endif;
 	
 	// Echo the post description 

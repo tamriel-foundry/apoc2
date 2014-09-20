@@ -104,10 +104,16 @@ class Apoc_Context {
 			$title		= "BuddyPress Page";
 			$desc		= "This is a BuddyPress page.";
 			
-			// Registration and activation
-			if ( bp_is_register_page() || bp_is_activation_page() ) :
-				$title	= get_the_title();
+			// Registration
+			if ( bp_is_register_page() ) :
+				$title	= SITENAME . ' User Registration';
 				$desc 	= "Register to join the " . SITENAME . " community.";
+
+			// Activation
+			elseif ( bp_is_activation_page() ) :
+				$title	= SITENAME . ' Account Activation';
+				$desc 	= "Activate a pending " . SITENAME . " user account.";
+
 			endif;
 		}
 		

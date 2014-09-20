@@ -11,7 +11,7 @@ archive-bestof.php					|
 archive-forum.php					| done
 archive-topic.php					| done
 archive.php							|
-author.php							|
+author.php							| done
 calendar.php						|
 category.php						|
 footer.php							| in-progress

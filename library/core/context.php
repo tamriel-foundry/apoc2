@@ -142,13 +142,22 @@ class Apoc_Context {
 		
 		// Archives
 		elseif ( is_archive() ) {
+
+			// Category Archives
+			if ( is_category() ) :
+
 			
+			// Author Archive 
+			elseif ( is_author() ) :
+				$title		= 'Author Archive' . $sep . $object->display_name;
+				$desc		= 'An archive of articles written by ' . $object->display_name;
+			endif;			
 		}
 
 		// 404
 		elseif ( is_404() ) {
 			$classes[] = 'page';
-			$title = "Error - Page Not Found";
+			$title = "Error" . $sep . "Page Not Found";
 			$desc = "Sorry, but this page does not exist, or is not accessible at this time.";
 		}
 		

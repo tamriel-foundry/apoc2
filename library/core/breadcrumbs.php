@@ -116,10 +116,18 @@ class Apoc_Breadcrumbs {
 	
 		// Setup empty trail
 		$trail 	= array();	
+
+		// Get some info
+		$post		= get_queried_object();
+		$post_id	= get_queried_object_id();
+		if ( isset( $post ) ) {
+			$post_type 	= isset( $post->post_type ) ? $post->post_type : NULL;
+			$parent 	= isset( $post->post_parent ) ? absint( $post->post_parent ) : NULL;
+		}
 		
 		// Singular Views
 		if ( is_singular() ) :
-			switch( get_post_type() ) {
+			switch( $post_type ) {
 			
 				// Single Posts 
 				case 'post' :
@@ -140,7 +148,7 @@ class Apoc_Breadcrumbs {
 					}
 
 					// Does the post have an ancestor?
-					if ( wp_get_post_parent_id( get_the_ID() ) ) 
+					if ( $post->post_parent ) 
 						$trail = array_merge( $trail, $this->parent_crumbs( wp_get_post_parent_id( get_the_ID() ) ) );
 
 					// Editing a comment on this post
@@ -159,7 +167,7 @@ class Apoc_Breadcrumbs {
 				case 'page' :
 					
 					// Does the page have an ancestor?
-					if ( wp_get_post_parent_id( get_the_ID() )  ) 
+					if ( $post->post_parent ) 
 						$trail = array_merge( $trail, $this->parent_crumbs( wp_get_post_parent_id( get_the_ID() ) ) );
 					
 					// Otherwise, viewing the page
@@ -171,6 +179,27 @@ class Apoc_Breadcrumbs {
 					$trail[] = get_the_title();
 				break;
 			}
+
+		// Archive Pages
+		elseif ( is_archive() ) :
+
+			// Category Archives
+			if ( is_category() ) :
+				$trail[] = 'Category';
+
+				// If the category has a parent, add it to the trail. 
+				if ( $post->parent != 0 ) 
+					$trail = array_merge( $trail, $this->trail_parents( $post->parent ) );
+				
+				// Finish up with the term name
+				$trail[] = $post->name;
+
+			
+			// Author Archive 
+			elseif ( is_author() ) :
+				$trail[] = 'Author';
+				$trail[] = get_the_author_meta( 'display_name', get_query_var( 'author' ) );
+			endif;
 
 		// Page Not Found
 		elseif ( is_404() ) : 

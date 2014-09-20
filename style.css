@@ -33,11 +33,14 @@
 	3.7 - Pagination
 4.0 - Admin Bar
 5.0 - Primary Menu
-6.0 - Posts
+6.0 - WordPress
 	6.1 - Single Posts
 	6.2 - Pages
+	6.3 - Archives
 	6.X - 404
 7.0 - Comments
+	7.1 - Single Comments
+	7.2 - Respond Form
 8.0 - bbPress
 	8.1 - Forum Headers
 	8.2 - Forum Archive
@@ -761,6 +764,7 @@ nav#primary-menu {
 ----------------------------------------------*/
 
 div#posts {
+	width: 100%;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -772,6 +776,7 @@ div#posts {
 	float: left;
 	position: relative;
 	}
+
 .archive .post {
 	width: 49%;
 	margin: 0 0 0.5em;
@@ -1406,9 +1411,13 @@ a#footer-scroll-top > i {
 	}
 
 /*--------------------------------------------------------------
-	6.0 - POSTS
+	6.0 - WORDPRESS
 --------------------------------------------------------------*/
-/* Post Header */
+
+
+/*---------------------------------------------
+	6.1 - Posts
+----------------------------------------------*/
 .post-header {
 	width: 100%;
 	height: 100px;
@@ -1494,8 +1503,19 @@ a.comments-link { float: left; }
 a.comments-link:hover { color: inherit; }
 
 /*---------------------------------------------
-	6.1 - Archive Posts
+	6.2 - Pages
 ----------------------------------------------*/
+.page .post-byline { padding-left: 1em; }
+
+/*---------------------------------------------
+	6.3 - Archives
+----------------------------------------------*/
+header#archive-header { 
+	margin: 0 0 1em;
+	font-size: 1em; 
+	}
+header#archive-header .reply-content { padding-bottom: 0; }
+
 .archive .post-content {
 	min-height: 150px;
 	}
@@ -1536,12 +1556,6 @@ a.post-thumbnail {
 	bottom: 0;
 	margin: 0;
 	}
-
-/*---------------------------------------------
-	6.2 - Pages
-----------------------------------------------*/
-.page .post-byline { padding-left: 1em; }
-
 
 /*---------------------------------------------
 	6.X - Error 404

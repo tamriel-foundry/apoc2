@@ -34,10 +34,10 @@ style.css							| in-progress
 
 ACTIVITY							| PROGRESS
 ----------------------------------- | -----------
-activity-loop.php					|
-comment.php							|
-entry.php							|
-index.php							|
+activity-loop.php					| done
+comment.php							| 
+entry.php							| done
+index.php							| done
 post-form.php						|
 
 BBPRESS								| PROGRESS

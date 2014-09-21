@@ -81,10 +81,33 @@ class Apoc_Context {
 			$title			= "BuddyPress Page";
 			$desc			= "This is a BuddyPress page.";
 			$classes[]		= 'buddypress';
-			$crumbs[]		= 'BuddyPress Placeholder';
-			
+
+			// User Profiles
+			if ( bp_is_user() ) :
+
+			// Group Profile
+			elseif ( bp_is_group() ) :
+
+			// Directories
+			elseif ( bp_is_directory() ) :	
+				
+				// Sitewide Activity
+				if ( bp_is_activity_component() ) :
+					$title		= SITENAME . ' Sitewide Activity Feed';
+					$desc		= 'A listing of all recent activity happening throughout the ' . SITENAME . ' community.';
+					$crumbs[] 	= 'Sitewide Activity';	
+
+				// Members Directory
+				elseif ( bp_is_members_component() ) :
+					$crumbs[] 	= 'Members Directory';
+
+				// Groups Directory
+				elseif ( bp_is_groups_component() ) :
+					$crumbs[] 	= 'Guilds Directory';
+				endif;
+
 			// Registration
-			if ( bp_is_register_page() ) :
+			elseif ( bp_is_register_page() ) :
 				$title		= SITENAME . ' User Registration';
 				$desc 		= "Register to join the " . SITENAME . " community.";
 				$crumbs[] 	= "User Registration";

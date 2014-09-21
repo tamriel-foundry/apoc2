@@ -102,7 +102,6 @@ class Apocrypha {
 		require( LIB_DIR . 'core/users.php' );
 		require( LIB_DIR . 'core/widgets.php' );
 
-		
 		// Extensions
 		require( LIB_DIR . 'extensions/thumbnail.php' );
 		require( LIB_DIR . 'map/map.php' );
@@ -131,8 +130,8 @@ class Apocrypha {
 		remove_action( 'wp_head' , 'rel_canonical' );
 		remove_action( 'wp_head' , 'wp_shortlink_wp_head' );
 		
-		// Populate the theme object after template redirect
-		add_action( 'template_redirect' , array( $this , 'setup' ) , 1 );
+		// Populate the theme object before anything on the page is loaded
+		add_action( 'get_header' , array( $this , 'setup' ) , 1 );
 	}
 	
 	/*-----------------------------------------------

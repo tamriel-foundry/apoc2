@@ -94,11 +94,12 @@ class Apoc_User {
 		switch( $context ) {
 		
 			case 'directory' :
+				$block		= '<div class="directory-member-meta">' . $block . '</div>';
 				break;
 		
 			case 'reply' :
-				$block					.= '<p class="user-post-count">Total Posts: ' . $this->posts['total'] . '</p>';
-				$block					.= $this->expbar();
+				$block		.= '<p class="user-post-count">Total Posts: ' . $this->posts['total'] . '</p>';
+				$block		.= $this->expbar();
 				break;
 					
 			case 'profile' :

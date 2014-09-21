@@ -103,6 +103,7 @@ class Apocrypha {
 		require( LIB_DIR . 'core/widgets.php' );
 
 		// Extensions
+		require( LIB_DIR . 'extensions/slides.php' );
 		require( LIB_DIR . 'extensions/thumbnail.php' );
 		require( LIB_DIR . 'map/map.php' );
 		

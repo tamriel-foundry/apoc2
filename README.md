@@ -110,7 +110,7 @@ extensions/events.php				|
 extensions/map.php					| done
 extensions/search.php				|
 extensions/shortcodes.php			|
-extensions/slides.php				|
+extensions/slides.php				| done
 extensions/thumbnail.php 			| done
 extensions/widgets.php 				| done
 functions/comments.php				| in-progress
@@ -124,7 +124,7 @@ functions/users.php					| in-progress
 js/buddypress.js					|
 js/colorbox.min.js					|
 js/contactform.js					|
-js/flexslider.min.js				|
+js/flexslider.min.js				| done
 js/foundry.js						| in-progress
 js/ga.js							|
 js/map-control.js					| done
@@ -142,7 +142,7 @@ templates/menu-primary.php			| done
 templates/respond.php				| done
 templates/searchform.php			|
 templates/sidebar-primary.php 		| done
-templates/slideshow.php				|
+templates/slideshow.php				| done
 	
 MEMBERS								| PROGRESS
 ----------------------------------- | -----------

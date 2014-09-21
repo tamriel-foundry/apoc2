@@ -17,7 +17,10 @@ $user = new Apoc_User( bp_get_activity_user_id() , 'directory' , 60 );	?>
 
 	<div class="directory-content">
 
-		<header class="activity-header">			
+		<header class="activity-header">		
+
+			<?php bp_activity_action(); ?>
+
 			<?php if ( is_user_logged_in() ) : ?>
 			<div class="actions">
 				
@@ -39,8 +42,6 @@ $user = new Apoc_User( bp_get_activity_user_id() , 'directory' , 60 );	?>
 				if ( bp_activity_user_can_delete() ) bp_activity_delete_link(); ?>
 			</div>
 			<?php endif; ?>
-			
-			<?php bp_activity_action(); ?>
 		</header>
 
 		<?php if ( bp_activity_has_content() ) : ?>

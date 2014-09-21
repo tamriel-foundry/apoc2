@@ -11,9 +11,7 @@
 	<div id="content" role="main">
 
 		<div id="showcase-container">
-			<div id="showcase" class="flexslider">
-				Showcase - 512x288
-			</div>
+			<?php get_slideshow(); ?>
 			<?php apoc_recent_discussion(); ?>
 		</div>
 

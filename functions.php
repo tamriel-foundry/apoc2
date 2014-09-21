@@ -76,7 +76,7 @@ function apoc_scripts() {
 	// FlexSlider
 	if ( is_home() ) {
 		wp_register_script( 'flexslider' 	, THEME_URI.'/library/scripts/flexslider.js' , 'jquery' , $ver='0.1' , true  );
-		//wp_enqueue_script( 'flexslider' );
+		wp_enqueue_script( 'flexslider' );
 	}
 }
 

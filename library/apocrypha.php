@@ -3,7 +3,7 @@
  * Apocrypha Theme Class
  * Andrew Clayton
  * Version 2.0
- * 4-29-2014
+ * 9-20-2014
  */
  
 // Exit if accessed directly

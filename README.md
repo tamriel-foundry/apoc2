@@ -10,10 +10,10 @@ ROOT THEME							| PROGRESS
 archive-bestof.php					|
 archive-forum.php					| done
 archive-topic.php					| done
-archive.php							|
+archive.php							| deprecated
 author.php							| done
 calendar.php						|
-category.php						|
+category.php						| done
 footer.php							| in-progress
 functions.php						| in-progress
 header.php							| done
@@ -29,7 +29,7 @@ single-topic-merge.php				| done
 single-topic-split.php				| done
 single-topic.php					| done
 singular-event.php					|
-singular.php						| done (single-page.php)
+singular.php						| done
 style.css							| in-progress
 
 ACTIVITY							| PROGRESS
@@ -136,7 +136,7 @@ templates/comment-edit.php			|
 templates/comment.php				| done
 templates/comments.php				| done
 templates/loop-single-event.php 	|
-templates/loop-single-post.php		|
+templates/loop-single-post.php		| done
 templates/map.php					| done
 templates/menu-primary.php			| done
 templates/respond.php				| done

@@ -3,7 +3,7 @@
  * Apocrypha Theme Homepage Template
  * Andrew Clayton
  * Version 2.0
- * 4-29-2014
+ * 9-20-2014
  */
 ?>
 

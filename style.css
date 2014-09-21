@@ -611,6 +611,9 @@ td , th {
 	max-width: 75%;
 	padding-bottom: 0.5em;
 	}
+.instructions p:last-child,
+.instructions ul:last-child,
+.instructions ol:last-child { margin-bottom: 0; } 
 
 
 /*---------------------------------------------
@@ -1512,9 +1515,11 @@ a.comments-link:hover { color: inherit; }
 ----------------------------------------------*/
 header#archive-header { 
 	margin: 0 0 1em;
-	font-size: 1em; 
 	}
-header#archive-header .reply-content { padding-bottom: 0; }
+header#archive-header .reply-content { 
+	padding-bottom: 0; 
+	font-size: 1em; 	
+	}
 
 .archive .post-content {
 	min-height: 150px;

@@ -328,7 +328,7 @@ function apoc_description() {
 }
 
 function apoc_body_class() {
-	echo implode( ' ' , apoc()->classes );
+	echo implode( ' ' , array_unique( get_body_class( apoc()->classes ) ) );
 }
 
  

@@ -25,9 +25,15 @@
 		
 		global $wp_query;
 		if ( $wp_query->query_vars['pagename'] == 'map' ) {
+
+			// Set wp_query parameters
+			$wp_query->is_404 = false;
+			$wp_query->is_map = true;
 			
+			// Setup the map theme object
+			add_action( 'get_header', array( &$this , 'setup_map' ) , 2 );
+
 			// Grab the template
-			$this->setup_map();
 			include ( THEME_DIR . '/library/map/interactive-map.php' );
 			exit();
 		}
@@ -38,16 +44,11 @@
 	 */
 	function setup_map() {
 		
-		// Set wp_query parameters
-		global $wp_query;
-		$wp_query->is_404 = false;
-		$wp_query->is_map = true;
-		
 		// Set theme objects
 		$apoc = apoc();
-		$apoc->body_class = str_replace( 'error404' , 'singular page map' , $apoc->body_class );
-		$apoc->title = "Interactive Map of Tamriel";
-		$apoc->description = "A richly interactive map of the entirety of Tamriel which is available in The Elder Scrolls Online.";
+		$apoc->classes 		= array_merge( $apoc->classes , array( 'singular','page','map' ) );
+		$apoc->title 		= "Interactive Map of Tamriel";
+		$apoc->description 	= "A richly interactive map of the entirety of Tamriel which is available in The Elder Scrolls Online.";
 		
 		// Add custom scripts and styles
 		add_action( 'wp_enqueue_scripts' , array( $this , 'enqueue_scripts' ) );

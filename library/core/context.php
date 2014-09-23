@@ -105,6 +105,8 @@ class Apoc_Context {
 
 				// Groups Directory
 				elseif ( bp_is_groups_component() ) :
+					$title		= SITENAME . ' Guilds Directory';
+					$desc		= 'A directory listing of guilds active within in the ' . SITENAME . ' community.';
 					$crumbs[] 	= 'Guilds Directory';
 				endif;
 

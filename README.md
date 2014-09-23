@@ -62,8 +62,8 @@ user-topics-created.php				|
 GROUPS								| PROGRESS
 ----------------------------------- | -----------
 create.php							|
-groups-loop.php						|
-index.php							|
+groups-loop.php						| done
+index.php							| done
 forum/topic-edit.php				|
 single/activity.php					|
 single/admin.php					|

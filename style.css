@@ -2093,14 +2093,18 @@ ul#directory-actions {
 	padding: 0;
 	display: flex;
 	flex-flow: row wrap;
+	align-items: left;
 	list-style: none; 
 	background: rgba( 0,0,0,0.25);
 	border: 1px solid #000;
 	border-radius: 2px;
 	box-shadow: 0 0 2px #333 inset;
 	}
-
-ul#directory-actions > li {	min-width: 150px; }
+ul#directory-actions > li {	
+	flex: 1;
+	min-width: 140px; 
+	max-width: 180px;
+	}
 
 ul#directory-actions > li a {	
 	display: block;
@@ -2194,6 +2198,40 @@ div.directory-member a.member-avatar {
 
 div.directory-member-meta {	margin: 0 0 0 60px; }
 .directory-member .member-avatar > img { margin: 0; }
+
+
+
+
+/* Groups Directory */
+#groups-list div.directory-member { padding: 0 0.5em; }
+#subnav div.directory-content, #groups-list div.directory-content { flex: 3; }
+
+#groups-list img {
+	display: block;
+	box-sizing: content-box;
+	max-width: 100%;
+	max-height: 600px;
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	padding: 2px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #111;
+	background: rgba(51,51,51,0.5);
+	}
+
+#groups-list img.avatar:hover {
+box-shadow: 0 0 5px #000;
+	}
+
+.guild-description {
+	margin: 0.5em 0 0;
+	float: left;
+	font-size: 0.875em;
+	}
+
+
 
 /* Activity Entries */
 header.activity-header {

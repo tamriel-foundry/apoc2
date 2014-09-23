@@ -17,7 +17,6 @@
 			<header id="directory-header" class="post-header <?php apoc_post_header_class( 'page' ); ?>">
 				<h1 class="post-title"><?php apoc_title(); ?></h1>
 				<p class="post-byline"><?php apoc_description(); ?></p>
-				<?php wp_nonce_field( 'directory_members', '_wpnonce-member-filter' ); ?>
 			</header>
 
 			<nav id="directory-nav" class="dir-list-tabs" role="navigation">
@@ -40,6 +39,7 @@
 							<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
 							<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
 						</select>
+						<?php wp_nonce_field( 'directory_members', '_wpnonce-member-filter' ); ?>
 					</div>
 				</div>
 			</header><!-- #subnav -->

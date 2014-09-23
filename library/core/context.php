@@ -95,10 +95,12 @@ class Apoc_Context {
 				if ( bp_is_activity_component() ) :
 					$title		= SITENAME . ' Sitewide Activity Feed';
 					$desc		= 'A listing of all recent activity happening throughout the ' . SITENAME . ' community.';
-					$crumbs[] 	= 'Sitewide Activity';	
+					$crumbs[] 	= 'Sitewide Activity';
 
 				// Members Directory
 				elseif ( bp_is_members_component() ) :
+					$title		= SITENAME . ' Members Directory';
+					$desc		= 'A listing of all registered members in the ' . SITENAME . ' community.';
 					$crumbs[] 	= 'Members Directory';
 
 				// Groups Directory

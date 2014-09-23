@@ -413,6 +413,7 @@ a.button-dark,
 
 button:hover,
 a.button:hover,
+a.button-dark:hover,
 #subscription-controls a:hover,
 #subscription-toggle a:hover,
 .reply-admin-links > a:hover {
@@ -2146,10 +2147,12 @@ ul#directory-actions > li a span {
 ul.directory-list {
 	width: 100%;
 	float: left;
-	margin: 0 0 1em;
+	margin: 0;
 	padding: 0;
 	list-style: none;
+	border-bottom: 1px solid #333;
 	}
+#activity-directory ul.directory-list { border-bottom: none; }
 
 ul.directory-list > li {
 	width: 100%;
@@ -2159,7 +2162,10 @@ ul.directory-list > li {
 ul.directory-list > li + li {
 	border-top: 1px solid #333;
 	}
-ul.directory-list li:last-child { border-bottom: none; }
+ul.directory-list li.load-more { 
+	padding: 0.5em 0; 
+	border-bottom: none;
+	}
 
 
 li.directory-entry {

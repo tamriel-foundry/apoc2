@@ -83,10 +83,44 @@ class Apoc_BuddyPress {
 	 * Modify global BuddyPress filters
 	 */
 	function filters() {
-			
-		
-	
+
+		// Activity delete link
+		add_filter( 'bp_get_activity_delete_link'	, array( $this , 'activity_delete_button' ) );
+
+		// Add-Remove friend button
+		add_filter( 'bp_get_add_friend_button'		, array( $this , 'friend_button' ) );
+	}
+
+
+
+	/*------------------------------------------
+		ACTIVITY
+	------------------------------------------*/
+	function activity_delete_button( $link ) {
+		$link = str_replace( array( 'class="button' , 'Delete</a>') , array( 'class="button-dark' , '<i class="fa fa-remove"></i>Delete</a>' ) , $link ); 
+		return $link;
 	}	
+
+	/*------------------------------------------
+		MEMBERS
+	------------------------------------------*/
+	function friend_button( $button ) {
+		
+		// Remove the div wrapper
+		$button['wrapper'] = false;
+		$button['link_class'] = 'button-dark ' . $button['link_class'];
+
+		// Not friends
+		if ( in_array( $button['id'] , array( 'pending' , 'awaiting_response' , 'not_friends' ) ) )
+			$button['link_text'] = '<i class="fa fa-check"></i>' . $button['link_text'];
+
+		// Friends
+		else if ( 'is_friend' === $button['id'] )
+			$button['link_text'] = '<i class="fa fa-remove"></i>' . $button['link_text'];
+
+		// Return the button
+		return $button;
+	}
 
 
 	/*------------------------------------------
@@ -123,13 +157,6 @@ class Apoc_BuddyPress {
 			$bp->signup->errors['confirm_humanity'] = 'That is incorrect. Hover on the image if you require a hint.';
 	}
 
-
-
-
-
-
-	
-	
 }
 
 // Automatically invoke the class

@@ -146,8 +146,8 @@ templates/slideshow.php				| done
 	
 MEMBERS								| PROGRESS
 ----------------------------------- | -----------
-index.php							|
-members-loop.php					|
+index.php							| done
+members-loop.php					| done
 single/activity.php					|
 single/forums.php					|
 single/friends.php					|

@@ -1,6 +1,6 @@
 <?php 
 /**
- * Apocrypha Theme Homepage Template
+ * Apocrypha Theme Activity Directory Template
  * Andrew Clayton
  * Version 2.0
  * 9-20-2014

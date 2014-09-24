@@ -11,6 +11,8 @@
 	<div class="forum-content">
 	<?php if ( bbp_is_topic_archive() ) : ?>
 		<h2>Recent Topics</h2>
+	<?php elseif ( is_search() ) : ?>
+		<h2>Topic Title</h2>
 	<?php else : ?>
 		<h2><?php bbp_forum_title(); ?></h2>
 		<a class="button scroll-respond" href="#respond" title="Create new topic in <?php bbp_forum_title(); ?>"><i class="fa fa-pencil"></i>New Topic</a>

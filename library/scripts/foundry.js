@@ -93,6 +93,35 @@ if ( $( '.single-post ').length > 0 ) {
 	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 500 ) $( '.widget.community-stats' ).remove();
 }
 
+/*! Advanced Search */
+$( '.adv-search-fields' ).not( '.active' ).hide();
+$( 'select#search-for' ).bind( 'change', function() {
+
+	// Hide old search results
+	$( '#search-results' ).slideUp();
+	
+	// Get the new context
+	var type 		= $( 'select#search-for' ).val();
+
+	// Hide fields
+	$( '.adv-search-fields' ).removeClass( 'active' ).hide();
+
+	// Get the new fields
+	type = ( type == 'pages' ) ? 'posts' : type;
+	type = ( type == 'groups' ) ? 'members' : type;
+	var target		= $( '#adv-search-' + type );
+	
+	// Show the relevant fields
+	target.addClass( 'active' ).fadeIn();
+});
+
+
+
+
+
+
+
+
 /*! ----------------------------------------------------------
 	5.0 - BBPRESS FUNCTIONS
 ----------------------------------------------------------- */

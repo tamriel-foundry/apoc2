@@ -256,8 +256,6 @@ class Apoc_Context {
 					break;
 				}
 			
-
-
 			// Archives
 			elseif ( is_archive() ) :
 
@@ -278,7 +276,14 @@ class Apoc_Context {
 					$desc		= 'An archive of articles written by ' . $object->display_name;
 					$crumbs[] 	= 'Author';
 					$crumbs[] 	= $object->display_name;
-				endif;			
+
+				// Advanced Search Page
+				elseif ( is_search() ) : 
+					$title 		= SITENAME . " Advanced Search";
+					$desc		= "Search for a variety of content types throughout " . SITENAME;
+					$crumbs[] 	= 'Advanced Search';
+					$classes[] 	= 'page';
+				endif;
 
 			// 404
 			elseif ( is_404() ) :

@@ -39,6 +39,7 @@
 	6.3 - Archives
 	6.4 - 404
 	6.5 - Slideshow
+	6.6 - Search
 7.0 - Comments
 	7.1 - Single Comments
 	7.2 - Respond Form
@@ -268,6 +269,10 @@ fieldset {
 	margin: 0.5em 0;
 	text-align: right;
 	}
+.form-full {
+	width: 100%;
+	float: left;
+	}
 form .hidden { display: none; }
 
 /* Form Headers */
@@ -318,7 +323,6 @@ input[type="radio"] {
 	}
 input[type="checkbox"] + label,
 input[type="radio"] + label, {
-	display: inline-block;
 	cursor: pointer;
 	}
 	
@@ -372,6 +376,8 @@ textarea {
 	color: #D1CBBC;
 }
 
+/* Labels */
+form label { display: inline-block; }
 
 /* Buttons */
 button,
@@ -1686,6 +1692,18 @@ li.flex-active a.slideshow-tab-title {
 	right: 10px;
 	font-size: 0.875em;
 	}
+
+/*---------------------------------------------
+	6.6 - Advanced Search
+----------------------------------------------*/
+#advanced-search label { min-width: 120px; }
+#advanced-search select { width: 200px; }
+
+#search-results { 
+	width: 100%;
+	float: left;
+	margin: 1em 0; 
+	}
 	
 
 
@@ -1768,7 +1786,6 @@ fieldset.reply-form {
 .merge-form label, 	
 .split-form label,	
 .move-form label {	
-	display: inline-block;
 	min-width: 100px;	
 	font-size: 0.875em;
 	}
@@ -1930,8 +1947,8 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 	flex: 7;
 	}
 
-.topic-archive .forum-freshness,
-.single-forum .forum-freshness {
+.single-forum .forum-freshness,
+.archive .forum-freshness {
 	flex: 2;
 	}
 
@@ -2287,7 +2304,6 @@ span.activity-quote-mention {
 	margin: 0.5em 0;
 }
 #registration-basic-details label {
-	display: inline-block;
 	min-width: 250px;
 }
 

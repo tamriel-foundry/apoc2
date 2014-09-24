@@ -56,7 +56,7 @@ class Apoc_User {
 		$this->faction	= isset( $meta['faction'] ) 			? $meta['faction'] : NULL;
 		$this->race		= isset( $meta['race'] ) 				? $meta['race'] : NULL;
 		$this->class	= isset( $meta['playerclass'] ) 		? $meta['playerclass'] : NULL;
-		$this->posts	= isset( $meta['post_count'] ) 			? maybe_unserialize( $meta['post_count'] ) : array();
+		$this->posts	= isset( $meta['post_count'] ) 			? maybe_unserialize( $meta['post_count'] ) : array( 'total' => 0 );
 		$this->guild	= isset( $meta['guild'] ) 				? $meta['guild'] : NULL ;
 		$this->bio		= isset( $meta['description'] ) 		? do_shortcode( $meta['description'] ) : NULL;
 		$this->sig		= isset( $meta['signature'] ) 			? $meta['signature'] : NULL;

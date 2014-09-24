@@ -53,9 +53,9 @@ $search		= apoc()->search;
 	</form>
 
 	
-	<form name="top-search-form" id="top-search-form" "<?php echo SITEURL . '/search/'; ?>" method="post">	
+	<form name="top-search-form" id="top-search-form" "<?php echo SITEURL . '/advsearch/'; ?>" method="post">	
 		<fieldset>
-			<input type="text" name="search" id="search" value="<?php echo $search; ?>" placeholder="Search Articles" />
+			<input type="text" name="s" id="search" value="<?php echo $search; ?>" placeholder="Search Articles" />
 			<label for="search"><i class="fa fa-search"></i></label>
 				
 			<input type="hidden" name="type" value="posts" />

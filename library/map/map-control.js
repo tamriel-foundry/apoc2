@@ -6,8 +6,13 @@ var $ 				= jQuery;
 var esomap;
 
 // Locations
-var siteurl			= "http://tamrielfoundry.com/";
-var assets			= ( "localhost" == window.location.host ) ? "http://localhost/eso-map/" : "http://tamrielfoundry.com/esomap/";
+if ( "localhost" == window.location.host ) {
+	var siteurl			= "http://localhost/tamrielfoundry/";
+	var assets			= "http://localhost/tamrielfoundry/wp-content/themes/apoc2/library/map/";
+} else {
+	var siteurl			= "http://tamrielfoundry.com/";
+	var assets			= "http://tamrielfoundry.com/wp-content/themes/apoc2/library/map/";
+}
 
 // Markers
 var zone;
@@ -24,7 +29,7 @@ var tilever 		= 0.4;
 var infowindow;
 
 // Initialization
-$(document).ready( function(){ interactiveMap( zone ); } );
+// $(document).ready( function(){ interactiveMap( zone ); } );
 
 /* Initiate the Map API
 --------------------------------------------------*/
@@ -303,7 +308,6 @@ function get_markers() {
 	// Bail out if no zone is specified
 	if ( zone == "" )return;
 
-
 	// Change the map to Coldharbour if it is requested
 	else if ( zone == 'coldharbour' ) {
 		if ( map != 'coldharbour' ) {
@@ -319,7 +323,9 @@ function get_markers() {
 			return;
 		}
 	}
-	
+
+	// Set the zone into the URL as an argument
+	window.history.replaceState( {} , document.title, siteurl + 'map?zone=' + zone );
 
 	// Pan to the selected zone and set an appropriate zoom level
 	coords = get_zone_coords( zone );
@@ -374,13 +380,13 @@ function get_markers() {
 			
 				// Re-populate the form fields
 				var form = $('#map-controls');
-				form.find('#editid').attr( 'value' , this.id );
-				form.find('#latFld').attr( 'value' , this.position.k );
-				form.find('#lngFld').attr( 'value' , this.position.A );
-				form.find('#nameFld').attr( 'value' , title );
-				form.find('#typeFld').attr( 'value' , this.type );
+				form.find('#editid').val( this.id );
+				form.find('#latFld').val( this.getPosition().lat() );
+				form.find('#lngFld').val( this.getPosition().lng() );
+				form.find('#nameFld').val( title );
+				form.find('#typeFld').val( this.type );
 				form.find('#descFld').html( desc );
-				form.find('#context').attr( 'value' , 'edit' );
+				form.find('#context').val( 'edit' );
 			}));
 		}
 	});
@@ -392,14 +398,14 @@ function get_markers() {
 function ClearMarker() {
 
 	// Clear the form
-	var form = $('#map-controls');
-	form.find('#editid').attr( 'value' , 0 );
-	form.find('#latFld').attr( 'value' , '' );
-	form.find('#lngFld').attr( 'value' , '' );
-	form.find('#nameFld').attr( 'value' , '' );
-	form.find('#typeFld').attr( 'value' , '' );
-	form.find('#descFld').attr( 'value' , '' );
-	form.find('#context').attr( 'value' , 'new' );
+	var form = $('#marker-form');
+	form.find('#editid').val( 0 );
+	form.find('#latFld').val( '' );
+	form.find('#lngFld').val( '' );
+	form.find('#nameFld').val( '');
+	form.find('#typeFld').val( '' );
+	form.find('#descFld').html( '' );
+	form.find('#context').val( 'new' );
 	
 	// Alert it
 	alert("Form Reset!");

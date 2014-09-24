@@ -361,6 +361,17 @@ ul.checkbox-list > li { position: relative; }
 ::-moz-placeholder { color: #666; }
 :-ms-input-placeholder { color: #666; }
 
+/* Textareas */
+textarea {
+	width: 100%;
+	padding: 0.5em;
+	margin: 0.5em 0;
+	background: rgba(0,0,0,0.25);
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 14px;
+	color: #D1CBBC;
+}
+
 
 /* Buttons */
 button,

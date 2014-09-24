@@ -22,12 +22,24 @@ div#map-sidebar {
 /* Markers */
 div.marker-window {
 	color: #000;
+	width: 600px;
+	max-height: 400px;
 	}
 h3.marker-title {
 	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
 	text-shadow: none;
 	font-weight: bold;
 	}
+
+h3.marker-title { 
+	margin: 0; 
+	} 
+p.marker-content { 
+	margin: 0.5em 0; 
+	}
+
+
+
 	
 /* Form */
 form#map-controls {
@@ -61,3 +73,12 @@ h3.marker-title {
 p.marker-content { 
 	margin: 0.5em 0; 
 	}
+
+/* Marker Form */
+fieldset#marker-form select { margin-left: 1px; }
+fieldset#marker-form label {
+	display: inline-block;
+	min-width: 120px;
+}
+button#clear { float: left; }
+button#submit { float: right; }

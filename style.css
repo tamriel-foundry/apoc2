@@ -2121,7 +2121,6 @@ ul#directory-actions {
 	padding: 0;
 	display: flex;
 	flex-flow: row wrap;
-	align-items: left;
 	list-style: none; 
 	background: rgba( 0,0,0,0.25);
 	border: 1px solid #000;
@@ -2129,8 +2128,8 @@ ul#directory-actions {
 	box-shadow: 0 0 2px #333 inset;
 	}
 ul#directory-actions > li {	
-	flex: 1;
-	min-width: 140px; 
+	flex: auto;
+	min-width: 100px; 
 	max-width: 180px;
 	}
 
@@ -2292,6 +2291,75 @@ span.activity-quote-mention {
 	}
 
 
+
+/*---------------------------------------------
+	9.2 - User Profiles
+----------------------------------------------*/
+
+/* Profile Header */
+#profile-header {
+	width: 100%;
+	float: left;
+	display: flex;
+	flex-flow: row wrap;
+	}
+
+#profile-header header {	
+	flex: 4;
+	min-width: 100%;
+	margin: 0; 
+	}
+#profile-title, #profile-description { padding: 0 0 0 230px; }
+#profile-actions {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	}
+
+/* Profile User Block */
+#profile-user { 
+	flex: 1; 
+	min-width: 200px;
+	max-width: 200px;
+	margin: -85px 15px 1em;
+	z-index: 2;
+	}
+#profile-user img.avatar {
+	box-shadow: 0 0 8px #000;
+	margin: 0 0 0.5em;
+	}
+#profile-user a.member-name {
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.25em;
+	text-shadow: 0 0 8px #000;
+	}
+
+#profile-content {
+	flex: 3; 
+	min-width: 450px;
+	margin: 0 0 1em;
+	}
+
+#profile-content nav#directory-nav { 
+	width: 99%; 
+	margin: -2px 1% 0 0
+	}
+
+#profile-content #profile-status {
+	width: 100%;
+	float: left;
+	margin: 0.5em 0;
+	}
+#profile-status > p {
+	float: left;
+	margin: 0;
+	}
+#profile-status a.update-status-button {
+	float: left;
+	margin: 0 1em;
+	text-shadow: none;
+	}
+
 /*---------------------------------------------
 	9.4 - Registration
 ----------------------------------------------*/
@@ -2401,10 +2469,17 @@ div.wp-editor-container .mce-statusbar {
 
 
 
-	/* BBPRESS */
+/* BBPRESS */
 
 	/* Hide forum freshness */
 	.forum-freshness{ display: none; }
+
+
+/* BUDDYPRESS */
+
+	/* Center profile user block */
+	#profile-title, #profile-description { padding: 0 1em; }
+	#profile-user {	margin: 1em auto; }
 
 
 

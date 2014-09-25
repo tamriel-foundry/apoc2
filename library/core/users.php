@@ -73,6 +73,16 @@ class Apoc_User {
 		$this->profile	= bp_core_get_user_domain( $user_id );
 		$grammar		= ( substr( $this->fullname , -1) == "s" ) ? $this->fullname . '\'' : $this->fullname . '\'s';
 		$this->link 	= '<a href="' . $this->profile . '" title="Visit ' . $grammar . ' user profile" target="_blank">' . $this->fullname . '</a>';
+
+		// Get additional data on user profile pages
+		if ( 'profile' == $this->context ) {	
+
+			// Get the full user object
+			$user				= get_userdata( $this->id );
+			$this->nicename		= $user->user_nicename;
+			$this->regdate 		= strtotime( $user->user_registered );
+			$this->byline		= $this->byline();
+		}
 	}
 	
 	/**
@@ -88,7 +98,15 @@ class Apoc_User {
 		
 		// Prepare to fetch an avatar
 		$avatar_type = $this->size > 100 ? 'full' : 'thumb';
-		$avatar_args = array( 'user_id' => $this->id , 'alliance' => $this->faction , 'race' => $this->race , 'type' => $avatar_type , 'size' => $this->size );
+		$avatar_args = array( 
+			'user_id' 	=> $this->id , 
+			'alliance' 	=> $this->faction , 
+			'race' 		=> $this->race , 
+			'type' 		=> $avatar_type , 
+			'size' 		=> $this->size,
+			'link'		=> true,
+			'url'		=> $this->profile,
+		);
 		
 		// Do some things differently depending on context
 		switch( $context ) {
@@ -103,17 +121,16 @@ class Apoc_User {
 				break;
 					
 			case 'profile' :
+				$avatar_args['link'] = false;
 				break;
 		}
 		
 		// Prepend the avatar
 		$avatar			= new Apoc_Avatar( $avatar_args );
-		$avatar			= '<a class="member-avatar" href="' . $this->profile . '" title="View ' . $this->fullname . '&apos;s Profile">' . $avatar->avatar . '</a>';
-		$this->avatar 	= $avatar;
-		$block			= $avatar . $block;
+		$this->avatar	= $avatar->avatar;
 		
 		// Add the html to the object
-		$this->block 	= $block;
+		$this->block 	= $this->avatar . $block;
 	}
 	
 	/** 
@@ -210,6 +227,48 @@ class Apoc_User {
 		$bar = '<div class="user-exp" title="' . $tip . '"><div class="user-expbar" style="width:' . $percent . '%;"></div></div>';
 		return $bar;
 	}
+
+	/* 
+	 * Generate a byline for the user profile with their allegiance information
+	 */
+	function byline() {
+	
+		// Get the data
+		$faction 	= $this->faction;
+		$race 		= $this->race;
+		$class		= ucfirst( $this->class );
+		$name		= $this->fullname;
+
+		// Obey proper grammar
+		if ( '' == $race ) 
+			$grammar 	= 'a sworn ';
+		elseif ( in_array( $race , array('altmer','orc','argonian','imperial' ) ) )
+			$grammar 	= 'an ' . ucfirst($race);
+		else $grammar 	= 'a ' 	. ucfirst($race);
+			
+		// Generate the byline
+		switch( $faction ) {
+			case 'aldmeri' :
+				if ( $class == '' ) $class = 'champion';
+				$byline = $name . ' is ' . $grammar . ' ' . $class . ' of the Aldmeri Dominion.';
+				break;
+			case 'daggerfall' :
+				if ( $class == '' ) $class = 'protector';
+				$byline = $name . ' is ' . $grammar . ' ' . $class . ' of the Daggerfall Covenant.';
+				break;
+			case 'ebonheart' :
+				if ( $class == '' ) $class = 'vanguard';
+				$byline = $name . ' is ' . $grammar . ' ' . $class . ' of the Ebonheart Pact.';
+				break;
+			default : 
+				$class = 'mercenary';
+				$byline = $name . ' is a ' . $class . ' with no political allegiance.';
+				break;
+		}
+		
+		// Return the byline
+		return $byline;
+	}
 }
 
 /*--------------------------------------------------------------
@@ -224,7 +283,7 @@ class Apoc_Avatar {
 	 * Constructor function for Apoc Avatar class
 	 */	
 	function __construct( $args = array() ) {
-	
+
 		// Setup default arguments
 		$defaults = array(
 			'user_id'		=> 0,
@@ -289,11 +348,9 @@ class Apoc_Avatar {
 			}
 			
 			// Maybe wrap the image in a profile link
-			if ( true === $this->link ) {
-
-
+			if ( $this->link ) {
 				
-				// Retrieve the profile URL
+				// Maybe retrieve the profile URL
 				if ( "" == $this->url ) $this->url = bp_core_get_user_domain( $this->user_id );
 				
 				// Wrap the avatar

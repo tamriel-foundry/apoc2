@@ -20,7 +20,7 @@ header.php							| done
 home.php							| done
 page.php							| done
 screenshot.jpg						|
-search.php							|
+search.php							| deprecated
 single-forum.php					| done
 single-reply-edit.php				| done
 single-reply-move.php				| done
@@ -108,7 +108,7 @@ extensions/breadcrumbs.php			| in-progress
 extensions/buddypress.php			| in-progress
 extensions/events.php				|
 extensions/map.php					| done
-extensions/search.php				|
+extensions/search.php				| done
 extensions/shortcodes.php			|
 extensions/slides.php				| done
 extensions/thumbnail.php 			| done
@@ -131,7 +131,7 @@ js/map-control.js					| done
 js/qc.js							|
 templates/admin-bar.php				| done
 templates/admin-notifications.php 	|
-templates/adv-search.php			|
+templates/adv-search.php			| done
 templates/comment-edit.php			|
 templates/comment.php				| done
 templates/comments.php				| done
@@ -140,7 +140,7 @@ templates/loop-single-post.php		| done
 templates/map.php					| done
 templates/menu-primary.php			| done
 templates/respond.php				| done
-templates/searchform.php			|
+templates/searchform.php			| deprecated
 templates/sidebar-primary.php 		| done
 templates/slideshow.php				| done
 	
@@ -154,11 +154,11 @@ single/friends.php					|
 single/friends/requests.php			|
 single/groups.php					|
 single/groups/invites.php			|
-single/home.php						|
+single/home.php						| done
 single/infractions.php				|
 single/infractions/notes.php		|
 single/infractions/warning.php 		|
-single/member-header.php			|
+single/member-header.php			| in-progress
 single/messages.php					|
 single/messages/compose.php			|
 single/messages/messages-loop.php	|

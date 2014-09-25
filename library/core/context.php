@@ -84,6 +84,19 @@ class Apoc_Context {
 
 			// User Profiles
 			if ( bp_is_user() ) :
+				
+				$title		= bp_get_displayed_user_fullname() . $sep . "User Profile";
+				$desc		= SITENAME . " user profile for member " . bp_get_displayed_user_fullname();
+
+				// Your own profile
+				if ( bp_is_my_profile() ) :
+					$crumbs[] 	= 'Your Profile';
+					//$crumbs[] 	= '<a href="'.bp_displayed_user_domain().'" title="Your Profile">Your Profile</a>';
+
+				else :
+					$crumbs[] 	= '<a href="'. bp_get_members_directory_permalink() .'" title="Members Directory">Members</a>';
+					$crumbs[] 	= '<a href="'.bp_displayed_user_domain().'" title="'.bp_get_displayed_user_fullname(). '">' . bp_get_displayed_user_fullname() . '</a>';
+				endif;
 
 			// Group Profile
 			elseif ( bp_is_group() ) :

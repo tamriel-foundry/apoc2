@@ -77,11 +77,27 @@ class Apoc_User {
 		// Get additional data on user profile pages
 		if ( 'profile' == $this->context ) {	
 
-			// Get the full user object
+			// Get additional data from retrieved meta
+			$this->prefrole		= isset( $meta['prefrole'] ) ? $meta['prefrole'] : NULL;
+			$this->first_name	= isset( $meta['first_name'] ) ? $meta['first_name'] : "";
+			$this->last_name	= isset( $meta['last_name'] ) ? $meta['last_name'] : "";
+			$this->charname		= implode( ' ' , array( $this->first_name , $this->last_name ) );
+
+			// Get additional data from user object
 			$user				= get_userdata( $this->id );
 			$this->nicename		= $user->user_nicename;
 			$this->regdate 		= strtotime( $user->user_registered );
+
+			// Generate profile HTML sections
 			$this->byline		= $this->byline();
+
+			// Populate volunteered contact methods
+			$this->contacts		= array();
+			$contacts 			= array( 'twitter' , 'facebook' , 'gplus' , 'steam' , 'youtube' , 'twitch' , 'oforums' );
+			foreach( $contacts as $c ) {
+				if ( isset( $meta[$c] ) ) $this->contacts[$c] = $meta[$c];
+			}
+			if ( !empty( $user->user_url ) ) $this->contacts['user_url'] = $user->user_url;
 		}
 	}
 	
@@ -122,6 +138,8 @@ class Apoc_User {
 					
 			case 'profile' :
 				$avatar_args['link'] = false;
+				$block		.= '<p class="user-post-count">Total Posts: ' . $this->posts['total'] . '</p>';
+				$block		.= $this->expbar();
 				break;
 		}
 		
@@ -230,6 +248,7 @@ class Apoc_User {
 
 	/* 
 	 * Generate a byline for the user profile with their allegiance information
+	 * @version 2.0
 	 */
 	function byline() {
 	
@@ -268,6 +287,45 @@ class Apoc_User {
 		
 		// Return the byline
 		return $byline;
+	}
+
+
+	/* 
+	 * Display the user's contact information
+	 * @version 2.0
+	 */
+	function contacts() {
+	
+		// Get the data
+		$contacts = array_filter( $this->contacts );
+
+		// Display the list
+		echo '<ul class="user-contact-list">' ;
+
+		// No contact information provided
+		if ( empty( $contacts ) ) {
+			echo '<li><i class="fa fa-eye-slash fa-fw"></i>No contact information provided</li>';
+			return;
+		}
+
+		// Contacts found
+		if ( isset( $contacts['user_url'] ) )
+			echo '<li><i class="fa fa-globe fa-fw"></i><span>Website:</span><a href="' . $contacts['user_url'] . '" target="_blank">' . $contacts['user_url'] . '</a></li>' ;
+		if ( isset( $contacts['twitter'] ) )
+			echo '<li><i class="fa fa-twitter fa-fw"></i><span>Twitter:</span><a href="http://twitter.com/' . $contacts['twitter'] . '" target="_blank">' . $contacts['twitter'] . '</a></li>' ;
+		if ( isset( $contacts['facebook'] ) )
+			echo '<li><i class="fa fa-facebook fw-fw"></i><span>Facebook:</span><a href="http://facebook.com/' . $contacts['facebook'] . '" target="_blank">' . $contacts['facebook'] . '</a></li>' ;		
+		if ( isset( $contacts['gplus'] ) )
+			echo '<li><i class="fa fa-google-plus fa-fw"></i><span>Google+:</span><a href="http://plus.google.com/' . $contacts['gplus'] . '" target="_blank">' . $contacts['gplus'] . '</a></li>' ;
+		if ( isset( $contacts['steam'] ) )
+			echo '<li><i class="fa fa-steam fa-fw"></i><span>Steam ID:</span><a href="http://steamcommunity.com/id/' . $contacts['steam'] . '" target="_blank">' . $contacts['steam'] . '</a></li>' ;
+		if ( isset( $contacts['youtube'] ) )
+			echo '<li><i class="fa fa-youtube fa-fw"></i><span>YouTube:</span><a href="http://www.youtube.com/user/' . $contacts['youtube'] . '" target="_blank">' . $contacts['youtube'] . '</a></li>' ;
+		if ( isset( $contacts['twitch'] ) )
+			echo '<li><i class="fa fa-twitch fa-fw"></i><span>TwitchTV:</span><a href="http://www.twitch.tv/' . $contacts['twitch'] . '" target="_blank">' . $contacts['twitch'] . '</a></li>' ;
+		if ( isset( $contacts['oforums'] ) )
+			echo '<li><i class="fa fa-circle-o fa-fw"></i><span>ESO Forums:</span><a href="http://forums.elderscrollsonline.com/profile/' . $contacts['oforums'] . '" target="_blank">' . $contacts['oforums'] . '</a></li>' ;
+		echo '</ul>' ;
 	}
 }
 

@@ -7,8 +7,8 @@
  */
 
 // Get the currently displayed user
-$user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 );
-?>
+global $user;
+$user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 
 <div id="profile-header">
 
@@ -46,9 +46,8 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 );
 
 		<div id="detail-post-count" class="widget profile-widget">
 			<header class="widget-header">
-				<h3 class="widget-title">Post Details</h3>
+				<h3 class="widget-title">Posting History</h3>
 			</header>
-
 			<ul id="detail-post-count">
 				<?php $posts = $user->posts; 
 				if ( isset( $posts['articles'] ) && $posts['articles'] > 0 ) : ?>
@@ -74,9 +73,8 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 );
 			<header class="widget-header">
 				<h3 class="widget-title">Contact Info</h3>
 			</header>
-			<?php // $user->contacts(); ?>
+			<?php $user->contacts(); ?>
 		</div>
-
 
 	</div>
 </div>

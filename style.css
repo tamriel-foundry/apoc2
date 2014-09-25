@@ -637,6 +637,17 @@ td , th {
 .instructions ul:last-child,
 .instructions ol:last-child { margin-bottom: 0; } 
 
+/* Counts */
+.activity-count {
+	background: rgba(102,102,102,0.5);
+	color: #c1bcae;
+	padding: 0 5px;
+	margin: 0 5px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 3px #111;
+	}
+
 
 /*---------------------------------------------
 	2.6 - Common Stylings
@@ -2378,6 +2389,102 @@ span.activity-quote-mention {
 	}
 .profile-widget > ul li {
 	margin: 0.25em 0;
+	}
+
+/* Post Count */
+#detail-post-count span.activity-count { float: right; }
+
+/* Profile Sub-Navigation */
+#profile-body .reply-header { margin: 0; }
+#profile-tabs {
+	flex: 1;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: row wrap;
+	}
+#profile-tabs li {
+	flex: 1;
+	max-width: 200px;
+	min-width: 100px;
+	text-align: center;
+	}
+
+#profile-tabs li a {
+	display: block;
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.125em;
+	line-height: 40px;
+	color: #A29C8E;
+	text-shadow: 0 0 5px #000;
+	}
+
+#profile-tabs li.current a,
+#profile-tabs li a:hover {
+	color: #F3EAD0;
+	text-shadow: 0 0 6px #EEE;
+	}
+
+/* User Profile */
+#user-profile {
+	width: 100%;
+	float: left;
+	margin: 1em 0;
+	padding: 0 1em;
+	display: flex;
+	flex-flow: row-reverse wrap;
+}
+#user-character {
+	flex: 1;
+	min-width: 300px;
+}
+#user-biography {
+	flex: 3;
+	min-width: 300px;
+}
+
+/* Character Sheet */
+div#character-sheet {
+	width: 300px;
+	height: 169px;
+	margin: 0.5em 0;
+	background-image: url("images/backgrounds/flags.jpg");
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 3px #111 inset;
+	text-align: center;
+	text-shadow: 1px 1px #000;
+	}
+div#character-sheet.aldmeri { background-position: 0 0; }
+div#character-sheet.altmer { background-position: 0 -169px; }
+div#character-sheet.bosmer { background-position: 0 -338px; }
+div#character-sheet.khajiit { background-position: 0 -507px; }
+div#character-sheet.daggerfall { background-position: -300px 0; }
+div#character-sheet.breton { background-position: -300px -169px; }
+div#character-sheet.orc { background-position: -300px -338px; }
+div#character-sheet.redguard { background-position: -300px -507px; }
+div#character-sheet.ebonheart { background-position: -600px 0; }
+div#character-sheet.argonian { background-position: -600px -169px; }
+div#character-sheet.dunmer { background-position: -600px -338px; }
+div#character-sheet.nord { background-position: -600px -507px; }
+div#character-sheet.neutral { background-position: 0 -676px; }
+div#character-sheet.imperial { background-position: -300px -676px; }
+div#character-sheet > ul {
+	list-style: none;
+	margin: 1em;
+	background: rgba(0,0,0,0.6);
+	padding: 0.75em 1em;
+	text-align: left;
+	border: 1px solid #111;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #000;
+	}
+div#character-sheet > ul li { height: 22px; }
+div#character-sheet > ul li span { 
+	display: inline-block;
+	width: 50px;
+	margin: 0 0 0 3px; 
 	}
 
 /*---------------------------------------------

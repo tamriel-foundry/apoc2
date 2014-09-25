@@ -68,18 +68,21 @@ class Apoc_BuddyPress {
 	function actions() {
 	
 		// Unhook default actions
-		remove_action( 'wp_head' 			, 'bp_core_add_ajax_url_js' );		
-		
+		remove_action( 'wp_head' 					, 'bp_core_add_ajax_url_js' );		
+
 		// Remove scripts and styles
-		remove_action( 'wp_enqueue_scripts' , 'bp_core_confirmation_js' );
+		remove_action( 'wp_enqueue_scripts' 		, 'bp_core_confirmation_js' );
 
 		// Guild Buttons
 		add_action( 'bp_group_header_actions'		,	'bp_group_join_button'	, 	5 	);
 		add_action( 'bp_directory_groups_actions'	, 	'bp_group_join_button'			);
 
 		// User registration
-		add_action( 'bp_signup_pre_validate', array( $this , 'pre_registration' ) 	);
-		add_action( 'bp_signup_validate'	, array( $this , 'post_registration' ) );
+		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
+		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) );
+
+		// Profile Navigation
+		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
 	}
 	
 	
@@ -146,6 +149,67 @@ class Apoc_BuddyPress {
 		return $button;
 
 	}
+
+
+	/*------------------------------------------
+		PROFILE
+	------------------------------------------*/
+
+	/*
+	 * Custom BuddyPress user and group profile navigation
+	 */	
+	function navigation() {
+		global $bp;
+		
+		// Main navigation
+		$bp->bp_nav['profile']['position'] 			= 1;
+		$bp->bp_nav['activity']['position'] 		= 2;
+		$bp->bp_nav['forums']['position'] 			= 3;
+		$bp->bp_nav['friends']['position'] 			= 4;
+		$bp->bp_nav['groups']['position'] 			= 5;
+		$bp->bp_nav['messages']['position'] 		= 6;
+		$bp->bp_nav['notifications']['position'] 	= 7;
+		$bp->bp_nav['settings']['position'] 		= 8;
+	
+		// Profile biography
+		$bp->bp_options_nav['profile']['public']['name'] 					= 'Player Biography';
+		$bp->bp_options_nav['profile']['change-avatar']['link'] 			= $bp->displayed_user->domain . 'profile/change-avatar';
+		if ( !bp_is_my_profile() && !current_user_can( 'edit_users' ) )
+		$bp->bp_options_nav['profile']['change-avatar']['user_has_access']	= false;
+
+		// Profile activity
+		$bp->bp_options_nav['activity']['just-me']['name'] 					= 'All Activity';
+		
+		// Profile forums
+		$bp->bp_options_nav['forums']['replies']['name'] 					= 'Recent Post Tracker';
+		if ( !current_user_can( 'moderate_comments' ) )
+		$bp->bp_options_nav['forums']['replies']['user_has_access']			= false;
+		$bp->bp_options_nav['forums']['favorites']['name'] 					= 'Favorite Topics';
+		
+		// Profile settings
+		$bp->bp_options_nav['settings']['general']['name'] 					= 'Edit Account Info';
+		$bp->bp_options_nav['settings']['notifications']['name'] 			= 'Notification Preferences';
+		$bp->bp_options_nav['settings']['profile']['user_has_access'] 		= false;
+
+		// Custom edit profile screen
+		bp_core_remove_subnav_item( 'profile' , 'edit' );
+		if ( bp_is_my_profile() || current_user_can( 'edit_users' ) ) {
+			bp_core_new_subnav_item( array(
+				'name' 				=> 'Edit Profile',
+				'slug' 				=> 'edit',
+				'parent_url' 		=> $bp->displayed_user->domain . $bp->profile->slug . '/',
+				'parent_slug' 		=> $bp->profile->slug,
+				'screen_function' 	=> array( $this , 'edit_profile_screen' ),
+				'position' 			=> 20 ) );
+		}
+
+		// Remove activity favorites, because they are dumb
+		bp_core_remove_subnav_item( 'activity' , 'favorites' );		
+	
+	}
+
+
+
 
 
 	/*------------------------------------------

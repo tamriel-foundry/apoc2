@@ -5,10 +5,26 @@
  * Version 2.0
  * 9-22-2014
  */
-?>
+
+// Get the default querystring
+$query = bp_ajax_querystring( 'groups' );
+
+// First check to see if an alliance was passed with a GET request
+if ( isset( $_GET['faction'] ) ) :
+
+	// Get the current querystring
+	$query = wp_parse_args( $query , array() );
+	$query['meta_query'] = array(
+	    array(
+	        'key'     => 'group_faction',
+	        'value'   => $_GET['faction'],
+	        'compare' => '='
+	    )
+	);
+endif; ?>
 
 
-<?php  if ( bp_has_groups( bp_ajax_querystring( 'groups' ) ) ) : ?>
+<?php  if ( bp_has_groups( $query ) ) : ?>
 	<ul id="groups-list" class="directory-list" role="main">
 
 

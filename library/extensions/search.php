@@ -63,10 +63,19 @@ class Apoc_Search {
 		$this->search	= isset( $_REQUEST['s'] ) ? trim( $_REQUEST['s'] ) : "";
 		$this->paged	= isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : 1;
 
+		// Get extra fields
+		$this->author	= isset( $_REQUEST['author'] ) && $_REQUEST['author'] != -1 ? $_REQUEST['author'] : NULL;
+		$this->cat		= isset( $_REQUEST['cat'] ) && $_REQUEST['cat'] != -1 ? $_REQUEST['cat'] : NULL;
+		$this->forum		= ( isset( $_POST['forum'] ) && $_POST['forum'] != '' ) ? $_POST['forum'] : 'any';
+		$this->faction		= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
+
 		// Get the current search request
 		if ( isset( $_POST['submitted'] ) || $this->search !== "" )
 			$this->submitted = true;
 			$this->get_search();
+
+			// Filter BuddyPress loops
+			add_filter( 'bp_ajax_querystring', array( $this , 'search_querystring' ) , 10, 2 );
 	}
 
 	// Retrieve search data
@@ -89,10 +98,6 @@ class Apoc_Search {
 
 	// Search for posts
 	function get_posts() {
-
-		// Get extra fields
-		$this->author	= isset( $_REQUEST['author'] ) && $_REQUEST['author'] != -1 ? $_REQUEST['author'] : NULL;
-		$this->cat		= isset( $_REQUEST['cat'] ) && $_REQUEST['cat'] != -1 ? $_REQUEST['cat'] : NULL;
 
 		// Construct a query
 		$args 			= array( 
@@ -128,9 +133,6 @@ class Apoc_Search {
 
 	// Search for topics
 	function get_topics() {
-	
-		// Search for topics
-		$this->forum		= ( isset( $_POST['forum'] ) && $_POST['forum'] != '' ) ? $_POST['forum'] : 'any';
 
 		// Construct a query		
 		$this->query 		= array(
@@ -153,11 +155,8 @@ class Apoc_Search {
 	// Search for members
 	function get_members() {
 
-		// Get extra fields
-		$this->faction		= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
-
 		// Construct a query			
-		$this->query 		= array(
+		$this->query 				= array(
 			'type'			=> 'active',
 			's'				=> $this->search,
 			'paged'			=> $this->paged,
@@ -183,12 +182,28 @@ class Apoc_Search {
 			's'				=> $this->search,
 			'paged'			=> $this->paged,
 			'per_page'		=> 12,
-			'meta_key'		=> 'faction',
-			'meta_value'	=> $this->faction,	
+			'meta_query'	=> array(
+				array(
+		        	'key'     	=> 'group_faction',
+		        	'value'   	=> $this->faction,
+		        	'compare'	=> '='
+		        )
+			)
 		);
 
 		// Set the notice
 		$this->notice 		= sprintf( 'Viewing guilds matching "%1$s"' , $this->search );
 	}
 
+
+	// Override BuddyPress loops
+	function search_querystring( $string , $object ) {
+		$string = $this->query;
+		return $string;
+	}
+
 }
+
+
+
+

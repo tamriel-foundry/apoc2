@@ -43,5 +43,40 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 );
 				<span class="activity"><?php bp_last_activity( $user->id ); ?></span>
 			<?php endif; ?>
 		</blockquote>
+
+		<div id="detail-post-count" class="widget profile-widget">
+			<header class="widget-header">
+				<h3 class="widget-title">Post Details</h3>
+			</header>
+
+			<ul id="detail-post-count">
+				<?php $posts = $user->posts; 
+				if ( isset( $posts['articles'] ) && $posts['articles'] > 0 ) : ?>
+					<li><i class="fa fa-tag fa-fw"></i>Articles <span class="activity-count"><?php echo $posts['articles']; ?></span></li>
+				<?php endif; ?>
+				<li><i class="fa fa-comment fa-fw"></i>Comments <span class="activity-count"><?php echo $posts['comments']; ?></span></li>
+				<li><i class="fa fa-bookmark fa-fw"></i>Topics <span class="activity-count"><?php echo $posts['topics']; ?></span></li>
+				<li><i class="fa fa-reply fa-fw"></i>Replies <span class="activity-count"><?php echo $posts['replies']; ?></span></li>
+				<li class="post-count-total"><i class="fa fa-star fa-fw"></i>Total <span class="activity-count"><?php echo $posts['total']; ?></span></li>
+			</ul>
+		</div>
+
+		<div id="profile-badges" class="widget profile-widget">
+			<header class="widget-header">
+				<h3 class="widget-title">User Badges</h3>
+			</header>
+			<ul id"user-badges">
+				<li>badge</li>
+			</ul>
+		</div>
+
+		<div id="profile-contacts" class="widget profile-widget">
+			<header class="widget-header">
+				<h3 class="widget-title">Contact Info</h3>
+			</header>
+			<?php // $user->contacts(); ?>
+		</div>
+
+
 	</div>
 </div>

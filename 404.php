@@ -21,7 +21,7 @@
 			<section class="post-content double-border">
 				<blockquote>Turn back, traveller, have ventured into an uninhabitable land. Do not despair, all is not lost. You may still search for what you seek!</blockquote>
 			
-				<form role="search" method="get" class="search-form" id="search-404" action="<?php echo SITEURL . '/advsearch/'; ?>">
+				<form role="search" method="post" class="search-form" id="search-404" action="<?php echo SITEURL . '/advsearch/'; ?>">
 					<fieldset>
 						<select name="type" id="search-for">
 							<option value="posts">Articles</option>
@@ -31,7 +31,7 @@
 							<option value="groups">Guilds</option>
 						</select>
 						<input class="search-text" type="text" name="s" value="Search Tamriel Foundry" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/>
-						<button type="submit" class="submit" name="submit"><i class="fa fa-search"></i>Find it!</button>
+						<button type="submit" class="submit"><i class="fa fa-search"></i>Find it!</button>
 					</fieldset>
 				</form>
 

@@ -928,6 +928,7 @@ footer#site-footer {
 	font-size: 0.75em;
 	color: #A29C8E;
 	}
+.online-members span.activity-count { margin: 0; }
 
 /* Donation Widget */
 div.donate-widget > p {
@@ -963,8 +964,8 @@ input#donate-image {
 	}
 .stat-counter-total {
 	width: 80%;
-	margin: 3px auto 0;
-	padding: 3px 1em 0;
+	margin: 0.5em auto 0;
+	padding: 3px;
 	border: 1px solid #000;
 	font-size: 0.875em;
 	text-align: center;
@@ -974,7 +975,7 @@ input#donate-image {
 
 #stats-banner {
 	width: 270px;
-	margin: 0.5em auto;
+	margin: -2px auto 0;
 	position: relative;
 	z-index: 10;
 }
@@ -1602,7 +1603,10 @@ a.post-thumbnail {
 /*---------------------------------------------
 	6.4 - Error 404
 ----------------------------------------------*/
-#search-404 { text-align: center; }
+#search-404 { 
+	margin: 0 0 1em;
+	text-align: center; 
+	}
 #search-404 input[type=text] { width: 75%; }
 #search-404 button[type=submit] { top: 2px; }
 

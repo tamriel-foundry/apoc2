@@ -112,6 +112,7 @@ $zone = isset( $_GET['zone'] ) ? $_GET['zone'] : '';
 								<option value="alikr">Alik'r Desert</option>
 								<option value="bangkorai">Bangkorai</option>
 								<option value="lcraglorn">Lower Craglorn</option>
+								<option value="ucraglorn">Upper Craglorn</option>
 							</optgroup>
 							<optgroup label="Ebonheart Pact">
 								<option value="bleakrock">Bleakrock Isle</option>

@@ -2377,6 +2377,7 @@ span.activity-quote-mention {
 	margin: 0 1em;
 	text-shadow: none;
 	}
+#profile-status span.activity { float: right; }
 
 /* Widgets */
 .profile-widget {

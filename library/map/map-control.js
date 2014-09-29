@@ -263,6 +263,7 @@ function get_zone_coords( zone ) {
 	coords.bangkorai	= [42.76,-59.81,5];
 	coords.alikr		= [29.71,-90.13,5];
 	coords.lcraglorn	= [41.75,-21.25,5];
+	coords.ucraglorn	= [47.25,-31.50,5];
 	
 	coords.bleakrock 	= [56.20,53.80,7];
 	coords.balfoyen 	= [16.10,95.10,7];

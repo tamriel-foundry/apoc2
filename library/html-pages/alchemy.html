@@ -1,0 +1,543 @@
+<style>
+div.item-grid {
+	display: flex;
+	flex-flow: row wrap;
+	box-sizing: border-box;
+}
+div.grid-item {
+	min-width: 120px;
+	max-width: 300px;
+	flex: 1;
+	margin: 0.5em 0.25em;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	box-shadow: 0 0 2px #444 inset;
+	text-align: center;
+}
+div.grid-image {
+	width: 50px;
+	height: 50px;
+	margin: 0.5em auto 0;
+	position: relative;
+}
+div.grid-image > img {
+	position: absolute;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-shadow: none;
+	background: none;
+}
+img.grid-1-1 { clip: rect(0,48px,48px,0px); left: 0px;}
+img.grid-1-2 { clip: rect(0,96px,48px,48px); left: -48px;}
+img.grid-1-3 { clip: rect(0,144px,48px,96px); left: -96px;}
+img.grid-1-4 { clip: rect(0,192px,48px,144px); left: -144px;}
+img.grid-1-5 { clip: rect(0,240px,48px,192px); left: -192px;}
+img.grid-1-6 { clip: rect(0,288px,48px,240px); left: -240px;}
+img.grid-2-1 { clip: rect(48px,48px,96px,0px); left: 0px; top:-48px;}
+img.grid-2-2 { clip: rect(48px,96px,96px,48px); left: -48px; top:-48px;}
+img.grid-2-3 { clip: rect(48px,144px,96px,96px); left: -96px; top:-48px;}
+img.grid-2-4 { clip: rect(48px,192px,96px,144px); left: -144px; top:-48px;}
+img.grid-2-5 { clip: rect(48px,240px,96px,192px); left: -192px; top:-48px;}
+img.grid-2-6 { clip: rect(48px,288px,96px,240px); left: -240px; top:-48px;}
+img.grid-3-1 { clip: rect(96px,48px,144px,0px); left: 0px; top:-96px;}
+img.grid-3-2 { clip: rect(96px,96px,144px,48px); left: -48px; top:-96px;}
+img.grid-3-3 { clip: rect(96px,144px,144px,96px); left: -96px; top:-96px;}
+img.grid-3-4 { clip: rect(96px,192px,144px,144px); left: -144px; top:-96px;}
+img.grid-3-5 { clip: rect(96px,240px,144px,192px); left: -192px; top:-96px;}
+img.grid-3-6 { clip: rect(96px,288px,144px,240px); left: -240px; top:-96px;}
+img.grid-4-1 { clip: rect(144px,48px,192px,0px); left: 0px; top: -144px;}
+img.grid-4-2 { clip: rect(144px,96px,192px,48px); left: -48px; top: -144px;}
+img.grid-4-3 { clip: rect(144px,144px,192px,96px); left: -96px; top: -144px;}
+img.grid-4-4 { clip: rect(144px,192px,192px,144px); left: -144px; top: -144px;}
+img.grid-4-5 { clip: rect(144px,240px,192px,192px); left: -192px; top: -144px;}
+img.grid-4-6 { clip: rect(144px,288px,192px,240px); left: -240px; top: -144px;}
+img.grid-4-7 { clip: rect(144px,336px,192px,288px); left: -288px; top: -144px;}
+img.grid-5-1 { clip: rect(192px,48px,240px,0px); left: 0px; top: -192px;}
+img.grid-5-2 { clip: rect(192px,96px,240px,48px); left: -48px; top: -192px;}
+img.grid-5-3 { clip: rect(192px,144px,240px,96px); left: -96px; top: -192px;}
+img.grid-5-4 { clip: rect(192px,192px,240px,144px); left: -144px; top: -192px;}
+img.grid-5-5 { clip: rect(192px,240px,240px,192px); left: -192px; top: -192px;}
+img.grid-5-6 { clip: rect(192px,288px,240px,240px); left: -240px; top: -192px;}
+h5.grid-title {
+	margin: 0.5em 0;
+	background: rgba(0,0,0,0.5);
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	box-shadow: 0 0 2px #444 inset;
+	text-transform: none;
+	font-size: 0.875em;
+	line-height: 30px;
+}
+h5.grid-title.item-green { color: #00ff00; }
+ul.grid-properties {
+	list-style: none;
+	padding: 0;
+}
+li.item-prop-pos { color: #008000; }
+li.item-prop-neg { color: #993300; }
+li.item-prop-neu { color: #999999; }
+div#potion-showcase {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+div#potion-showcase > div {
+	flex: 1;
+	min-width: 200px;
+	margin: 0 0.5em 1em;
+}
+</style>
+
+<p><img class="alignright size-full wp-image-549122" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-banner.jpg" alt="alchemy-banner" width="125" height="175" />Hello and welcome to Tamriel Foundry’s Alchemy Guide! In this guide we cover the basic and advanced mechanics of Alchemy in <em>The Elder Scrolls Online</em> as well as some practical tips for how to get the most out of your crafting and gathering time!</p>
+<p><span style="color: #ff9900;">UPDATE:</span> This guide has been updated for <em>ESO</em> update 4 (patch 1.4) and can be considered current as of September, 2014.</p>
+&nbsp;
+<h3><span style="color: #ff9900;">Why Alchemy is Useful</span></h3>
+<p style="text-align: justify;">Alchemy is used to create potions that will help you in combat. These potions can replenish resources, stats, make you immune to knockback and disabling effects, invisible, increase your speed and boost your damage and much more. But unlike foods and drinks, potions don't last very long. If you're looking for items that boost your resources or recovery rates, you should check out <a title="provisioning" href="http://tamrielfoundry.com/crafting/provisioning/" target="_blank">provisioning</a>.</p>
+
+<blockquote>If you would like to get a quick primer on the basics, check out the video! - Rudrias</blockquote>
+
+<iframe width="640" height="360" src="//www.youtube.com/embed/WoZuDbUTMRY?rel=0" frameborder="0" allowfullscreen></iframe>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Profitability:</span> <span style="color: #00ff00;">High (Gathering)</span></h3>
+<p style="text-align: justify;">Only the reagents are profitable, they sell for a steady 100 gold a piece <span style="color: #999999;">(9/14/13) </span>with some exceptions like Namira's Rot, which is harder to come by and used in a lot of potion crafting. Selling solvents or created potions isn't going to get you much. Most people can make their own potions because alchemy is one of the easiest crafting skills to level up. That's why there is more demand in resources (ingredients) than finished products (potions). Solvents are also cheaper because it's easier to come by and you only need 1 solvent / 3 reagents.</p>
+<img class="size-full wp-image-381910 aligncenter" src="http://tamrielfoundry.com/wp-content/uploads/2014/03/banner_alchemy.jpg" alt="banner_alchemy" width="885" height="130" />
+
+&nbsp;
+<h3><span style="color: #ff9900;">Creation &amp; Discovery</span></h3>
+<p style="text-align: justify;"><img class="size-medium wp-image-380156 alignright" src="http://tamrielfoundry.com/wp-content/uploads/2014/03/ui_alchemy4-450x253.jpg" alt="ui_alchemy4" width="450" height="253" />Creating a potion requires at two or three reagents with a common effect and one solvent. The solvent controls the level and potency of the potion, while the reagents decide what type of potion you create. You need at least two reagents with the same effect to discover that effect. For example, if you use Bugloss with Blue Entoloma to make a potion you'll discover the 'Restore Health' effect on both reagents. Don't worry, all reagents have four effects so the chances of having at least one common effect are pretty good. They are also listed below if you don't feel like finding out yourself.</p>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Reagents</span></h3>
+There are 18 types of reagents spread throughout Tamriel. You can find most reagents in every zone, they aren't restricted to the level of any zone. Unlike solvents and materials for other crafting skills that do depend on the zone level.
+
+<div class="item-grid">
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-1" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Blessed Thistle" />
+		</div>
+		<h5 class="grid-title item-green">Blessed Thistle</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Stamina</li>
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-pos">Weapon Power</li>
+			<li class="item-prop-pos">Increase Speed</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-2" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Blue Entoloma" />
+		</div>
+		<h5 class="grid-title item-green">Blue Entoloma</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-neg">Ravage Magicka</li>
+			<li class="item-prop-neg">Spell Power</li>
+			<li class="item-prop-neu">Invisibility</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-3" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Bugloss" />
+		</div>
+		<h5 class="grid-title item-green">Bugloss</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-pos">Restore Magicka</li>
+			<li class="item-prop-neg">Spell Power</li>
+			<li class="item-prop-pos">Spell Resist</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-4" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Columbine" />
+		</div>
+		<h5 class="grid-title item-green">Columbine</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-pos">Restore Magicka</li>
+			<li class="item-prop-pos">Restore Stamina</li>
+			<li class="item-prop-neu">Unstoppable</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-5" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Corn Flower" />
+		</div>
+		<h5 class="grid-title item-green">Corn Flower</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Magicka</li>
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-pos">Spell Power</li>
+			<li class="item-prop-neu">Detection</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-1-6" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Dragon Thorn" />
+		</div>
+		<h5 class="grid-title item-green">Dragon Thorn</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Stamina</li>
+			<li class="item-prop-pos">Weapon Crit</li>
+			<li class="item-prop-pos">Weapon Power</li>
+			<li class="item-prop-neg">Lower Armor</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-1" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Emetic Russula" />
+		</div>
+		<h5 class="grid-title item-green">Emetic Russula</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-neg">Ravage Magicka</li>
+			<li class="item-prop-neg">Ravage Stamina</li>
+			<li class="item-prop-neu">Stun</li>
+		</ul>
+	</div>
+
+		<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-2" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Imp Stool" />
+		</div>
+		<h5 class="grid-title item-green">Imp Stool</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Stamina</li>
+			<li class="item-prop-pos">Weapon Crit</li>
+			<li class="item-prop-neg">Weapon Power</li>
+			<li class="item-prop-pos">Increase Armor</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-3" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Lady's Smock" />
+		</div>
+		<h5 class="grid-title item-green">Lady's Smock</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Magicka</li>
+			<li class="item-prop-pos">Spell Crit</li>
+			<li class="item-prop-pos">Spell Power</li>
+			<li class="item-prop-neg">Spell Resist</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-4" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Luminous Russula" />
+		</div>
+		<h5 class="grid-title item-green">Luminous Russula</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-neg">Ravage Stamina</li>
+			<li class="item-prop-neg">Weapon Power</li>
+			<li class="item-prop-neg">Reduce Speed</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-5" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Mountain Flower" />
+		</div>
+		<h5 class="grid-title item-green">Mountain Flower</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-pos">Restore Stamina</li>
+			<li class="item-prop-neg">Weapon Power</li>
+			<li class="item-prop-pos">Increase Armor</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-2-6" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Namira’s Rot" />
+		</div>
+		<h5 class="grid-title item-green">Namira’s Rot</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Spell Crit</li>
+			<li class="item-prop-neu">Unstoppable</li>
+			<li class="item-prop-neu">Invisibility</li>
+			<li class="item-prop-pos">Increase Speed</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-1" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Nirnroot" />
+		</div>
+		<h5 class="grid-title item-green">Nirnroot</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-neg">Spell Crit</li>
+			<li class="item-prop-neg">Weapon Crit</li>
+			<li class="item-prop-neu">Invisibilty</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-2" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Stinkhorn" />
+		</div>
+		<h5 class="grid-title item-green">Stinkhorn</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-neg">Ravage Stamina</li>
+			<li class="item-prop-pos">Weapon Power</li>
+			<li class="item-prop-neg">Lower Armor</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-3" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Violet Coprinus" />
+		</div>
+		<h5 class="grid-title item-green">Violet Coprinus</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Health</li>
+			<li class="item-prop-neg">Ravage Magicka</li>
+			<li class="item-prop-pos">Spell Power</li>
+			<li class="item-prop-neg">Spell Resist</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-4" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Water Hyacinth" />
+		</div>
+		<h5 class="grid-title item-green">Water Hyacinth</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Restore Health</li>
+			<li class="item-prop-pos">Spell Crit</li>
+			<li class="item-prop-pos">Weapon Crit</li>
+			<li class="item-prop-neu">Stun</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-5" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Whitecap" />
+		</div>
+		<h5 class="grid-title item-green">Whitecap</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-neg">Ravage Magicka</li>
+			<li class="item-prop-neg">Spell Crit</li>
+			<li class="item-prop-neg">Spell Power</li>
+			<li class="item-prop-pos">Spell Resist</li>
+		</ul>
+	</div>
+
+	<div class="grid-item">
+		<div class="grid-image">
+			<img class="grid-3-6" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Wormwood" />
+		</div>
+		<h5 class="grid-title item-green">Wormwood</h5>
+		<ul class="grid-properties">
+			<li class="item-prop-pos">Weapon Crit</li>
+			<li class="item-prop-neu">Detection</li>
+			<li class="item-prop-neu">Unstoppable</li>
+			<li class="item-prop-neg">Reduce Speed</li>
+		</ul>
+	</div>
+</div>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Solvents (Water)</span></h3>
+<p>Each potion you craft requires a solvent, which is essentially a vial of pure water. The higher level solvent you use, the higher level the potion you produce. You’ll find higher level solvents the further you progress through your alliance. One type of solvent isn’t restricted to just one zone. Water can be collected from any of the following sources:</p>
+<ul>
+	<li><strong>Water skins:</strong> little pouches that you can find almost everywhere.</li>
+	<li><strong>Pure water:</strong> water springs that can be found in any body of water.</li>
+	<li><strong>Bottles:</strong> can also be found almost everywhere</li>
+	<li><strong>Containers:</strong> small chance, mostly other materials (not recommended)</li>
+</ul>
+
+
+<table style="width:100%">
+	<colgroup> 
+		<col width="10%" /> 
+		<col width="15%" /> 
+		<col width="10%" /> 
+		<col width="10%" /> 
+		<col width="15%" /> 
+		<col width="40%" /> 
+	</colgroup>
+	<thead>
+		<tr style="color: #ff9900;">
+			<td>Image</span></td>
+			<td>Solvent</span></td>
+			<td>Potion Level</span></td>
+			<td>Proficiency</span></td>
+			<td>Solvent Prefix</span></td>
+			<td>Zones</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-1" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Natural Water"/></div></td>
+			<td>Natural Water</td>
+			<td>3</td>
+			<td>1</td>
+			<td>Sip of</td>
+			<td>Starter Zone, First Zone</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-2" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Clear Water"/></div></td>
+			<td>Clear Water</td>
+			<td>10</td>
+			<td>1</td>
+			<td>Tincture of</td>
+			<td>First Zone, Second Zone</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-3" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Pristine Water"/></div></td>
+			<td>Pristine Water</td>
+			<td>20</td>
+			<td>2</td>
+			<td>Dram of</td>
+			<td>Second Zone, Third Zone</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-4" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Cleansed Water"/></div></td>
+			<td>Cleansed Water</td>
+			<td>30</td>
+			<td>3</td>
+			<td>Potion of</td>
+			<td>Fourth Zone, Fifth Zone</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-5" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Cleansed Water"/></div></td>
+			<td>Filtered Water</td>
+			<td>40</td>
+			<td>4</td>
+			<td>Solution of</td>
+			<td>Coldharbour, Cyrodiil</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-6" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Purified Water"/></div></td>
+			<td>Purified Water</td>
+			<td>VR1</td>
+			<td>5</td>
+			<td>Elixir of</td>
+			<td>VR1-V5 Zones (Cadwell's Silver)</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-4-7" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Cloud Mist"/></div></td>
+			<td>Cloud Mist</td>
+			<td>VR5</td>
+			<td>6</td>
+			<td>Panacea of</td>
+			<td>VR6+ Zones (Cadwell's Gold)</td>
+		</tr>
+	</tbody>
+</table>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Leveling Tips</span></h3>
+<ul>
+	<li>Focus on unlocking the four traits on all eighteen reagents, learning these effects will grant you extra experience.</li>
+	<li>Put skill points in 'Solvent Proficiency' first, allowing you to use the highest level of solvent for more experience.</li>
+	<li>Only use two reagents per solvent for leveling Alchemy. The difference in experience isn't worth using a third reagent.</li>
+	<li>Use reagents that are easy to come by. I recommend making potions with the common Water Hyacinth.</li>
+	<li>Water Hyacinths are the easiest reagent to farm. Just following a river will get you plenty.</li>
+	<li>Whilst farming Water Hyacinths you'll also find a lot of solvents because they share the same areas (rivers).</li>
+	<li>Save up Namira's Rot, only use them for learning the effects and for VR5 potions as they are very rare.</li>
+	<li>Farming Pristine Water or Filtered Water might prove more difficult. If so, just skip them and use lower tier solvents.</li>
+	<li>Farming high tier solvents is really easy as they are spread over an entire alliance and not just 2 zones.</li>
+	<li>If you have some skill points left, invest at least one point in Keen Eye. It really does help you spot ingredients.</li>
+	<li>I recommend using <a title="HarvestMap" href="http://www.esoui.com/downloads/info57-HarvestMapEsoheadMarkers.html" target="_blank">HarvestMap</a> and <a title="HarvestMerge" href="http://www.esoui.com/downloads/info531-HarvestMerge.html" target="_blank">HarvestMerge</a> for those who intend do a lot of farming. (not necessary for leveling)</li>
+</ul>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Useful Potions</span></h3>
+
+<div id="potion-showcase">
+	<div class="wp-caption alignleft">
+		<img class="noborder" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/panacea-of-health-better.png" alt="Panacea of Health" width="280" height="232"><p class="wp-caption-text">Best restoration potion.</p>
+	</div>
+	<div class="wp-caption alignleft">
+		<img class="noborder" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/panacea-of-spell-power1.png" alt="Panacea of Spell Power" width="280" height="232"><p class="wp-caption-text">Best potion for Magicka builds.</p>
+	</div>
+	<div class="wp-caption alignleft">
+		<img class="noborder" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/panacea-of-weapon-power.png" alt="Panacea of Weapon Power" width="280" height="232"><p class="wp-caption-text">Best potion for Stamina builds.</p>
+	</div>
+</div>
+
+<ul>
+	<li style="text-align: justify;"><strong><span style="color: #993300;">Panacea of Health:</span> </strong>Cloud Mist, Bugloss, Columbine and Mountain Flower
+This is the best restoration potion available as it restores all resources. There is a weaker version that restores only <span style="color: #ff9900;">290</span> Health over 10 seconds instead of <span style="color: #ff9900;">406</span>. This weaker version can be created by replacing Mountain Flower with Dragonthorn or Columbine with Lady's Smock. This is not recommended unless you run out of Mountain Flowers or Columbines.</li>
+	<li style="text-align: justify;"><span style="color: #3366ff;"><strong>Panacea of Spell Power:</strong></span> Cloud Mist, Cornflower, Lady's Smock and Water Hyacinth (Namira's Rot)
+This is the best potion for Magicka builds to increase their DPS and restore some Magicka. I recommend using Water Hyacinth instead of Namira's Rot. Water Hyacinth is much easier to get and Namira's Rot should be used for other potions as it's very rare.</li>
+	<li style="text-align: justify;"><span style="color: #008000;"><strong>Panacea of Weapon Power:</strong></span> Cloud Mist, Blessed Thistle, Dragonthorn and Wormwood/Water Hyacinth
+This is the best potion for Stamina builds to increase their DPs and restore some Stamina. You can use Wormwood or Water Hyacinths in this case because both are equally useful and relatively easy to come by.</li>
+</ul>
+
+&nbsp;
+<h3><span style="color: #ff9900;">Alchemy Stations</span></h3>
+<p>Alchemy stations are found in towns and cities and are identified by a herb-like symbol on banners outside of the station and as an icon on the map.</p>
+<img class="aligncenter size-medium wp-image-380141" src="http://tamrielfoundry.com/wp-content/uploads/2014/03/flag_alchemy-450x253.jpg" alt="flag_alchemy" width="450" height="253" />
+<p>The station itself resembles a wooden bench complete with liquids separating, potions brewing, and empty vials ready to be filled. Simply walk up to the station and press the interact key to get the crafting interface.</p>
+<img class="aligncenter size-medium wp-image-380146" src="http://tamrielfoundry.com/wp-content/uploads/2014/03/station_alchemy-450x253.jpg" alt="station_alchemy" width="450" height="253" />
+
+&nbsp;
+<h3><span style="color: #ff9900;">Skills</span></h3>
+<p>The skills for Alchemy that you can place points in to enhance the craft include Solvent Proficiency which is the only *required* skill to make end-game potions. However there are many other skills that improve and enhance the profession!</p>
+<p>Unlike the armor professions, there really is no 'Best Order' of skills to allocate in alchemy. Keen Eye is important is you have trouble gathering, but most plants are rather obvious.</p>
+
+<table style="width:100%">
+	<colgroup>
+		<col width="10%" />
+		<col width="30%" />
+		<col width="60%" />
+	</colgroup>
+	<thead>
+		<tr style="color: #ff9900;">
+			<th>Icon</th>
+			<th>Passive Name</th>
+			<th style="text-align:left;">Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-1" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Solvent Proficiency"/></div></td>
+			<td>Solvent Proficiency</td>
+			<td style="text-align: left;">Allows the Alchemist to use [<span style="color: #ff9900;">SOLVENT</span>] to make level [<span style="color: #ff9900;">X</span>] potions.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-2" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Keen Eye"/></div></td>
+			<td>Keen Eye: Reagents</td>
+			<td style="text-align: left;">Reagents in the world will be easier to see when you are <span style="color: #ff9900;">20</span>/<span style="color: #ff9900;">30</span>/<span style="color: #ff9900;">40</span> meters or closer.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-3" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Medicinal Use"/></div></td>
+			<td>Medicinal Use</td>
+			<td style="text-align: left;">When using potions, resulting effects last <span style="color: #ff9900;">10</span>/<span style="color: #ff9900;">20</span>/<span style="color: #ff9900;">30</span>% longer.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-4" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Chemistry"/></div></td>
+			<td>Chemistry</td>
+			<td style="text-align: left;">Produces <span style="color: #ff9900;">1</span>/<span style="color: #ff9900;">2</span>/<span style="color: #ff9900;">3</span> extra potion per crafting attempt.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-5" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Laboratory Use"/></div></td>
+			<td>Laboratory Use</td>
+			<td style="text-align: left;">Allows the use of up to 3 Reagents while mixing Potions.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image"><img class="grid-5-6" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/alchemy-sprite.png" alt="Snakeblood"/></div></td>
+			<td>Snakeblood</td>
+			<td style="text-align: left;">Reduces negative effects in potions by <span style="color: #ff9900;">50</span>/<span style="color: #ff9900;">80</span>/<span style="color: #ff9900;">100</span>%.</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>We hope you've found our Alchemy guide useful. If you see something that needs to be updated or something that's missing, please feel free to contact @Vixx with your suggestions!</p>
+
+<p>Want to discuss the finer points of Alchemy in <em>ESO</em>? Head over to the <a title="Crafter's Hall!" href="http://tamrielfoundry.com/forum/classes/crafters-hall/" target="_blank">Crafter's Hall</a> and join in the discussion!</p>

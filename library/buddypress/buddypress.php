@@ -91,6 +91,9 @@ class Apoc_BuddyPress {
 	 */
 	function filters() {
 
+		// Activity strip "View" link
+		add_filter( 'bp_get_activity_latest_update' , array( $this , 'activity_update') );
+
 		// Activity delete link
 		add_filter( 'bp_get_activity_delete_link'	, array( $this , 'activity_delete_button' ) );
 
@@ -106,6 +109,17 @@ class Apoc_BuddyPress {
 	/*------------------------------------------
 		ACTIVITY
 	------------------------------------------*/
+
+	/**
+	 * Strip "View" link from the end of activity updates
+	 */	
+	function activity_update( $latest_update ) {
+
+
+		$latest_update = substr( $latest_update , 0 , strrpos( $latest_update , ' <a href=' , -1 ) );
+		return $latest_update;
+	}
+
 	function activity_delete_button( $link ) {
 		$link = str_replace( array( 'class="button' , 'Delete</a>') , array( 'class="button-dark' , '<i class="fa fa-remove"></i>Delete</a>' ) , $link ); 
 		return $link;

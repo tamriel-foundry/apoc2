@@ -152,8 +152,8 @@ single/activity.php					| done
 single/forums.php					|
 single/friends.php					| done
 single/friends/requests.php			| done
-single/groups.php					|
-single/groups/invites.php			|
+single/groups.php					| done
+single/groups/invites.php			| done
 single/home.php						| done
 single/infractions.php				|
 single/infractions/notes.php		|
@@ -178,12 +178,12 @@ single/settings/notifications.php	|
 
 PAGES								| PROGRESS
 ----------------------------------- | -----------
-classes/dragonknight.php			|
-classes/nightblade.php				|
-classes/sorcerer.php				|
-classes/templar.php					|
-development-faq.php					|
-page-class.php						|
+classes/dragonknight.php			| on-hold
+classes/nightblade.php				| on-hold
+classes/sorcerer.php				| on-hold
+classes/templar.php					| on-hold
+development-faq.php					| deprecated
+page-class.php						| on-hold
 page-contact.php					|
 page-submit-guild.php				|
 

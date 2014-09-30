@@ -219,8 +219,28 @@ class Apoc_BuddyPress {
 
 		// Remove activity favorites, because they are dumb
 		bp_core_remove_subnav_item( 'activity' , 'favorites' );		
-	
 	}
+
+
+	/*
+	 * Profile screen templates
+	 */
+	function edit_profile_screen() {
+		bp_core_load_template( apply_filters( 'apoc_edit_profile_template', 'members/single/profile/edit' ) );
+	}
+	function infractions_screen() {
+		bp_core_load_template( apply_filters( 'apoc_infractions_template', 'members/single/infractions' ) );
+	}
+	function warning_screen() {
+		bp_core_load_template( apply_filters( 'apoc_warning_template', 'members/single/infractions/warning' ) );
+	}
+	function modnotes_screen() {
+		bp_core_load_template( apply_filters( 'apoc_modnotes_template', 'members/single/infractions/notes' ) );
+	}
+	function guild_activity_screen() {
+		bp_core_load_template( apply_filters( 'apoc_guild_activity_template', 'groups/single/home' ) );
+	}
+	
 
 
 

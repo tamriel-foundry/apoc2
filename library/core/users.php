@@ -4,13 +4,19 @@
  * Andrew Clayton
  * Version 2.0
  * 9-12-2014
+ *
+ * Contents:
+ * 1.0 - Apoc User Class
+ * 2.0 - Apoc Avatar Class
+ * 3.0 - Edit Profile Class
+ * 4.0 - Post Counts
  */
  
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
 /*--------------------------------------------------------------
-1.0 - USER CLASS
+1.0 - APOC USER CLASS
 --------------------------------------------------------------*/
 class Apoc_User {
 
@@ -53,6 +59,7 @@ class Apoc_User {
 		$this->fullname = $meta['nickname'];
 		$this->roles	= array_keys( unserialize( $meta[ $prefix . 'capabilities' ] ) );
 		$this->status	= isset( $meta['bp_latest_update'] ) 	? maybe_unserialize( $meta['bp_latest_update'] ) : NULL;
+		$this->server	= isset( $meta['server'] ) 				? $meta['server'] : NULL;
 		$this->faction	= isset( $meta['faction'] ) 			? $meta['faction'] : NULL;
 		$this->race		= isset( $meta['race'] ) 				? $meta['race'] : NULL;
 		$this->class	= isset( $meta['playerclass'] ) 		? $meta['playerclass'] : NULL;
@@ -66,6 +73,7 @@ class Apoc_User {
 		if ( $user_id > 0 && empty( $this->posts ) ) apoc_update_post_count( $user_id );
 		
 		// Get some derived data
+		$this->servname	= $this->user_server( $this->server );
 		$this->rank		= $this->user_rank( $this->posts );
 		$this->title	= $this->user_title( $user_id );
 
@@ -93,7 +101,7 @@ class Apoc_User {
 
 			// Populate volunteered contact methods
 			$this->contacts		= array();
-			$contacts 			= array( 'twitter' , 'facebook' , 'gplus' , 'steam' , 'youtube' , 'twitch' , 'oforums' );
+			$contacts 			= array( 'esoacct' , 'twitter' , 'facebook' , 'gplus' , 'steam' , 'youtube' , 'twitch' , 'oforums' );
 			foreach( $contacts as $c ) {
 				if ( isset( $meta[$c] ) ) $this->contacts[$c] = $meta[$c];
 			}
@@ -149,6 +157,28 @@ class Apoc_User {
 		
 		// Add the html to the object
 		$this->block 	= $this->avatar . $block;
+	}
+
+	/**
+	 * Decode server tag
+	 */
+	function user_server( $server ) {
+
+		// Declare server translations
+		$servers = array(
+			'pcna' => 'PC North America',
+			'pceu' => 'PC Europe',
+			'xbox' => 'Xbox One',
+			'ps4'  => 'PlayStation 4'
+		);
+
+		// Decode the tag
+		foreach( $servers as $tag => $name ) {
+			if ( $server === $tag ) return $name;
+		}
+
+		// Else return null
+		return NULL;
 	}
 	
 	/** 
@@ -246,6 +276,15 @@ class Apoc_User {
 		return $bar;
 	}
 
+	/**
+	 * Display user signature
+	 */
+	function signature() {
+		if ( '' != $this->sig )
+			echo '<footer class="user-signature double-border top"><div class="signature-content">' . do_shortcode( $this->sig ) . '</div></footer>';
+	}
+	
+
 	/* 
 	 * Generate a byline for the user profile with their allegiance information
 	 * @version 2.0
@@ -309,6 +348,8 @@ class Apoc_User {
 		}
 
 		// Contacts found
+		if ( isset( $contacts['esoacct'] ) )
+			echo '<li><i class="fa fa-user fa-fw"></i><span>ESO Account:</span> @'  . $contacts['esoacct'] . '</li>' ;
 		if ( isset( $contacts['user_url'] ) )
 			echo '<li><i class="fa fa-globe fa-fw"></i><span>Website:</span><a href="' . $contacts['user_url'] . '" target="_blank">' . $contacts['user_url'] . '</a></li>' ;
 		if ( isset( $contacts['twitter'] ) )
@@ -461,7 +502,106 @@ function apoc_get_avatar( $args = array() ) {
 
 
 /*--------------------------------------------------------------
-	3.0 - POST COUNTS
+	3.0 - EDIT PROFILE CLASS
+--------------------------------------------------------------*/
+class Edit_Profile extends Apoc_User {
+
+	/** 
+	 * Constructor function for Edit Profile class
+	 * Inherits the arguments $user_id and $context from the Apoc_User class
+	 * Checks to see if the edit form has been submitted, if so, update the form
+	 */
+	function __construct( $user_id = 0 ) {
+	
+		// Construct the user
+		parent::__construct( $user_id , 'profile' );
+	
+		// Was the form submitted?
+		if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POST['action'] == 'update-user' )
+			$this->save( $user_id );		
+	}
+
+	/** 
+	 * Update user profile fields
+	 */
+	function save( $user_id ) {
+
+		// Check the nonce
+		if ( !wp_verify_nonce( $_POST['edit_user_nonce'] , 'update-user' ) )
+			exit;
+
+		// Declare the usermeta fields and their sanitization treatments
+		$meta 	= array(
+			'server'		=> array ( $this->server 		, 'trim' ),
+			'first_name'	=> array ( $this->first_name	, 'esc_attr' ),
+			'last_name'		=> array( $this->last_name		, 'esc_attr' ),
+			'faction'		=> array( $this->faction		, 'trim' ),
+			'race'			=> array( $this->race			, 'trim' ),
+			'playerclass'	=> array( $this->class			, 'trim' ),
+			'prefrole'		=> array( $this->prefrole		, 'trim'),
+			'guild'			=> array( $this->guild			, 'esc_attr' ),
+			'description'	=> array( $this->bio			, 'apoc_custom_kses' ),
+			'signature'		=> array( $this->sig			, 'apoc_custom_kses' ),
+			'esoacct'		=> array( $this->contacts['esoacct']	, 'esc_attr' ),	
+			'twitter'		=> array( $this->contacts['twitter']	, 'esc_attr' ),
+			'facebook'		=> array( $this->contacts['facebook']	, 'esc_attr' ),
+			'gplus'			=> array( $this->contacts['gplus']		, 'esc_attr' ),
+			'youtube'		=> array( $this->contacts['youtube']	, 'esc_attr' ),
+			'steam'			=> array( $this->contacts['steam']		, 'esc_attr' ),
+			'twitch'		=> array( $this->contacts['twitch']		, 'esc_attr' ),
+			'oforums'		=> array( $this->contacts['oforums']	, 'esc_attr' ),
+		);
+
+		// Declare the users table fields and their sanitization treatments
+		$users	= array( 
+			'user_url'		=> array( $this->contacts['user_url']	, 'esc_attr' ),
+		);
+
+		// Check each usermeta for updates
+		foreach( $meta as $field => $values ) {
+
+			// Get the value and its treatment
+			$original 	= $values[0];
+			$treatment 	= $values[1];
+
+			// The field has been changed
+			if ( ( $_POST[$field] != "" ) && ( $_POST[$field] != $original ) )
+				update_user_meta( $user_id	, $field , call_user_func( $treatment , $_POST[$field] ) );
+
+			// Otherwise if the value was deleted
+			elseif ( $_POST[$field] == "" )
+				delete_user_meta( $user_id	, $field  )	;
+		}
+
+		// Check the users table for updates
+		foreach( $users as $field => $values ) {
+
+			// Get the value and its treatment
+			$original 	= $values[0];
+			$treatment 	= $values[1];
+
+			// The field has been changed
+			if ( $_POST[$field] != $original )
+				wp_update_user( array ( 
+					'ID' => $user_id , 
+					$field => call_user_func( $treatment , $_POST[$field] ) 
+				) ) ;
+		}
+
+		// Allow plugins to save additional fields
+		do_action('edit_user_profile_update', $user_id );	
+			
+		// Add a success message
+		bp_core_add_message( 'Your user profile was successfully updated!' );
+
+		// Redirect back to the profile
+		wp_redirect( bp_displayed_user_domain() );	
+	}
+}
+
+
+/*--------------------------------------------------------------
+	4.0 - POST COUNTS
 --------------------------------------------------------------*/
 
 /** 

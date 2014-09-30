@@ -17,7 +17,7 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 		<p id="profile-description" class="post-byline <?php echo $user->faction; ?>"><?php echo $user->byline; ?></p>		
 		<div id="profile-actions">
 		<?php if ( bbp_is_user_home() ) : ?>
-			<a class="button" href="<?php echo $user->domain; ?>profile/edit" title="Edit your user profile"><i class="fa fa-edit"></i>Edit Profile</a>
+			<a class="button" href="<?php echo $user->profile; ?>profile/edit" title="Edit your user profile"><i class="fa fa-edit"></i>Edit Profile</a>
 		<?php else : ?>
 			<?php do_action( 'bp_member_header_actions' ); ?>
 		<?php endif; ?>

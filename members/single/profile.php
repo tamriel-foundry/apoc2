@@ -34,11 +34,12 @@ else : ?>
 		</header>
 		<div id="character-sheet" class="<?php echo $charsheet_class; ?>">
 			<ul>
+				<li><i class="fa fa-globe fa-fw"></i><span>Server:</span><?php echo $user->servname; ?></li>
 				<li><i class="fa fa-book fa-fw"></i><span>Name:</span><?php echo $user->charname; ?></li>
+				<li><i class="fa fa-group fa-fw"></i><span>Guild:</span><?php echo $user->guild; ?></li>
 				<li><i class="fa fa-user fa-fw"></i><span>Race:</span><?php echo ucfirst( $user->race ); ?></li>
 				<li><i class="fa fa-gear fa-fw"></i><span>Class:</span><?php echo ucfirst( $user->class ); ?></li>
 				<li><i class="fa fa-shield fa-fw"></i><span>Role:</span><?php echo ucfirst( $user->prefrole ); ?></li>
-				<li><i class="fa fa-group fa-fw"></i><span>Guild:</span><?php echo $user->guild; ?></li>
 			</ul>
 		</div>
 	</section>	

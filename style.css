@@ -256,6 +256,12 @@ fieldset {
 	float: left;
 	}
 
+fieldset > ol, fieldset > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+
 .form-left {
 	width: 50%;
 	float: left;
@@ -562,7 +568,7 @@ td , th {
 	2.5 - Notifications
 ----------------------------------------------*/
 .error,
-.update,
+.updated,
 .warning {
 	width: 100%;
 	float: left;
@@ -577,7 +583,7 @@ td , th {
 
 .warning:before,
 .error:before,
-.update:before {
+.updated:before {
 	font-family: FontAwesome;
 	display: inline-block;
 	margin-right: 5px;
@@ -590,7 +596,7 @@ td , th {
 	}
 	
 .error > p,
-.update > p,
+.updated > p,
 .warning > p {
 	display: inline-block;
 	margin: 0;
@@ -605,11 +611,11 @@ td , th {
 .error:before {	content: "\F12A"; }
 
 /* Updates */
-.update {
+.updated {
 	background: rgba(97,128,209,0.5);
 	color: #FFF;
 	}
-.update:before { content: "\F024"; }
+.updated:before { content: "\F024"; }
 
 /* Warnings */
 .warning {
@@ -1751,6 +1757,7 @@ ol#comment-list {
 .reply-author .member-avatar {
 	display: block;
 	width: 100%;
+	float: left;
 	font-size: 0.875em;
 	}
 
@@ -2086,6 +2093,7 @@ ul.bbp-reply-revision-log {
 	padding: 0.25em 0 0;
 	position: absolute;
 	bottom: 0px;
+	right: 1em;
 	list-style: none;
 	font-size: 12px;
 	color: #A29C8E;
@@ -2102,6 +2110,29 @@ ul.bbp-reply-revision-log img.avatar {
 	border-radius: 0;
 	opacity: 0.75;
 	}
+
+/* Forum Signature */
+.user-signature {
+	flex: 9;
+	min-width: 100%;
+	padding: 0.5em 1em;
+	}
+div.signature-content {
+	max-height: 150px;
+	overflow: hidden;
+	font-size: 0.875em;
+	color: #A29C8E;
+	}
+div.signature-content > p { margin: 0; }
+div.signature-content img {
+	max-height: 150px;
+	width: auto;
+	margin-bottom: 0;
+	padding: 0;
+	border: none;
+	box-shadow: none;
+	}
+
 	
 	
 /*---------------------------------------------
@@ -2340,11 +2371,9 @@ span.activity-quote-mention {
 	margin: -85px 15px 1em;
 	z-index: 2;
 	}
-#profile-user img.avatar {
-	box-shadow: 0 0 8px #000;
-	margin: 0 0 0.5em;
-	}
+#profile-user img.avatar { box-shadow: 0 0 8px #000; }
 #profile-user a.member-name {
+	margin: 0.5em 0;
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.25em;
 	text-shadow: 0 0 8px #000;
@@ -2399,6 +2428,12 @@ span.activity-quote-mention {
 /* Post Count */
 #detail-post-count span.activity-count { float: right; }
 
+/* Contact Methods */
+.user-contact-list span {
+	display: inline-block;
+	min-width: 120px;
+	}
+
 /* Profile Sub-Navigation */
 #profile-body .reply-header { margin: 0; }
 #profile-tabs {
@@ -2439,15 +2474,15 @@ span.activity-quote-mention {
 	padding: 0 1em;
 	display: flex;
 	flex-flow: row-reverse wrap;
-}
+	}
 #user-character {
 	flex: 1;
 	min-width: 300px;
-}
+	}
 #user-biography {
 	flex: 3;
 	min-width: 300px;
-}
+	}
 
 /* Character Sheet */
 div#character-sheet {
@@ -2477,9 +2512,9 @@ div#character-sheet.neutral { background-position: 0 -676px; }
 div#character-sheet.imperial { background-position: -300px -676px; }
 div#character-sheet > ul {
 	list-style: none;
-	margin: 1em;
+	margin: 0.5em 1em;
 	background: rgba(0,0,0,0.6);
-	padding: 0.75em 1em;
+	padding: 0.5em 1em;
 	text-align: left;
 	border: 1px solid #111;
 	border-radius: 3px;
@@ -2491,6 +2526,11 @@ div#character-sheet > ul li span {
 	width: 50px;
 	margin: 0 0 0 3px; 
 	}
+
+/* Edit Profile */
+#edit-profile-form label { min-width: 150px; }
+#edit-profile-form select { min-width: 180px; }
+#edit-bio-sig .instructions , #edit-bio-sig .wp-editor-wrap { margin: 0 0 1em; }
 
 /*---------------------------------------------
 	9.4 - Registration

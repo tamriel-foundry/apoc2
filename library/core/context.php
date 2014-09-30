@@ -85,17 +85,25 @@ class Apoc_Context {
 			// User Profiles
 			if ( bp_is_user() ) :
 				
-				$title		= bp_get_displayed_user_fullname() . $sep . "User Profile";
+				$title		= bp_get_displayed_user_fullname() . $sep . "User Profile";				
 				$desc		= SITENAME . " user profile for member " . bp_get_displayed_user_fullname();
 
 				// Your own profile
 				if ( bp_is_my_profile() ) :
 					$crumbs[] 	= 'Your Profile';
-					//$crumbs[] 	= '<a href="'.bp_displayed_user_domain().'" title="Your Profile">Your Profile</a>';
-
 				else :
 					$crumbs[] 	= '<a href="'. bp_get_members_directory_permalink() .'" title="Members Directory">Members</a>';
 					$crumbs[] 	= '<a href="'.bp_displayed_user_domain().'" title="'.bp_get_displayed_user_fullname(). '">' . bp_get_displayed_user_fullname() . '</a>';
+				endif; 
+
+				// Display the profile component if it isnt the profile home
+				if ( !bp_is_user_profile() ) :
+					$crumbs[] = ucfirst( bp_current_component() );
+				endif; 
+
+				// Display the current action if it is not the default public profile
+				if ( 'public' !== bp_current_action() ) :
+					$crumbs[] = ucfirst( bp_current_action() );
 				endif;
 
 			// Group Profile
@@ -193,7 +201,7 @@ class Apoc_Context {
 			
 			// Edit Reply
 			elseif ( bbp_is_reply_edit() ) :
-				$title 		= str_replace( 'To: ' , $separator , 'Edit ' . $object->post_title );
+				$title 		= 'Edit Reply' . $sep . bbp_get_reply_topic_title( $id );
 				$desc		= bbp_get_reply_excerpt( $id );		
 				$crumbs 	= array_merge( $crumbs, $this->parent_crumbs( bbp_get_reply_topic_id( $id ) ) );	
 				$crumbs[] 	= 'Edit Reply';

@@ -23,7 +23,7 @@
 
 			<?php // Account succesfully activated
 			if ( bp_account_was_activated() ) : ?>
-			<p class="update">Your account was activated successfully! Please log in with the username and password you provided when you signed up. Welcome to the Tamriel Foundry community!</p>
+			<p class="updated">Your account was activated successfully! Please log in with the username and password you provided when you signed up. Welcome to the Tamriel Foundry community!</p>
 			<div class="instructions">
 				<h3 class="double-border bottom">Registration Completed</h3>
 				<p>Thank you for completing your user registration at Tamriel Foundry. We look forward to welcoming you to our community! Here are some helpful links to get you started:</p>

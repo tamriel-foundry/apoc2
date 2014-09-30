@@ -144,7 +144,7 @@
 			<?php // Signup completed confirmation
 			elseif ( 'completed-confirmation' == bp_get_current_signup_step() ) : ?>
 
-				<p class="update">Thank you for registering a new account on <?php echo SITENAME; ?>!</p>
+				<p class="updated">Thank you for registering a new account on <?php echo SITENAME; ?>!</p>
 				
 				<div class="instructions">
 				<?php if ( bp_registration_needs_activation() ) : ?>

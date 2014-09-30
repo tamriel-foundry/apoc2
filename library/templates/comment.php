@@ -36,6 +36,6 @@ $user	= new Apoc_User( $comment->user_id , 'reply' );
 			<?php comment_text( $comment->comment_ID ); ?>
 		</div>
 		
-		<?php $user->sig; ?>
+		<?php $user->signature(); ?>
 	</section>
 </li>

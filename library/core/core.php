@@ -40,4 +40,19 @@ function apoc_comment_form() {
 }
 
 
+
+
+
+/* 
+ * Custom text sanitization and filtering
+ * @version 2.0
+ */
+function apoc_custom_kses( $content ) {
+	$content = wp_filter_post_kses( $content );
+	$content = wptexturize( $content );
+	$content = wpautop( $content );
+	$content = convert_chars( $content );
+	$content = force_balance_tags( $content );
+	return $content;
+}
 ?>

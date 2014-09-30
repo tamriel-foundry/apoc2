@@ -66,7 +66,7 @@ $('form#top-login-form').submit(function(event) {
 			
 			// Redirect successful logins
 			if ( result.loggedin === true ) {
-				message.attr('class','update').html(result.message).slideDown();
+				message.attr('class','updated').html(result.message).slideDown();
 				document.location.href = $('#login-redirect').val();
 			}
 			

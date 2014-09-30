@@ -28,7 +28,7 @@ $author = new Apoc_User( bbp_get_reply_author_id() , 'reply' );
 		<div class="reply-content">
 			<?php bbp_reply_content(); ?>		
 		</div>
-		
+		<?php $author->signature(); ?>	
 	</section>
 	
 </li>

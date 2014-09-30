@@ -252,7 +252,7 @@ class Apoc_Online_Members {
 		endif;
 		
 		// Implode the members with separator
-		$members = implode( "|" , $members );
+		$members = implode( " | " , $members );
 
 		// Store everything in an output buffer
 		ob_start(); ?>	

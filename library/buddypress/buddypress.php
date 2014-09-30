@@ -73,6 +73,16 @@ class Apoc_BuddyPress {
 		// Remove scripts and styles
 		remove_action( 'wp_enqueue_scripts' 		, 'bp_core_confirmation_js' );
 
+		// BuddyPress Navigation
+		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
+
+
+		// User Profiles
+		add_action( 'bp_member_header_actions'		,	'bp_add_friend_button',           5 	);
+		add_action( 'bp_member_header_actions'		,	'bp_send_public_message_button',  20 	);
+		add_action( 'bp_member_header_actions'		,	'bp_send_private_message_button', 20 	);
+	
+
 		// Guild Buttons
 		add_action( 'bp_group_header_actions'		,	'bp_group_join_button'	, 	5 	);
 		add_action( 'bp_directory_groups_actions'	, 	'bp_group_join_button'			);
@@ -81,9 +91,7 @@ class Apoc_BuddyPress {
 		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
 		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) );
 
-		// Profile Navigation
-		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
-	}
+			}
 	
 	
 	/**
@@ -97,10 +105,12 @@ class Apoc_BuddyPress {
 		// Activity delete link
 		add_filter( 'bp_get_activity_delete_link'	, array( $this , 'activity_delete_button' ) );
 
-		// Add-Remove friend button
+		// Profile Buttons
 		add_filter( 'bp_get_add_friend_button'		, array( $this , 'friend_button' ) );
+		add_filter( 'bp_get_send_public_message_button', array( $this , 'message_button' ) );
+		add_filter( 'bp_get_send_message_button_args' , array( $this , 'message_button' ) );
 
-		// Guild Buttons
+		// Group Buttons
 		add_filter( 'bp_get_group_join_button' 		, array( $this, 'join_button' ) );
 	}
 
@@ -132,7 +142,9 @@ class Apoc_BuddyPress {
 		
 		// Remove the div wrapper
 		$button['wrapper'] = false;
-		$button['link_class'] = 'button-dark ' . $button['link_class'];
+
+		// Set the button class
+		$button['link_class'] = bp_is_user() ? 'button ' . $button['link_class'] : 'button-dark ' . $button['link_class'];
 
 		// Not friends
 		if ( in_array( $button['id'] , array( 'pending' , 'awaiting_response' , 'not_friends' ) ) )
@@ -142,6 +154,26 @@ class Apoc_BuddyPress {
 		else if ( 'is_friend' === $button['id'] )
 			$button['link_text'] = '<i class="fa fa-remove"></i>' . $button['link_text'];
 
+		// Return the button
+		return $button;
+	}
+
+	function message_button( $button ) {
+
+		// Remove the div wrapper
+		$button['wrapper'] = false;
+
+		// Set the button class
+		$button['link_class'] = bp_is_user() ? 'button ' . $button['link_class'] : 'button-dark ' . $button['link_class'];
+
+		// Public message
+		if ( $button['id'] === 'public_message' )
+			$button['link_text'] = '<i class="fa fa-comment"></i>' . $button['link_text'];
+		
+		// Private message
+		elseif ( $button['id'] === 'private_message' )
+			$button['link_text'] = '<i class="fa fa-envelope"></i>' . $button['link_text'];	
+		
 		// Return the button
 		return $button;
 	}

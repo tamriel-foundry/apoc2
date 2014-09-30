@@ -104,7 +104,7 @@ css/entropy-rising.css				|
 css/login-style.css					|
 css/map-style.css					| done	
 extensions/bbpress.php				| in-progress
-extensions/breadcrumbs.php			| in-progress
+extensions/breadcrumbs.php			| done
 extensions/buddypress.php			| in-progress
 extensions/events.php				|
 extensions/map.php					| done
@@ -119,7 +119,7 @@ functions/core.php 					| done
 functions/login.php					| deprecated
 functions/pagination.php 			|					
 functions/posts.php					| done
-functions/seo.php					|
+functions/seo.php					| deprecated
 functions/users.php					| in-progress
 js/buddypress.js					|
 js/colorbox.min.js					|
@@ -148,17 +148,17 @@ MEMBERS								| PROGRESS
 ----------------------------------- | -----------
 index.php							| done
 members-loop.php					| done
-single/activity.php					|
+single/activity.php					| done
 single/forums.php					|
-single/friends.php					|
-single/friends/requests.php			|
+single/friends.php					| done
+single/friends/requests.php			| done
 single/groups.php					|
 single/groups/invites.php			|
 single/home.php						| done
 single/infractions.php				|
 single/infractions/notes.php		|
 single/infractions/warning.php 		|
-single/member-header.php			| in-progress
+single/member-header.php			| done
 single/messages.php					|
 single/messages/compose.php			|
 single/messages/messages-loop.php	|
@@ -167,9 +167,9 @@ single/notifications.php			|
 single/notifications/notifications-loop.php	|
 single/notifications/read.php		|
 single/notifications/unread.php		|
-single/profile.php					|
-single/profile/change-avatar.php	|
-single/profile/edit.php				|
+single/profile.php					| done
+single/profile/change-avatar.php	| 
+single/profile/edit.php				| done
 single/settings.php					|
 single/settings/capabilities.php	|
 single/settings/delete-account.php	|

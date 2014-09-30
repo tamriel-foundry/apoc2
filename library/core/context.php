@@ -102,7 +102,7 @@ class Apoc_Context {
 				endif; 
 
 				// Display the current action if it is not the default public profile
-				if ( 'public' !== bp_current_action() ) :
+				if ( !in_array( bp_current_action() , array( 'public' , 'just-me' , 'my-friends' ) ) ) :
 					$crumbs[] = ucfirst( bp_current_action() );
 				endif;
 

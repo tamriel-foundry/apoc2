@@ -17,7 +17,10 @@
 			<header id="directory-header" class="post-header <?php apoc_post_header_class( 'page' ); ?>">
 				<h1 class="post-title"><?php apoc_title(); ?></h1>
 				<p class="post-byline"><?php apoc_description(); ?></p>
-				<?php wp_nonce_field( 'directory_members', '_wpnonce-member-filter' ); ?>
+				<?php if ( is_user_logged_in() ) : ?>
+					<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug() . '/create/'; ?>"><i class="fa fa-user"></i>Submit Your Guild</a>
+				<?php endif; ?>
+				<?php wp_nonce_field( 'directory_groups', '_wpnonce-groups-filter' ); ?>
 			</header>
 
 			<nav id="directory-nav" class="dir-list-tabs" role="navigation">

@@ -106,8 +106,15 @@ class Apoc_Context {
 					$crumbs[] = ucfirst( bp_current_action() );
 				endif;
 
-			// Group Profile
+			// Single Group
 			elseif ( bp_is_group() ) :
+
+			// Group Creation
+			elseif ( bp_is_group_create() ) : 
+				$title 		= 'Submit New Group';
+				$desc		= 'Submit a new user group for listing on the ' . SITENAME . ' community groups directory.';
+				$crumbs[] 	= '<a href="' . SITEURL . '/' . bp_get_groups_root_slug() . '" title="Groups Directory">Groups</a>';
+				$crumbs[] 	= 'Create Group';
 
 			// Directories
 			elseif ( bp_is_directory() ) :	

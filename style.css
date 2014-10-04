@@ -2152,6 +2152,11 @@ div.signature-content img {
 	9.1 - Directories
 ----------------------------------------------*/
 header#directory-header { margin: 0; }
+#directory-header .button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	}
 
 /* Directory Navigation */
 nav#directory-nav {
@@ -2179,7 +2184,8 @@ ul#directory-actions > li {
 	max-width: 180px;
 	}
 
-ul#directory-actions > li a {	
+#directory-actions li > a,
+#directory-actions li > span {
 	display: block;
 	width: 100%;
 	height: 40px;
@@ -2189,18 +2195,18 @@ ul#directory-actions > li a {
 	text-align: center;
 	}
 
-ul#directory-actions > li a span {
+#directory-actions > li a span {
 	background: rgba(102,102,102,0.5);
 	color: #c1bcae;
-	padding: 0 5px;
+	padding: 1px 5px;
 	margin: 0 5px;
 	border: 1px solid #000;
 	border-radius: 2px;
 	box-shadow: 0 0 3px #000;
 	}
 
-ul#directory-actions > li:hover a,
-ul#directory-actions > li:hover span { 
+#directory-actions li:hover > a,
+#directory-actions li:hover > a span { 
 	color: #FFB14C; 
 	text-shadow: 0 0 5px #c60;
 	}
@@ -2531,6 +2537,24 @@ div#character-sheet > ul li span {
 #edit-profile-form label { min-width: 150px; }
 #edit-profile-form select { min-width: 180px; }
 #edit-bio-sig .instructions , #edit-bio-sig .wp-editor-wrap { margin: 0 0 1em; }
+
+/*---------------------------------------------
+	9.3 - Group Profiles
+----------------------------------------------*/
+
+
+
+
+
+
+/* Group Creation */
+#create-group-form label { min-width: 120px; }
+#create-group-form input[type="text"], #create-group-form select {	min-width: 180px; }
+
+#create-group-form .checkbox-list { padding-left: 1em; }
+
+#create-group-form button[name="previous"] { font-size: 1em; }
+
 
 /*---------------------------------------------
 	9.4 - Registration

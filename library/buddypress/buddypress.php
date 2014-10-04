@@ -653,3 +653,111 @@ function apoc_registration_humanity_image() {
 	// Return the image HTML
 	echo '<img id="humanity-image" class="noborder" src="' . THEME_URI .'/registration/humanity.png" alt="HINT: This is a ' . ucfirst($race) . '" title="HINT: This is a ' . ucfirst($race) . '!" width="200" height="230" />';
 }
+
+
+
+
+/*--------------------------------------------------------------
+6.0 - GROUP CREATION
+--------------------------------------------------------------*/
+
+/**
+ * Apocrypha theme group editing
+ * This class is called when user groups are being edited in their administration panels or during the group creation process.
+ *
+ * @version 2.0
+ */
+class Apoc_Group_Edit {
+
+	/**
+	 * Initialize Group edit class
+	 */
+	function __construct() {
+	
+		// Add profile edit actions
+		$this->actions();		
+		
+		// Add profile edit filters
+		$this->filters();	
+	}
+	
+	/**
+	 * Register group edit actions
+	 */
+	private function actions() {
+
+		// Intercept group submissions for non-administrators
+		// This approach is currently not working,I need to look up the docs on how to intercept group saving
+		// Uses do_action_ref_array, and not seeming to trigger
+		//add_action( 'groups_group_before_save'						, array( $this , 'submit_guild' ) , 1 );
+
+		// Save group meta fields
+		add_action( 'groups_details_updated'						, array( $this , 'save_group_fields' ) );
+		add_action( 'groups_create_group_step_save_group-details' 	, array( $this , 'save_group_fields' ) );
+	}
+
+	/**
+	 * Register group edit filters
+	 */
+	private function filters() {
+
+
+	}
+
+
+	function submit_guild() {
+
+		// What we want to do here is...
+
+		// Check whether we are doing a new group creation
+
+		// If so, let's intercept the information and trigger an email
+
+		// Next prevent the parent group object from succesfully saving
+
+		// Add a success template notice
+
+		// Redirect back to the guild directory
+
+	}
+
+
+
+	/* 
+	 * Save custom groupmeta fields on group profile updates and at creation
+	 * @version 2.0
+	 */
+	function save_group_fields( $group_id ) {
+		
+		// Get the current BP group object
+		global $bp;
+
+		// Get the current group ID
+		$id = isset( $bp->groups->new_group_id ) ? $bp->groups->new_group_id : $group_id;
+
+		// Save the eligible meta
+		$group_is_guild = ( 'group' == $_POST['group-type'] ) ? 0 : 1;
+			groups_update_groupmeta( $id, 'is_guild', $group_is_guild );
+			
+		if ( $_POST['group-website'] )
+			groups_update_groupmeta( $id, 'group_website', $_POST['group-website'] );  
+	
+		if ( $_POST['group-platform']  )
+			groups_update_groupmeta( $id, 'group_platform', $_POST['group-platform'] );
+			
+		if ( $_POST['group-faction']  )
+			groups_update_groupmeta( $id, 'group_faction', $_POST['group-faction'] );
+			
+		if ( $_POST['group-region']  )
+			groups_update_groupmeta( $id, 'group_region', $_POST['group-region'] );
+			
+		if ( $_POST['group-style']  )
+			groups_update_groupmeta( $id, 'group_style', $_POST['group-style'] );
+			
+		if ( $_POST['group-interests']  )
+			groups_update_groupmeta( $id, 'group_interests', $_POST['group-interests'] );
+			
+		// Clear the cached metadata
+		wp_cache_delete( 'bp_groups_allmeta_' . $id , 'bp' );
+	}
+}

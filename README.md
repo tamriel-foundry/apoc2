@@ -2,6 +2,19 @@ apoc2
 =====
 
 The new Tamriel Foundry apocrypha theme!
+
+
+Database Change Notes
+
+group_meta {
+	group-platform -> group-server
+	group-platform = pcmac -> napc
+	group-platform = playstation -> ps4
+}
+
+
+
+
 Apocrypha2 Theme File Index 
 
 ROOT THEME							| PROGRESS
@@ -61,7 +74,7 @@ user-topics-created.php				|
 
 GROUPS								| PROGRESS
 ----------------------------------- | -----------
-create.php							|
+create.php							| in-progress
 groups-loop.php						| done
 index.php							| done
 forum/topic-edit.php				|
@@ -185,7 +198,7 @@ classes/templar.php					| on-hold
 development-faq.php					| deprecated
 page-class.php						| on-hold
 page-contact.php					|
-page-submit-guild.php				|
+page-submit-guild.php				| deprecated
 
 REGISTRATION						| PROGRESS
 ----------------------------------- | -----------

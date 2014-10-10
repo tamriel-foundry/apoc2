@@ -15,3 +15,7 @@ locations[12]=['Ilthag\&#039;s Undertower','tower','This crumbling Imperial towe
 locations[13]=['Upper Craglorn Skyshard 2','skyshard','&lt;em&gt;Beneath the tower on the ridge.&lt;/em&gt; A skyshard is found within the tower of Ilthag Ironblood in the hallway before his throne room.',43.66,-20.16];
 locations[14]=['Upper Craglorn Skyshard 4','skyshard','&lt;em&gt;Amidst howling winds and restless tombs.&lt;/em&gt; A skyshard is found within the Howling Sepulchers at the end of the narrow winding path that circles through the dungeon.',47.71,-15.656];
 locations[15]=['Howling Sepulchers','barrow','Placeholder',47.473,-15.76];
+locations[16]=['Valley of Scars Wayshrine','wayshrine','A wayshrine stands amidst some ruins south of the main road as it forks north towards Howling Sepulcher.',44.98,-22.467];
+locations[17]=['Craglorn Treasure Location 5','treasure','This hidden treasure is buried atop a Nordic burial mound northeast of the Valley of Scars Wayshrine.',46.165,-19.737];
+locations[18]=['Iron Orc Fortress','tower','This stronghold of the mountain dwelling Iron Orc clans is built ruggedly into the side of the mountain here in northern Craglorn.',49.196,-24.598];
+locations[19]=['Skyreach Overlook','landmark','An Altmer artist has claimed this location for it\&#039;s impressive view of the surrounding countryside, and from its lofty perch he paints beautiful landscapes.',43.708,-31.212];

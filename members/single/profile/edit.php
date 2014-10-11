@@ -53,8 +53,8 @@ $user = new Edit_Profile( bp_displayed_user_id() );
 
 						<li>
 							<label for="first_name"><i class="fa fa-book fa-fw"></i>Character Name:</label>
-							<input name="first_name" type="text" id="first-name" value="<?php echo $user->first_name; ?>" size="12" />
-							<input name="last_name" type="text" id="last-name" value="<?php echo $user->last_name; ?>" size="12" />
+							<input name="first_name" type="text" id="first-name" value="<?php echo $user->first_name; ?>" placeholder="First">
+							<input name="last_name" type="text" id="last-name" value="<?php echo $user->last_name; ?>" placeholder="Last">
 						</li>
 
 						<li>
@@ -68,7 +68,7 @@ $user = new Edit_Profile( bp_displayed_user_id() );
 						</li>
 
 						<li>
-							<label for="race"><i class="fa fa-man fa-fw"></i>Character Race:</label>
+							<label for="race"><i class="fa fa-male fa-fw"></i>Character Race:</label>
 							<select name="race" id="race" onchange="updateRaceDropdown('race')">
 								<option value="">Undecided</option>
 								<option value="altmer" <?php selected( $user->race	, 'altmer' 	, true ); ?>>Altmer</option>
@@ -165,54 +165,54 @@ $user = new Edit_Profile( bp_displayed_user_id() );
 						<li>
 							<label for="esoacct"><i class="fa fa-user fa-fw"></i>ESO Account:</label>
 							<span class="contact-url-prefix">@</span>
-							<input type="text" name="esoacct" value="<?php if ( isset( $user->contacts['esoacct'] ) ) echo $user->contacts['esoacct']; ?>" size="48" />
+							<input type="text" name="esoacct" value="<?php if ( isset( $user->contacts['esoacct'] ) ) echo $user->contacts['esoacct']; ?>">
 						</li>
 
 						<li>
 							<label for="user_url"><i class="fa fa-globe fa-fw"></i>Your Website:</label>
-							<input type="url" name="user_url" value="<?php if ( isset( $user->contacts['user_url'] ) ) echo $user->contacts['user_url']; ?>" size="50" />
+							<input type="url" name="user_url" value="<?php if ( isset( $user->contacts['user_url'] ) ) echo $user->contacts['user_url']; ?>">
 						</li>
 						
 						<li>
 							<label for="facebook"><i class="fa fa-facebook fa-fw"></i>Facebook:</label>
 							<span class="contact-url-prefix">facebook.com/</span>
-							<input type="text" name="facebook" value="<?php if ( isset( $user->contacts['facebook'] ) ) echo $user->contacts['facebook']; ?>" size="36">
+							<input type="text" name="facebook" value="<?php if ( isset( $user->contacts['facebook'] ) ) echo $user->contacts['facebook']; ?>">
 						</li>
 						
-						<li class="text">
+						<li>
 							<label for="twitter"><i class="fa fa-twitter fa-fw"></i>Twitter:</label>
 							<span class="contact-url-prefix">twitter.com/</span>
-							<input type="text" name="twitter" value="<?php if ( isset( $user->contacts['twitter'] ) ) echo $user->contacts['twitter']; ?>" size="39">
+							<input type="text" name="twitter" value="<?php if ( isset( $user->contacts['twitter'] ) ) echo $user->contacts['twitter']; ?>">
 						</li>
 						
-						<li class="text">
+						<li>
 							<label for="gplus"><i class="fa fa-google-plus fa-fw"></i>Google+:</label>
 							<span class="contact-url-prefix">plus.google.com/</span>
-							<input type="text" name="gplus" value="<?php if ( isset( $user->contacts['gplus'] ) ) echo $user->contacts['gplus']; ?>" size="34">
+							<input type="text" name="gplus" value="<?php if ( isset( $user->contacts['gplus'] ) ) echo $user->contacts['gplus']; ?>">
 						</li>
 						
-						<li class="text">
+						<li>
 							<label for="youtube"><i class="fa fa-youtube fa-fw"></i>YouTube:</label>
 							<span class="contact-url-prefix">youtube.com/</span>
-							<input type="text" name="youtube" value="<?php if ( isset( $user->contacts['youtube'] ) ) echo $user->contacts['youtube']; ?>" size="37">
+							<input type="text" name="youtube" value="<?php if ( isset( $user->contacts['youtube'] ) ) echo $user->contacts['youtube']; ?>">
 						</li>
 						
-						<li class="text">
+						<li>
 							<label for="steam"><i class="fa fa-steam fa-fw"></i>Steam:</label>
 							<span class="contact-url-prefix">steamcommunity.com/id/</span>
-							<input type="text" name="steam" value="<?php if ( isset( $user->contacts['steam'] ) ) echo $user->contacts['steam']; ?>" size="26">
+							<input type="text" name="steam" value="<?php if ( isset( $user->contacts['steam'] ) ) echo $user->contacts['steam']; ?>">
 						</li>
 						
-						<li class="text">
+						<li>
 							<label for="twitch"><i class="fa fa-twitch fa-fw"></i>TwitchTV:</label>
 							<span class="contact-url-prefix">twitch.tv/</span>
-							<input type="text" name="twitch" value="<?php if ( isset( $user->contacts['twitch'] ) ) echo $user->contacts['twitch']; ?>" size="41">
+							<input type="text" name="twitch" value="<?php if ( isset( $user->contacts['twitch'] ) ) echo $user->contacts['twitch']; ?>">
 						</li>
 					
-						<li class="text">
-							<i class="fa fa-circle-o fa-fw"></i><label for="oforums">ESO Forums:</label>
+						<li>
+							<label for="oforums"><i class="fa fa-circle-o fa-fw"></i>ESO Forums:</label>
 							<span class="contact-url-prefix">forums.elderscrollsonline.com/profile/</span>
-							<input type="text" name="oforums" value="<?php if ( isset( $user->contacts['oforums'] ) ) echo $user->contacts['oforums']; ?>" size="14">
+							<input type="text" name="oforums" value="<?php if ( isset( $user->contacts['oforums'] ) ) echo $user->contacts['oforums']; ?>">
 						</li>
 					</ol>
 				</fieldset>

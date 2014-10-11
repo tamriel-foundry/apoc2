@@ -3,15 +3,24 @@
  * Apocrypha Theme BuddyPress Functions
  * Andrew Clayton
  * Version 2.0
- * 5-5-2014
+ * 10-11-2014
+ *
+ * Contents:
+ * 1.0 - Constants, Actions, and Filters
+ * 2.0 - Activity
+ * 3.0 - Members
+ * 4.0 - Groups
+ * 5.0 - Profiles
+ * 6.0 - Registration
 */
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-
+/*--------------------------------------------------------------
+	APOC BUDDYPRESS PLUGIN CLASS
+--------------------------------------------------------------*/
 class Apoc_BuddyPress {
-
 
 	/**
 	 * Construct the BuddyPress Class
@@ -31,6 +40,10 @@ class Apoc_BuddyPress {
 		// Filters
 		$this->filters();
 	}
+
+	/*------------------------------------------
+		1.0 - CONSTANTS, ACTIONS, AND FILTERS
+	------------------------------------------*/
 	
 	/**
 	 * Define additional BuddyPress constants
@@ -59,6 +72,9 @@ class Apoc_BuddyPress {
 	
 		// BuddyPress bundled AJAX library
 		require_once( BP_PLUGIN_DIR . '/bp-themes/bp-default/_inc/ajax.php' );
+
+		// BuddyPress extension files
+		require( LIB_DIR . 'buddypress/groups.php' );
 	}
 	
 	
@@ -76,13 +92,14 @@ class Apoc_BuddyPress {
 		// BuddyPress Navigation
 		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
 
-
 		// User Profiles
 		add_action( 'bp_member_header_actions'		,	'bp_add_friend_button',           5 	);
 		add_action( 'bp_member_header_actions'		,	'bp_send_public_message_button',  20 	);
 		add_action( 'bp_member_header_actions'		,	'bp_send_private_message_button', 20 	);
-	
 
+		// Group Creation
+		add_action( 'groups_group_before_save'		, array( $this , 'submit_guild' ) , 1 );
+	
 		// Guild Buttons
 		add_action( 'bp_group_header_actions'		,	'bp_group_join_button'	, 	5 	);
 		add_action( 'bp_directory_groups_actions'	, 	'bp_group_join_button'			);
@@ -91,7 +108,7 @@ class Apoc_BuddyPress {
 		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
 		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) );
 
-			}
+	}
 	
 	
 	/**
@@ -114,10 +131,8 @@ class Apoc_BuddyPress {
 		add_filter( 'bp_get_group_join_button' 		, array( $this, 'join_button' ) );
 	}
 
-
-
 	/*------------------------------------------
-		ACTIVITY
+		2.0 - ACTIVITY
 	------------------------------------------*/
 
 	/**
@@ -136,7 +151,7 @@ class Apoc_BuddyPress {
 	}	
 
 	/*------------------------------------------
-		MEMBERS
+		3.0 - MEMBERS
 	------------------------------------------*/
 	function friend_button( $button ) {
 		
@@ -180,8 +195,85 @@ class Apoc_BuddyPress {
 
 
 	/*------------------------------------------
-		GROUPS
+		4.0 - GROUPS
 	------------------------------------------*/
+
+	function submit_guild( &$group ) {
+
+		// If the user is allowed to delete posts, then they can also create guilds and bypass validation requirements
+		if ( current_user_can( 'delete_others_posts' ) ) return;
+
+		// Get the BP object
+		global $bp;
+
+		// Retrieve and sanitize submission data
+		$group->server 		= $_POST['group-server'];
+		$group->interests 	= implode(',', $_POST['group-interests']);
+		$group->faction 	= $_POST['group-faction'];
+		$group->website 	= esc_url( $_POST['group-website'] );
+		$group->style 		= $_POST['group-style']; 
+
+		// Validate submitted data
+		if ( '' === $group->server )			$error = 'Please select your guild&apos;s platform and server.';
+		elseif ( empty( $group->interests ) )	$error = 'Please select your guild&apos;s primary interests.';
+		elseif ( empty( $group->faction ) )		$error = 'Please select your guild&apos;s primary alliance.';
+
+
+		// Assign the current group to the group object
+		$bp->groups->current_group = $group;
+
+		// If there was an error, display it and redirect
+		if ( isset( $error ) ) {
+			bp_core_add_message( $error , 'error' );
+			bp_core_redirect( bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/create/step/' . bp_get_groups_current_create_step() . '/' );
+		}
+
+		// Otherwise, send an email
+		else {
+
+			// Get the current user
+			$user 		= new Apoc_User( get_current_user_id() , 'profile' );
+			$username	= $user->display_name;
+			$user_email	= $user->user_email;
+			$profile	= $user->link;
+
+			// Set email headers
+			$emailto 	= 'admin@tamrielfoundry.com';
+			$subject 	= "Guild Creation Request From $username";
+			$headers[] 	= "From: $username <$user_email>\r\n";
+			$headers[] 	= "Content-Type: text/html; charset=UTF-8";
+
+			// User Information
+			$body = "<h3>Submitting User</h3>";
+			$body .= "<ul>";
+				$body .= "<li>Guild Leader: $profile";
+				$body .= "<li>Email: $user_email</li>";
+			$body .= "</ul>";
+
+			// Guild Information
+			$body .= "<h3>Guild Information</h3>";
+			$body .= "<ul>";
+				$body .= "<li>Guild Name: $group->name";
+				$body .= "<li>Website: $group->website";
+				$body .= "<li>Server: $group->server";
+				$body .= "<li>Faction: $group->faction";
+				$body .= "<li>Interests: $group->interests";
+			$body .= "</ul>";
+
+			// Guild Description
+			$body .= "<h3>Guild Description</h3>";
+			$body .= "<div>$group->description</div>";
+
+			// Send the mail!
+			wp_mail( $emailto , $subject , $body , $headers );
+
+			// Redirect
+			bp_core_add_message( 'Thank you for submitting your guild, ' . $user->fullname . '. Your request was successfully sent. We will review it and respond as soon as possible. If your request is approved, you will be added to your group, and promoted to guild leader. We will contact you via email regarding your guild request once it has been processed. Thank you for contributing to Tamriel Foundry!' );
+			bp_core_redirect( SITEURL . '/' . bp_get_groups_root_slug() );	
+		}
+	}
+
+
 	function join_button( $button ) {
 		
 		// Remove the div wrapper
@@ -198,7 +290,7 @@ class Apoc_BuddyPress {
 
 
 	/*------------------------------------------
-		PROFILE
+		5.0 - PROFILES
 	------------------------------------------*/
 
 	/*
@@ -274,12 +366,8 @@ class Apoc_BuddyPress {
 	}
 	
 
-
-
-
-
 	/*------------------------------------------
-		USER REGISTRATION
+		6.0 - USER REGISTRATION
 	------------------------------------------*/
 	/*
 	 * Check that custom registration fields have been successfully completed.
@@ -320,322 +408,6 @@ new Apoc_BuddyPress();
 
 
 
-
-
-
-
-
-
-/*--------------------------------------------------------------
-	GROUPS
---------------------------------------------------------------*/
-
-/**
- * Apocrypha Group Class
- * For use in directories and guild profiles
- */
-class Apoc_Group {
-
-	// The context in which this user is being displayed
-	public $context;
-	
-	// The HTML member block
-	public $avatar;
-	public $block;
-
-	
-	/**
-	 * Constructs relevant information regarding a TF user 
-	 * The scope of information that is added depends on the context supplied
-	 */	
-	function __construct( $group_id = 0 , $context = 'profile' , $avatar_size = 100 ) {
-	
-		// Set the context
-		$this->context = $context;
-		$this->size = $avatar_size;
-		
-		// Get data for the user
-		$this->get_data( $group_id );
-		
-		// Format data depending on the context
-		$this->format_data( $context );
-	}
-	
-	/**
-	 * Gets user data for a forum reply or article comment
-	 */	
-	function get_data( $group_id ) {
-		
-		// Get the meta data
-		$allmeta = wp_cache_get( 'bp_groups_allmeta_' . $group_id, 'bp' );
-		if ( false === $allmeta ) {
-			global $bp, $wpdb;
-			$allmeta = array();
-			$rawmeta = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM " . $bp->groups->table_name_groupmeta . " WHERE group_id = %d", $group_id ) );
-			foreach( $rawmeta as $meta ) {
-				$allmeta[$meta->meta_key] = $meta->meta_value;			
-			}
-			wp_cache_set( 'bp_groups_allmeta_' . $group_id, $allmeta, 'bp' );
-		}
-		
-		// Add data to the class object
-		$this->id			= $group_id;
-		$this->fullname		= bp_get_group_name();
-		$this->domain		= bp_get_group_permalink();
-		$this->slug			= bp_get_group_slug();
-		$this->guild		= ( $allmeta['is_guild'] == 1 ) 		? 1 : 0;
-		$this->type			= $this->type();
-		$this->members		= bp_get_group_member_count();
-		$this->alliance		= isset( $allmeta['group_faction'] )	? $allmeta['group_faction'] : NULL;
-		$this->faction		= $this->allegiance();
-		$this->platform		= isset( $allmeta['group_platform'] )	? $allmeta['group_platform'] : NULL;
-		$this->region		= isset( $allmeta['group_region'] )		? $allmeta['group_region'] : NULL;
-		$this->style		= isset( $allmeta['group_style'] )		? $allmeta['group_style'] : NULL;
-		$this->interests	= isset( $allmeta['group_interests'] )	? unserialize( $allmeta['group_interests'] ) : NULL;
-		$this->website		= isset( $allmeta['group_website'] )	? $allmeta['group_website'] : NULL;
-		
-		// Get some extra stuff on user profiles
-		if ( $this->context == 'profile' ) {
-			$this->byline	= $this->byline();	
-			$this->admins 	= $this->admins();
-			$this->mods		= $this->mods();
-		}
-	}
-	
-	/* 
-	 * Get a group's filtered type
-	 * @since 0.4
-	 */
-	function type() {
-		$type = bp_get_group_type();
-		if ( $this->guild )
-			$type = str_replace( 'Group' , 'Guild' , $type );
-		return $type;
-	}
-
-	/* 
-	 * Get a group's declared allegiance
-	 */
-	function allegiance() {
-	
-		switch( $this->alliance ) {
-			
-			case 'aldmeri' :
-				$faction = 'Aldmeri Dominion';
-				break;
-			case 'daggerfall' :
-				$faction = 'Daggerfall Covenant';
-				break;
-			case 'ebonheart' :
-				$faction = 'Ebonheart Pact';
-				break;
-			case 'neutral' :
-				$faction = 'Neutral';
-				break;
-			default :
-				$faction = 'Undeclared';
-				break;		
-		}
-		return $faction;
-	}
-
-	/* 
-	 * Get a group's platform and region preference
-	 */	
-	function platform() {
-		
-		// Format platform
-		$platform 	= $this->platform;
-		if ( $platform ) {
-			$sql	 	= array( 'pcmac' , 'xbox' , 'playstation' , 'blank' );
-			$formatted	= array( 'PC' , 'Xbox' , 'PS4' , '' );
-			$platform	= str_replace( $sql , $formatted , $platform );
-		}
-		
-		// Format region
-		$region		= $this->region;
-		if ( $region ) {
-			$sql		= array( 'NA' , 'EU' , 'OC' , 'blank' , '' );
-			$formatted	= array( 'North America' , 'Europe' , 'Oceania' , 'Global' , 'Global' );
-			$region		= str_replace( $sql , $formatted , $region );
-		}
-		
-		// Format the tooltip based on what data is available
-		if ( $platform != '' && $region != '' )
-			$tooltip = implode( ' - ' , array( $platform , $region ) );
-		elseif ( $platform == '' && $region != '' ) 
-			$tooltip = $region;
-		elseif ( $platform != '' && $region == '' ) 
-			$tooltip = $platform;
-	
-		// Return the tip
-		$tooltip 	= ( $tooltip ) ? '<p class="group-member-count">' . $tooltip . '</p>' : '';
-		return $tooltip;
-	}
-	
-	/* 
-	 * Display the group's interest icons
-	 */	
-	function interest_icons() {
-	
-		// Get the data
-		$interests 	= $this->interests;
-		if ( empty ( $interests ) )
-			return false;
-			
-		$playstyle 	= $this->style;
-		if ( $playstyle == 'blank' ) 
-			$playstyle = '';
-
-		// Do some grammar
-		$lower 	= array( 'pve' , 'pvp' , 'rp' , 'crafting' );
-		$upper 	= array( 'PvE' , 'PvP' , 'RP' , 'Crafting' );
-		$focus 	= implode( ', ' , $interests );
-		$focus 	= str_replace ( $lower , $upper , $focus );
-		
-		// Generate a tooltip for our icons
-		$tooltip = implode( ' - ' , array ( ucfirst( $playstyle ) ,  $focus ) );
-			
-		// Display them
-		$icons 		 = '<div class="guild-style-icons ' . $playstyle . '" title="' . $tooltip . '"><ul>';
-		foreach( $interests as $interest_name => $interest_val ) {
-			$icons 	.= '<li class="guild-style-icon ' . $interest_val . '"></li>';
-		}
-		$icons 		.= '</ul></div>';
-		return $icons;
-	}
-	
-	/* 
-	 * Generate a byline for the user profile with their allegiance information
-	 */
-	function byline() {
-	
-		// Get the data
-		$faction	= $this->faction;
-		$type		= strtolower( $this->type );
-		$name		= $this->fullname;
-			
-		// Generate the byline
-		if ( $faction == 'Undeclared' || $faction == 'Neutral' )
-			$byline = $name . ' is a ' . $type . ' with no declared political allegiance.';
-		else
-			$byline = $name . ' is a ' . $type . ' of the ' . $faction;
-		
-		// Return the byline
-		return $byline;
-	}
-	
-	/**
-	 * Formats the guild website
-	 */	
-	function website() {
-	
-		// Get the url
-		$url = $this->website;
-		$website = '';
-		if ( $url )	$website = '<p class="group-website"><a href="' . $url . '" title="Visit Guild Website" target="_blank">Guild Website</a></p>';
-		return $website;
-	}
-	
-	function admins() {
-	
-		global $groups_template;
-		$admins = $groups_template->group->admins;
-		$list 	= '';
-		
-		if ( !empty( $admins ) ) {
-			$list = '<ul id="group-admins">';
-			foreach( $admins as $admin ) {
-				$avatar = new Apoc_Avatar( array( 'user_id' => $admin->user_id , 'size' => 50 , 'link' => true ) );
-				$list .= '<li>' . $avatar->avatar;
-				$list .= '<span class="leader-name">' . bp_core_get_user_displayname( $admin->user_id ) . '</span></li>';
-			}
-			$list .= '</ul>';
-		}
-		
-		return $list;
-	}
-	
-	function mods() {
-	
-		global $groups_template;
-		$mods = $groups_template->group->mods;
-		$list = '';
-		
-		if ( !empty( $mods ) ) {
-			$list = '<ul id="group-admins">';
-			foreach( $mods as $mod ) {
-				$avatar = new Apoc_Avatar( array( 'user_id' => $mod->user_id , 'size' => 50 , 'link' => true ) );
-				$list .= '<li>' . $avatar->avatar;
-				$list .= '<span class="leader-name">' . bp_core_get_user_displayname( $mod->user_id ) . '</span></li>';
-			}
-			$list .= '</ul>';
-		}
-		
-		return $list;
-	}
-	
-	/**
-	 * Formats the output user block
-	 */	
-	function format_data( $context ) {
-		
-		// Setup the basic info block
-		$block		= '<a class="member-name" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $this->fullname . '</a>';
-		$block		.= '<p class="group-type">' . $this->type . '</p>';
-		$block		.= $allegiance = '<p class="user-allegiance ' . $this->alliance . '">' . $this->faction . '</p>';
-		$block		.= $this->platform();
-		$block		.= '<p class="group-member-count">' . $this->members . '</p>';
-
-		//$icons			= $this->interest_icons();
-		$icons = "";
-
-		// Do some things differently depending on context
-		switch( $context ) {
-		
-			case 'directory' :
-				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
-				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$avatar					= '<div class="group-avatar-block">' . $avatar . $icons . '</div>';
-				$block 					= '<div class="member-meta user-block">' . $block . '</div>';	
-				break;
-					
-			case 'profile' :
-				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'full' , 'height' => $this->size , 'width' => $this->size ) );
-				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$block					.= $this->website();
-				$block					= $block . $icons;
-				break;
-				
-			case 'widget' :
-				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
-				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$avatar					= '<div id="featured-guild-avatar" class="group-avatar-block">' . $avatar . '</div>';
-				$block 					= '<div id="featured-guild-meta" class="member-meta user-block">' . $block . '</div>';	
-				break;				
-		}
-		
-		// Prepend the avatar
-		$this->avatar 	= $avatar;
-		$block			= $avatar . $block;
-		
-		// Add the html to the object
-		$this->block 	= $block;
-	}
-}
-
-
-/**
- * Count groups having a specific meta key
- * @version 2.0
- */
-function count_groups_by_meta($meta_key, $meta_value) {
-	global $wpdb, $bp;
-	$user_meta_query = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM " . $bp->groups->table_name_groupmeta . " WHERE meta_key = %d AND meta_value= %s" , $meta_key , $meta_value ) );
-	return intval($user_meta_query);
-}
-
-
 /*--------------------------------------------------------------
 	REGISTRATION
 --------------------------------------------------------------*/
@@ -656,108 +428,3 @@ function apoc_registration_humanity_image() {
 
 
 
-
-/*--------------------------------------------------------------
-6.0 - GROUP CREATION
---------------------------------------------------------------*/
-
-/**
- * Apocrypha theme group editing
- * This class is called when user groups are being edited in their administration panels or during the group creation process.
- *
- * @version 2.0
- */
-class Apoc_Group_Edit {
-
-	/**
-	 * Initialize Group edit class
-	 */
-	function __construct() {
-	
-		// Add profile edit actions
-		$this->actions();		
-		
-		// Add profile edit filters
-		$this->filters();	
-	}
-	
-	/**
-	 * Register group edit actions
-	 */
-	private function actions() {
-
-		// Intercept group submissions for non-administrators
-		// This approach is currently not working,I need to look up the docs on how to intercept group saving
-		// Uses do_action_ref_array, and not seeming to trigger
-		//add_action( 'groups_group_before_save'						, array( $this , 'submit_guild' ) , 1 );
-
-		// Save group meta fields
-		add_action( 'groups_details_updated'						, array( $this , 'save_group_fields' ) );
-		add_action( 'groups_create_group_step_save_group-details' 	, array( $this , 'save_group_fields' ) );
-	}
-
-	/**
-	 * Register group edit filters
-	 */
-	private function filters() {
-
-
-	}
-
-
-	function submit_guild() {
-
-		// What we want to do here is...
-
-		// Check whether we are doing a new group creation
-
-		// If so, let's intercept the information and trigger an email
-
-		// Next prevent the parent group object from succesfully saving
-
-		// Add a success template notice
-
-		// Redirect back to the guild directory
-
-	}
-
-
-
-	/* 
-	 * Save custom groupmeta fields on group profile updates and at creation
-	 * @version 2.0
-	 */
-	function save_group_fields( $group_id ) {
-		
-		// Get the current BP group object
-		global $bp;
-
-		// Get the current group ID
-		$id = isset( $bp->groups->new_group_id ) ? $bp->groups->new_group_id : $group_id;
-
-		// Save the eligible meta
-		$group_is_guild = ( 'group' == $_POST['group-type'] ) ? 0 : 1;
-			groups_update_groupmeta( $id, 'is_guild', $group_is_guild );
-			
-		if ( $_POST['group-website'] )
-			groups_update_groupmeta( $id, 'group_website', $_POST['group-website'] );  
-	
-		if ( $_POST['group-platform']  )
-			groups_update_groupmeta( $id, 'group_platform', $_POST['group-platform'] );
-			
-		if ( $_POST['group-faction']  )
-			groups_update_groupmeta( $id, 'group_faction', $_POST['group-faction'] );
-			
-		if ( $_POST['group-region']  )
-			groups_update_groupmeta( $id, 'group_region', $_POST['group-region'] );
-			
-		if ( $_POST['group-style']  )
-			groups_update_groupmeta( $id, 'group_style', $_POST['group-style'] );
-			
-		if ( $_POST['group-interests']  )
-			groups_update_groupmeta( $id, 'group_interests', $_POST['group-interests'] );
-			
-		// Clear the cached metadata
-		wp_cache_delete( 'bp_groups_allmeta_' . $id , 'bp' );
-	}
-}

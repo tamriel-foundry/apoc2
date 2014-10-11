@@ -4,12 +4,16 @@ apoc2
 The new Tamriel Foundry apocrypha theme!
 
 
-Database Change Notes
+DATABASE CHANGES
 
 group_meta {
 	group-platform -> group-server
 	group-platform = pcmac -> napc
 	group-platform = playstation -> ps4
+}
+
+BuddyPress options {
+	allow group creation for everyone
 }
 
 

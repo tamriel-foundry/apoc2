@@ -586,6 +586,7 @@ td , th {
 .updated:before {
 	font-family: FontAwesome;
 	display: inline-block;
+	float: left;
 	margin-right: 5px;
 	font-weight: normal;
 	}
@@ -598,6 +599,7 @@ td , th {
 .error > p,
 .updated > p,
 .warning > p {
+	max-width: 98%;
 	display: inline-block;
 	margin: 0;
 	}
@@ -1389,7 +1391,6 @@ div.dropdown h3 {
 	margin: 0.5em 1em 0.25em;
 	padding: 0 0 0.25em;
 	text-align: center;
-	text-shadow: 0 0 10px #FFF;
 	}
 
 
@@ -2282,11 +2283,10 @@ div.directory-member-meta {	margin: 0 0 0 60px; }
 .directory-member .member-avatar > img { margin: 0; }
 
 
-
-
 /* Groups Directory */
-#groups-list div.directory-member { padding: 0 0.5em; }
 #subnav div.directory-content, #groups-list div.directory-content { flex: 3; }
+#groups-list .directory-member { padding: 0 0.5em; }
+#groups-list .directory-member-meta { margin-left: 110px; }
 
 #groups-list img {
 	display: block;
@@ -2534,9 +2534,32 @@ div#character-sheet > ul li span {
 	}
 
 /* Edit Profile */
-#edit-profile-form label { min-width: 150px; }
-#edit-profile-form select { min-width: 180px; }
-#edit-bio-sig .instructions , #edit-bio-sig .wp-editor-wrap { margin: 0 0 1em; }
+#edit-profile-form .instructions { margin: 1em 0; }
+#edit-profile-form label { min-width: 180px; }
+#edit-bio-sig label {
+	display: block;
+	margin: 1em 0 -1em;
+	}
+#edit-profile-form #contact-methods li,
+#edit-profile-form #edit-character-info li {
+	width: 100%;
+	max-width: 660px;
+	display: flex;
+	flex-flow: row wrap;
+	line-height: 32px;
+	}
+#contact-methods input,
+#edit-character-info input,
+#edit-character-info select { 
+	min-width: 180px;
+	flex: 1; 
+	}
+#contact-methods .contact-url-prefix { 
+	color: #A29C8E;
+	font-size: 0.875em;
+	}
+
+
 
 /*---------------------------------------------
 	9.3 - Group Profiles

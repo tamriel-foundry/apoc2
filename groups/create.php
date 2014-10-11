@@ -8,6 +8,8 @@
 
 // Initialize the group edit class
 $group_edit = new Apoc_Group_Edit();
+$can_create = $group_edit->create;
+$can_access = $group_edit->access;
 ?>
 
 <?php get_header(); ?>
@@ -21,10 +23,15 @@ $group_edit = new Apoc_Group_Edit();
 			<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug(); ?>">Back to Guilds</a>	
 		</header>
 
+		<?php // If group creation is not allowed, display the reason
+		if ( !$can_access ) :
+			echo $group_edit->error;
+		else : ?>
+
 		<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" enctype="multipart/form-data">
-			
+
 			<?php // Only show navigation to admins
-			if ( current_user_can( 'delete_posts' ) ) : ?>
+			if ( $can_create ) : ?>
 			<nav id="directory-nav" class="dir-list-tabs" role="navigation">
 				<ul id="directory-actions" class="directory-tabs">
 					<?php bp_group_creation_tabs(); ?>
@@ -36,6 +43,8 @@ $group_edit = new Apoc_Group_Edit();
 
 			<?php // STEP 1 - Basic Group Details
 			if ( bp_is_group_creation_step( 'group-details' ) ) : ?>
+
+			<?php if ( $can_create ) : ?>
 			<div class="instructions">
 				<h3 class="double-border">Step 1 - Basic Guild Details</h3>
 				<ul>
@@ -44,6 +53,22 @@ $group_edit = new Apoc_Group_Edit();
 					<li>Fields denoted with a star (&#9734;) are required.</li>
 				</ul>
 			</div>
+			<?php else : ?>
+				<div class="instructions">
+					<h3 class="double-border">Important, Please Read</h3>
+					<p>Tamriel Foundry is happy to assist guild leaders within the community to have their guilds represented on our Guilds Directory page. Being featured on Tamriel Foundry allows your guild to have a concrete presence within the community and affords guild-masters with many useful tools that our guild system incorporates. Guilds get access to their own activity feeds, roster management, recruitment tools, customized avatars, and much more!</p>
+					<p>In order to preserve a high level of quality in the guilds which are represented on this site, we require that guild creation requests be submitted for moderation. If your request is sufficiently polished, the guild will be created on your behalf and you will be assigned as its administrator. Entries must satisfy several rules in order to be approved:</p>
+					<p>Tamriel Foundry features guilds for the sole purpose of allowing our community members to have their gaming communities represented on the site. We firmly believe that guilds are the building blocks of MMO community, and want our posters to be able to represent and be represented by their guilds within the Tamriel Foundry community. It is crucially important to recognize that Tamriel Foundry is NOT a guild recruitment listing. If you registered for Tamriel Foundry only to submit your guild, with no plans to continue participating in our community, you are doing it wrong.</p>
+					<p>Disclaimer aside, if you wish to submit your guild to be featured on the site, you must adhere to the following rules:</p>
+					<ul>
+						<li>All guild submissions must be in English. We allow for EU guilds to be represented on Tamriel Foundry, but they must feature English guild descriptions.</li>
+						<li>That quality of your guild description is the primary deciding factor for approval. If it is clear that a substantial degree of thought and planning has been put into it's construction, your guild is likely to be approved.</li>
+						<li>Even though <em>ESO</em> supports multiple guilds per character, each user on Tamriel Foundry may only register one guild each.</li>
+						<li>If your guild remains inactive for an extended period of time, it may be removed at the sole discretion of Tamriel Foundry administrators in order to keep the listing tidy.</li>
+						<li>Please be aware, the guild approval and creation process will take up to 48 hours, and may be occasionally longer if we have received a large number of submissions.</li>
+					</ul>
+				</div>
+			<?php endif; ?>
 
 			<fieldset>
 				<div class="form-left">
@@ -68,47 +93,13 @@ $group_edit = new Apoc_Group_Edit();
 				</div>
 
 				<div class="form-right">
-					<label for="group-server"><i class="fa fa-globe fa-fw"></i>Guild Platform:</label>
+					<label for="group-server"><i class="fa fa-globe fa-fw"></i>Guild Server  (&#9734;):</label>
 					<select name="group-server">
-						<option value="blank"></option>
+						<option value=""></option>
 						<option value="napc">North America PC/Mac</option>
 						<option value="eupc">Europe PC/Mac</option>
 						<option value="xbox">Xbox One</option>
 						<option value="ps4">PlayStation 4</option>
-					</select>
-				</div>
-
-				<div class="form-left">
-					<label for="group-type"><i class="fa fa-group fa-fw"></i>Group Type (&#9734;):</label>
-					<ul class="checkbox-list">
-						<li>
-							<input type="radio" name="group-type" value="group">
-							<label for="group-type">Group</label>
-						</li>
-						<li>
-							<input type="radio" name="group-type" value="guild">
-							<label for="group-type">Guild</label>
-						</li>
-					</ul>
-				</div>
-
-				<div class="form-right">
-					<label for="group-faction"><i class="fa fa-flag fa-fw"></i>Faction Allegiance (&#9734;):</label>
-					<select name="group-faction">
-						<option value="neutral">Undeclared</option>
-						<option value="aldmeri">Aldmeri Dominion</option>
-						<option value="daggerfall">Daggerfall Covenant</option>
-						<option value="ebonheart">Ebonheart Pact</option>
-					</select>
-				</div>
-
-				<div class="form-right">
-					<label for="group-style"><i class="fa fa-shield fa-fw"></i>Guild Playstyle:</label>
-					<select name="group-style">
-						<option value="blank"></option>
-						<option value="casual">Casual</option>
-						<option value="moderate">Moderate</option>
-						<option value="hardcore">Hardcore</option>
 					</select>
 				</div>
 
@@ -130,6 +121,42 @@ $group_edit = new Apoc_Group_Edit();
 						<li>
 							<input type="checkbox" name="group-interests[]" value="crafting">
 							<label for="group-interests">Crafting</label>
+						</li>
+					</ul>
+				</div>
+
+				<div class="form-right">
+					<label for="group-faction"><i class="fa fa-flag fa-fw"></i>Faction Allegiance (&#9734;):</label>
+					<select name="group-faction">
+						<option value=""></option>
+						<option value="neutral">Neutral</option>
+						<option value="aldmeri">Aldmeri Dominion</option>
+						<option value="daggerfall">Daggerfall Covenant</option>
+						<option value="ebonheart">Ebonheart Pact</option>
+					</select>
+				</div>
+
+				<div class="form-right">
+					<label for="group-style"><i class="fa fa-shield fa-fw"></i>Guild Playstyle:</label>
+					<select name="group-style">
+						<option value="blank"></option>
+						<option value="casual">Casual</option>
+						<option value="moderate">Moderate</option>
+						<option value="hardcore">Hardcore</option>
+					</select>
+				</div>
+
+				<?php $group_type_class = $can_create ? 'form-left' : 'hidden'; ?>
+				<div class="<?php echo $group_type_class; ?>">
+					<label for="group-type"><i class="fa fa-group fa-fw"></i>Group Type (&#9734;):</label>
+					<ul class="checkbox-list">
+						<li>
+							<input type="radio" name="group-type" value="group">
+							<label for="group-type">Group</label>
+						</li>
+						<li>
+							<input type="radio" name="group-type" value="guild" checked="checked">
+							<label for="group-type">Guild</label>
 						</li>
 					</ul>
 				</div>
@@ -249,6 +276,7 @@ $group_edit = new Apoc_Group_Edit();
 				<input type="hidden" name="group_id" id="group_id" value="<?php bp_new_group_id(); ?>" />
 			</div>
 		</form>
+		<?php endif; ?>
 
 	</div><!-- #content -->
 <?php get_footer(); ?>

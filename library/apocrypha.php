@@ -134,6 +134,9 @@ class Apocrypha {
 		
 		// Populate the theme object before anything on the page is loaded
 		add_action( 'get_header' , array( $this , 'setup' ) , 1 );
+
+		// Initialize special Admin rules
+		add_action( 'admin_init' , array( $this , 'init_admin' ) );
 	}
 	
 	/*-----------------------------------------------
@@ -142,7 +145,7 @@ class Apocrypha {
 	
 	/**
 	 * Populate the theme object
-	 * @since 2.0
+	 * @version 2.0
 	 */
 	public function setup() {
 	
@@ -163,6 +166,28 @@ class Apocrypha {
 		$this->crumbs			= $context->crumbs;
 		$this->page				= $context->page;
 		$this->search			= $context->search;
+	}
+
+	/*-----------------------------------------------
+		ADMINISTRATION CONFIGURATION
+	-----------------------------------------------*/
+
+	/**
+	 * Admin initialization actions
+	 * @version 2.0
+	 */
+	function init_admin() {
+	
+		// Stop normal users from accessing the admin panel except for AJAX requests
+		if ( !current_user_can( 'publish_posts' ) &&  !( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			wp_redirect( SITEURL ); 
+			exit;
+		}
+		
+		// Deregister the wordpress heartbeat script except for editing new posts
+		global $pagenow;
+		if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
+			wp_deregister_script('heartbeat');		
 	}
 }
 

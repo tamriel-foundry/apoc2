@@ -52,10 +52,10 @@ style.css							| in-progress
 ACTIVITY							| PROGRESS
 ----------------------------------- | -----------
 activity-loop.php					| done
-comment.php							| 
+comment.php							| done
 entry.php							| done
 index.php							| done
-post-form.php						|
+post-form.php						| done
 
 BBPRESS								| PROGRESS
 ----------------------------------- | -----------

@@ -2338,8 +2338,8 @@ header.activity-header > p {
 
 blockquote.activity-content {
 	float: left;
-	margin: 0.5em 0 0;
-	font-size: 0.75em;
+	margin: 0.25em 0 0;
+	font-size: 0.875em;
 	}
 
 span.activity-quote-mention {
@@ -2347,7 +2347,42 @@ span.activity-quote-mention {
 	border-bottom: 1px solid #111;
 	}
 
+/* Activity Comments */
+.activity-comments > ul {
+	width: 100%;
+	float: left;
+	list-style: none;
+	margin: 0.5em 0 0;
+	padding: 0;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #333;
+}
+li.activity-comment {
+	display: flex;
+	flex-flow: row-wrap;
+	padding: 0.5em;
+	border-bottom: 1px solid #000;
+}
+li + li.activity-comment { border-top: 1px solid #333;}
+li.activity-comment:first-child { border-top: 1px solid #333; }
+.acomment-avatar { min-width: 60px; }
+.acomment-body { flex: 1; }
+.acomment-content > p { 
+	float: left;
+	font-size: 0.875em;
+	margin: 0;
+	}
 
+/* Activity Comment Reply Form */
+form.ac-form {
+	margin: 0.5em 0 0;
+	font-size: 0.75em; 
+	}
+form.ac-form div, form.ac-form textarea { margin: 0; }
+form.ac-form span { 
+	color: #A29C8E;
+	line-height: 32px; 
+	}
 
 /*---------------------------------------------
 	9.2 - User Profiles

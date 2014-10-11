@@ -93,16 +93,16 @@ class Apoc_BuddyPress {
 		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
 
 		// User Profiles
-		add_action( 'bp_member_header_actions'		,	'bp_add_friend_button',           5 	);
-		add_action( 'bp_member_header_actions'		,	'bp_send_public_message_button',  20 	);
-		add_action( 'bp_member_header_actions'		,	'bp_send_private_message_button', 20 	);
+		add_action( 'bp_member_header_actions'		, 'bp_add_friend_button',           5 	);
+		add_action( 'bp_member_header_actions'		, 'bp_send_public_message_button',  20 	);
+		add_action( 'bp_member_header_actions'		, 'bp_send_private_message_button', 20 	);
 
 		// Group Creation
 		add_action( 'groups_group_before_save'		, array( $this , 'submit_guild' ) , 1 );
 	
 		// Guild Buttons
-		add_action( 'bp_group_header_actions'		,	'bp_group_join_button'	, 	5 	);
-		add_action( 'bp_directory_groups_actions'	, 	'bp_group_join_button'			);
+		add_action( 'bp_group_header_actions'		, 'bp_group_join_button'	, 	5 	);
+		add_action( 'bp_directory_groups_actions'	, 'bp_group_join_button'			);
 
 		// User registration
 		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
@@ -116,16 +116,19 @@ class Apoc_BuddyPress {
 	 */
 	function filters() {
 
+		// Prevent Activity Favoriting
+		add_filter( 'bp_activity_can_favorite' 			, '__return_false' );
+
 		// Activity strip "View" link
-		add_filter( 'bp_get_activity_latest_update' , array( $this , 'activity_update') );
+		add_filter( 'bp_get_activity_latest_update' 	, array( $this , 'activity_update') );
 
 		// Activity delete link
-		add_filter( 'bp_get_activity_delete_link'	, array( $this , 'activity_delete_button' ) );
+		add_filter( 'bp_get_activity_delete_link'		, array( $this , 'activity_delete_button' ) );
 
 		// Profile Buttons
-		add_filter( 'bp_get_add_friend_button'		, array( $this , 'friend_button' ) );
-		add_filter( 'bp_get_send_public_message_button', array( $this , 'message_button' ) );
-		add_filter( 'bp_get_send_message_button_args' , array( $this , 'message_button' ) );
+		add_filter( 'bp_get_add_friend_button'			, array( $this , 'friend_button' ) );
+		add_filter( 'bp_get_send_public_message_button'	, array( $this , 'message_button' ) );
+		add_filter( 'bp_get_send_message_button_args' 	, array( $this , 'message_button' ) );
 
 		// Override bbPress Forum Tracker Templates 
 		add_filter( 'bbp_member_forums_screen_topics' 		 , array( $this, 'forums_template' ) );
@@ -134,7 +137,7 @@ class Apoc_BuddyPress {
 		add_filter( 'bbp_member_forums_screen_subscriptions' , array( $this, 'forums_template' ) );
 
 		// Group Buttons
-		add_filter( 'bp_get_group_join_button' 		, array( $this, 'join_button' ) );
+		add_filter( 'bp_get_group_join_button' 			, array( $this, 'join_button' ) );
 	}
 
 	/*------------------------------------------
@@ -145,12 +148,9 @@ class Apoc_BuddyPress {
 	 * Strip "View" link from the end of activity updates
 	 */	
 	function activity_update( $latest_update ) {
-
-
 		$latest_update = substr( $latest_update , 0 , strrpos( $latest_update , ' <a href=' , -1 ) );
 		return $latest_update;
 	}
-
 	function activity_delete_button( $link ) {
 		$link = str_replace( array( 'class="button' , 'Delete</a>') , array( 'class="button-dark' , '<i class="fa fa-remove"></i>Delete</a>' ) , $link ); 
 		return $link;
@@ -179,7 +179,7 @@ class Apoc_BuddyPress {
 		return $button;
 	}
 
-	function message_button( $button ) {
+	function messe_button( $button ) {
 
 		// Remove the div wrapper
 		$button['wrapper'] = false;

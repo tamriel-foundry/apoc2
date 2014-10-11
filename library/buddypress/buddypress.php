@@ -127,6 +127,12 @@ class Apoc_BuddyPress {
 		add_filter( 'bp_get_send_public_message_button', array( $this , 'message_button' ) );
 		add_filter( 'bp_get_send_message_button_args' , array( $this , 'message_button' ) );
 
+		// Override bbPress Forum Tracker Templates 
+		add_filter( 'bbp_member_forums_screen_topics' 		 , array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_replies' 		 , array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_favorites' 	 , array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_subscriptions' , array( $this, 'forums_template' ) );
+
 		// Group Buttons
 		add_filter( 'bp_get_group_join_button' 		, array( $this, 'join_button' ) );
 	}
@@ -345,6 +351,13 @@ class Apoc_BuddyPress {
 		bp_core_remove_subnav_item( 'activity' , 'favorites' );		
 	}
 
+	/**
+	 * Override the bbPress forum tracker templating
+	 */
+	function forums_template( $template ) {
+		$template = 'members/single/home';
+		return $template;
+		}
 
 	/*
 	 * Profile screen templates

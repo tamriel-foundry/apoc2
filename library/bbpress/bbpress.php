@@ -276,9 +276,11 @@ function apoc_reply_admin_links( $reply_id ) {
 	// Get post id and setup desired links
 	$links = array();
 	
-	// Add common quote and reply links
-	$links['quote'] 		= apoc_quote_button( 'reply' , $reply_id );
-	$links['reply']			= '<a class="scroll-respond button button-dark" href="#new-post" title="Quick Reply"><i class="fa fa-reply"></i>Reply</a>';
+	// Add common quote and reply links except on forum profiles
+	if ( !bp_is_forums_component() ) :
+		$links['quote'] 	= apoc_quote_button( 'reply' , $reply_id );
+		$links['reply']		= '<a class="scroll-respond button button-dark" href="#new-post" title="Quick Reply"><i class="fa fa-reply"></i>Reply</a>';
+	endif;
 	
 	// Topic admin links
 	if( bbp_is_topic( $reply_id ) ) :

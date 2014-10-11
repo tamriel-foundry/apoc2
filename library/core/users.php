@@ -349,23 +349,23 @@ class Apoc_User {
 
 		// Contacts found
 		if ( isset( $contacts['esoacct'] ) )
-			echo '<li><i class="fa fa-user fa-fw"></i><span>ESO Account:</span> @'  . $contacts['esoacct'] . '</li>' ;
+			echo '<li><span><i class="fa fa-user fa-fw"></i>ESO Account:</span> @'  . $contacts['esoacct'] . '</li>' ;
 		if ( isset( $contacts['user_url'] ) )
-			echo '<li><i class="fa fa-globe fa-fw"></i><span>Website:</span><a href="' . $contacts['user_url'] . '" target="_blank">' . $contacts['user_url'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-globe fa-fw"></i>Website:</span><a href="' . $contacts['user_url'] . '" target="_blank">' . $contacts['user_url'] . '</a></li>' ;
 		if ( isset( $contacts['twitter'] ) )
-			echo '<li><i class="fa fa-twitter fa-fw"></i><span>Twitter:</span><a href="http://twitter.com/' . $contacts['twitter'] . '" target="_blank">' . $contacts['twitter'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-twitter fa-fw"></i>Twitter:</span><a href="http://twitter.com/' . $contacts['twitter'] . '" target="_blank">' . $contacts['twitter'] . '</a></li>' ;
 		if ( isset( $contacts['facebook'] ) )
-			echo '<li><i class="fa fa-facebook fw-fw"></i><span>Facebook:</span><a href="http://facebook.com/' . $contacts['facebook'] . '" target="_blank">' . $contacts['facebook'] . '</a></li>' ;		
+			echo '<li><span><i class="fa fa-facebook fa-fw"></i>Facebook:</span><a href="http://facebook.com/' . $contacts['facebook'] . '" target="_blank">' . $contacts['facebook'] . '</a></li>' ;		
 		if ( isset( $contacts['gplus'] ) )
-			echo '<li><i class="fa fa-google-plus fa-fw"></i><span>Google+:</span><a href="http://plus.google.com/' . $contacts['gplus'] . '" target="_blank">' . $contacts['gplus'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-google-plus fa-fw"></i>Google+:</span><a href="http://plus.google.com/' . $contacts['gplus'] . '" target="_blank">' . $contacts['gplus'] . '</a></li>' ;
 		if ( isset( $contacts['steam'] ) )
-			echo '<li><i class="fa fa-steam fa-fw"></i><span>Steam ID:</span><a href="http://steamcommunity.com/id/' . $contacts['steam'] . '" target="_blank">' . $contacts['steam'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-steam fa-fw"></i>Steam ID:</span><a href="http://steamcommunity.com/id/' . $contacts['steam'] . '" target="_blank">' . $contacts['steam'] . '</a></li>' ;
 		if ( isset( $contacts['youtube'] ) )
-			echo '<li><i class="fa fa-youtube fa-fw"></i><span>YouTube:</span><a href="http://www.youtube.com/user/' . $contacts['youtube'] . '" target="_blank">' . $contacts['youtube'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-youtube fa-fw"></i>YouTube:</span><a href="http://www.youtube.com/user/' . $contacts['youtube'] . '" target="_blank">' . $contacts['youtube'] . '</a></li>' ;
 		if ( isset( $contacts['twitch'] ) )
-			echo '<li><i class="fa fa-twitch fa-fw"></i><span>TwitchTV:</span><a href="http://www.twitch.tv/' . $contacts['twitch'] . '" target="_blank">' . $contacts['twitch'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-twitch fa-fw"></i>TwitchTV:</span><a href="http://www.twitch.tv/' . $contacts['twitch'] . '" target="_blank">' . $contacts['twitch'] . '</a></li>' ;
 		if ( isset( $contacts['oforums'] ) )
-			echo '<li><i class="fa fa-circle-o fa-fw"></i><span>ESO Forums:</span><a href="http://forums.elderscrollsonline.com/profile/' . $contacts['oforums'] . '" target="_blank">' . $contacts['oforums'] . '</a></li>' ;
+			echo '<li><span><i class="fa fa-circle-o fa-fw"></i>ESO Forums:</span><a href="http://forums.elderscrollsonline.com/profile/' . $contacts['oforums'] . '" target="_blank">' . $contacts['oforums'] . '</a></li>' ;
 		echo '</ul>' ;
 	}
 }

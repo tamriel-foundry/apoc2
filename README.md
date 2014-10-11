@@ -71,10 +71,10 @@ loop-single-forum.php				| done
 loop-single-reply.php				| done
 loop-single-topic.php				| done
 loop-topics.php						| done
-user-favorites.php					|
-user-replies-created.php			|
-user-subscriptions.php				|
-user-topics-created.php				|
+user-favorites.php					| done
+user-replies-created.php			| done
+user-subscriptions.php				| done
+user-topics-created.php				| done
 
 GROUPS								| PROGRESS
 ----------------------------------- | -----------
@@ -166,7 +166,7 @@ MEMBERS								| PROGRESS
 index.php							| done
 members-loop.php					| done
 single/activity.php					| done
-single/forums.php					|
+single/forums.php					| done
 single/friends.php					| done
 single/friends/requests.php			| done
 single/groups.php					| done

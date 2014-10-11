@@ -27,8 +27,4 @@ elseif ( !bbp_is_forum_category() ) : ?>
 	<?php // New topic form
 	bbp_get_template_part( 'form', 'topic' ); ?>
 	
-	
-<?php // Empty subforum
-elseif ( !bbp_is_forum_category() ) : ?>
-
 <?php endif; ?>

@@ -2205,12 +2205,16 @@ ul#directory-actions > li {
 	border-radius: 2px;
 	box-shadow: 0 0 3px #000;
 	}
-
 #directory-actions li:hover > a,
 #directory-actions li:hover > a span { 
 	color: #FFB14C; 
 	text-shadow: 0 0 5px #c60;
 	}
+#directory-actions li.selected > a {
+	color: #F3EAD0;
+	text-shadow: 0 0 6px #EEE;
+	}
+
 
 
 /* Directory Subnavigation */
@@ -2226,7 +2230,7 @@ ul#directory-actions > li {
 
 #subnav div.filter {
 	position: absolute;
-	top: 5px;
+	top: 4px;
 	right: 8px;
 	}
 
@@ -2437,7 +2441,7 @@ span.activity-quote-mention {
 /* Contact Methods */
 .user-contact-list span {
 	display: inline-block;
-	min-width: 120px;
+	min-width: 100px;
 	}
 
 /* Profile Sub-Navigation */
@@ -2559,16 +2563,18 @@ div#character-sheet > ul li span {
 	font-size: 0.875em;
 	}
 
+/* User Profile Forum Tracker */
+#forums.profile-forums { 
+	width: 100%;
+	float: left;
+	margin: 0.5em 0; 
+	}
+
 
 
 /*---------------------------------------------
 	9.3 - Group Profiles
 ----------------------------------------------*/
-
-
-
-
-
 
 /* Group Creation */
 #create-group-form label { min-width: 120px; }

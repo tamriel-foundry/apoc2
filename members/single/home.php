@@ -20,7 +20,7 @@
 			locate_template( array( 'members/single/profile.php'		), true );
 		elseif ( bp_is_user_activity() ) :
 			locate_template( array( 'members/single/activity.php'		), true ); 
-		elseif ( bp_is_user_forums() ) :
+		elseif ( bp_is_forums_component() ) :
 			locate_template( array( 'members/single/forums.php'			), true );
 		elseif ( bp_is_user_friends() ) :
 			locate_template( array( 'members/single/friends.php'		), true );
@@ -35,7 +35,7 @@
 		else :
 			locate_template( array( 'members/single/plugins.php'		), true );
 		endif; ?>
-		</div>		
+		</div>
 
 	</div><!-- #content -->
 <?php get_footer(); ?>

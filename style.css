@@ -554,6 +554,13 @@ thead {
 	font-weight: bold; 
 	}
 
+tfoot td {
+	font-size: 0.875em;
+	color: #A29C8E;
+	text-align: left;
+	padding: 0 1em 1em;
+	}
+
 tr, th, td {
 	vertical-align: middle;
 	text-align: center;

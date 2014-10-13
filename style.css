@@ -1511,6 +1511,11 @@ a#footer-scroll-top > i {
 	float: right;
 	font-style: normal;
 	}
+.header-actions {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	}
 
 /* Content */
 .post-content {
@@ -2153,11 +2158,6 @@ div.signature-content img {
 	9.1 - Directories
 ----------------------------------------------*/
 header#directory-header { margin: 0; }
-#directory-header .button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	}
 
 /* Directory Navigation */
 nav#directory-nav {
@@ -2263,7 +2263,7 @@ li.directory-entry {
 	width: 100%;
 	display: flex;
 	flex-flow: row wrap;
-}
+	}
 div.directory-member {
 	flex: 1;
 	min-width: 250px;
@@ -2281,14 +2281,14 @@ div.directory-content {
 div.directory-member a.member-avatar {
 	width: auto;
 	float: left;
-}
+	}
 
 div.directory-member-meta {	margin: 0 0 0 60px; }
 .directory-member .member-avatar > img { margin: 0; }
 
 
 /* Groups Directory */
-#subnav div.directory-content, #groups-list div.directory-content { flex: 3; }
+.directory.groups div.directory-content { flex: 3; }
 #groups-list .directory-member { padding: 0 0.5em; }
 #groups-list .directory-member-meta { margin-left: 110px; }
 
@@ -2315,10 +2315,9 @@ box-shadow: 0 0 5px #000;
 	font-size: 0.875em;
 	}
 
-
-
 /* Activity Entries */
-header.activity-header {
+header.activity-header,
+footer.activity-footer {
 	width: 100%;
 	float: left;
 	font-size: 0.75em;
@@ -2346,6 +2345,7 @@ span.activity-quote-mention {
 	padding-bottom: 0.25em;
 	border-bottom: 1px solid #111;
 	}
+
 
 /* Activity Comments */
 .activity-comments > ul {
@@ -2402,11 +2402,6 @@ form.ac-form span {
 	margin: 0; 
 	}
 #profile-title, #profile-description { padding: 0 0 0 230px; }
-#profile-actions {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	}
 
 /* Profile User Block */
 #profile-user { 
@@ -2614,31 +2609,16 @@ div#character-sheet > ul li span {
 /* Group Creation */
 #create-group-form label { min-width: 120px; }
 #create-group-form input[type="text"], #create-group-form select {	min-width: 180px; }
-
 #create-group-form .checkbox-list { padding-left: 1em; }
-
 #create-group-form button[name="previous"] { font-size: 1em; }
-
 
 /*---------------------------------------------
 	9.4 - Registration
 ----------------------------------------------*/
-#signup-form fieldset,
-#signup-form .instructions {
-	margin: 0.5em 0;
-}
-
-#registration-basic-details > div {
-	margin: 0.5em 0;
-}
-#registration-basic-details label {
-	min-width: 250px;
-}
-
-#registration-use-terms .checkbox-list > li {
-	margin: 0.5em 0;
-}
-
+#signup-form fieldset, #signup-form .instructions { margin: 0.5em 0; }
+#registration-basic-details > div { margin: 0.5em 0; }
+#registration-basic-details label {	min-width: 250px; }
+#registration-use-terms .checkbox-list > li { margin: 0.5em 0; }
 img#humanity-image { 
 	float: left; 
 	margin-right: 1em;
@@ -2646,9 +2626,7 @@ img#humanity-image {
 div#humanity-fields {
 	float: left;
 	padding: 30px 0;
-}
-
-
+	}
 
 /*--------------------------------------------------------------
 	Y.0 - TINYMCE

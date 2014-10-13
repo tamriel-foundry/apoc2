@@ -43,7 +43,7 @@
 
 		<header class="reply-header" id="subnav" role="navigation">
 			<div class="directory-member reply-author">Member</div>
-			<div class="directory-content">Current Status</div>
+			<div class="directory-content">Activity</div>
 			<div id="activity-filter-select" class="filter">
 				<select id="activity-filter-by">
 				<option value="-1">All Activity</option>

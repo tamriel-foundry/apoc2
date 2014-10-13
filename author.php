@@ -7,7 +7,7 @@
  */
 
 // Get the requested author
-$author	= new Apoc_User( get_query_var( 'author' ) , 'profile' );
+$author	= new Apoc_User( get_query_var( 'author' ) , 'reply' );
 ?>
 
 <?php get_header(); ?>

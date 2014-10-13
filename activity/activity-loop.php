@@ -19,7 +19,7 @@
 	
 	<?php if ( bp_activity_has_more_items() ) : ?>
 		<li class="load-more">
-			<a class="button" href="#more"><i class="fa fa-expand"></i><?php _e( 'Load More', 'buddypress' ); ?></a>
+			<a class="button-dark" href="#more"><i class="fa fa-expand"></i><?php _e( 'Load More', 'buddypress' ); ?></a>
 		</li>
 	<?php endif; ?>
 	

@@ -12,7 +12,7 @@
  * 4.0 - Groups
  * 5.0 - Profiles
  * 6.0 - Registration
-*/
+**/
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
@@ -77,20 +77,22 @@ class Apoc_BuddyPress {
 		require( LIB_DIR . 'buddypress/groups.php' );
 	}
 	
-	
 	/**
 	 * Modify global BuddyPress actions
 	 */
 	function actions() {
 	
 		// Unhook default actions
-		remove_action( 'wp_head' 					, 'bp_core_add_ajax_url_js' );		
+		remove_action( 'wp_head' 					, 'bp_core_add_ajax_url_js' 			);		
 
-		// Remove scripts and styles
-		remove_action( 'wp_enqueue_scripts' 		, 'bp_core_confirmation_js' );
+		// Prevent BuddyPress from loading scripts or styles
+		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_register_common_scripts' 	);
+		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_register_common_styles' 		);
+		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_confirmation_js' 			);
+		remove_action( 'bp_enqueue_scripts' 		, 'bp_activity_mentions_script' 		);
 
 		// BuddyPress Navigation
-		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 );
+		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 	);
 
 		// User Profiles
 		add_action( 'bp_member_header_actions'		, 'bp_add_friend_button',           5 	);
@@ -98,18 +100,17 @@ class Apoc_BuddyPress {
 		add_action( 'bp_member_header_actions'		, 'bp_send_private_message_button', 20 	);
 
 		// Group Creation
-		add_action( 'groups_group_before_save'		, array( $this , 'submit_guild' ) , 1 );
+		add_action( 'groups_group_before_save'		, array( $this , 'submit_guild' ) , 1 	);
 	
 		// Guild Buttons
-		add_action( 'bp_group_header_actions'		, 'bp_group_join_button'	, 	5 	);
-		add_action( 'bp_directory_groups_actions'	, 'bp_group_join_button'			);
+		add_action( 'bp_group_header_actions'		, 'bp_group_join_button'	, 	5 		);
+		add_action( 'bp_directory_groups_actions'	, 'bp_group_join_button'				);
 
 		// User registration
 		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
-		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) );
+		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) 	);
 
 	}
-	
 	
 	/**
 	 * Modify global BuddyPress filters
@@ -117,27 +118,27 @@ class Apoc_BuddyPress {
 	function filters() {
 
 		// Prevent Activity Favoriting
-		add_filter( 'bp_activity_can_favorite' 			, '__return_false' );
+		add_filter( 'bp_activity_can_favorite' 					, '__return_false' );
 
 		// Activity strip "View" link
-		add_filter( 'bp_get_activity_latest_update' 	, array( $this , 'activity_update') );
+		add_filter( 'bp_get_activity_latest_update' 			, array( $this , 'activity_update') );
 
 		// Activity delete link
-		add_filter( 'bp_get_activity_delete_link'		, array( $this , 'activity_delete_button' ) );
+		add_filter( 'bp_get_activity_delete_link'				, array( $this , 'activity_delete_button' ) );
 
 		// Profile Buttons
-		add_filter( 'bp_get_add_friend_button'			, array( $this , 'friend_button' ) );
-		add_filter( 'bp_get_send_public_message_button'	, array( $this , 'message_button' ) );
-		add_filter( 'bp_get_send_message_button_args' 	, array( $this , 'message_button' ) );
+		add_filter( 'bp_get_add_friend_button'					, array( $this , 'friend_button' ) );
+		add_filter( 'bp_get_send_public_message_button'			, array( $this , 'message_button' ) );
+		add_filter( 'bp_get_send_message_button_args' 			, array( $this , 'message_button' ) );
 
 		// Override bbPress Forum Tracker Templates 
-		add_filter( 'bbp_member_forums_screen_topics' 		 , array( $this, 'forums_template' ) );
-		add_filter( 'bbp_member_forums_screen_replies' 		 , array( $this, 'forums_template' ) );
-		add_filter( 'bbp_member_forums_screen_favorites' 	 , array( $this, 'forums_template' ) );
-		add_filter( 'bbp_member_forums_screen_subscriptions' , array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_topics' 		 	, array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_replies' 		 	, array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_favorites' 	 	, array( $this, 'forums_template' ) );
+		add_filter( 'bbp_member_forums_screen_subscriptions' 	, array( $this, 'forums_template' ) );
 
 		// Group Buttons
-		add_filter( 'bp_get_group_join_button' 			, array( $this, 'join_button' ) );
+		add_filter( 'bp_get_group_join_button' 					, array( $this, 'join_button' ) );
 	}
 
 	/*------------------------------------------
@@ -179,7 +180,7 @@ class Apoc_BuddyPress {
 		return $button;
 	}
 
-	function messe_button( $button ) {
+	function message_button( $button ) {
 
 		// Remove the div wrapper
 		$button['wrapper'] = false;
@@ -317,6 +318,7 @@ class Apoc_BuddyPress {
 	
 		// Profile biography
 		$bp->bp_options_nav['profile']['public']['name'] 					= 'Player Biography';
+		$bp->bp_options_nav['profile']['change-avatar']['name'] 			= 'Change Avatar';
 		$bp->bp_options_nav['profile']['change-avatar']['link'] 			= $bp->displayed_user->domain . 'profile/change-avatar';
 		if ( !bp_is_my_profile() && !current_user_can( 'edit_users' ) )
 		$bp->bp_options_nav['profile']['change-avatar']['user_has_access']	= false;
@@ -357,7 +359,7 @@ class Apoc_BuddyPress {
 	function forums_template( $template ) {
 		$template = 'members/single/home';
 		return $template;
-		}
+	}
 
 	/*
 	 * Profile screen templates
@@ -382,6 +384,7 @@ class Apoc_BuddyPress {
 	/*------------------------------------------
 		6.0 - USER REGISTRATION
 	------------------------------------------*/
+
 	/*
 	 * Check that custom registration fields have been successfully completed.
 	 */

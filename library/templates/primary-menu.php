@@ -120,6 +120,9 @@
 						<ul class="submenu noheader">
 							<li><a href="<?php echo get_post_type_archive_link( 'forum' ) ?>">Forums Home</a></li>
 							<li><a href="<?php echo get_post_type_archive_link( 'topic' ) ?>">Recent Topics</a></li>
+							<?php if ( is_user_logged_in() ) : ?>	
+							<li><a href="<?php echo bp_loggedin_user_link() . '/forums/subscriptions/' ?>">Your Subscriptions</a></li>
+							<?php endif; ?>	
 						</ul>
 					</div>
 				</div>

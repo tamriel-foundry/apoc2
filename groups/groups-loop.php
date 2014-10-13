@@ -3,7 +3,7 @@
  * Apocrypha Theme Members Loop
  * Andrew Clayton
  * Version 2.0
- * 9-22-2014
+ * 10-11-2014
  */
 
 // Get the default querystring
@@ -23,10 +23,8 @@ if ( isset( $_GET['faction'] ) ) :
 	);
 endif; ?>
 
-
 <?php  if ( bp_has_groups( $query ) ) : ?>
 	<ul id="groups-list" class="directory-list" role="main">
-
 
 	<?php // Loop through all members
 	while ( bp_groups() ) : bp_the_group();
@@ -37,7 +35,6 @@ endif; ?>
 			</div>
 
 			<div class="directory-content">
-
 				<header class="activity-header">	
 					<p class="activity"><?php bp_group_last_active(); ?></p>
 					<div class="actions"><?php do_action( 'bp_directory_groups_actions' ); ?></div>

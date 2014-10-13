@@ -24,7 +24,7 @@ Apocrypha2 Theme File Index
 ROOT THEME							| PROGRESS
 ----------------------------------- | -----------
 404.php								| done
-archive-bestof.php					|
+archive-bestof.php					| on-hold
 archive-forum.php					| done
 archive-topic.php					| done
 archive.php							| deprecated
@@ -134,7 +134,7 @@ functions/comments.php				| in-progress
 functions/context.php				| in-progress
 functions/core.php 					| done
 functions/login.php					| deprecated
-functions/pagination.php 			|					
+functions/pagination.php 			| on-hold				
 functions/posts.php					| done
 functions/seo.php					| deprecated
 functions/users.php					| in-progress

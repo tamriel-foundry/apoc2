@@ -16,6 +16,10 @@
 		<header class="post-header <?php apoc_topic_header_class(); ?>">
 			<h1 class="post-title"><?php bbp_topic_title(); ?></h1>
 			<?php apoc_topic_byline(); ?>
+			<div id="subscription-controls" class="header-actions">
+				<?php bbp_user_subscribe_link(); ?>
+				<?php bbp_user_favorites_link(); ?>
+			</div>
 		</header>
 	
 		<?php while ( have_posts() ) : the_post(); ?>

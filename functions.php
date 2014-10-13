@@ -68,10 +68,12 @@ function apoc_scripts() {
 	// Register Scripts
 	wp_register_script( 'jquery' , 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' ,'jquery' , $ver ='1.11.1' , true );
 	wp_register_script( 'foundry' , THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.02' , true	);
+	wp_register_script( 'buddypress' , THEME_URI.'/library/scripts/buddypress.js' , 'jquery' , $ver='0.01' 	, true 	);	
 	
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'foundry' );
+	wp_enqueue_script( 'buddypress' );
 	
 	// FlexSlider
 	if ( is_home() ) {

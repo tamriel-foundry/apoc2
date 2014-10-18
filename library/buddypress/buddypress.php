@@ -91,6 +91,9 @@ class Apoc_BuddyPress {
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_confirmation_js' 			);
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_activity_mentions_script' 		);
 
+		// Load additional BuddyPress customizations
+		add_action( 'bp_init'						, array( $this , 'init' )				 );
+
 		// BuddyPress Navigation
 		add_action( 'bp_setup_nav'					, array( $this , 'navigation' ) , 99 	);
 
@@ -139,6 +142,18 @@ class Apoc_BuddyPress {
 
 		// Group Buttons
 		add_filter( 'bp_get_group_join_button' 					, array( $this, 'join_button' ) );
+	}
+
+	/**
+	 * Load additional BuddyPress classes
+	 */	
+	function init() {
+
+		// Load the Apoc_Group_Edit class for group administration screens
+		if (  bp_is_group_create() || bp_is_group_admin_screen() ) {
+			global $group_edit;
+			$group_edit = new Apoc_Group_Edit();
+		}
 	}
 
 	/*------------------------------------------

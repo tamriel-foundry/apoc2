@@ -297,7 +297,7 @@ input[type=file],
 input[type=search],
 select {
 	height: 2em;
-	line-height: 1.75em;
+	line-height: 1.5em;
 	margin: 3px 5px;
 	padding: 0 4px;
 	background: #D1CBBC;
@@ -316,6 +316,8 @@ input[type=search]:focus {
 	background: #DAD6CF;
 	box-shadow: 0 0 10px #c60;
 	}
+
+input[type=file] { line-height: 1.75em; }
 
 /* Checkboxes and Radios */
 input[type="checkbox"],
@@ -2220,11 +2222,11 @@ ul#directory-actions > li {
 	color: #FFB14C; 
 	text-shadow: 0 0 5px #c60;
 	}
+#directory-actions li.current > a,
 #directory-actions li.selected > a {
 	color: #F3EAD0;
 	text-shadow: 0 0 6px #EEE;
 	}
-
 
 
 /* Directory Subnavigation */
@@ -2649,8 +2651,21 @@ div#character-sheet > ul li span {
 /* Group Creation */
 #create-group-form label { min-width: 120px; }
 #create-group-form input[type="text"], #create-group-form select {	min-width: 180px; }
-#create-group-form .checkbox-list { padding-left: 1em; }
+
+#create-group-form .checkbox-list { 
+	margin: 0.5em 0 0;
+	padding-left: 1em; 
+	}
+#create-group-form .checkbox-list ul {
+	padding: 0 0 0 2em;
+	margin: 0 0 1em;
+	font-size: 0.875em;
+	list-style: none;
+	}
+
 #create-group-form button[name="previous"] { font-size: 1em; }
+
+#create-group-form .group-invites input[type=checkbox] { opacity: 1; }
 
 /*---------------------------------------------
 	9.4 - Registration

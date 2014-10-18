@@ -19,7 +19,7 @@
 				<p class="post-byline"><?php apoc_description(); ?></p>
 				<?php if ( is_user_logged_in() ) : ?>
 				<div class="header-actions">
-					<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug() . '/create/'; ?>"><i class="fa fa-user"></i>Submit Your Guild</a>
+					<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug() . '/create/'; ?>"><i class="fa fa-group"></i>Submit Your Guild</a>
 				<?php endif; ?>
 				</div>
 				<?php wp_nonce_field( 'directory_groups', '_wpnonce-groups-filter' ); ?>

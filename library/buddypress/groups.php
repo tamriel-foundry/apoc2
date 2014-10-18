@@ -67,7 +67,7 @@ class Apoc_Group {
 		$this->fullname		= bp_get_group_name();
 		$this->domain		= bp_get_group_permalink();
 		$this->slug			= bp_get_group_slug();
-		$this->guild		= ( $allmeta['is_guild'] == 1 ) 		? 1 : 0;
+		$this->guild		= ( isset( $allmeta['is_guild']) ) 		? $allmeta['is_guild'] : 0;
 		$this->type			= $this->type();
 		$this->members		= bp_get_group_member_count();
 		$this->alliance		= isset( $allmeta['group_faction'] )	? $allmeta['group_faction'] : NULL;
@@ -177,6 +177,8 @@ class Apoc_Group {
 	 */	
 	function platform() {
 		
+		return 'guild server tooltip';
+		/*
 		// Format platform
 		$platform 	= $this->platform;
 		if ( $platform ) {
@@ -204,6 +206,7 @@ class Apoc_Group {
 		// Return the tip
 		$tooltip 	= ( $tooltip ) ? '<p class="group-member-count">' . $tooltip . '</p>' : '';
 		return $tooltip;
+		*/
 	}
 	
 	/* 
@@ -379,7 +382,7 @@ class Apoc_Group_Edit {
 
 		// Save group meta fields
 		add_action( 'groups_details_updated'						, array( $this , 'save_group_fields' ) );
-		add_action( 'groups_create_group_step_save_group-detailsgroups_create_group_step_save_group-details' 	, array( $this , 'save_group_fields' ) );
+		add_action( 'groups_create_group_step_save_group-details' 	, array( $this , 'save_group_fields' ) );
 	}
 
 	/**
@@ -433,21 +436,18 @@ class Apoc_Group_Edit {
 		$id = isset( $bp->groups->new_group_id ) ? $bp->groups->new_group_id : $group_id;
 
 		// Save the eligible meta
-		$group_is_guild = ( 'group' == $_POST['group-type'] ) ? 0 : 1;
-			groups_update_groupmeta( $id, 'is_guild', $group_is_guild );
+		$is_guild = ( 'group' == $_POST['group-type'] ) ? 0 : 1;
+			groups_update_groupmeta( $id, 'is_guild', $is_guild );
 			
 		if ( $_POST['group-website'] )
 			groups_update_groupmeta( $id, 'group_website', $_POST['group-website'] );  
 	
-		if ( $_POST['group-platform']  )
-			groups_update_groupmeta( $id, 'group_platform', $_POST['group-platform'] );
+		if ( $_POST['group-server']  )
+			groups_update_groupmeta( $id, 'group_server', $_POST['group-server'] );
 			
 		if ( $_POST['group-faction']  )
 			groups_update_groupmeta( $id, 'group_faction', $_POST['group-faction'] );
-			
-		if ( $_POST['group-region']  )
-			groups_update_groupmeta( $id, 'group_region', $_POST['group-region'] );
-			
+
 		if ( $_POST['group-style']  )
 			groups_update_groupmeta( $id, 'group_style', $_POST['group-style'] );
 			

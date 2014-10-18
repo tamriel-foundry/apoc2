@@ -6,8 +6,8 @@
  * 10-02-2014
  */
 
-// Initialize the group edit class
-$group_edit = new Apoc_Group_Edit();
+// Load the group edit class
+global $group_edit;
 $can_create = $group_edit->create;
 $can_access = $group_edit->access;
 ?>
@@ -20,7 +20,9 @@ $can_access = $group_edit->access;
 		<header id="directory-header" class="post-header <?php apoc_post_header_class( 'page' ); ?>">
 			<h1 class="post-title"><?php apoc_title(); ?></h1>
 			<p class="post-byline"><?php apoc_description(); ?></p>
-			<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug(); ?>">Back to Guilds</a>	
+			<div class="header-actions">
+				<a class="button" href="<?php echo SITEURL . '/' . bp_get_groups_root_slug(); ?>"><i class="fa fa-group"></i>Back to Guilds</a>
+			</div>	
 		</header>
 
 		<?php // If group creation is not allowed, display the reason
@@ -96,8 +98,8 @@ $can_access = $group_edit->access;
 					<label for="group-server"><i class="fa fa-globe fa-fw"></i>Guild Server  (&#9734;):</label>
 					<select name="group-server">
 						<option value=""></option>
-						<option value="napc">North America PC/Mac</option>
-						<option value="eupc">Europe PC/Mac</option>
+						<option value="pcna">North America PC/Mac</option>
+						<option value="pceu">Europe PC/Mac</option>
 						<option value="xbox">Xbox One</option>
 						<option value="ps4">PlayStation 4</option>
 					</select>
@@ -171,21 +173,22 @@ $can_access = $group_edit->access;
 			<?php // Step 2 - Visibility Settings
 			if ( bp_is_group_creation_step( 'group-settings' ) ) : ?>
 
-				<div class="instructions">
-					<h3 class="double-border">Step 2 - Guild Visibility Settings</h3>
-					<ul>
-						<li>Choose the desired privacy and visibility settings for this guild.</li>
-						<li>Select which types of group members are allowed to invite others to join.</li>
-						<li>Specify whether to set up a private guild forum.</li>
-					</ul>
-				</div>
+			<div class="instructions">
+				<h3 class="double-border">Step 2 - Guild Visibility Settings</h3>
+				<ul>
+					<li>Choose the desired privacy and visibility settings for this guild.</li>
+					<li>Select which types of group members are allowed to invite others to join.</li>
+					<li>Specify whether to set up a private guild forum.</li>
+				</ul>
+			</div>
 
+			<fieldset>
 				<div class="form-left">
-					<label for="group-status"><strong>Choose group visibility level:</strong></label>
+					<label for="group-status"><i class="fa fa-eye"></i>Choose group visibility level:</label>
 					<ul class="checkbox-list">
 						<li>
 							<input type="radio" name="group-status" value="public"/>
-							<label><i class="fa fa-unlock fa-fw"></i><strong>This is a public guild.</strong></label>
+							<label><i class="fa fa-unlock fa-fw"></i>This is a public guild.</label>
 							<ul>
 								<li>Any Tamriel Foundry member can join this guild.</li>
 								<li>This guild will be listed in the guilds directory and will appear in search results.</li>
@@ -194,8 +197,8 @@ $can_access = $group_edit->access;
 						</li>
 
 						<li>				
-							<input type="radio" name="group-status" value="private"/>
-							<label><i class="fa fa-lock fa-fw"></i><strong>This is a private guild.</strong></label>
+							<input type="radio" name="group-status" value="private" checked="checked"/>
+							<label><i class="fa fa-lock fa-fw"></i>This is a private guild.</label>
 							<ul>
 								<li>Only users who request membership and are accepted can join this guild.</li>
 								<li>This guild will be listed in the guilds directory and will appear in search results.</li>
@@ -205,7 +208,7 @@ $can_access = $group_edit->access;
 							
 						<li>			
 							<input type="radio" name="group-status" value="hidden"/>
-							<label><i class="fa fa-eye-slash fa-fw"></i><strong>This is a hidden guild.</strong></label>
+							<label><i class="fa fa-eye-slash fa-fw"></i>This is a hidden guild.</label>
 							<ul>
 								<li>Only users who are invited can join this guild</li>
 								<li>This guild will not be listed in the guilds directory or search results.</li>
@@ -216,7 +219,7 @@ $can_access = $group_edit->access;
 				</div>
 
 				<div class="form-right">
-					<label for="group-invite-status"><i class="fa fa-legal fa-fw"></i><strong>Select guild invitation permissions:</strong></label>
+					<label for="group-invite-status"><i class="fa fa-legal fa-fw"></i>Select guild invitation permissions:</label>
 					<ul class="checkbox-list">
 						<li><input type="radio" name="group-invite-status" value="members" /><label for="group-status">All guild members.</label></li>
 						<li><input type="radio" name="group-invite-status" value="mods" /><label for="group-status">Guild leaders and officers only.</label></li>
@@ -227,8 +230,129 @@ $can_access = $group_edit->access;
 				<div class="hidden">
 					<?php wp_nonce_field( 'groups_create_save_group-settings' ); ?>
 				</div>
+			</fieldset>
 			<?php endif; ?>
 
+			<?php // Step 3 - bbPress Forum Settings, see bbpress/includes/extend/buddypress/groups.php - create_screen() ?>
+			<?php do_action( 'groups_custom_create_steps' ); ?>
+
+			<?php // Step 4 - Avatar Uploads	
+			if ( bp_is_group_creation_step( 'group-avatar' ) ) : ?>
+			<div class="instructions">
+				<h3 class="double-border bottom">Step 4 - Upload Guild Avatar</h2>
+				<ul>
+					<li>Upload an image to use as the guild avatar.</li>
+					<li>The image will be shown on the main group page, and in search results.</li>
+					<li>Avatars are automatically resized to 200 pixel jpegs after cropping.</li>
+					<li>You may skip the avatar upload process by hitting the "Next Step" button.</li>
+				</ul>
+			</div>
+		
+			<fieldset id="group-edit-list">			
+				<?php if ( 'upload-image' == bp_get_avatar_admin_step() ) : ?>
+				
+				<div class="form-left">
+					<?php bp_new_group_avatar( $args = array('type' => 'full', 'width' => 200, 'height' => 200, 'no_grav' => true, ) ); ?>
+					<input type="file" name="file" id="file" />
+					<button type="submit" name="upload" id="upload" class="button"><i class="fa fa-cloud-upload"></i>Upload New Avatar</button>
+				</div>
+
+				<div class="hidden">
+					<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
+				</div>
+
+				<?php elseif ( 'crop-image' == bp_get_avatar_admin_step() ) : ?>
+				<div class="form-left">
+					<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-to-crop" class="avatar" alt="<?php _e( 'Avatar to crop', 'buddypress' ); ?>" />
+				</div>
+
+				<div class="form-right">
+					<div id="avatar-crop-pane">
+						<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-crop-preview" class="avatar" alt="<?php _e( 'Avatar preview', 'buddypress' ); ?>" />
+					</div>
+				</div>
+				
+				<div class="form-right">
+					<button type="submit" name="avatar-crop-submit" id="avatar-crop-submit">
+						<i class="icon-crop"></i>Crop Image</i>
+					</button>
+				</div>
+				
+				<div class="hidden">
+					<input type="hidden" name="image_src" id="image_src" value="<?php bp_avatar_to_crop_src(); ?>" />
+					<input type="hidden" name="upload" id="upload" />
+					<input type="hidden" id="x" name="x" />
+					<input type="hidden" id="y" name="y" />
+					<input type="hidden" id="w" name="w" />
+					<input type="hidden" id="h" name="h" />
+				</div>
+			<?php endif; ?>
+			
+				<div class="hidden">
+					<?php do_action( 'bp_after_group_avatar_creation_step' ); ?>
+					<?php wp_nonce_field( 'groups_create_save_group-avatar' ); ?>
+				</div>
+			</fieldset>
+			<?php endif; ?>	
+
+
+			<?php // Step 5 - Invite Friends
+			if ( bp_is_group_creation_step( 'group-invites' ) ) : ?>
+			<div class="instructions">
+				<h3 class="double-border bottom">Step 5 - Invite Friends to Group</h3>
+				<ul>
+					<li>Invite friends to participate in this new guild.</li>
+					<li>Members may always be added later on.</li>
+					<li>To directly invite new members they must first be on your friends list.</li>
+				</ul>
+			</div>
+				
+				<?php if ( bp_get_total_friend_count( bp_loggedin_user_id() ) ) : ?>
+				<fieldset class="group-invites">
+					<div id="invite-list" class="group-invites form-left">
+						<ul id="group-invite-list">
+							<?php bp_new_group_invite_friend_list(); ?>
+						</ul>
+					</div>
+					
+					<div id="invited-list" class="group-invites form-right">
+						<ul id="friend-list">
+						<?php if ( bp_group_has_invites() ) : ?>
+							<?php while ( bp_group_invites() ) : bp_group_the_invite(); ?>
+								<li id="<?php bp_group_invite_item_id(); ?>" class="member directory-entry">
+									<?php global $invites_template;
+									$userid = $invites_template->invite->user->id;
+									$user = new Apoc_User( $userid , 'directory' );	?>
+									<div class="directory-member">
+										<?php bp_group_invite_user_link(); ?>
+									</div>
+									<div class="directory-content">
+										<span class="activity"><?php bp_group_invite_user_last_active(); ?></span>
+										<div class="actions">
+											<a class="button remove" href="<?php bp_group_invite_user_remove_invite_url(); ?>" id="<?php bp_group_invite_item_id(); ?>"><i class="icon-remove"></i>Remove Invite</a>
+										</div>
+									</div>
+								</li>
+							<?php endwhile; ?>
+						<?php endif; ?>
+						</ul>
+					</div>
+				</fieldset>
+
+				<?php else : ?>
+				<div class="instructions">
+					<h3 class="double-border bottom">Invite Friends to Join This <?php echo ucfirst( $guild->type ); ?></h3>
+					<p><?php _e( 'Once you have built up friend connections you will be able to invite others to your group. You can send invites any time in the future by selecting the "Send Invites" option when viewing your new group.', 'buddypress' ); ?></p>
+				</div>
+				<?php endif; ?>
+
+
+				<div class="hidden">
+					<?php wp_nonce_field( 'groups_send_invites', '_wpnonce_send_invites' ); ?>
+					<?php wp_nonce_field( 'groups_invite_uninvite_user', '_wpnonce_invite_uninvite_user' ); ?>
+					<?php wp_nonce_field( 'groups_create_save_group-invites' ); ?>
+				</div>
+			<?php endif; ?>
 
 			<?php // Shared controls for every creation step (except cropping)
 			if ( 'crop-image' != bp_get_avatar_admin_step() ) : ?>
@@ -259,7 +383,7 @@ $can_access = $group_edit->access;
 				<?php // Previous button for later steps
 				if ( !bp_is_first_group_creation_step() ) : ?>
 				<div class="form-left">
-					<button name="previous" onclick="location.href='<?php bp_group_creation_previous_link(); ?>'"><i class="fa fa-backward"></i>Previous Step</button>
+					<a class="button" href="<?php bp_group_creation_previous_link(); ?>"><i class="fa fa-backward"></i>Previous Step</a>
 				</div>
 				<?php endif; ?>
 

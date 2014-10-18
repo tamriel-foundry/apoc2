@@ -7,15 +7,18 @@ The new Tamriel Foundry apocrypha theme!
 DATABASE CHANGES
 
 group_meta {
-	group-platform -> group-server
-	group-platform = pcmac -> napc
-	group-platform = playstation -> ps4
+	group_platform -> group_server
+	group_server = pcmac -> pcna
+	group_server = playstation -> ps4
+	group_region (DELETE)
 }
 
 BuddyPress options {
 	allow group creation for everyone
 }
 
+CODE HACKS
+bbpress/includes/extend/buddypress/groups.php - create_screen()
 
 
 
@@ -78,7 +81,7 @@ user-topics-created.php				| done
 
 GROUPS								| PROGRESS
 ----------------------------------- | -----------
-create.php							| in-progress
+create.php							| done
 groups-loop.php						| done
 index.php							| done
 forum/topic-edit.php				|

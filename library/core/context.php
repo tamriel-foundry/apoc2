@@ -107,14 +107,16 @@ class Apoc_Context {
 				endif;
 
 			// Single Group
-			elseif ( bp_is_group() ) :
+			elseif ( bp_is_group() || bp_is_group_create() ) :
 
-			// Group Creation
-			elseif ( bp_is_group_create() ) : 
-				$title 		= 'Submit New Group';
-				$desc		= 'Submit a new user group for listing on the ' . SITENAME . ' community groups directory.';
-				$crumbs[] 	= '<a href="' . SITEURL . '/' . bp_get_groups_root_slug() . '" title="Groups Directory">Groups</a>';
-				$crumbs[] 	= 'Create Group';
+				// Group Creation
+				if ( bp_is_group_create() ) : 
+					$title 		= 'Submit New Group';
+					$desc		= 'Submit a new user group for listing on the ' . SITENAME . ' community groups directory.';
+					$crumbs[] 	= '<a href="' . SITEURL . '/' . bp_get_groups_root_slug() . '" title="Groups Directory">Groups</a>';
+					$crumbs[] 	= 'Create Group';
+				endif;
+
 
 			// Directories
 			elseif ( bp_is_directory() ) :	

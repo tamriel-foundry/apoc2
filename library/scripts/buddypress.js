@@ -3,217 +3,397 @@
  * Andrew Clayton
  * Version 2.0
  * 10-12-2014
+ *
+ * 1.0 - Page Load Actions (in progress)
+ * 2.0 - New Activity (done)
+ * 3.0 - Activity Directory
+ * X.0 - Helper Functions (done)
+
 ========================================================================== */
 
-// AJAX Functions
-var jq = jQuery;
+// Define constants
+var	siteurl = ( window.location.host == 'localhost' ) ? 'http://localhost/tamrielfoundry/' : 'http://tamrielfoundry.com/';
+var ajaxurl 	= siteurl + 'wp-admin/admin-ajax.php';
+var jq 			= jQuery;
 
 // Global variable to prevent multiple AJAX requests
 var bp_ajax_request = null;
 
+// Start document ready block
 jq(document).ready( function() {
 	
-	/**** Page Load Actions *******************************************************/
+/*! ----------------------------------------------------------
+	1.0 - PAGE LOAD ACTIONS
+----------------------------------------------------------- */
 
-	/* Activity filter and scope set */
-	bp_init_activity();
+/* Activity filter and scope set */
+bp_init_activity();
 
-	/* Object filter and scope set. */
-	var objects = [ 'members', 'groups', 'blogs', 'forums' ],
-		$whats_new = jq('#whats-new');
-	bp_init_objects( objects );
+/* Object filter and scope set. */
+var objects = [ 'members', 'groups', 'blogs', 'forums' ],
+	$whats_new = jq('#whats-new');
+bp_init_objects( objects );
 
-	/* @mention Compose Scrolling */
-	if ( $whats_new.length && bp_get_querystring('r') ) {
-		var $member_nicename = $whats_new.val();
+/* @mention Compose Scrolling */
+if ( $whats_new.length && bp_get_querystring('r') ) {
+	var $member_nicename = $whats_new.val();
 
-		jq('#whats-new-options').animate({
-			height:'40px'
-		});
+	jq('#whats-new-options').animate({
+		height:'40px'
+	});
 
-		$whats_new.animate({
-			height:'50px'
-		});
+	$whats_new.animate({
+		height:'50px'
+	});
 
-		jq.scrollTo( $whats_new, 500, {
-			offset:-125,
-			easing:'swing'
-		} );
+	jq.scrollTo( $whats_new, 500, {
+		offset:-125,
+		easing:'swing'
+	} );
 
-		$whats_new.val('').focus().val( $member_nicename );
+	$whats_new.val('').focus().val( $member_nicename );
+}
+
+/*! ----------------------------------------------------------
+	2.0 - ACTIVITY POSTING
+----------------------------------------------------------- */
+
+/* Hide the new status form by default */
+jq( '#whats-new-form' ).hide();
+
+/*! ---------------------------------
+	2.1 - Form Visibility
+---------------------------------- */
+jq( '.update-status-button' ).click( function() {
+	jq( 'form#whats-new-form' ).slideToggle( 'fast' , function() {
+		jq('#whats-new').focus();
+	});
+});
+
+/* Enable on focus */
+jq('#whats-new').focus( function(){
+	jq("#aw-whats-new-submit").prop("disabled", false);
+	var $whats_new_form = jq("form#whats-new-form");
+	if ( $whats_new_form.hasClass("submitted") ) {
+		$whats_new_form.removeClass("submitted");	
+	}
+});
+
+/* Disable on blur */
+jq('#whats-new').blur( function(){
+	if (!this.value.match(/\S+/)) {
+		jq("textarea#whats-new").val('');
+		jq("#aw-whats-new-submit").prop("disabled", true);
+	}
+});
+
+/*! ---------------------------------
+	2.2 - Form Submission
+---------------------------------- */
+jq("#aw-whats-new-submit").click( function(event) {
+
+	// Prevent default
+	event.preventDefault();
+	
+	// Get data
+	var button = jq(this);
+	var form = button.closest("form#whats-new-form");
+
+	// Remove any displayed errors
+	jq('div.error').remove();
+
+	// Disable the form
+	button.prop('disabled', true);
+	form.children().each( function() {
+		if ( jq.nodeName(this, "textarea") || jq.nodeName(this, "input") )
+			jq(this).prop( 'disabled', true );
+	});
+
+	// Display a tooltip
+	var orgHtml = button.html();
+	button.html( '<i class="fa fa-spinner fa-spin"></i>Submitting' );
+	form.addClass("submitted");
+
+	// Default POST values
+	var object = '';
+	var item_id = jq("#whats-new-post-in").val();
+	var content = jq("textarea#whats-new").val();
+
+	// Set object for non-profile posts
+	if ( item_id > 0 ) {
+		object = jq("#whats-new-post-object").val();
 	}
 
-	/**** Activity Posting ********************************************************/
+	// Submit the post request
+	jq.post( ajaxurl, {
+		action: 'post_update',
+		'cookie': bp_get_cookies(),
+		'_wpnonce_post_update': jq("input#_wpnonce_post_update").val(),
+		'content': content,
+		'object': object,
+		'item_id': item_id,
+		'_bp_as_nonce': jq('#_bp_as_nonce').val() || ''
+	},
+	function(response) {
 
-	/**** Activity Comments *******************************************************/
+		// Re-enable the form
+		form.children().each( function() {
+			if ( jq.nodeName(this, "textarea") || jq.nodeName(this, "input") ) {
+				jq(this).prop( 'disabled', false );
+			}
+		});
 
-	/* Hide all activity comment forms */
-	jq('form.ac-form').hide();
-
-	/* Hide excess comments */
-	if ( jq('.activity-comments').length )
-		bp_dtheme_hide_comments();
-
-	/* Activity list event delegation */
-	jq('div.activity').click( function(event) {
+		// Handle errors
+		if ( response[0] + response[1] == '-1' ) {
+			form.prepend( response.substr( 2, response.length ) );
+			jq( 'form#' + form.attr('id') + ' div.error').hide().fadeIn( 200 );
 		
-		// Get the click target
-		var target = jq(event.target);
+		// Handle success
+		} else {
 
-		// Comment and comment reply links
-		if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
-			if ( target.parent().hasClass('acomment-reply') )
-				target = target.parent();
+			// If we are on a user profile page, add the new update to their recent status
+			if ( 0 != jq("#profile-status").length ) {
+				jq("#profile-status").slideUp(300,function(){				
+					jq("#profile-status span#latest-status").html( content );
+					jq("#profile-status").slideDown(300);
+				});
+			}
 
-			// Determine the target activity and appropriate form
-			var id = target.attr('id');
-			ids = id.split('-');
-			var a_id = ids[2]
-			var c_id = target.attr('href').substr( 10, target.attr('href').length );
-			var form = jq( '#ac-form-' + a_id );
+			// Append the new activity to the stream
+			if ( 0 == jq("ul.activity-list").length ) {
+				jq("div.error").slideUp(100).remove();
+				jq("div#message").slideUp(100).remove();
+				jq("div.activity").append( '<ul id="activity-stream" class="activity-list item-list">' );
+			}
+			jq("ul#activity-stream").prepend(response);
 
-			// Hide any other forms
-			form.css( 'display', 'none' );
-			form.removeClass('root');
+			// Make sure comment forms are hidden
 			jq('.ac-form').hide();
 
-			// Hide any error messages
-			form.children('div').each( function() {
-				if ( jq(this).hasClass( 'error' ) )
-					jq(this).hide();
-			});
+			// Re-flag the newest update on the stream
+			jq("ul#activity-stream li:first").addClass('new-update just-posted');
+			jq("li.new-update").hide().slideDown( 300 );
+			jq("li.new-update").removeClass( 'new-update' );
 
-			// Possibly move the form to a new parent
-			if ( ids[1] != 'comment' ) {
-				jq('.activity-comments li#acomment-' + c_id).append( form );
-			} else {
-				jq('li#activity-' + a_id + ' .activity-comments').append( form );
-			}
-			if ( form.parent().hasClass( 'activity-comments' ) )
-				form.addClass('root');
-
-			// Display the form, scroll to it, and focus
-			form.slideDown( 200 );	
-			jq('html, body').animate({scrollTop: form.offset().top - 200 }, 600);
-			jq('#ac-form-' + ids[2] + ' textarea').focus();
-
-			// Prevent default action
-			return false;
+			// Empty the form and hide it
+			jq("textarea#whats-new").val('');
+			form.slideUp(300);
 		}
 
-		// Activity comment posting
-		if ( target.attr('name') == 'ac_form_submit' ) {
-			var form        = target.parents( 'form' );
-			var form_parent = form.parent();
-			var form_id     = form.attr('id').split('-');
+		// Restore original button tooltip
+		jq("#aw-whats-new-submit").prop("disabled", true).html( orgHtml );
+	});
+});
 
-			if ( !form_parent.hasClass('activity-comments') ) {
-				var tmp_id = form_parent.attr('id').split('-');
-				var comment_id = tmp_id[1];
+/*! ----------------------------------------------------------
+	3.0 - ACTIVITY DIRECTORY
+----------------------------------------------------------- */
+
+/* Hide all activity comment forms by default */
+jq('form.ac-form').hide();
+
+/* Hide excess comments */
+if ( jq('.activity-comments').length )
+	bp_dtheme_hide_comments();
+
+/* Activity list event delegation */
+jq('div.activity').click( function(event) {
+	
+	// Get the click target
+	var target = jq(event.target);
+
+	/*! ---------------------------------
+		3.1 - Delete Activity
+	---------------------------------- */
+	if ( target.hasClass('delete-activity') ) {
+
+		// Prevent default action
+		event.preventDefault();
+
+		// Get data about target activity
+		var li        = target.parents('div.activity ul li');
+		var id        = li.attr('id').substr( 9, li.attr('id').length );
+		var link_href = target.attr('href');
+		var nonce     = link_href.split('_wpnonce=');
+		nonce = nonce[1];
+
+		// Submit the post request
+		jq.post( ajaxurl, {
+			action: 'delete_activity',
+			'cookie': bp_get_cookies(),
+			'id': id,
+			'_wpnonce': nonce
+		},
+		function(response) {
+
+			// Handle errors
+			if ( response[0] + response[1] == '-1' ) {
+				li.prepend( response.substr( 2, response.length ) );
+				li.children('div#message').hide().fadeIn(300);
+			
+			// Handle success
 			} else {
-				var comment_id = form_id[2];
+				li.slideUp(300);
 			}
+		});
+	}
 
-			// Hide any error messages
-			jq( 'form#' + form.attr('id') + ' div.error').hide();
-			target.addClass('loading').prop('disabled', true);
+	/*! ---------------------------------
+		3.2 - Reply Links
+	---------------------------------- */
+	if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
+		if ( target.parent().hasClass('acomment-reply') )
+			target = target.parent();
 
-			var ajaxdata = {
-				action: 'new_activity_comment',
-				'cookie': bp_get_cookies(),
-				'_wpnonce_new_activity_comment': jq("input#_wpnonce_new_activity_comment").val(),
-				'comment_id': comment_id,
-				'form_id': form_id[2],
-				'content': jq('form#' + form.attr('id') + ' textarea').val()
-			};
+		// Determine the target activity and appropriate form
+		var id = target.attr('id');
+		ids = id.split('-');
+		var a_id = ids[2]
+		var c_id = target.attr('href').substr( 10, target.attr('href').length );
+		var form = jq( '#ac-form-' + a_id );
 
-			// Akismet
-			var ak_nonce = jq('#_bp_as_nonce_' + comment_id).val();
-			if ( ak_nonce ) {
-				ajaxdata['_bp_as_nonce_' + comment_id] = ak_nonce;
-			}
+		// Hide any other forms
+		form.css( 'display', 'none' );
+		form.removeClass('root');
+		jq('.ac-form').hide();
 
-			jq.post( ajaxurl, ajaxdata, function(response) {
-				target.removeClass('loading');
+		// Hide any error messages
+		form.children('div').each( function() {
+			if ( jq(this).hasClass( 'error' ) )
+				jq(this).hide();
+		});
 
-				// Check for errors and append if found.
-				if ( response[0] + response[1] == '-1' ) {
-					form.append( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
-				} else {
-					var activity_comments = form.parent();
-					form.fadeOut( 200, function() {
-						if ( 0 == activity_comments.children('ul').length ) {
-							if ( activity_comments.hasClass('activity-comments') ) {
-								activity_comments.prepend('<ul></ul>');
-							} else {
-								activity_comments.append('<ul></ul>');
-							}
+		// Possibly move the form to a new parent
+		if ( ids[1] != 'comment' ) {
+			jq('.activity-comments li#acomment-' + c_id).append( form );
+		} else {
+			jq('li#activity-' + a_id + ' .activity-comments').append( form );
+		}
+		if ( form.parent().hasClass( 'activity-comments' ) )
+			form.addClass('root');
+
+		// Display the form, scroll to it, and focus
+		form.slideDown( 200 );	
+		jq('html, body').animate({scrollTop: form.offset().top - 200 }, 600);
+		jq('#ac-form-' + ids[2] + ' textarea').focus();
+
+		// Prevent default action
+		return false;
+	}
+
+	// Activity comment posting
+	if ( target.attr('name') == 'ac_form_submit' ) {
+		var form        = target.parents( 'form' );
+		var form_parent = form.parent();
+		var form_id     = form.attr('id').split('-');
+
+		if ( !form_parent.hasClass('activity-comments') ) {
+			var tmp_id = form_parent.attr('id').split('-');
+			var comment_id = tmp_id[1];
+		} else {
+			var comment_id = form_id[2];
+		}
+
+		// Hide any error messages
+		jq( 'form#' + form.attr('id') + ' div.error').hide();
+		target.addClass('loading').prop('disabled', true);
+
+		var ajaxdata = {
+			action: 'new_activity_comment',
+			'cookie': bp_get_cookies(),
+			'_wpnonce_new_activity_comment': jq("input#_wpnonce_new_activity_comment").val(),
+			'comment_id': comment_id,
+			'form_id': form_id[2],
+			'content': jq('form#' + form.attr('id') + ' textarea').val()
+		};
+
+		// Akismet
+		var ak_nonce = jq('#_bp_as_nonce_' + comment_id).val();
+		if ( ak_nonce ) {
+			ajaxdata['_bp_as_nonce_' + comment_id] = ak_nonce;
+		}
+
+		jq.post( ajaxurl, ajaxdata, function(response) {
+			target.removeClass('loading');
+
+			// Check for errors and append if found.
+			if ( response[0] + response[1] == '-1' ) {
+				form.append( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+			} else {
+				var activity_comments = form.parent();
+				form.fadeOut( 200, function() {
+					if ( 0 == activity_comments.children('ul').length ) {
+						if ( activity_comments.hasClass('activity-comments') ) {
+							activity_comments.prepend('<ul></ul>');
+						} else {
+							activity_comments.append('<ul></ul>');
 						}
-
-						// Preceeding whitespace breaks output with jQuery 1.9.0
-						var the_comment = jq.trim( response );
-
-						activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ) );
-						form.children('textarea').val('');
-						activity_comments.parent().addClass('has-comments');
-					} );
-
-					jq( 'form#' + form.attr('id') + ' textarea').val('');
-
-					// Increase the "Reply (X)" button count
-					jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html( Number( jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1 );
-
-					// Increment the 'Show all x comments' string, if present
-					var show_all_a = activity_comments.find('.show-all').find('a');
-					if ( show_all_a ) {
-						var new_count = jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html();
-						show_all_a.html( BP_DTheme.show_x_comments.replace( '%d', new_count ) );
 					}
+
+					// Preceeding whitespace breaks output with jQuery 1.9.0
+					var the_comment = jq.trim( response );
+
+					activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ) );
+					form.children('textarea').val('');
+					activity_comments.parent().addClass('has-comments');
+				} );
+
+				jq( 'form#' + form.attr('id') + ' textarea').val('');
+
+				// Increase the "Reply (X)" button count
+				jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html( Number( jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1 );
+
+				// Increment the 'Show all x comments' string, if present
+				var show_all_a = activity_comments.find('.show-all').find('a');
+				if ( show_all_a ) {
+					var new_count = jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html();
+					show_all_a.html( BP_DTheme.show_x_comments.replace( '%d', new_count ) );
 				}
-
-				jq(target).prop("disabled", false);
-			});
-
-			return false;
-		}
-
-		// Showing hidden comments - pause for half a second
-		if ( target.parent().hasClass('show-all') ) {
-			target.addClass('loading');
-
-			setTimeout( function() {
-				$('.activity-comments ul li').fadeIn(200, function() {
-					target.parent().remove();
-				});
-			}, 600 );
-
-			return false;
-		}
-	});
-
-	// Escape Key Press for cancelling comment forms
-	jq(document).keydown( function(e) {
-		e = e || window.event;
-		if (e.target)
-			element = e.target;
-		else if (e.srcElement)
-			element = e.srcElement;
-
-		if( element.nodeType == 3)
-			element = element.parentNode;
-
-		if( e.ctrlKey == true || e.altKey == true || e.metaKey == true )
-			return;
-
-		var keyCode = (e.keyCode) ? e.keyCode : e.which;
-
-		if ( keyCode == 27 ) {
-			if (element.tagName == 'TEXTAREA') {
-				if ( jq(element).hasClass('ac-input') )
-					jq(element).parent().parent().parent().slideUp( 200 );
 			}
+
+			jq(target).prop("disabled", false);
+		});
+
+		return false;
+	}
+
+	// Showing hidden comments - pause for half a second
+	if ( target.parent().hasClass('show-all') ) {
+		target.addClass('loading');
+
+		setTimeout( function() {
+			$('.activity-comments ul li').fadeIn(200, function() {
+				target.parent().remove();
+			});
+		}, 600 );
+
+		return false;
+	}
+});
+
+// Escape Key Press for cancelling comment forms
+jq(document).keydown( function(e) {
+	e = e || window.event;
+	if (e.target)
+		element = e.target;
+	else if (e.srcElement)
+		element = e.srcElement;
+
+	if( element.nodeType == 3)
+		element = element.parentNode;
+
+	if( e.ctrlKey == true || e.altKey == true || e.metaKey == true )
+		return;
+
+	var keyCode = (e.keyCode) ? e.keyCode : e.which;
+
+	if ( keyCode == 27 ) {
+		if (element.tagName == 'TEXTAREA') {
+			if ( jq(element).hasClass('ac-input') || 'whats-new' === jq(element).attr('id') )
+				jq(element).parents('form').slideUp( 200 );
 		}
-	});
+	}
+});
 
 
 
@@ -222,7 +402,7 @@ jq(document).ready( function() {
 
 
 
-// End on-ready
+// End document ready block
 });
 
 
@@ -236,6 +416,12 @@ jq(document).ready( function() {
 /*! ----------------------------------------------------------
 	X.0 - INITIALIZATION AND HELPER FUNCTIONS
 ----------------------------------------------------------- */
+
+/* Get the current query string */
+function bp_get_querystring( n ) {
+	var half = location.search.split( n + '=' )[1];
+	return half ? decodeURIComponent( half.split('&')[0] ) : null;
+}
 
 /* Setup activity scope and filter based on the current cookie settings. */
 function bp_init_activity() {

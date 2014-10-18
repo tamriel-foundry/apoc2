@@ -44,6 +44,10 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 			<?php endif; ?>
 		</blockquote>
 
+		<?php if ( bp_is_my_profile() ) : ?>
+			<?php locate_template( array( 'activity/post-form.php'), true ); ?>
+		<?php endif; ?>
+
 		<div id="detail-post-count" class="widget profile-widget">
 			<header class="widget-header">
 				<h3 class="widget-title">Posting History</h3>

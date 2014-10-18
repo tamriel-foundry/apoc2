@@ -39,6 +39,14 @@
 			</ul>
 		</nav><!-- #directory-nav -->
 
+		<?php if ( is_user_logged_in() ) : $user = apoc()->user; ?>
+		<blockquote id="profile-status" class="user-status">
+			<p><?php echo '@' . $user->display_name . ' &rarr; <span id="latest-status">' . bp_get_activity_latest_update( $user->ID ); ?></span></p>
+			<a class="update-status-button button-dark"><i class="fa fa-pencil"></i>What's New?</a>
+		</blockquote>
+		<?php locate_template( array( 'activity/post-form.php'), true ); ?>
+		<?php endif; ?>
+
 		<?php do_action( 'template_notices' ); ?>
 
 		<header class="reply-header" id="subnav" role="navigation">

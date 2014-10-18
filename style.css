@@ -63,7 +63,8 @@ Input background: 		#DAD6CF
 
 Light-text:				#D1CBBC
 Lighter-text:			#F3EAD0
-Darker-text:			#A29C8E
+Dark-text:				#A29C8E
+darker-text:			#6F6B60;
 
 */
 
@@ -366,10 +367,10 @@ ul.checkbox-list {
 ul.checkbox-list > li { position: relative; }
 
 /* Placeholder Values */
-::-webkit-input-placeholder { color: #666; }
-:-moz-placeholder { color: #666; }
-::-moz-placeholder { color: #666; }
-:-ms-input-placeholder { color: #666; }
+::-webkit-input-placeholder { color: #6F6B60; }
+:-moz-placeholder { color: #6F6B60; }
+::-moz-placeholder { color: #6F6B60; }
+:-ms-input-placeholder { color: #6F6B60; }
 
 /* Textareas */
 textarea {
@@ -2256,7 +2257,6 @@ ul.directory-list {
 
 ul.directory-list > li {
 	width: 100%;
-	float: left;
 	border-bottom: 1px solid #000;
 	}
 ul.directory-list > li + li {
@@ -2356,6 +2356,16 @@ span.activity-quote-mention {
 	}
 
 
+/* New Status Form */
+#whats-new-form div { margin-top: 0; }
+#whats-new-form label {
+	margin: 0.5em 0; 
+	font-size: 0.75em; 
+	color: #A29C8E;;
+	}
+#whats-new-form textarea { margin: 0;}
+#whats-new-form button { font-size: 0.75em; }
+
 /* Activity Comments */
 .activity-comments > ul {
 	width: 100%;
@@ -2441,7 +2451,7 @@ form.ac-form span {
 	margin: -2px 1% 0 0
 	}
 
-#profile-content #profile-status {
+#profile-status {
 	width: 100%;
 	float: left;
 	margin: 0.5em 0;
@@ -2484,7 +2494,7 @@ form.ac-form span {
 /* Contact Methods */
 .user-contact-list span {
 	display: inline-block;
-	min-width: 100px;
+	min-width: 120px;
 	}
 
 /* Profile Sub-Navigation */
@@ -2524,7 +2534,7 @@ form.ac-form span {
 	width: 100%;
 	float: left;
 	margin: 1em 0;
-	padding: 0 1em;
+	padding: 0 0.5em;
 	display: flex;
 	flex-flow: row-reverse wrap;
 	}
@@ -2535,6 +2545,7 @@ form.ac-form span {
 #user-biography {
 	flex: 3;
 	min-width: 300px;
+	margin-right: 1em;
 	}
 
 /* Character Sheet */

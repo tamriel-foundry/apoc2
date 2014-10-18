@@ -115,6 +115,14 @@ class Apoc_Context {
 					$desc		= 'Submit a new user group for listing on the ' . SITENAME . ' community groups directory.';
 					$crumbs[] 	= '<a href="' . SITEURL . '/' . bp_get_groups_root_slug() . '" title="Groups Directory">Groups</a>';
 					$crumbs[] 	= 'Create Group';
+
+				// Group Profile Home
+				elseif ( 'home' == bp_current_action() ) :
+					$title 		=  bp_get_group_name();
+					$desc		= SITENAME . ' guild profile for ' . bp_get_group_name();
+					$crumbs[] 	= '<a href="'. bp_get_groups_directory_permalink() .'" title="Groups Directory">Groups</a>';
+					$crumbs[] 	= bp_get_group_name();
+
 				endif;
 
 

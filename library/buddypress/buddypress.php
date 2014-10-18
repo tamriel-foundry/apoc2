@@ -300,14 +300,15 @@ class Apoc_BuddyPress {
 		
 		// Remove the div wrapper
 		$button['wrapper'] = false;
-		$button['link_class'] = 'button-dark ' . $button['link_class'];
+
+		// Dark buttons on directories
+		$button['link_class'] = bp_is_groups_directory() ? 'button-dark ' . $button['link_class'] : 'button ' . $button['link_class'];
 
 		// Button icon
 		$button['link_text'] = ( 'leave_group' === $button['id'] ) ? '<i class="fa fa-remove"></i>' . $button['link_text'] : '<i class="fa fa-check"></i>' . $button['link_text'];
 
 		// Return the button
 		return $button;
-
 	}
 
 

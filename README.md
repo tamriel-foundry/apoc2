@@ -95,8 +95,8 @@ single/forum/single-forum.php 		|
 single/forum/split.php				|
 single/forum/topic.php				|
 single/front.php					|
-single/group-header.php				|
-single/home.php						|
+single/group-header.php				| done
+single/home.php						| done
 single/members.php					|
 single/request-membership.php 		|
 single/send-invites.php				|

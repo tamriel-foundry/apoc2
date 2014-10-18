@@ -185,7 +185,7 @@ single/notifications/notifications-loop.php	|
 single/notifications/read.php		|
 single/notifications/unread.php		|
 single/profile.php					| done
-single/profile/change-avatar.php	| 
+single/profile/change-avatar.php	| done
 single/profile/edit.php				| done
 single/settings.php					|
 single/settings/capabilities.php	|

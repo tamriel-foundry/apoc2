@@ -26,7 +26,7 @@ if ( bp_is_current_action( 'change-avatar' ) ) :
 	locate_template( array( 'members/single/profile/change-avatar.php' ), true );
 else : ?>
 
-<article id="user-profile">
+<div id="user-profile">
 
 	<section id="user-character" class="widget">
 		<header class="widget-header">
@@ -52,5 +52,5 @@ else : ?>
 		endif; ?>
 	</section>
 
-</article><!-- #user-profile -->
+</div><!-- #user-profile -->
 <?php endif; ?>

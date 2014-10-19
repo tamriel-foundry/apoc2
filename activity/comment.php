@@ -9,7 +9,7 @@
 
 <li id="acomment-<?php bp_activity_comment_id(); ?>" class="activity-comment">
 	<div class="acomment-avatar">
-		<?php echo apoc_get_avatar( array( 'user_id' => bp_get_activity_user_id() , 'size' => 50 ) ); ?>
+		<?php echo apoc_get_avatar( array( 'user_id' => bp_get_activity_comment_user_id() , 'size' => 50 ) ); ?>
 	</div>
 
 	<div class="acomment-body">

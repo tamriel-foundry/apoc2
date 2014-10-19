@@ -207,6 +207,8 @@ jq('div.activity').click( function(event) {
 	---------------------------------- */
 	if ( target.hasClass('delete-activity') ) {
 
+		alert('test');
+
 		// Prevent default action
 		event.preventDefault();
 
@@ -281,12 +283,17 @@ jq('div.activity').click( function(event) {
 		return false;
 	}
 
-	// Activity comment posting
+	/*! ---------------------------------
+		3.3 - Activity Comment
+	---------------------------------- */
 	if ( target.attr('name') == 'ac_form_submit' ) {
+		
+		// Get activity comment data
 		var form        = target.parents( 'form' );
 		var form_parent = form.parent();
 		var form_id     = form.attr('id').split('-');
 
+		// Associate with the correct parent comment
 		if ( !form_parent.hasClass('activity-comments') ) {
 			var tmp_id = form_parent.attr('id').split('-');
 			var comment_id = tmp_id[1];
@@ -298,6 +305,7 @@ jq('div.activity').click( function(event) {
 		jq( 'form#' + form.attr('id') + ' div.error').hide();
 		target.addClass('loading').prop('disabled', true);
 
+		// Set up Ajax
 		var ajaxdata = {
 			action: 'new_activity_comment',
 			'cookie': bp_get_cookies(),
@@ -313,6 +321,7 @@ jq('div.activity').click( function(event) {
 			ajaxdata['_bp_as_nonce_' + comment_id] = ak_nonce;
 		}
 
+		// Submit the post request
 		jq.post( ajaxurl, ajaxdata, function(response) {
 			target.removeClass('loading');
 
@@ -333,12 +342,12 @@ jq('div.activity').click( function(event) {
 					// Preceeding whitespace breaks output with jQuery 1.9.0
 					var the_comment = jq.trim( response );
 
-					activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ) );
-					form.children('textarea').val('');
-					activity_comments.parent().addClass('has-comments');
-				} );
+					// Add the new comment to the list
+					activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ).css('display','') );
 
-				jq( 'form#' + form.attr('id') + ' textarea').val('');
+					// De-populate the comment form
+					form.children('textarea').val('');
+				} );
 
 				// Increase the "Reply (X)" button count
 				jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html( Number( jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1 );
@@ -347,13 +356,85 @@ jq('div.activity').click( function(event) {
 				var show_all_a = activity_comments.find('.show-all').find('a');
 				if ( show_all_a ) {
 					var new_count = jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html();
-					show_all_a.html( BP_DTheme.show_x_comments.replace( '%d', new_count ) );
+					show_all_a.html( 'Show All ' + new_count + ' Comments' );
 				}
 			}
 
 			jq(target).prop("disabled", false);
 		});
 
+		return false;
+	}
+
+	/*! ---------------------------------
+		3.4 - Delete Activity Comment
+	---------------------------------- */
+	if ( target.hasClass('acomment-delete') ) {
+		
+		// Get comment data
+		var link_href = target.attr('href');
+		var comment_li = target.parents('li.activity-comment');
+		var form = comment_li.parents('div.activity-comments').children('form');
+		var nonce = link_href.split('_wpnonce=');
+		nonce = nonce[1];
+
+		// Determine the correct comment to delete
+		var comment_id = link_href.split('cid=');
+		comment_id = comment_id[1].split('&');
+		comment_id = comment_id[0];
+
+		// Remove any error messages
+		jq('.activity-comments ul .error').remove();
+
+		// Reset the form position
+		comment_li.parents('.activity-comments').append(form);
+
+		// Submit the ajax request
+		jq.post( ajaxurl, {
+			action: 'delete_activity_comment',
+			'cookie': bp_get_cookies(),
+			'_wpnonce': nonce,
+			'id': comment_id
+		},
+		function(response)
+		{
+			// Handle errors
+			if ( response[0] + response[1] == '-1' ) {
+				comment_li.prepend( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+			
+			// Handle success
+			} else {
+
+				// Remove the comment
+				var children = jq( 'li#' + comment_li.attr('id') + ' ul' ).children('li');
+				var child_count = 0;
+				jq(children).each( function() {
+					if ( !jq(this).is(':hidden') )
+						child_count++;
+				});
+				comment_li.fadeOut(200, function() {
+					comment_li.remove();
+				});
+
+				// Decrease the "Reply (X)" button count
+				var count_span = jq('li#' + comment_li.parents('ul#activity-stream > li').attr('id') + ' a.acomment-reply span');
+				var new_count = count_span.html() - ( 1 + child_count );
+				count_span.html(new_count);
+
+				// Change the 'Show all x comments' text
+				var show_all_a = comment_li.siblings('.show-all').find('a');
+				if ( show_all_a ) {
+					show_all_a.html( 'Show All ' + new_count + ' Comments' );
+				}
+
+				/* If that was the last comment for the item, remove the has-comments class to clean up the styling */
+				if ( 0 == new_count ) {
+					jq(comment_li.parents('ul#activity-stream > li')).removeClass('has-comments');
+				}
+			}
+		});
+
+		// Prevent default
 		return false;
 	}
 

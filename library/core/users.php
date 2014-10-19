@@ -76,11 +76,12 @@ class Apoc_User {
 		$this->servname	= $this->user_server( $this->server );
 		$this->rank		= $this->user_rank( $this->posts );
 		$this->title	= $this->user_title( $user_id );
+		$this->rclass 	= $this->race_class();
 
 		// Get the user profile
 		$this->profile	= bp_core_get_user_domain( $user_id );
 		$grammar		= ( substr( $this->fullname , -1) == "s" ) ? $this->fullname . '\'' : $this->fullname . '\'s';
-		$this->link 	= '<a href="' . $this->profile . '" title="Visit ' . $grammar . ' user profile" target="_blank">' . $this->fullname . '</a>';
+		$this->link 	= '<a class="member-name" href="' . $this->profile . '" title="Visit ' . $grammar . ' user profile" target="_blank">' . $this->fullname . '</a>';
 
 		// Get additional data on user profile pages
 		if ( 'profile' == $this->context ) {	
@@ -114,11 +115,9 @@ class Apoc_User {
 	 */	
 	function format_data( $context ) {
 	
-		// Setup the basic info block
-		$block		= '<a class="member-name" href="' . $this->profile . '" title="View ' . $this->fullname . ' User Profile">' . $this->fullname . '</a>';
+		// Setup global block features
+		$block		= $this->link;
 		$block		.= $this->title;	
-		//$block		.= $this->allegiance();
-		$block		.= ( isset( $this->guild ) ) ? '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>' : '' ;
 		
 		// Prepare to fetch an avatar
 		$avatar_type = $this->size > 100 ? 'full' : 'thumb';
@@ -136,17 +135,26 @@ class Apoc_User {
 		switch( $context ) {
 		
 			case 'directory' :
-				$block		= '<div class="directory-member-meta">' . $block . '</div>';
+				$block		= '<div class="directory-member-meta">' . $block;
+				if ( isset( $this->guild ) )
+					$block		.= '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>';
+				else
+					$block		.= $this->rclass;
+				$block		.= '</div>';
 				break;
 		
 			case 'reply' :
 				$block		.= '<p class="user-post-count">Total Posts: ' . $this->posts['total'] . '</p>';
+				$block		.= $this->rclass;
+				$block		.= ( isset( $this->guild ) ) ? '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>' : '' ;
 				$block		.= $this->expbar();
 				break;
 					
 			case 'profile' :
 				$avatar_args['link'] = false;
 				$block		.= '<p class="user-post-count">Total Posts: ' . $this->posts['total'] . '</p>';
+				$block		.= $this->rclass;
+				$block		.= ( isset( $this->guild ) ) ? '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>' : '' ;
 				$block		.= $this->expbar();
 				break;
 		}
@@ -254,6 +262,30 @@ class Apoc_User {
 		$role_class = strtolower( str_replace( " " , "-" , $title ) );
 		return '<p class="user-title ' . $role_class . '">' . $title . '</p>';
 	}
+
+	/* 
+	 * Get a user's declared race and class
+	 * @version 2.0
+	 */
+	function race_class() {
+	
+		// Set it up
+		$separator	= '';
+		$faction	= $this->faction;
+		$race 		= $this->race;
+		$class 		= $this->class;
+	
+		// Make sure we have info to use
+		if ( '' == $race && '' == $class && '' == $faction )
+			return false;
+	
+		// Otherwise, display what we have		
+		if ( '' == $race ) $race = $faction;
+		if ( $race != '' ) $separator = ' ';
+		$allegiance = '<p class="user-allegiance ' . $faction . '">' . ucfirst( $race ) . $separator . ucfirst( $class ) . '</p>';
+		return $allegiance;
+	}
+	
 	
 	/**
 	 * Display user post experience bar

@@ -50,8 +50,10 @@ class Apoc_Group {
 	 */	
 	function get_data( $group_id ) {
 		
-		// Get the meta data
+		// Get the meta from cache
 		$allmeta = wp_cache_get( 'bp_groups_allmeta_' . $group_id, 'bp' );
+		
+		// Otherwise query the groupmeta table
 		if ( false === $allmeta ) {
 			global $bp, $wpdb;
 			$allmeta = array();
@@ -68,16 +70,19 @@ class Apoc_Group {
 		$this->domain		= bp_get_group_permalink();
 		$this->slug			= bp_get_group_slug();
 		$this->guild		= ( isset( $allmeta['is_guild']) ) 		? $allmeta['is_guild'] : 0;
-		$this->type			= $this->type();
 		$this->members		= bp_get_group_member_count();
-		$this->alliance		= isset( $allmeta['group_faction'] )	? $allmeta['group_faction'] : NULL;
-		$this->faction		= $this->allegiance();
-		$this->platform		= isset( $allmeta['group_platform'] )	? $allmeta['group_platform'] : NULL;
-		$this->region		= isset( $allmeta['group_region'] )		? $allmeta['group_region'] : NULL;
+		$this->alliance		= isset( $allmeta['group_faction'] )	? $allmeta['group_faction'] : 'neutral';
+		$this->server		= isset( $allmeta['group_server'] )		? $allmeta['group_server'] : NULL;
 		$this->style		= isset( $allmeta['group_style'] )		? $allmeta['group_style'] : NULL;
-		$this->interests	= isset( $allmeta['group_interests'] )	? unserialize( $allmeta['group_interests'] ) : NULL;
+		$this->interests	= isset( $allmeta['group_interests'] )	? unserialize( $allmeta['group_interests'] ) : array();
 		$this->website		= isset( $allmeta['group_website'] )	? $allmeta['group_website'] : NULL;
 		
+		// Get some derived data
+		$this->type			= $this->type();
+		$this->faction		= $this->allegiance();
+		$this->servname		= $this->server_name( $this->server );	
+		$this->tooltip		= $this->tooltip();
+
 		// Get some extra stuff on user profiles
 		if ( $this->context == 'profile' ) {
 			$this->byline	= $this->byline();	
@@ -94,9 +99,9 @@ class Apoc_Group {
 		
 		// Setup the basic info block
 		$block		= '<a class="member-name" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $this->fullname . '</a>';
-		$block		.= '<p class="group-type">' . $this->type . '</p>';
+		$block		.= '<p class="group-server">' . $this->servname . '</p>';
 		$block		.= $allegiance = '<p class="user-allegiance ' . $this->alliance . '">' . $this->faction . '</p>';
-		$block		.= $this->platform();
+		$block		.= $this->tooltip();
 		$block		.= '<p class="group-member-count">' . $this->members . '</p>';
 
 		//$icons			= $this->interest_icons();
@@ -115,7 +120,6 @@ class Apoc_Group {
 			case 'profile' :
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'full' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$block					.= $this->website();
 				$block					= $block . $icons;
 				break;
 				
@@ -144,6 +148,28 @@ class Apoc_Group {
 		if ( $this->guild )
 			$type = str_replace( 'Group' , 'Guild' , $type );
 		return $type;
+	}
+
+	/**
+	 * Decode server tag
+	 */
+	function server_name( $server ) {
+
+		// Declare server translations
+		$servers = array(
+			'pcna' => 'PC North America',
+			'pceu' => 'PC Europe',
+			'xbox' => 'Xbox One',
+			'ps4'  => 'PlayStation 4'
+		);
+
+		// Decode the tag
+		foreach( $servers as $tag => $name ) {
+			if ( $server === $tag ) return $name;
+		}
+
+		// Else return null
+		return NULL;
 	}
 
 	/* 
@@ -175,69 +201,56 @@ class Apoc_Group {
 	/* 
 	 * Get a group's platform and region preference
 	 */	
-	function platform() {
+	function tooltip() {
 		
-		return 'guild server tooltip';
-		/*
-		// Format platform
-		$platform 	= $this->platform;
-		if ( $platform ) {
-			$sql	 	= array( 'pcmac' , 'xbox' , 'playstation' , 'blank' );
-			$formatted	= array( 'PC' , 'Xbox' , 'PS4' , '' );
-			$platform	= str_replace( $sql , $formatted , $platform );
-		}
-		
-		// Format region
-		$region		= $this->region;
-		if ( $region ) {
-			$sql		= array( 'NA' , 'EU' , 'OC' , 'blank' , '' );
-			$formatted	= array( 'North America' , 'Europe' , 'Oceania' , 'Global' , 'Global' );
-			$region		= str_replace( $sql , $formatted , $region );
-		}
-		
-		// Format the tooltip based on what data is available
-		if ( $platform != '' && $region != '' )
-			$tooltip = implode( ' - ' , array( $platform , $region ) );
-		elseif ( $platform == '' && $region != '' ) 
-			$tooltip = $region;
-		elseif ( $platform != '' && $region == '' ) 
-			$tooltip = $platform;
-	
-		// Return the tip
-		$tooltip 	= ( $tooltip ) ? '<p class="group-member-count">' . $tooltip . '</p>' : '';
-		return $tooltip;
-		*/
+		// Get server
+		$server 	= $this->servname;
+
+		// Get interests
+		$interests 	= $this->interest_icons();
+
+		return $interests;
 	}
 	
 	/* 
 	 * Display the group's interest icons
 	 */	
 	function interest_icons() {
-	
-		// Get the data
-		$interests 	= $this->interests;
-		if ( empty ( $interests ) )
-			return false;
-			
-		$playstyle 	= $this->style;
-		if ( $playstyle == 'blank' ) 
-			$playstyle = '';
 
-		// Do some grammar
-		$lower 	= array( 'pve' , 'pvp' , 'rp' , 'crafting' );
-		$upper 	= array( 'PvE' , 'PvP' , 'RP' , 'Crafting' );
-		$focus 	= implode( ', ' , $interests );
-		$focus 	= str_replace ( $lower , $upper , $focus );
-		
+		// Assign interest styles
+		$style = array(
+			'pve' 		=> array( 
+				'name'	=> 'PvE',
+				'icon'	=> '<i class="fa fa-trophy fa-fw"></i>' ),
+			'pvp' 		=> array( 
+				'name'	=> 'PvP',
+				'icon'	=> '<i class="fa fa-bookmark fa-fw"></i>' ),
+			'rp' 		=> array( 
+				'name'	=> 'RP',
+				'icon'	=> '<i class="fa fa-beer fa-fw"></i>' ),
+			'crafting' 	=> array( 
+				'name'	=> 'Craft',
+				'icon'	=> '<i class="fa fa-legal fa-fw"></i>' ),
+		);
+	
+		// Get interests
+		$inputs = $this->interests;
+		if ( empty ( $inputs ) ) return false;
+
+		// Get playstyle
+		$playstyle 	= isset( $this->style ) ? $this->style : "";
+
+		// Implode a list of interests
+		$interests = array();
+		foreach ( $inputs as $input ) {
+			$interests[] = $style[$input]['icon'] . $style[$input]['name'];
+		}
+
 		// Generate a tooltip for our icons
-		$tooltip = implode( ' - ' , array ( ucfirst( $playstyle ) ,  $focus ) );
+		$icons 	= implode( ' ' , $interests );
 			
 		// Display them
-		$icons 		 = '<div class="guild-style-icons ' . $playstyle . '" title="' . $tooltip . '"><ul>';
-		foreach( $interests as $interest_name => $interest_val ) {
-			$icons 	.= '<li class="guild-style-icon ' . $interest_val . '"></li>';
-		}
-		$icons 		.= '</ul></div>';
+		$icons 	= '<p class="guild-style-icons">' . $icons . '</p>';
 		return $icons;
 	}
 	
@@ -269,7 +282,7 @@ class Apoc_Group {
 		// Get the url
 		$url = $this->website;
 		$website = '';
-		if ( $url )	$website = '<p class="group-website"><a href="' . $url . '" title="Visit Guild Website" target="_blank">Guild Website</a></p>';
+		if ( $url )	$website = '<a href="' . $url . '" title="Visit ' . $this->fullname . ' Guild Website" target="_blank">' . $this->fullname . '</a>';
 		return $website;
 	}
 	
@@ -279,12 +292,18 @@ class Apoc_Group {
 		$admins = $groups_template->group->admins;
 		$list 	= '';
 		
-		if ( !empty( $admins ) ) {
-			$list = '<ul id="group-admins">';
+		if ( !empty( $admins ) ) {		
+			$list = '<ul class="leader-list">';		
 			foreach( $admins as $admin ) {
-				$avatar = new Apoc_Avatar( array( 'user_id' => $admin->user_id , 'size' => 50 , 'link' => true ) );
-				$list .= '<li>' . $avatar->avatar;
-				$list .= '<span class="leader-name">' . bp_core_get_user_displayname( $admin->user_id ) . '</span></li>';
+				$user = new Apoc_User( $admin->user_id , 'reply' , 50 );
+		
+				$list .= '<li class="directory-member">';
+					$list .= $user->avatar;
+					$list .= '<div class="directory-member-meta">';
+						$list .= $user->link;
+						$list .= $user->title;
+					$list .= '</div>';
+				$list .= '</li>';				
 			}
 			$list .= '</ul>';
 		}
@@ -299,11 +318,17 @@ class Apoc_Group {
 		$list = '';
 		
 		if ( !empty( $mods ) ) {
-			$list = '<ul id="group-admins">';
+			$list = '<ul class="leader-list">';
 			foreach( $mods as $mod ) {
-				$avatar = new Apoc_Avatar( array( 'user_id' => $mod->user_id , 'size' => 50 , 'link' => true ) );
-				$list .= '<li>' . $avatar->avatar;
-				$list .= '<span class="leader-name">' . bp_core_get_user_displayname( $mod->user_id ) . '</span></li>';
+				$user = new Apoc_User( $mod->user_id , 'reply' , 50 );
+		
+				$list .= '<li class="directory-member">';
+					$list .= $user->avatar;
+					$list .= '<div class="directory-member-meta">';
+						$list .= $user->link;
+						$list .= $user->title;
+					$list .= '</div>';
+				$list .= '</li>';				
 			}
 			$list .= '</ul>';
 		}

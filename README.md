@@ -11,6 +11,8 @@ group_meta {
 	group_server = pcmac -> pcna
 	group_server = playstation -> ps4
 	group_region (DELETE)
+
+	delete rows where meta_value = 'blank'
 }
 
 BuddyPress options {
@@ -85,7 +87,7 @@ create.php							| done
 groups-loop.php						| done
 index.php							| done
 forum/topic-edit.php				|
-single/activity.php					|
+single/activity.php					| done
 single/admin.php					|
 single/forum.php					|
 single/forum/merge.php				|
@@ -94,10 +96,10 @@ single/forum/reply-edit.php			|
 single/forum/single-forum.php 		|
 single/forum/split.php				|
 single/forum/topic.php				|
-single/front.php					|
+single/front.php					| done
 single/group-header.php				| done
 single/home.php						| done
-single/members.php					|
+single/members.php					| done
 single/request-membership.php 		|
 single/send-invites.php				|
 
@@ -123,7 +125,7 @@ css/editor-content.css 				| done
 css/entropy-rising.css				|
 css/login-style.css					|
 css/map-style.css					| done	
-extensions/bbpress.php				| in-progress
+extensions/bbpress.php				| done
 extensions/breadcrumbs.php			| done
 extensions/buddypress.php			| in-progress
 extensions/events.php				|

@@ -1918,11 +1918,12 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 	8.2 - Forum Archive
 ----------------------------------------------*/
 .forum-content {
-	flex: 5;
+	flex: 6;
 	min-width: 300px;
 	margin: 0.5em;
 	float: left;
 	}
+.forum-archive .forum-content {	flex: 4; }
 
 .forum-count {
 	flex: 1;
@@ -1934,11 +1935,12 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 
 
 .forum-freshness {
-	flex: 4;
+	flex: 2;
 	min-width: 300px;
 	margin: 0.5em;
 	float: left;
 	}
+.forum-archive .forum-freshness { flex: 3; }
 
 .forum-title {
 	position: relative;
@@ -1980,16 +1982,6 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 /*---------------------------------------------
 	8.3 - Single Forum
 ----------------------------------------------*/
-.topic-archive .forum-content,
-.single-forum .forum-content, {
-	flex: 7;
-	}
-
-.single-forum .forum-freshness,
-.archive .forum-freshness {
-	flex: 2;
-	}
-
 .topic .forum-title {
 	font-size: 1.125em;
 	padding-right: 25px;
@@ -2292,19 +2284,19 @@ div.directory-content {
 	padding: 0 1em;
 	}
 
-div.directory-member a.member-avatar {
+.directory-member a.member-avatar {
 	width: auto;
 	float: left;
 	}
 
-div.directory-member-meta {	margin: 0 0 0 60px; }
+.directory-member-meta {	margin: 0 0 0 60px; }
 .directory-member .member-avatar > img { margin: 0; }
 
 
 /* Groups Directory */
-.directory.groups div.directory-content { flex: 3; }
-#groups-list .directory-member { padding: 0 0.5em; }
-#groups-list .directory-member-meta { margin-left: 110px; }
+.group.directory-entry .directory-content { flex: 3; }
+.group.directory-entry .directory-member { padding: 0 0.5em; }
+.group.directory-entry .directory-member-meta { margin-left: 110px; }
 
 #groups-list img {
 	display: block;
@@ -2582,7 +2574,8 @@ div#character-sheet.neutral { background-position: 0 -676px; }
 div#character-sheet.imperial { background-position: -300px -676px; }
 div#character-sheet > ul {
 	list-style: none;
-	margin: 0.5em 1em;
+	height: 150px;
+	margin: 10px 1em;
 	background: rgba(0,0,0,0.6);
 	padding: 0.5em 1em;
 	text-align: left;
@@ -2662,6 +2655,11 @@ div#character-sheet > ul li span {
 }
 
 #profile-body #whats-new-form {	padding: 1em; }
+
+/* Group Widgets */
+.leader-list > li { height: 50px; }
+.leader-list .directory-member-meta { padding: 0.25em 0; }
+.leader-list > li a, .leader-list > li p { 	margin: 0;	}
 
 /* Group Creation */
 #create-group-form label { min-width: 120px; }

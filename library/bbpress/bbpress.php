@@ -41,7 +41,13 @@ class Apoc_bbPress {
 	 * Modify global bbPress actions
 	 */
 	function actions() {
+
+		// Remove bbPress scripts and styles
 		remove_action( 'wp_enqueue_scripts' , 'bbp_enqueue_scripts'  );
+
+		// Increment Favorite Counts
+		add_action( 'bbp_add_user_favorite' 	, array( $this , 'fav_count_plus' )	, 10 , 2 );
+		add_action( 'bbp_remove_user_favorite' 	, array( $this , 'fav_count_minus' ), 10 , 2 );
 	}
 	
 	
@@ -55,13 +61,22 @@ class Apoc_bbPress {
 		add_filter( 'bbp_before_get_user_subscribe_link_parse_args' 	, array( $this , 'subscribe_button' ) );
 		add_filter( 'bbp_is_subscriptions'								, array( $this , 'subscriptions_component' ) );
 
+		// Prevent Self-Favoriting
+		add_filter( 'bbp_get_user_favorites_link' 						, array( $this , 'no_self_favorite' ) , 10 , 4 );
+		
 		// Revision Logs
 		add_filter( 'bbp_get_reply_revision_log'						, array( $this , 'revision_log' ) );
 		add_filter( 'bbp_get_topic_revision_log'						, array( $this , 'revision_log' ) );
+
+		// Allow additional formatting options
+		add_filter( 'bbp_kses_allowed_tags'								, array( $this , 'allowed_kses' ) );
+		
+		// Quote Mentions
+		add_filter( 'bbp_activity_reply_create_excerpt' 				, array( $this , 'quote_mention' ) );
+		
+		// Block topic spam
+		add_filter( 'bbp_new_topic_pre_title' 	, array( $this , 'block_spam' ) );
 	}	
-
-
-
 
 
 	/** 
@@ -91,6 +106,53 @@ class Apoc_bbPress {
 		else return false;
 	}
 
+	/**
+	 * Prevent users from favoriting their own posts
+	 * @version 2.0
+	 */
+	
+	function no_self_favorite( $html, $r, $user_id, $topic_id ) {
+
+		// Prevent a topic author from favoriting him/herself
+		if ( $user_id == bbp_get_topic_author_id() )
+			return false;
+		
+		// Otherwise, allow the link
+		else return $html;
+	}
+
+	/**
+	 * Increment Topic Favorite Counts
+	 * @version 2.0
+	 */
+	function fav_count_plus( $user_id , $topic_id ) {
+		
+		// Get the favorite count, converting missing to zero
+		$count = (int) get_post_meta( $topic_id , 'topic_fav_count' , true );
+		
+		// Save the incremented value
+		update_post_meta( $topic_id , 'topic_fav_count' , ++$count );
+	}
+	
+	/**
+	 * Decrement Topic Favorite Counts
+	 * @version 2.0
+	 */	
+	function fav_count_minus( $user_id , $topic_id ) {
+		
+		// Get the favorite count, converting missing to zero
+		$count = (int) get_post_meta( $topic_id , 'topic_fav_count' , true );
+		
+		// Don't let the count go below zero
+		$count = max( $count , 1 );
+		
+		// Save the decremented value
+		if ( $count > 1 )	update_post_meta( $topic_id , 'topic_fav_count' , --$count );
+			
+		// If the count would be going to zero, just delete the postmeta entirely
+		else 				delete_post_meta( $topic_id , 'topic_fav_count' );
+	}
+
 
 	/**
 	 * Prepend an icon to the revision log
@@ -103,16 +165,121 @@ class Apoc_bbPress {
 		return $revision;
 	}
 
+	/**
+	 * Special bbPress allowed KSES
+	 * @version 2.0
+	 */
+	function allowed_kses( $allowed ) {
+		$allowed['div']['class']	= array();
+		$allowed['div']['style']	= array();
+		$allowed['p']['class']		= array();
+		$allowed['p']['style']		= array();
+		$allowed['h1']['style']		= array();
+		$allowed['h2']['style']		= array();
+		$allowed['h3']['style']		= array();
+		$allowed['h4']['style']		= array();
+		$allowed['h5']['style']		= array();
+		$allowed['h6']['style']		= array();
+		$allowed['span']['style']	= array();
+		return $allowed;
+	}
 
+
+	/** 
+	 * Modify reply content when it is passed to the activity stream
+	 * Includes quote mentions before stripping quotes
+	 * @version 2.0
+	 */
+	function quote_mention( $reply_content ) {
+		
+		// Match the pattern for quote shortcodes
+		$thequote = '#\[quote(.*)\](.*)\[\/quote\]#is';
+		if ( preg_match( $thequote , $reply_content ) ) :
+		
+			// If there are quotes found, match the quoted usernames
+			$author_pattern = '#(?<=\[quote author=")(.+?)(?=\|)#i';
+			preg_match_all( $author_pattern , $reply_content , $authors );
+			
+			// For each username, turn it into a mention
+			if ( isset( $authors ) ) :
+				$authors = array_unique( $authors[0] );
+				count( $authors ) > 1 ? $grammar = ' were quoted:' : $grammar = ' was quoted:';
+				$mentions = implode( ",@" , $authors );
+				$mentions = str_replace( " ", "-", $mentions );
+				$mentions = str_replace( ".", "-", $mentions );
+				$mentions = '<p><span class="activity-quote-mention">@'. $mentions . $grammar . '</span></p>';
+			endif;
+			
+			// Add the mentions to the content and register them with BuddyPress
+			$reply_content = $mentions . $reply_content ;
+			$reply_content = strip_shortcodes( $reply_content );
+			$reply_content = bp_activity_at_name_filter( $reply_content );
+		endif;
+		
+		// Return the excerpt
+		return $reply_content;
+	}
+
+	/**
+	 * Block certain recurring spam topics
+	 * @version 2.0
+	 */	
+	function block_spam( $topic_title ) {
 	
+		// Set up an array of banned words
+		$illegals = array(
+			'vashikaran',
+			'baba ji',
+			'love problem',
+			'marriage problem',
+			'+91',
+			'+91',
+			'+O99',
+			'91-85',
+			'91-99',
+			'919914',
+		);
+		
+		// Get the all-lowercase title
+		$spam_title = strtolower( $topic_title );
+		
+		// Check for any of the illegals in the title
+		foreach ( $illegals as $illegal ) {
+			if ( strpos( $spam_title , $illegal ) !== false ) {
+			
+				// If the topic matches as spam, let's ban the user
+				$user = new WP_User( get_current_user_id() );
+				$user->set_role('banned');	
+				
+				// Send an email letting me know
+				$headers 	= "From: Foundry Discipline Bot <noreply@tamrielfoundry.com>\r\n";
+				$headers	.= "Content-Type: text/html; charset=UTF-8";
+				$subject 	= 'User ' . $user->user_login . ' banned for spamming.';
+				$body 		= 'The user ' . bp_core_get_userlink( $user->ID ) . ' was banned for attempting to post the topic: "' . $topic_title . '".';
+				wp_mail( 'atropos@tamrielfoundry.com' , $subject , $body , $headers );
+			
+				// Trigger an error, preventing the topic from posting
+				bbp_add_error( 'apoc_topic_spam' , '<strong>ERROR</strong>: Die, filthy spammer!' );
+				
+				// Log the user out
+				wp_logout();
+				break;
+			}
+		}
 	
+		// Otherwise go ahead!	
+		return $topic_title;
+	}
 }
 
 // Automatically invoke the class
 new Apoc_bbPress();
 
 
-
+/**
+ * Display nested subforums with a hierarchical structure using their parent category
+ * @version 2.0
+ */	
 function apoc_loop_subforums() {
 	
 	// Exclude private forums

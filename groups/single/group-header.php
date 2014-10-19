@@ -7,7 +7,7 @@
  */
 
 // Get the currently displayed user
-$group = new Apoc_Group( bp_displayed_user_id() , 'profile' , 200 ); 
+$group = new Apoc_Group( bp_get_current_group_id() , 'profile' , 200 ); 
 $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 
 <div id="profile-header">
@@ -57,7 +57,16 @@ $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 			<header class="widget-header">
 				<h3 class="widget-title"><?php echo $type; ?> Details</h3>
 			</header>
-			group details
+			<div id="character-sheet" class="<?php echo $group->alliance; ?>">
+				<ul>
+					<li><i class="fa fa-globe fa-fw"></i><span>Server:</span><?php echo $group->servname; ?></li>
+					<li><i class="fa fa-flag fa-fw"></i><span>Alliance:</span><?php echo $group->faction; ?></li>
+					<li><i class="fa fa-group fa-fw"></i><span>Type:</span><?php echo $group->type; ?></li>
+					<li><i class="fa fa-gear fa-fw"></i><span>Style:</span><?php echo $group->style; ?></li>
+					<li><i class="fa fa-tag fa-fw"></i><span>Focus:</span><?php echo implode( " | " , $group->interests ); ?></li>
+					<li><i class="fa fa-file fa-fw"></i><span>Website:</span><?php echo $group->website(); ?></li>
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
+</div>			

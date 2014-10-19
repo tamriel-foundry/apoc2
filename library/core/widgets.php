@@ -408,8 +408,84 @@ function apoc_sidebar_streams() {
 /*--------------------------------------------------------------
 	6.0 - Featured Group
 --------------------------------------------------------------*/
+class Apoc_Sidebar_Group {
+
+	// Declare properties
+	public $html 	= "";
+	public $cached 	= false;
+	
+	// Constructor function
+	function __construct() {
+	
+		// Get the members
+		$this->get_group();
+		
+		// Print the output
+		$this->display_widget();
+	}
+
+	// Get a recently active group
+	function get_group() {
+
+		// Setup args
+		$args = array(
+			'type' => 'active',
+			'max' => 5,
+		    'populate_extras' => false,
+		);
+
+		// Retrieve groups
+		if ( bp_has_groups( $args ) ) :
+
+			// Re-shuffle the array to draw a random group
+			global $groups_template;
+			shuffle( $groups_template->groups );
+
+
+			// Only load the first group
+			bp_the_group();
+
+			// Build the HTML
+			$this->html = $this->build_html();	
+		
+		endif;
+	}
+
+	// Format the stream into a widget		
+	function build_html() {
+
+		// Get the group object
+		$group = new Apoc_Group( bp_get_group_id() , 'directory' , 100 );
+		
+		// Store everything in an output buffer
+		ob_start(); ?>	
+		<div class="widget">
+			<header class="widget-header">
+				<h3 class="widget-title">Featured Guild</h3>
+			</header>
+			<div class="featured-guild-widget group directory-entry">
+				<div class="directory-member reply-author">
+					<?php echo $group->block; ?>
+				</div>
+			</div>
+		</div><?php 
+		
+		// Get the contents of the buffer
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		// Return the html to the class
+		return $html;
+	}
+	
+	// Display the widget
+	function display_widget() {
+		if ( !empty( $this->html ) )
+			echo $this->html;
+	}
+}
 function apoc_sidebar_group() {
-	echo '<div class="widget group-widget"><header class="widget-header"><h3 class="widget-title">Featured Group</h3></header><div class="featured-group">A recently active group!</div></div>';
+	new Apoc_Sidebar_Group();
 }
 
 /*--------------------------------------------------------------

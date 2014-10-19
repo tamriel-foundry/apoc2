@@ -2240,11 +2240,14 @@ ul#directory-actions > li {
 	line-height: 28px;
 	}
 
-#subnav div.filter {
+#subnav .filter {
 	position: absolute;
 	top: 4px;
 	right: 8px;
 	}
+#subnav #group-status-button { top: 4px; }
+
+
 
 /* Directory Content */
 ul.directory-list {
@@ -2657,6 +2660,8 @@ div#character-sheet > ul li span {
 	text-align: right;
 	font-size: 0.875em;
 }
+
+#profile-body #whats-new-form {	padding: 1em; }
 
 /* Group Creation */
 #create-group-form label { min-width: 120px; }

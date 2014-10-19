@@ -367,6 +367,20 @@ class Apoc_BuddyPress {
 
 		// Remove activity favorites, because they are dumb
 		bp_core_remove_subnav_item( 'activity' , 'favorites' );		
+
+		// Group profile navigation
+		if( bp_is_group() ) {
+			$group_id = bp_get_current_group_id();
+
+			// Add activity tab
+			bp_core_new_subnav_item( array( 
+				'name' 				=> 'Activity', 
+				'slug' 				=> 'activity', 
+				'parent_slug' 		=> $bp->groups->current_group->slug, 
+				'parent_url' 		=> bp_get_group_permalink( $bp->groups->current_group ), 
+				'screen_function' 	=> array( $this , 'group_activity_screen' ),
+				'position' 			=> 65,  ) );
+		}
 	}
 
 	/**
@@ -392,7 +406,7 @@ class Apoc_BuddyPress {
 	function modnotes_screen() {
 		bp_core_load_template( apply_filters( 'apoc_modnotes_template', 'members/single/infractions/notes' ) );
 	}
-	function guild_activity_screen() {
+	function group_activity_screen() {
 		bp_core_load_template( apply_filters( 'apoc_guild_activity_template', 'groups/single/home' ) );
 	}
 	

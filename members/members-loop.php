@@ -7,11 +7,10 @@
  */
 ?>
 
+<?php // Group members
+if ( ( bp_is_group() && bp_group_has_members( 'exclude_admins_mods=0' ) ) || bp_has_members( bp_ajax_querystring( 'members' ) ) ) : ?>
 
-<?php if ( bp_has_members( bp_ajax_querystring( 'members' ) ) ) : ?>
-	<ul id="members-list" class="directory-list" role="main">
-
-
+<ul id="members-list" class="directory-list" role="main">
 	<?php // Loop through all members
 	while ( bp_members() ) : bp_the_member(); 	
 	$user = new Apoc_User( bp_get_member_user_id() , 'directory' , 60 ); ?>
@@ -36,17 +35,17 @@
 			</div>
 		</li>
 	<?php endwhile; ?>
-	</ul>
+</ul>
 
-	<nav class="pagination">
-		<div class="pagination-count" >
-			<?php bp_members_pagination_count(); ?>
-		</div>
-		<div class="pagination-links" >
-			<?php bp_members_pagination_links(); ?>
-		</div>
-	</nav>
+<nav class="pagination">
+	<div class="pagination-count" >
+		<?php bp_members_pagination_count(); ?>
+	</div>
+	<div class="pagination-links" >
+		<?php bp_members_pagination_links(); ?>
+	</div>
+</nav>
 
 <?php else : ?>
-	<p class="warning"><?php _e( "Sorry, no members were found.", 'buddypress' ); ?></p>
+<p class="warning"><?php _e( "Sorry, no members were found.", 'buddypress' ); ?></p>
 <?php endif; ?>

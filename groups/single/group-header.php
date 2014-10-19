@@ -37,14 +37,6 @@ $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 			<span class="activity"><?php printf( __( 'active %s', 'buddypress' ), bp_get_group_last_active() ); ?></span>
 		</div>
 
-		<div id="group-details" class="widget profile-widget">
-			<header class="widget-header">
-				<h3 class="widget-title"><?php echo $type; ?> Details</h3>
-			</header>
-			group details
-		</div>
-
-
 		<div id="group-administrators" class="widget profile-widget">
 			<header class="widget-header">
 				<h3 class="widget-title"><?php echo $type; ?> Leaders</h3>
@@ -52,13 +44,20 @@ $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 			<?php echo $group->admins; ?>
 		</div>
 
-		<?php if (bp_group_has_moderators() ) : ?>
 		<div id="group-moderators" class="widget profile-widget">
 			<header class="widget-header">
 				<h3 class="widget-title"><?php echo $type; ?> Officers</h3>
 			</header>
+			<?php if (bp_group_has_moderators() ) : ?>
 			<?php echo $group->mods; ?>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
+
+		<div id="group-details" class="widget profile-widget">
+			<header class="widget-header">
+				<h3 class="widget-title"><?php echo $type; ?> Details</h3>
+			</header>
+			group details
+		</div>
 	</div>
 </div>

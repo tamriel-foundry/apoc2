@@ -22,6 +22,8 @@ if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group();
 
 			<?php // Group is visible
 			if ( bp_group_is_visible() ) : 
+
+				echo 'visible';
 			
 				if ( bp_is_group_home() ) :
 					locate_template( array( 'groups/single/front.php' 			), true );
@@ -33,19 +35,15 @@ if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group();
 					locate_template( array( 'groups/single/send-invites.php' 	), true );
 				elseif ( bp_is_group_admin_page() ) : 
 					locate_template( array( 'groups/single/admin.php' 			), true );
+				elseif ( bp_is_group_membership_request() ) :
+					locate_template( array( 'groups/single/request-membership.php' ), true );
 				else : 
 					locate_template( array( 'groups/single/plugins.php' 		), true );
 				endif; ?>
 
 			<?php // Group is not visible
-			else : 
-
-				if ( bp_is_group_membership_request() ) :
-					locate_template( array( 'groups/single/request-membership.php' ), true );
-
-				else : ?>
-					<p id="message" class="warning"><?php bp_group_status_message(); ?></p></div>
-				<?php endif; ?>
+			else : ?>
+				<p id="message" class="warning"><?php bp_group_status_message(); ?></p></div>
 			<?php endif; ?>
 
 		</div>

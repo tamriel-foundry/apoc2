@@ -30,12 +30,6 @@
 					<li id="groups-all" class="<?php if ( !isset( $_GET['faction'] ) ) echo 'selected'; ?>">
 						<a href="<?php echo trailingslashit( SITEURL . '/' . bp_get_groups_root_slug() ); ?>">All Guilds<span><?php echo bp_get_total_group_count(); ?></span></a>
 					</li>
-					
-					<?php if ( is_user_logged_in() && bp_get_total_group_count_for_user() ) : ?>
-					<li id="groups-personal">
-						<a href="<?php echo trailingslashit( bp_loggedin_user_domain() . bp_get_groups_slug() . '/my-groups' ); ?>">My Guilds<span><?php echo bp_get_total_group_count_for_user(); ?></span></a>
-					</li>
-					<?php endif; ?>
 
 					<li id="groups-aldmeri" class="<?php if ( isset( $_GET['faction'] ) && $_GET['faction'] == 'aldmeri' ) echo 'selected'; ?>">
 						<a href="?faction=aldmeri">Aldmeri<span><?php echo count_groups_by_meta( 'group_faction' , 'aldmeri' ); ?></span></a>
@@ -46,6 +40,12 @@
 					<li id="groups-ebonheart" class="<?php if ( isset( $_GET['faction'] ) && $_GET['faction'] == 'ebonheart' ) echo 'selected'; ?>">
 						<a href="?faction=ebonheart">Ebonheart<span><?php echo count_groups_by_meta( 'group_faction' , 'ebonheart' ); ?></span></a>
 					</li>
+
+					<?php if ( is_user_logged_in() && bp_get_total_group_count_for_user() ) : ?>
+					<li id="groups-personal">
+						<a href="<?php echo trailingslashit( bp_loggedin_user_domain() . bp_get_groups_slug() . '/my-groups' ); ?>">My Guilds<span><?php echo bp_get_total_group_count_for_user(); ?></span></a>
+					</li>
+					<?php endif; ?>
 				</ul>
 			</nav><!-- #directory-nav -->
 

@@ -12,7 +12,7 @@ $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 
 <div id="profile-header">
 
-	<header class="post-header <?php echo $group->faction; ?>">
+	<header class="post-header <?php echo $group->alliance; ?>">
 		<h1 id="profile-title" class="post-title"><?php echo $type; ?> Profile - <?php echo $group->fullname; ?></h1>
 		<p id="profile-description" class="post-byline <?php echo $group->faction; ?>"><?php echo $group->byline; ?></p>
 

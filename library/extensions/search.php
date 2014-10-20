@@ -24,7 +24,7 @@ function apoc_search_rewrite() {
 // Redirect the template to use comment edit
 function apoc_search_template() {
 	global $wp_query;
-	if ( ( isset( $wp_query->query['pagename'] ) && $wp_query->query['pagename'] == 'advsearch' ) || $wp_query->is_search ) {
+	if ( ( isset( $wp_query->query['name'] ) && $wp_query->query['name'] == 'advsearch' ) || $wp_query->is_search ) {
 		
 		$wp_query->is_search 	= true;
 		$wp_query->is_archive 	= true;
@@ -66,8 +66,8 @@ class Apoc_Search {
 		// Get extra fields
 		$this->author	= isset( $_REQUEST['author'] ) && $_REQUEST['author'] != -1 ? $_REQUEST['author'] : NULL;
 		$this->cat		= isset( $_REQUEST['cat'] ) && $_REQUEST['cat'] != -1 ? $_REQUEST['cat'] : NULL;
-		$this->forum		= ( isset( $_POST['forum'] ) && $_POST['forum'] != '' ) ? $_POST['forum'] : 'any';
-		$this->faction		= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
+		$this->forum	= ( isset( $_POST['forum'] ) && $_POST['forum'] != '' ) ? $_POST['forum'] : 'any';
+		$this->faction	= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
 
 		// Get the current search request
 		if ( isset( $_POST['submitted'] ) || $this->search !== "" )
@@ -174,23 +174,31 @@ class Apoc_Search {
 	function get_groups() {
 
 		// Get extra fields
-		$this->faction		= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
+		$this->faction		= ( !empty( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
 
 		// Construct a query			
 		$this->query 		= array(
 			'type'			=> 'active',
-			's'				=> $this->search,
 			'paged'			=> $this->paged,
 			'per_page'		=> 12,
-			'meta_query'	=> array(
+		);
+
+		// Apply search term
+		if ( '' !== $this->search ) {
+			$this->query['search_terms'] = $this->search;
+		}
+
+		// Apply faction meta-query
+		if ( 'any' !== $this->faction ) {
+			$this->query['meta_query'] = array(
 				array(
 		        	'key'     	=> 'group_faction',
 		        	'value'   	=> $this->faction,
 		        	'compare'	=> '='
 		        )
-			)
-		);
-
+			);
+		}
+		
 		// Set the notice
 		$this->notice 		= sprintf( 'Viewing guilds matching "%1$s"' , $this->search );
 	}

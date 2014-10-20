@@ -1073,17 +1073,13 @@ div#showcase-container {
 	width: 100%;
 	}
 
-
-
 /* Recent discussion */
 #recent-discussion-widget {
 	max-width: 512px;
 	min-width: 240px;
 	flex: 1;
 	margin: 0 1em 1em 0;
-}
-
-
+	}
 ul.recent-discussion-list {
 	list-style: none;
 	padding: 0;
@@ -1098,7 +1094,7 @@ li.recent-discussion {
 .recent-discussion-content {
 	height: 40px;
 	position: relative;
-	margin: 0 0 0 45px;
+	margin: 0 0 0 48px;
 	}
 .recent-discussion-title { 
 	display: block;
@@ -1106,8 +1102,8 @@ li.recent-discussion {
 	}
 .recent-discussion-time {
 	position: absolute;
-	bottom: -3px;
-	right: 8px;
+	bottom: -2px;
+	right: 0px;
 	font-size: 0.875em;
 	color: #A29C8E;
 	}
@@ -2427,9 +2423,12 @@ form.ac-form span {
 	margin: -85px 15px 1em;
 	z-index: 2;
 	}
-#profile-user img.avatar { box-shadow: 0 0 8px #000; }
+#profile-user img.avatar { 
+	margin: 0 auto 0.5em;
+	box-shadow: 0 0 8px #000; 
+	}
 #profile-user a.member-name {
-	margin: 1em 0 0.5em;
+	margin: 0.5em 0;
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.25em;
 	text-shadow: 0 0 8px #000;

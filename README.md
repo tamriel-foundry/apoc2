@@ -86,22 +86,22 @@ GROUPS								| PROGRESS
 create.php							| done
 groups-loop.php						| done
 index.php							| done
-forum/topic-edit.php				|
 single/activity.php					| done
 single/admin.php					|
-single/forum.php					|
-single/forum/merge.php				|
-single/forum/move.php				|
-single/forum/reply-edit.php			|
-single/forum/single-forum.php 		|
-single/forum/split.php				|
-single/forum/topic.php				|
 single/front.php					| done
 single/group-header.php				| done
 single/home.php						| done
 single/members.php					| done
-single/request-membership.php 		|
+single/request-membership.php 		| done
 single/send-invites.php				|
+single/forum.php					|
+single/forum/merge.php				|
+single/forum/move.php				|
+single/forum/reply-edit.php			|
+single/forum/topic-edit.php			|
+single/forum/single-forum.php 		|
+single/forum/split.php				|
+single/forum/topic.php				|
 
 GUILD								| PROGRESS
 ----------------------------------- | -----------

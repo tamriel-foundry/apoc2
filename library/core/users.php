@@ -688,7 +688,7 @@ function apoc_update_post_count( $user_id , $type = 'all' ) {
  */
 add_action( 'save_post'			, 'apoc_update_article_count' , 10 , 2 );
 function apoc_update_article_count( $post_ID , $post ) {
-	if ( 'post' == $post->post_type )
+	if ( 'post' == $post->post_type || 'page' == $post->post_type )
 		apoc_update_post_count( $post->post_author , $type = 'articles' );
 	return;
 }
@@ -738,7 +738,7 @@ function get_user_comment_count( $user_id ) {
  */
 function get_user_article_count( $user_id ) {
 	global $wpdb;
-    $count = $wpdb->get_var('SELECT COUNT(ID) FROM ' . $wpdb->posts . ' WHERE post_type = "post" AND post_author = ' . $user_id . ' AND post_status = "publish"' );
+    $count = $wpdb->get_var('SELECT COUNT(ID) FROM ' . $wpdb->posts . ' WHERE post_type IN ( "post" , "page" ) AND post_author = ' . $user_id . ' AND post_status = "publish"' );
 	$count = $count > 0 ? $count : 0;
     return $count;
 }

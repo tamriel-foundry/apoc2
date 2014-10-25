@@ -51,7 +51,7 @@ class Apoc_Context {
 		// Setup placeholders
 		$title		= SITENAME;
 		$desc		= get_bloginfo( 'description' );
-		$classes	= array();
+		$classes	= get_body_class();
 		$crumbs		= array();
 	
 		// Get some data
@@ -121,6 +121,7 @@ class Apoc_Context {
 					// Default entries
 					$title 		=  bp_get_group_name();
 					$desc		= SITENAME . ' guild profile for ' . bp_get_group_name();
+					$classes	= array_diff( $classes , array( 'page' , 'page-template-default' ) );
 					$crumbs[] 	= '<a href="'. bp_get_groups_directory_permalink() .'" title="Groups Directory">Groups</a>';
 
 					// Group Profile Home
@@ -153,6 +154,63 @@ class Apoc_Context {
 						elseif ( bp_is_group_admin_page() ) :
 							$title		= $title . $sep . 'Admin';
 							$crumbs[]	= 'Admin';
+						
+						// Forum
+						else :
+
+							// Forum Root
+							if ( NULL == bp_action_variable() ) :
+								$title		= $title . $sep . 'Forum';
+								$crumbs[]	= 'Forum';
+
+
+							// Sub-Component
+							else :
+								$crumbs[] = '<a href="'. bp_get_group_permalink() .'forum/" title="Group Forum">Forum</a>';
+							
+								// Retrieve topic information from the database
+								global $bp;
+								global $wpdb;
+
+								// Single Topic
+								if ( bp_is_action_variable( 'topic' , 0 ) ) :
+									
+									// Get the topic
+									$topic = $wpdb->get_row( $wpdb->prepare( 
+										"SELECT post_title AS title, post_name AS url
+										FROM $wpdb->posts 
+										WHERE post_name = %s",
+										$bp->action_variables[1] 
+									));
+
+									$title		= $topic->title;
+									$crumbs[] 	= $topic->title;
+
+
+								// Replies
+								elseif ( bp_is_action_variable( 'reply' , 0 ) ) :
+
+									// Get the reply parent topic	
+									$topic = $wpdb->get_row( $wpdb->prepare( 
+										"SELECT post_title AS title, post_name AS url
+										FROM $wpdb->posts 
+										WHERE ID = ( 
+											SELECT post_parent
+											FROM $wpdb->posts
+											WHERE post_name = %s 
+										)", $bp->action_variables[1] 
+									));
+
+									$title		= $topic->title;
+									$crumbs[] 	= $topic->title;
+								endif;
+
+								// Topic and Reply Edits
+								if ( bp_is_action_variable( 'edit' , 2 ) ) :
+									$crumbs[] = 'Edit';
+								endif;
+							endif;
+
 						endif;
 					endif;
 				endif;
@@ -430,7 +488,7 @@ function apoc_description() {
 }
 
 function apoc_body_class() {
-	echo implode( ' ' , array_unique( get_body_class( apoc()->classes ) ) );
+	echo implode( ' ' , array_unique( apoc()->classes ) );
 }
 
  

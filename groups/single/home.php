@@ -32,8 +32,6 @@ if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group();
 					locate_template( array( 'groups/single/send-invites.php' 	), true );
 				elseif ( bp_is_group_admin_page() ) : 
 					locate_template( array( 'groups/single/admin.php' 			), true );
-				elseif ( bp_is_group_membership_request() ) :
-					locate_template( array( 'groups/single/request-membership.php' ), true );
 				else : 
 					locate_template( array( 'groups/single/plugins.php' 		), true );
 				endif; ?>

@@ -21,10 +21,16 @@ BuddyPress options {
 
 CODE HACKS
 bbpress/includes/extend/buddypress/groups.php
-	create_screen()
-
 	setup_variables()
+		$this->enable_create_step   = false;
 		$this->enable_edit_item     = current_user_can( 'delete_posts' ) ? true : false;
+		$this->template_file        = 'groups/single/forum';
+
+	create_screen() - restructure/format
+
+	display_forums() - restructure, change div#forums, remove <h3>s
+
+
 
 buddypress/bp-groups/bp-groups-template.php
 	bp_group_admin_tabs() - change "Photo" to "Avatar"
@@ -100,14 +106,14 @@ single/home.php						| done
 single/members.php					| done
 single/request-membership.php 		| done
 single/send-invites.php				| done
-single/forum.php					|
+single/forum.php					| done
 single/forum/merge.php				|
 single/forum/move.php				|
 single/forum/reply-edit.php			|
 single/forum/topic-edit.php			|
 single/forum/single-forum.php 		|
 single/forum/split.php				|
-single/forum/topic.php				|
+single/forum/topic.php				| done
 
 GUILD								| PROGRESS
 ----------------------------------- | -----------

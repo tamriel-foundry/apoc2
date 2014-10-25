@@ -116,13 +116,45 @@ class Apoc_Context {
 					$crumbs[] 	= '<a href="' . SITEURL . '/' . bp_get_groups_root_slug() . '" title="Groups Directory">Groups</a>';
 					$crumbs[] 	= 'Create Group';
 
-				// Group Profile Home
-				elseif ( 'home' == bp_current_action() ) :
+				elseif ( bp_is_group() ) :
+
+					// Default entries
 					$title 		=  bp_get_group_name();
 					$desc		= SITENAME . ' guild profile for ' . bp_get_group_name();
 					$crumbs[] 	= '<a href="'. bp_get_groups_directory_permalink() .'" title="Groups Directory">Groups</a>';
-					$crumbs[] 	= bp_get_group_name();
 
+					// Group Profile Home
+					if ( bp_is_group_home() ) :
+						$title		= $title . $sep . 'Profile';
+						$crumbs[] 	= bp_get_group_name();
+
+					// Advanced Component
+					else :
+
+						// Link back to group profile
+						$crumbs[] 	= '<a href="' . bp_get_group_permalink() . '" title="Return to Group Profile">' . bp_get_group_name() . '</a>';
+							
+						// Members
+						if ( bp_is_group_members() ) :
+							$title		= $title . $sep . 'Members';
+							$crumbs[]	= 'Members';
+
+						// Activity
+						elseif ( bp_is_group_activity() ) :
+							$title		= $title . $sep . 'Activity';
+							$crumbs[]	= 'Activity';
+
+						// Invites
+						elseif ( bp_is_group_invites() ) : 
+							$title		= $title . $sep . 'Invitations';
+							$crumbs[]	= 'Invitations';
+
+						// Admin
+						elseif ( bp_is_group_admin_page() ) :
+							$title		= $title . $sep . 'Admin';
+							$crumbs[]	= 'Admin';
+						endif;
+					endif;
 				endif;
 
 

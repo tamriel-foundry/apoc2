@@ -142,6 +142,9 @@ class Apoc_BuddyPress {
 
 		// Group Buttons
 		add_filter( 'bp_get_group_join_button' 					, array( $this, 'join_button' ) );
+
+		// Group Avatar
+		add_filter( 'bp_get_group_avatar'						, array( $this, 'group_avatar' ) , 10 , 2 );
 	}
 
 	/**
@@ -150,7 +153,7 @@ class Apoc_BuddyPress {
 	function init() {
 
 		// Load the Apoc_Group_Edit class for group administration screens
-		if (  bp_is_group_create() || bp_is_group_admin_screen() ) {
+		if (  bp_is_group_create() || bp_is_group_admin_page() ) {
 			global $group_edit;
 			$group_edit = new Apoc_Group_Edit();
 		}
@@ -295,7 +298,6 @@ class Apoc_BuddyPress {
 		}
 	}
 
-
 	function join_button( $button ) {
 		
 		// Remove the div wrapper
@@ -309,6 +311,14 @@ class Apoc_BuddyPress {
 
 		// Return the button
 		return $button;
+	}
+
+	function group_avatar( $avatar , $r ) {
+		if ( strpos( $avatar , "gravatar" ) > 0 ) {
+			$default = ( $r['width'] > 100 ) ? BP_AVATAR_DEFAULT : BP_AVATAR_DEFAULT_THUMB;
+			$avatar = preg_replace( '/src="(.*)" class/' , 'src="' . $default . '" class' , $avatar );
+		}
+		return $avatar;
 	}
 
 
@@ -379,7 +389,11 @@ class Apoc_BuddyPress {
 				'parent_slug' 		=> $bp->groups->current_group->slug, 
 				'parent_url' 		=> bp_get_group_permalink( $bp->groups->current_group ), 
 				'screen_function' 	=> array( $this , 'group_activity_screen' ),
-				'position' 			=> 65,  ) );
+				'position' 			=> 65, 
+			) );
+
+			// Rename group navigation elements
+			$bp->bp_options_nav[$bp->groups->current_group->slug]['admin']['name'] = 'Admin';
 		}
 	}
 

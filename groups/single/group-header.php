@@ -6,7 +6,8 @@
  * 10-18-2014
  */
 
-// Get the currently displayed user
+// Get the currently displayed group
+global $group;
 $group = new Apoc_Group( bp_get_current_group_id() , 'profile' , 200 ); 
 $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 

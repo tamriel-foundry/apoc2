@@ -2660,24 +2660,28 @@ div#character-sheet > ul li span {
 .leader-list .directory-member-meta { padding: 0.25em 0; }
 .leader-list > li a, .leader-list > li p { 	margin: 0;	}
 
-/* Group Creation */
-#create-group-form label { min-width: 120px; }
-#create-group-form input[type="text"], #create-group-form select {	min-width: 180px; }
+/* Group Admin and Group Creation */
+#group-settings-form { padding: 0.5em 1em; }
+.group-admin-form label { min-width: 120px; }
 
-#create-group-form .checkbox-list { 
+.group-admin-form input[type="text"], 
+.group-admin-form select {	min-width: 180px; }
+
+.group-admin-form .checkbox-list { 
 	margin: 0.5em 0 0;
 	padding-left: 1em; 
 	}
-#create-group-form .checkbox-list ul {
+.group-admin-form .checkbox-list ul {
 	padding: 0 0 0 2em;
 	margin: 0 0 1em;
 	font-size: 0.875em;
 	list-style: none;
 	}
 
-#create-group-form button[name="previous"] { font-size: 1em; }
+.group-admin-form button[name="previous"] { font-size: 1em; }
+.group-admin-form .group-invites input[type=checkbox] { opacity: 1; }
 
-#create-group-form .group-invites input[type=checkbox] { opacity: 1; }
+#group-settings-form .directory-list { margin-bottom: 1em; }
 
 /*---------------------------------------------
 	9.4 - Registration

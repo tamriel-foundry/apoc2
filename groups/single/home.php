@@ -21,10 +21,7 @@ if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group();
 			<?php do_action( 'template_notices' ); ?>
 
 			<?php // Group is visible
-			if ( bp_group_is_visible() ) : 
-
-				echo 'visible';
-			
+			if ( bp_group_is_visible() ) :			
 				if ( bp_is_group_home() ) :
 					locate_template( array( 'groups/single/front.php' 			), true );
 				elseif ( bp_is_group_activity() ) : 

@@ -20,8 +20,14 @@ BuddyPress options {
 }
 
 CODE HACKS
-bbpress/includes/extend/buddypress/groups.php - create_screen()
+bbpress/includes/extend/buddypress/groups.php
+	create_screen()
 
+	setup_variables()
+		$this->enable_edit_item     = current_user_can( 'delete_posts' ) ? true : false;
+
+buddypress/bp-groups/bp-groups-template.php
+	bp_group_admin_tabs() - change "Photo" to "Avatar"
 
 
 Apocrypha2 Theme File Index 
@@ -87,7 +93,7 @@ create.php							| done
 groups-loop.php						| done
 index.php							| done
 single/activity.php					| done
-single/admin.php					|
+single/admin.php					| done
 single/front.php					| done
 single/group-header.php				| done
 single/home.php						| done

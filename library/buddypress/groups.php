@@ -453,33 +453,36 @@ class Apoc_Group_Edit {
 	 * @version 2.0
 	 */
 	function save_group_fields( $group_id ) {
+
+		echo 'test';
 		
 		// Get the current BP group object
 		global $bp;
 
-		// Get the current group ID
-		$id = isset( $bp->groups->new_group_id ) ? $bp->groups->new_group_id : $group_id;
+		// Get ID of newly created groups
+		if( bp_is_group_create() )
+			$group_id = $bp->groups->new_group_id;
 
 		// Save the eligible meta
 		$is_guild = ( 'group' == $_POST['group-type'] ) ? 0 : 1;
-			groups_update_groupmeta( $id, 'is_guild', $is_guild );
+			groups_update_groupmeta( $group_id, 'is_guild', $is_guild );
 			
 		if ( $_POST['group-website'] )
-			groups_update_groupmeta( $id, 'group_website', $_POST['group-website'] );  
+			groups_update_groupmeta( $group_id, 'group_website', $_POST['group-website'] );  
 	
 		if ( $_POST['group-server']  )
-			groups_update_groupmeta( $id, 'group_server', $_POST['group-server'] );
+			groups_update_groupmeta( $group_id, 'group_server', $_POST['group-server'] );
 			
 		if ( $_POST['group-faction']  )
-			groups_update_groupmeta( $id, 'group_faction', $_POST['group-faction'] );
+			groups_update_groupmeta( $group_id, 'group_faction', $_POST['group-faction'] );
 
 		if ( $_POST['group-style']  )
-			groups_update_groupmeta( $id, 'group_style', $_POST['group-style'] );
+			groups_update_groupmeta( $group_id, 'group_style', $_POST['group-style'] );
 			
 		if ( $_POST['group-interests']  )
-			groups_update_groupmeta( $id, 'group_interests', $_POST['group-interests'] );
+			groups_update_groupmeta( $group_id, 'group_interests', $_POST['group-interests'] );
 			
 		// Clear the cached metadata
-		wp_cache_delete( 'bp_groups_allmeta_' . $id , 'bp' );
+		wp_cache_delete( 'bp_groups_allmeta_' . $group_id , 'bp' );
 	}
 }

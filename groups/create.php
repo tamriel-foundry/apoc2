@@ -30,7 +30,7 @@ $can_access = $group_edit->access;
 			echo $group_edit->error;
 		else : ?>
 
-		<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" enctype="multipart/form-data">
+		<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" class="group-admin-form" enctype="multipart/form-data">
 
 			<?php // Only show navigation to admins
 			if ( $can_create ) : ?>
@@ -274,7 +274,7 @@ $can_access = $group_edit->access;
 				
 				<div class="form-right">
 					<button type="submit" name="avatar-crop-submit" id="avatar-crop-submit">
-						<i class="icon-crop"></i>Crop Image</i>
+						<i class="fa fa-crop"></i>Crop Image</i>
 					</button>
 				</div>
 				

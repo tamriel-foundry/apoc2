@@ -39,8 +39,12 @@ if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group();
 				endif; ?>
 
 			<?php // Group is not visible
-			else : ?>
-				<p id="message" class="warning"><?php bp_group_status_message(); ?></p></div>
+			else : 
+				if ( bp_is_group_membership_request() ) :
+					locate_template( array( 'groups/single/request-membership.php' ), true );
+				else : ?>
+				<p id="message" class="warning"><?php bp_group_status_message(); ?></p>
+				<?php endif; ?>
 			<?php endif; ?>
 
 		</div>

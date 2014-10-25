@@ -486,3 +486,21 @@ class Apoc_Group_Edit {
 		wp_cache_delete( 'bp_groups_allmeta_' . $group_id , 'bp' );
 	}
 }
+
+
+/**
+ * Modify the way checkboxes are rendered on the invite screen
+ * @version 2.0
+ */
+function apoc_new_group_invite_friend_list() {
+
+	// Get the HTML from the BuddyPress function
+	$html = bp_get_new_group_invite_friend_list();
+
+	// Wrap usernames in labels for our checkbox styling
+	$html = str_replace( '> ' , '><label>' , $html );
+	$html = str_replace( '</li>' , '</label></li>' , $html );
+
+	// Output the HTML
+	echo $html;
+}

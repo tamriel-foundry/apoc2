@@ -424,7 +424,7 @@ elseif ( bp_is_group_admin_screen( 'membership-requests' ) ) : ?>
 			
 			// Get the requesting user
 			global $requests_template; 
-			$user = new Apoc_User( $requests_template->request->user_id , 'directory' ); ?>
+			$user = new Apoc_User( $requests_template->request->user_id , 'directory' , 60 ); ?>
 			
 			<li class="member directory-entry">
 				<div class="directory-member reply-author">

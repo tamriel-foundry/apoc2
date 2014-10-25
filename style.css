@@ -2661,7 +2661,10 @@ div#character-sheet > ul li span {
 .leader-list > li a, .leader-list > li p { 	margin: 0;	}
 
 /* Group Admin and Group Creation */
-#group-settings-form { padding: 0.5em 1em; }
+#group-settings-form,
+#send-invite-form { padding: 0.5em; }
+
+
 .group-admin-form label { min-width: 120px; }
 
 .group-admin-form input[type="text"], 
@@ -2682,6 +2685,12 @@ div#character-sheet > ul li span {
 .group-admin-form .group-invites input[type=checkbox] { opacity: 1; }
 
 #group-settings-form .directory-list { margin-bottom: 1em; }
+
+/* Send Invites Form */
+#invite-list > ul {
+	list-style: none;
+	padding: 0 0 0 1em;
+}
 
 /*---------------------------------------------
 	9.4 - Registration

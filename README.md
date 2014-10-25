@@ -99,7 +99,7 @@ single/group-header.php				| done
 single/home.php						| done
 single/members.php					| done
 single/request-membership.php 		| done
-single/send-invites.php				|
+single/send-invites.php				| done
 single/forum.php					|
 single/forum/merge.php				|
 single/forum/move.php				|

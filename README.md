@@ -107,12 +107,12 @@ single/members.php					| done
 single/request-membership.php 		| done
 single/send-invites.php				| done
 single/forum.php					| done
-single/forum/merge.php				|
-single/forum/move.php				|
-single/forum/reply-edit.php			|
-single/forum/topic-edit.php			|
-single/forum/single-forum.php 		|
-single/forum/split.php				|
+single/forum/merge.php				| done
+single/forum/move.php				| done
+single/forum/reply-edit.php			| done
+single/forum/topic-edit.php			| done
+single/forum/single-forum.php 		| deprecated
+single/forum/split.php				| done
 single/forum/topic.php				| done
 
 GUILD								| PROGRESS

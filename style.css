@@ -216,6 +216,8 @@ strong{ font-weight: bold; }
 
 /* Quotes */
 blockquote {
+	width: 100%;
+	float: left;
 	position: relative;
 	margin: 0 0 1em;
 	padding: 0.5em 1em 0.5em 3em;

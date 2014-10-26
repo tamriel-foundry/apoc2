@@ -218,7 +218,7 @@ classes/sorcerer.php				| on-hold
 classes/templar.php					| on-hold
 development-faq.php					| deprecated
 page-class.php						| on-hold
-page-contact.php					|
+page-contact.php					| done
 page-submit-guild.php				| deprecated
 
 REGISTRATION						| PROGRESS

@@ -53,7 +53,7 @@ functions.php						| in-progress
 header.php							| done
 home.php							| done
 page.php							| done
-screenshot.jpg						|
+screenshot.jpg						| done
 search.php							| deprecated
 single-forum.php					| done
 single-reply-edit.php				| done

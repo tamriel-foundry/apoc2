@@ -1177,7 +1177,7 @@ form#top-search-form {
 	}
 
 form#top-login-form {
-	width: 100%;
+	width: auto;
 	max-width: 620px;
 	padding: 3px 0;
 	float: left;

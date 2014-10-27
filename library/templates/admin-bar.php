@@ -52,12 +52,12 @@ $search		= apoc()->search;
 		<div id="top-login-message"></div>
 	</form>
 
+	<?php apoc_notifications(); ?>
 	
 	<form name="top-search-form" id="top-search-form" "<?php echo SITEURL . '/advsearch/'; ?>" method="post">	
 		<fieldset>
 			<input type="text" name="s" id="search" value="<?php echo $search; ?>" placeholder="Search Articles" />
 			<label for="search"><i class="fa fa-search"></i></label>
-				
 			<input type="hidden" name="type" value="posts" />
 		</fieldset>		
 	</form>

@@ -1,132 +1,835 @@
+<p><img class="alignright size-full wp-image-549122" src="http://tamrielfoundry.com/wp-content/uploads/2014/09/enchanting-banner.jpg" width="125" height="175" />Welcome to the Tamriel Foundry’s Enchanting Guide! This guide contains the practical information you need for enchanting in <em>The Elder Scrolls Online</em>.</p>
+<p>Unlike <a href="http://tamrielfoundry.com/crafting/provisioning" target="_blank">provisioning</a> and <a href="http://tamrielfoundry.com/crafting/alchemy/" target="_blank">alchemy</a>, enchanting grants you permanent bonuses on your armor, jewelry and weapons. You do have to charge your weapons with soul gems as the effect depletes in combat. Enchanting can give you a boost in most of your stats with some exceptions like crit percentage or crit damage. However, it's not just adding bonuses. There's also some special effects like granting a damage shield, dealing unresistable damage, reduction costs, potion boost and more.</p>
+<div class="updated">This guide has been updated for <em>ESO</em> Update 5 (patch 1.5) and can be considered current as of November, 2014.</div>
 
-<div id="simulator">
+&nbsp;
 
+<h3><span class="orange">Creation &amp; Discovery</span></h3>
+<p>You'll need to combine a potency rune, a essence rune and a aspect rune to create a Glyph. There are a total of 50 runes that you'll need to discover and translate for the associated achievements. The actual number of runes is 52 but the Lire and Jaedi essence runes aren't linked to any achievement and don't have a specific effect. People report different outcomes when using these two essence runes. There are 34 different enchantments or glyphs if we disregard the level and quality. If we take level and quality into account there's 2380 possible combinations! I've created a enchanting simulator with the purpose of exploring all these combinations without needing all the materials in game. Now you don't have to worry about which runes you might need.</p>
+
+<form id="simulator" name="enchanting-simulator" method="post" action="">
+	<h1 id="simulator-title">Enchanting Simulator</h1>
 	<div id="glyph">
-		<p class="glyph-name">
-			<span class="textcolor">
-				<span class="prefix">(select) </span>Glyph of<span class="suffix"> (select)</span>
-			</span>
-		</p>
-		<p class="glyph-lvl">Level<span class="add-level"> x - x</span></p>
+		<h3 class="glyph-name"><span class="prefix">(select)</span> Glyph of <span class="suffix">(select)</span></h3>
+		<p class="glyph-lvl">Level 0 - 0</p>
 		<div class="glyph-img"></div>
-		<p class="glyph-desc">
-			<span class="desc1"></span>
-			<span class="effect-value">x</span>
-			<span class="desc2"></span>
-			<span class="effect-value2"></span>
-			<span<span class="desc3"></span>
-		</p>
+		<p class="glyph-desc"><span class="desc1"></span><span class="effect-value">?</span><span class="desc2"></span><span class="effect-value2"></span><span<span class="desc3"></span></p>
 	</div>
 
-	<div class="potency">
-		<div class="add-sub-option">
+	<div id="potency" class="rune-container">
+		<select id="selector">
+			<option value="additive">Additive</option>
+			<option value="subtractive">Subtractive</option>
+		</select>
 
-			<select id="selector">
-				<option value="additive">Additive</option>
-				<option value="subtractive">Subtractive</option>
-			</select>
-		</div>
+		<ul class="display-runes additive hideornot">
+			<li>
+				<div class="grid-image-calc grid-4-1"></div>
+				<input class="potency-rune" id="add-01" type="radio" name="additive-rune" value="0" data-level="Level 1 - 10" data-prefix="Trifling "><label for="add-01">Jora</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-2"></div>
+				<input class="potency-rune" id="add-02" type="radio" name="additive-rune" value="1" data-level="Level 5 - 15" data-prefix="Inferior "><label for="add-02">Porade</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-3"></div>
+				<input class="potency-rune" id="add-03" type="radio" name="additive-rune" value="2" data-level="Level 10 - 20" data-prefix="Petty "><label for="add-03">Jera</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-4"></div>
+				<input class="potency-rune" id="add-04" type="radio" name="additive-rune" value="3" data-level="Level 15 - 25" data-prefix="Slight "><label for="add-04">Jejora</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-5"></div>
+				<input class="potency-rune" id="add-05" type="radio" name="additive-rune" value="4" data-level="Level 20 - 30" data-prefix="Minor "><label for="add-05">Odra</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-6"></div>
+				<input class="potency-rune" id="add-06" type="radio" name="additive-rune" value="5" data-level="Level 25 - 35" data-prefix="Lesser "><label for="add-06">Pojora</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-4-7"></div>
+				<input class="potency-rune" id="add-07" type="radio" name="additive-rune" value="6" data-level="Level 30 - 40" data-prefix="Moderate "><label for="add-07">Edora</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-1"></div>
+				<input class="potency-rune" id="add-08" type="radio" name="additive-rune" value="7" data-level="Level 35 - 45" data-prefix="Average "><label for="add-08">Jaera</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-2"></div>
+				<input class="potency-rune" id="add-09" type="radio" name="additive-rune" value="8" data-level="Level 40 - 50" data-prefix="Strong "><label for="add-09">Pora</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-3"></div>
+				<input class="potency-rune" id="add-10" type="radio" name="additive-rune" value="9" data-level="Level VR1 - 3" data-prefix="Major "><label for="add-10">Denara</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-4"></div>
+				<input class="potency-rune" id="add-11" type="radio" name="additive-rune" value="10" data-level="Level VR3 - 5" data-prefix="Greater "><label for="add-11">Rera</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-5"></div>
+				<input class="potency-rune" id="add-12" type="radio" name="additive-rune" value="11" data-level="Level VR5 - 7" data-prefix="Grand "><label for="add-12">Derado</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-6"></div>
+				<input class="potency-rune" id="add-13" type="radio" name="additive-rune" value="12" data-level="Level VR7 - 9" data-prefix="Splendid "><label for="add-13">Recura</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-5-7"></div>
+				<input class="potency-rune" id="add-14" type="radio" name="additive-rune" value="13" data-level="Level VR10 - 14" data-prefix="Monumental "><label for="add-14">Kura</label>
+			</li>
+		</ul>
 
-		<div class="display-runes additive">
-			<ul>
-				<li>
-					<input class="potency-rune" type="radio" value="0" alt=" 1 - 10" name="Trifling ">
-					<label><div class="grid-image-calc grid-4-1"></div>Jora</label>
-				</li>
+		<ul class="display-runes subtractive hideornot">
+			<li>
+				<div class="grid-image-calc grid-6-1"></div>
+				<input class="potency-rune" id="sub-01" type="radio" name="subtractive-rune" value="0" data-level="Level 1 - 10" data-prefix="Trifling "><label for="sub-01">Jode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-2"></div>
+				<input class="potency-rune" id="sub-02" type="radio" name="subtractive-rune" value="1" data-level="Level 5 - 15"  data-prefix="Inferior "><label for="sub02">Notade</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-3"></div>
+				<input class="potency-rune" id="sub-03" type="radio" name="subtractive-rune" value="2" data-level="Level 10 - 20"  data-prefix="Petty "><label for="sub-03">Ode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-4"></div>
+				<input class="potency-rune" id="sub-04" type="radio" name="subtractive-rune" value="3" data-level="Level 15 - 25"  data-prefix="Slight "><label for="sub-04">Tade</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-5"></div>
+				<input class="potency-rune" id="sub-05" type="radio" name="subtractive-rune" value="4" data-level="Level 20 - 30"  data-prefix="Minor "><label for="sub-05">Jayde</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-6"></div>
+				<input class="potency-rune" id="sub-06" type="radio" name="subtractive-rune" value="5" data-level="Level 25 - 35"  data-prefix="Lesser "><label for="sub-06">Edode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-6-7"></div>
+				<input class="potency-rune" id="sub-07" type="radio" name="subtractive-rune" value="6" data-level="Level 30 - 40"  data-prefix="Moderate "><label for="sub-07">Pojode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-1"></div>
+				<input class="potency-rune" id="sub-08" type="radio" name="subtractive-rune" value="7" data-level="Level 35 - 45"  data-prefix="Average "><label for="sub-08">Rekude</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-2"></div>
+				<input class="potency-rune" id="sub-09" type="radio" name="subtractive-rune" value="8" data-level="Level 40 - 50"  data-prefix="Strong "><label for="sub-09">Hade</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-3"></div>
+				<input class="potency-rune" id="sub-10" type="radio" name="subtractive-rune" value="9" data-level="Level VR1 - 3"  data-prefix="Major "><label for="sub-10">Idode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-4"></div>
+				<input class="potency-rune" id="sub-11" type="radio" name="subtractive-rune" value="10" data-level="Level VR3 - 5"  data-prefix="Greater "><label for="sub-11">Pode</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-5"></div>
+				<input class="potency-rune" id="sub-12" type="radio" name="subtractive-rune" value="11" data-level="Level VR5 - 7"  data-prefix="Grand "><label for="sub-12">Kedeko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-6"></div>
+				<input class="potency-rune" id="sub-13" type="radio" name="subtractive-rune" value="12" data-level="Level VR7 - 9"  data-prefix="Splendid "><label for="sub-13">Rede</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-7-7"></div>
+				<input class="potency-rune" id="sub-14" type="radio" name="subtractive-rune" value="13" data-level="Level VR10 - 14"  data-prefix="Monumental "><label for="sub-14">Kude</label>
+			</li>
+		</ul>
+	</div><!--#potency -->
 
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="1" alt=" 5 - 15" name="Inferior "><div class="grid-image-calc grid-4-2"></div>Porade</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="2" alt=" 10 - 20" name="Petty "><div class="grid-image-calc grid-4-3"></div>Jera</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="3" alt=" 15 - 25" name="Slight "><div class="grid-image-calc grid-4-4"></div>Jejora</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="4" alt=" 20 - 30" name="Minor "><div class="grid-image-calc grid-4-5"></div>Odra</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="5" alt=" 25 - 35" name="Lesser "><div class="grid-image-calc grid-4-6"></div>Pojora</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="6" alt=" 30 - 40" name="Moderate "><div class="grid-image-calc grid-4-7"></div>Edora</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="7" alt=" 35 - 45" name="Average "><div class="grid-image-calc grid-5-1"></div>Jaera</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="8" alt=" 40 - 50" name="Strong "><div class="grid-image-calc grid-5-2"></div>Pora</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="9" alt=" VR1 - 3" name="Major "><div class="grid-image-calc grid-5-3"></div>Denara</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="10" alt=" VR3 - 5" name="Greater "><div class="grid-image-calc grid-5-4"></div>Rera</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="11" alt=" VR5 - 7" name="Grand "><div class="grid-image-calc grid-5-5"></div>Derado</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="12" alt=" VR7 - 9" name="Splendid "><div class="grid-image-calc grid-5-6"></div>Recura</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="13" alt=" VR10 - 14" name="Monumental "><div class="grid-image-calc grid-5-7"></div>Kura</label></li>
-			</ul>
-		</div>
-
-		<div class="display-runes subtractive">
-			<ul>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="0" alt=" 1 - 10" name="Trifling "><div class="grid-image-calc grid-6-1"></div>Jode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="1" alt=" 5 - 15"  name="Inferior "><div class="grid-image-calc grid-6-2"></div>Notade</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="2" alt=" 10 - 20"  name="Petty "><div class="grid-image-calc grid-6-3"></div>Ode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="3" alt=" 15 - 25"  name="Slight "><div class="grid-image-calc grid-6-4"></div>Tade</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="4" alt=" 20 - 30"  name="Minor "><div class="grid-image-calc grid-6-5"></div>Jayde</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="5" alt=" 25 - 35"  name="Lesser "><div class="grid-image-calc grid-6-6"></div>Edode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="6" alt=" 30 - 40"  name="Moderate "><div class="grid-image-calc grid-6-7"></div>Pojode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="7" alt=" 35 - 45"  name="Average "><div class="grid-image-calc grid-7-1"></div>Rekude</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="8" alt=" 40 - 50"  name="Strong "><div class="grid-image-calc grid-7-2"></div>Hade</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="9" alt=" VR1 - 3"  name="Major "><div class="grid-image-calc grid-7-3"></div>Idode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="10" alt=" VR3 - 5"  name="Greater "><div class="grid-image-calc grid-7-4"></div>Pode</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="11" alt=" VR5 - 7"  name="Grand "><div class="grid-image-calc grid-7-5"></div>Kedeko</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="12" alt=" VR7 - 9"  name="Splendid "><div class="grid-image-calc grid-7-6"></div>Rede</label></li>
-				<li><label class="checkbox"><input class="potency-rune" type="radio" value="13" alt=" VR10 - 14"  name="Monumental "><div class="grid-image-calc grid-7-7"></div>Kude</label></li>
-			</ul>
-		</div>
-
-	</div><!--potency ending-->
-
-	<div class="aspect">
-		<ul>
-			<li><label class="checkbox"><input class="aspect-rune" type="radio" value="0" alt="#cccccc"><div class="grid-image-calc grid-8-1"></div><span class="normal">Ta</span></label></li>
-			<li><label class="checkbox"><input class="aspect-rune" type="radio" value="1" alt="#2dc50e"><div class="grid-image-calc grid-8-2"></div><span class="green">Jejota</span></label></li>
-			<li><label class="checkbox"><input class="aspect-rune" type="radio" value="2" value="0" alt="#3a92ff"><div class="grid-image-calc grid-8-3"></div><span class="blue">Denata</span></label></li>
-			<li><label class="checkbox"><input class="aspect-rune" type="radio" value="3" alt="#a02ef7"><div class="grid-image-calc grid-8-4"></div><span class="purple">Rekuta</span></label></li>
-			<li><label class="checkbox"><input class="aspect-rune" type="radio" value="4" alt="#eeca2a"><div class="grid-image-calc grid-8-5"></div><span class="yellow">Kuta</span></label></li>
+	<div id="aspect" class="rune-container">
+		<ul class="display-runes">
+			<li>
+				<div class="grid-image-calc grid-8-1"></div>
+				<input class="aspect-rune" id="asp-01" type="radio" name="aspect-rune-name" value="0" data-quality-color="#cccccc"><label class="common" for="asp-01">Ta</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-8-2"></div>
+				<input class="aspect-rune" id="asp-02" type="radio" name="aspect-rune-name" value="1" data-quality-color="#2dc50e"><label class="uncommon" for="asp-02">Jejota</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-8-3"></div>
+				<input class="aspect-rune" id="asp-03" type="radio" name="aspect-rune-name" value="2" data-quality-color="#3a92ff"><label class="rare" for="asp-03">Denata</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-8-4"></div>
+				<input class="aspect-rune" id="asp-04" type="radio" name="aspect-rune-name" value="3" data-quality-color="#a02ef7"><label class="epic" for="asp-04">Rekuta</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-8-5"></div>
+				<input class="aspect-rune" id="asp-05" type="radio" name="aspect-rune-name" value="4" data-quality-color="#eeca2a"><label class="legendary" for="asp-05">Kuta</label>
+			</li>
 		</ul>
 	</div>
 
-	<div class="essence">
+	<div id="essence" class="rune-container">
+		<ul class="display-runes additive hideornot">
+			<li>
+				<div class="grid-image-calc grid-1-5"></div>
+				<input class="essence-rune" id="ess-add-01" type="radio" name="essence-rune-add" value="3" data-desc=" Frost Damage" data-suffix=" Frost"><label for="ess-add-01">Dekeipa</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-2"></div>
+				<input class="essence-rune" id="ess-add-02" type="radio" name="essence-rune-add" value="1" data-desc="Stamina" data-suffix="Stamina"><label for="ess-add-02">Deni</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-3"></div>
+				<input class="essence-rune" id="ess-add-03" type="radio" name="essence-rune-add" value="8" data-desc=" Stamina" data-suffix=" Stamina Regen"><label for="ess-add-03">Denima</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-2"></div>
+				<input class="essence-rune" id="ess-add-04" type="radio" name="essence-rune-add" value="5" data-desc="" data-suffix=" Hardening"><label for="ess-add-04">Deteri</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-3"></div>
+				<input class="essence-rune" id="ess-add-05" type="radio" name="essence-rune-add" value="3" data-desc=" Disease Damage" data-suffix=" Foulness"><label for="ess-add-05">Haoko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-6"></div>
+				<input class="essence-rune" id="ess-add-06" type="radio" name="essence-rune-add" value="9" data-desc="Bash Damage by " data-suffix=" Bashing"><label for="ess-add-06">Kaderi</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-4"></div>
+				<input class="essence-rune" id="ess-add-07" type="radio" name="essence-rune-add" value="3" data-desc=" Poison Damage" data-suffix=" Poison"><label for="ess-add-07">Kuoko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-1"></div>
+				<input class="essence-rune" id="ess-add-08" type="radio" name="essence-rune-add" value="7" data-desc=" Spell" data-suffix=" Increase Magical Harm"><label for="ess-add-08">Makderi</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-1"></div>
+				<input class="essence-rune" id="ess-add-09" type="radio" name="essence-rune-add" value="1" data-desc="Magicka" data-suffix="Magicka"><label for="ess-add-09">Makko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-2"></div>
+				<input class="essence-rune" id="ess-add-10" type="radio" name="essence-rune-add" value="8" data-desc=" Magicka" data-suffix=" Magicka Regen"><label for="ess-add-10">Makkoma</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-7"></div>
+				<input class="essence-rune" id="ess-add-11" type="radio" name="essence-rune-add" value="3" data-desc=" Shock Damage" data-suffix=" Shock"><label for="ess-add-11">Meip</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-6"></div>
+				<input class="essence-rune" id="ess-add-12" type="radio" name="essence-rune-add" value="2" data-desc=" Health" data-suffix=" Health"><label for="ess-add-12">Oko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-7"></div>
+				<input class="essence-rune" id="ess-add-13" type="radio" name="essence-rune-add" value="6" data-desc=" unresistable Damage" data-suffix=" Decrease Health"><label for="ess-add-13">Okoma</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-5"></div>
+				<input class="essence-rune" id="ess-add-14" type="radio" name="essence-rune-add" value="4" data-desc=" your Power by " data-suffix=" Rage"><label for="ess-add-14">Okori</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-1"></div>
+				<input class="essence-rune" id="ess-add-15" type="radio" name="essence-rune-add" value="10" data-desc="Potion effect by " data-suffix=" Potion Boost"><label for="ess-add-15">Oru</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-4"></div>
+				<input class="essence-rune" id="ess-add-16" type="radio" name="essence-rune-add" value="3" data-desc=" Fire Damage" data-suffix=" Flame"><label for="ess-add-16">Rakeipa</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-3"></div>
+				<input class="essence-rune" id="ess-add-17" type="radio" name="essence-rune-add" value="7" data-desc=" Weapon" data-suffix=" Increase Physical Harm"><label for="ess-add-17">Taderi</label>
+			</li>
+		</ul>
 
-		<div class="display-runes additive">
-			<ul>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="3" alt=" Frost Damage" name=" Frost"><div class="grid-image-calc grid-1-5"></div>Dekeipa</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="1" alt="Stamina" name="Stamina"><div class="grid-image-calc grid-3-2"></div>Deni</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="8" alt=" Stamina" name=" Stamina Regen"><div class="grid-image-calc grid-3-3"></div>Denima</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="5" alt="" name=" Hardening"><div class="grid-image-calc grid-1-2"></div>Deteri</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="3" alt=" Disease Damage" name=" Foulness"><div class="grid-image-calc grid-1-3"></div>Haoko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="9" alt="Bash Damage by " name=" Bashing"><div class="grid-image-calc grid-2-6"></div>Kaderi</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="3" alt=" Poison Damage" name=" Poison"><div class="grid-image-calc grid-2-4"></div>Kuoko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="7" alt=" Spell" name=" Increase Magical Harm"><div class="grid-image-calc grid-3-1"></div>Makderi</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="1" alt="Magicka" name="Magicka"><div class="grid-image-calc grid-2-1"></div>Makko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="8" alt=" Magicka" name=" Magicka Regen"><div class="grid-image-calc grid-2-2"></div>Makkoma</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="3" alt=" Shock Damage" name=" Shock"><div class="grid-image-calc grid-2-7"></div>Meip</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="2" alt=" Health" name=" Health"><div class="grid-image-calc grid-1-6"></div>Oko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="6" alt=" unresistable Damage" name=" Decrease Health"><div class="grid-image-calc grid-1-7"></div>Okoma</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="4" alt=" your Power by " name=" Rage"><div class="grid-image-calc grid-2-5"></div>Okori</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="10" alt="Potion effect by " name=" Potion Boost"><div class="grid-image-calc grid-1-1"></div>Oru</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="3" alt=" Fire Damage" name=" Flame"><div class="grid-image-calc grid-1-4"></div>Rakeipa</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="7" alt=" Weapon" name=" Increase Physical Harm"><div class="grid-image-calc grid-2-3"></div>Taderi</label></li>
-			</ul>
-		</div>
-
-		<div class="display-runes subtractive">
-			<ul>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="11" alt=" Frost Resistance" name=" Frost Resist"><div class="grid-image-calc grid-1-5"></div>Dekeipa</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="6" alt=" Stamina" name=" Absorb Stamina"><div class="grid-image-calc grid-3-2"></div>Deni</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="12" alt=" Stamina cost of abilities by " name=" Reduce Feat Cost"><div class="grid-image-calc grid-3-3"></div>Denima</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="5" alt=" targets Armor by " name=" Crushing"><div class="grid-image-calc grid-1-2"></div>Deteri</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="11" alt=" Disease Resistance" name=" Disease Resist"><div class="grid-image-calc grid-1-3"></div>Haoko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="13" alt=" cost of Bash by " name=" Shielding"><div class="grid-image-calc grid-2-6"></div>Kaderi</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="11" alt=" Poison Resistance" name=" Poison Resist"><div class="grid-image-calc grid-2-4"></div>Kuoko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="5" alt=" Spell Resistance" name=" Decrease Spell Harm"><div class="grid-image-calc grid-3-1"></div>Makderi</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="6" alt=" Magicka" name=" Absorb Magicka"><div class="grid-image-calc grid-2-1"></div>Makko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="12" alt=" Magicka cost of Spells by " name=" Reduce Spell Cost"><div class="grid-image-calc grid-2-2"></div>Makkoma</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="11" alt=" Shock Resistance" name=" Shock Resist"><div class="grid-image-calc grid-2-7"></div>Meip</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="6" alt=" Health" name=" Absorb Health"><div class="grid-image-calc grid-1-6"></div>Oko</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="8" alt=" Health" name=" Health Regen"><div class="grid-image-calc grid-1-7"></div>Okoma</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="4" alt=" target Power by " name=" Weakening"><div class="grid-image-calc grid-2-5"></div>Okori</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="TBA" alt=" the cooldown of Potions below this items level by " name=" Potion Speed"><div class="grid-image-calc grid-1-1"></div>Oru</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="11" alt=" Fire Resistance" name=" Fire Resist"><div class="grid-image-calc grid-1-4"></div>Rakeipa</label></li>
-				<li><label class="checkbox"><input class="essence-rune" type="radio" value="5" alt=" Armor" name=" Decrease Physical Harm"><div class="grid-image-calc grid-2-3"></div>Taderi</label></li>
-			</ul>
-		</div>
+		<ul class="display-runes subtractive hideornot">
+			<li>
+				<div class="grid-image-calc grid-1-5"></div>
+				<input class="essence-rune" id="ess-sub-01" type="radio" name="essence-rune-sub" value="11" data-desc=" Frost Resistance" data-suffix=" Frost Resist"><label for="ess-sub-01">Dekeipa</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-2"></div>
+				<input class="essence-rune" id="ess-sub-02" type="radio" name="essence-rune-sub" value="6" data-desc=" Stamina" data-suffix=" Absorb Stamina"><label for="ess-sub-02">Deni</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-3"></div>
+				<input class="essence-rune" id="ess-sub-03" type="radio" name="essence-rune-sub" value="12" data-desc=" Stamina cost of abilities by " data-suffix=" Reduce Feat Cost"><label for="ess-sub-03">Denima</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-2"></div>
+				<input class="essence-rune" id="ess-sub-04" type="radio" name="essence-rune-sub" value="5" data-desc=" targets Armor by " data-suffix=" Crushing"><label for="ess-sub-04">Deteri</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-3"></div>
+				<input class="essence-rune" id="ess-sub-05" type="radio" name="essence-rune-sub" value="11" data-desc=" Disease Resistance" data-suffix=" Disease Resist"><label for="ess-sub-05">Haoko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-6"></div>
+				<input class="essence-rune" id="ess-sub-06" type="radio" name="essence-rune-sub" value="13" data-desc=" cost of Bash and Blocking by " data-suffix=" Shielding"><label for="ess-sub-06">Kaderi</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-4"></div>
+				<input class="essence-rune" id="ess-sub-07" type="radio" name="essence-rune-sub" value="11" data-desc=" Poison Resistance" data-suffix=" Poison Resist"><label for="ess-sub-07">Kuoko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-3-1"></div>
+				<input class="essence-rune" id="ess-sub-08" type="radio" name="essence-rune-sub" value="5" data-desc=" Spell Resistance" data-suffix=" Decrease Spell Harm"><label for="ess-sub-08">Makderi</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-1"></div>
+				<input class="essence-rune" id="ess-sub-09" type="radio" name="essence-rune-sub" value="6" data-desc=" Magicka" data-suffix=" Absorb Magicka"><label for="ess-sub-09">Makko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-2"></div>
+				<input class="essence-rune" id="ess-sub-10" type="radio" name="essence-rune-sub" value="12" data-desc=" Magicka cost of Spells by " data-suffix=" Reduce Spell Cost"><label for="ess-sub-10">Makkoma</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-7"></div>
+				<input class="essence-rune" id="ess-sub-11" type="radio" name="essence-rune-sub" value="11" data-desc=" Shock Resistance" data-suffix=" Shock Resist"><label for="ess-sub-11">Meip</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-6"></div>
+				<input class="essence-rune" id="ess-sub-12" type="radio" name="essence-rune-sub" value="6" data-desc=" Health" data-suffix=" Absorb Health"><label for="ess-sub-12">Oko</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-7"></div>
+				<input class="essence-rune" id="ess-sub-13" type="radio" name="essence-rune-sub" value="8" data-desc=" Health" data-suffix=" Health Regen"><label for="ess-sub-13">Okoma</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-5"></div>
+				<input class="essence-rune" id="ess-sub-14" type="radio" name="essence-rune-sub" value="4" data-desc=" target Power by " data-suffix=" Weakening"><label for="ess-sub-14">Okori</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-1"></div>
+				<input class="essence-rune" id="ess-sub-15" type="radio" name="essence-rune-sub" value="15" data-desc=" the cooldown of Potions below this items level by " data-suffix=" Potion Speed"><label for="ess-sub-15">Oru</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-1-4"></div>
+				<input class="essence-rune" id="ess-sub-16" type="radio" name="essence-rune-sub" value="11" data-desc=" Fire Resistance" data-suffix=" Fire Resist"><label for="ess-sub-16">Rakeipa</label>
+			</li>
+			<li>
+				<div class="grid-image-calc grid-2-3"></div>
+				<input class="essence-rune" id="ess-sub-17" type="radio" name="essence-rune-sub" value="5" data-desc=" Armor" data-suffix=" Decrease Physical Harm"><label for="ess-sub-17">Taderi</label>
+			</li>
+		</ul>
 	</div>
+</form>
+<p>They keep changing these values and I try to keep them as close as possible to the values in game. If you make a Glyph and the value is different, please send me a message @Vixx containg a screenshot or the Glyph name, Glyph level and Glyph value.</p>
+<div class="warning"><strong>Known Issue:</strong> When changing the potency or aspect rune of the three absorb glyphs the recovery value doesn't update.<br><strong style="padding-left:1.4em">Solution:</strong> click the essense rune again, after selecting the potency and aspect rune.</div>
 
-</div>
+&nbsp;
+<h3 class="race-title">Essence Runes</h3>
+<div class="runestone grid-10-2"></div>
+<p>The essence rune is probably the most important part of the Glyph because it decides the enchantment effect. All essence runes can be found in any zone, they aren't restricted to a location. There are 17 different essence runes, each having a negative and a positive effect depending on the potency rune. There are actually 19 but the Lire and Jaedi essence runes don't have a specific effect because people report different outcomes when using these two essence runes. There are three armor effects, 14 weapon effects and 17 jewelry effects.</p>
 
+<table class="grid-table">
+	<colgroup>
+		<col width="8%" />
+		<col width="10%" />
+		<col width="12%" />
+		<col width="8%" />
+		<col width="20%" />
+		<col width="42%" />
+	</colgroup>
+	<thead class="grid-header">
+		<tr>
+			<th>Icon</th>
+			<th>Rune</th>
+			<th>Value</th>
+			<th>Type</th>
+			<th>Name</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image grid-1-1" title="Dekeipa"></div></td>
+			<td><span class="row">Dekeipa</span><span class="row translation">Frost</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Frost</span><span class="row">Frost Resistance</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> Frost Damage</span><span class="row">Adds <span class="orange">x</span> Frost Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-2" title="Deni"></div></td>
+			<td><span class="row">Deni</span><span class="row translation">Stamina</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Armor</span><span class="row">Weapon</div></td>
+			<td><span class="row">Stamina</span><span class="row">Absorb Stamina</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Max Stamina</span><span class="row">Deals <span class="orange">x</span> Magic Damage and recovers <span class="orange">y</span> Stamina</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-3" title="Denima"></div></td>
+			<td><span class="row">Denima</span><span class="row translation">Stamina Regen</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Stamina Regen</span><span class="row">Reduce Feat Cost</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Stamina Recovery</span><span class="row">Reduce Stamina cost of abilities by <span class="orange">x</span></span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-4" title="Deteri"></div></td>
+			<td><span class="row">Deteri</span><span class="row translation">Armor</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Weapon</span></td>
+			<td><span class="row">Hardening</span><span class="row">Crushing</span></td>
+			<td><span class="row">Grants a <span class="orange">x</span> point Damage shield for <span class="orange">y</span> seconds</span><span class="row">Reduce targets Armor by <span class="orange">x</span> for <span class="orange">y</span> seconds</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-5" title="Haoko"></div></td>
+			<td><span class="row">Haoko</span><span class="row translation">Disease</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Weapon</span></td>
+			<td><span class="row">Foulness</span><span class="row">Disease Resist</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> Disease Damage</span><span class="row">Adds <span class="orange">x</span> Disease Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-6" title="Kaderi"></div></td>
+			<td><span class="row">Kaderi</span><span class="row translation">Shield</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Bashing</span><span class="row">Shielding</span></td>
+			<td><span class="row">Increase Bash Damage by <span class="orange">x</span></span><span class="row">Reduce cost of Bash by <span class="orange">x</span> and reduce cost of Blocking by <span class="orange">y</span></span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-1-7" title="Kuoko"></div></td>
+			<td><span class="row">Kuoko</span><span class="row translation">Poison</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Poison</span><span class="row">Poison Resist</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> Poison Damage</span></span><span class="row">Adds <span class="orange">x</span> Poison Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-1" title="Makderi"></div></td>
+			<td><span class="row">Makderi</span><span class="row translation">Spell Harm</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Increase Magical Harm</span><span class="row">Decrease Spell Harm</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Spell Damage</span><span class="row">Adds <span class="orange">x</span> Spell Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-2" title="Makko"></div></td>
+			<td><span class="row">Makko</span><span class="row translation">Magicka</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Armor</span><span class="row">Weapon</span></td>
+			<td><span class="row">Magicka</span><span class="row">Absorb Magicka</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Max Magicka</span><span class="row">Deals <span class="orange">x</span> Magic Damage and recovers <span class="orange">y</span> Magicka</span>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-3" title="Makkoma"></div></td>
+			<td><span class="row">Makkoma</span><span class="row translation">Magicka Regen</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Magicka Regen</span><span class="row">Reduce Spell Cost</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Magicka Recovery</span><span class="row">Reduce Magicka cost of Spells by <span class="orange">x</span></span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-4" title="Meip"></div></td>
+			<td><span class="row">Meip</span><span class="row translation">Shock</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Shock</span><span class="row">Shock Resist</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> Shock Damage</span><span class="row">Adds <span class="orange">x</span> Shock Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-5" title="Oko"></div></td>
+			<td><span class="row">Oko</span><span class="row translation">Health</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Armor</span><span class="row">Weapon</span></td>
+			<td><span class="row">Health</span><span class="row">Absorb Health</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Max Health</span><span class="row">Deals <span class="orange">x</span> Magic Damage and recovers <span class="orange">y</span> Health</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-6" title="Okoma"></div></td>
+			<td><span class="row">Okoma</span><span class="row translation">Health Regen</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Decrease Health</span><span class="row">Health Regen</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> unresistable Damage</span><span class="row">Adds <span class="orange">x</span> Health Recovery</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-2-7" title="Okori"></div></td>
+			<td><span class="row">Okori</span><span class="row translation">Power</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Weapon</span></td>
+			<td><span class="row">Rage</span><span class="row">Weakening</span></td>
+			<td><span class="row">Increase your Power by <span class="orange">x</span> for <span class="orange">y</span> seconds</span><span class="row">Reduce target Power by <span class="orange">x</span> for <span class="orange">y</span> seconds</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-3-1" title="Oru"></div></td>
+			<td><span class="row">Oru</span><span class="row translation">Alchemist</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Potion Boost</span><span class="row">Potion Speed</span></td>
+			<td><span class="row">Increase Potion effect by <span class="orange">x</span></span><span class="row">Reduce the cooldown of Potions below this items level by <span class="orange">x</span> seconds</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-3-2" title="Rakeipa"></div></td>
+			<td><span class="row">Rakeipa</span><span class="row translation">Fire</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Weapon</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Flame</span><span class="row">Fire Resist</span></td>
+			<td><span class="row">Deals <span class="orange">x</span> Fire Damage</span><span class="row">Adds <span class="orange">x</span> Fire Resistance</span></td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-3-3" title="Tadeiri"></div></td>
+			<td><span class="row">Tadeiri</span><span class="row translation">Physical Harm</span></td>
+			<td><span class="row">Additive</span><span class="row">Subtractive</span></td>
+			<td><span class="row">Jewelry</span><span class="row">Jewelry</span></td>
+			<td><span class="row">Increase Physical Harm</span><span class="row">Decrease Physical Harm</span></td>
+			<td><span class="row">Adds <span class="orange">x</span> Weapon Damage</span><span class="row">Adds <span class="orange">x</span> Armor</span></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr><td colspan="6">Lire and Jaedi are two extra Essence runes that exist but are reported to have different outcomes and have no achievement.</td></tr>
+	</tfoot>
+</table>
+
+&nbsp;
+<div class="runestone grid-10-1"></div>
+<h3 class="race-title">Potency Runes</h3>
+<p> There are 14 additive and 14 subtractive runes which can be found chronologically all the way up to Craglorn. They decide the level and also which effect the essence rune will give depending on the potency rune being additive or subtractive. To use higher level potency runes you must invest the <a href="#potency-link">Potency Improvement</a> (0/9) passive.</p>
+<table class="grid-table half">
+	<colgroup>
+		<col width="8%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="12%" />
+	</colgroup>
+	<thead class="grid-header">
+		<tr>
+			<td colspan="5"><h3>Additive</h3></td>
+		</tr>
+		<tr>
+			<th>Icon</th>
+			<th>Rune</th>
+			<th>Level</th>
+			<th>Potency</th>
+			<th>Prefix</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image grid-4-1" title="Jora"></div></td>
+			<td><span class="row">Jora</span><span class="row translation">Add</span></td>
+			<td>1-10</td>
+			<td>Level 1</td>
+			<td>Trifling</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-2" title="Porade"></div></td>
+			<td><span class="row">Porade</span><span class="row translation">Develop</span></td>
+			<td>5-15</td>
+			<td>Level 1</td>
+			<td>Inferior</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-3" title="Jera"></div></td>
+			<td><span class="row">Jera</span><span class="row translation">Increase</span></td>
+			<td>10-20</td>
+			<td>Level 2</td>
+			<td>Petty</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-4" title="Jejora"></div></td>
+			<td><span class="row">Jejora</span><span class="row translation">Raise</span></td>
+			<td>15-25</td>
+			<td>Level 2</td>
+			<td>Slight</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-5" title="Odra"></div></td>
+			<td><span class="row">Odra</span><span class="row translation">Gain</span></td>
+			<td>20-30</td>
+			<td>Level 3</td>
+			<td>Minor</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-6" title="Pojora"></div></td>
+			<td><span class="row">Pojora</span><span class="row translation">Supplement</span></td>
+			<td>25-35</td>
+			<td>Level 3</td>
+			<td>Lesser</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-4-7" title="Edora"></div></td>
+			<td><span class="row">Edora</span><span class="row translation">Boost</span></td>
+			<td>30-40</td>
+			<td>Level 4</td>
+			<td>Moderate</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-1" title="Jaera"></div></td>
+			<td><span class="row">Jaera</span><span class="row translation">Advance</span></td>
+			<td>35-45</td>
+			<td>Level 4</td>
+			<td>Average</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-2" title="Pora"></div></td>
+			<td><span class="row">Pora</span><span class="row translation">Augment</span></td>
+			<td>40-50</td>
+			<td>Level 5</td>
+			<td>Strong</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-3" title="Denara"></div></td>
+			<td><span class="row">Denara</span><span class="row translation">Strengthen</span></td>
+			<td>VR1-3</td>
+			<td>Level 5</td>
+			<td>Major</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-4" title="Rera"></div></td>
+			<td><span class="row">Rera</span><span class="row translation">Exaggerate</span></td>
+			<td>VR3-5</td>
+			<td>Level 6</td>
+			<td>Greater</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-5" title="Derado"></div></td>
+			<td><span class="row">Derado</span><span class="row translation">Empower</span></td>
+			<td>VR5-7</td>
+			<td>Level 7</td>
+			<td>Grand</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-6" title="Recura"></div></td>
+			<td><span class="row">Recura</span><span class="row translation">Magnify</span></td>
+			<td>VR7-9</td>
+			<td>Level 8</td>
+			<td>Splendid</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-5-7" title="Kura"></div></td>
+			<td><span class="row">Kura</span><span class="row translation">Intensity</span></td>
+			<td>VR10-14</td>
+			<td>Level 9</td>
+			<td>Monumental</td>
+		</tr>
+	</tbody>
+</table>
+
+<table class="grid-table half">
+	<colgroup>
+		<col width="8%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="12%" />
+	</colgroup>
+	<thead class="grid-header">
+		<tr>
+			<td colspan="5"><h3>Subtractive</h3></td>
+		</tr>
+		<tr>
+			<th>Icon</th>
+			<th>Rune</th>
+			<th>Level</th>
+			<th>Potency</th>
+			<th>Prefix</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image grid-6-1" title="Jode"></div></td>
+			<td><span class="row">Jode</span><span class="row translation">Reduce</span></td>
+			<td>1-10</td>
+			<td>Level 1</td>
+			<td>Trifling</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-2" title="Notade"></div></td>
+			<td><span class="row">Notade</span><span class="row translation">Subtract</span></td>
+			<td>5-15</td>
+			<td>Level 1</td>
+			<td>Inferior</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-3" title="Ode"></div></td>
+			<td><span class="row">Ode</span><span class="row translation">Shrink</span></td>
+			<td>10-20</td>
+			<td>Level 2</td>
+			<td>Petty</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-4" title="Tade"></div></td>
+			<td><span class="row">Tade</span><span class="row translation">Decrease</span></td>
+			<td>15-25</td>
+			<td>Level 2</td>
+			<td>Slight</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-5" title="Jayde"></div></td>
+			<td><span class="row">Jayde</span><span class="row translation">Deduct</span></td>
+			<td>20-30</td>
+			<td>Level 3</td>
+			<td>Minor</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-6" title="Edode"></div></td>
+			<td><span class="row">Edode</span><span class="row translation">Lower</span></td>
+			<td>25-35</td>
+			<td>Level 3</td>
+			<td>Lesser</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-6-7" title="Pojode"></div></td>
+			<td><span class="row">Pojode</span><span class="row translation">Diminish</span></td>
+			<td>30-40</td>
+			<td>Level 4</td>
+			<td>Moderate</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-1" title="Rekude"></div></td>
+			<td><span class="row">Rekude</span><span class="row translation">Weaken</span></td>
+			<td>35-45</td>
+			<td>Level 4</td>
+			<td>Average</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-2" title="Hade"></div></td>
+			<td><span class="row">Hade</span><span class="row translation">Lessen</span></td>
+			<td>40-50</td>
+			<td>Level 5</td>
+			<td>Strong</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-3" title="Idode"></div></td>
+			<td><span class="row">Idode</span><span class="row translation">Impair</span></td>
+			<td>VR1-3</td>
+			<td>Level 5</td>
+			<td>Major</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-4" title="Pode"></div></td>
+			<td><span class="row">Pode</span><span class="row translation">Remove</span></td>
+			<td>VR3-5</td>
+			<td>Level 6</td>
+			<td>Greater</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-5" title="Kedeko"></div></td>
+			<td><span class="row">Kedeko</span><span class="row translation">Drain</span></td>
+			<td>VR5-7</td>
+			<td>Level 7</td>
+			<td>Grand</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-6" title="Rede"></div></td>
+			<td><span class="row">Rede</span><span class="row translation">Deprive</span></td>
+			<td>VR7-9</td>
+			<td>Level 8</td>
+			<td>Splendid</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-7-7" title="Kude"></div></td>
+			<td><span class="row">Kude</span><span class="row translation">Negate</span></td>
+			<td>VR10-14</td>
+			<td>Level 9</td>
+			<td>Monumental</td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="clear:both;">&nbsp;</p>
+<div class="runestone grid-10-3"></div>
+<h3 class="race-title">Aspect Runes</h3>
+<p>The aspect runes decide the quality/color of the Glyph. The quality of the aspect rune isn't bound to any zone like the essence runes which means you can find all colors in all zones. I recommend saving up the Kuta (Gold) runes as they are only useful for end-game gear. The difference in quality between low to mid-level gear isn't worth it.</p>
+<table class="grid-table">
+	<colgroup>
+		<col width="8%" />
+		<col width="10%" />
+		<col width="16%" />
+		<col width="33%" />
+		<col width="33%" />
+	</colgroup>
+	<thead class="grid-header">
+		<tr>
+			<th>Icon</th>
+			<th>Rune</th>
+			<th>Aspect</th>
+			<th>Crafing Exp Multiplier</th>
+			<th>Extract Exp Multiplier</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image grid-8-1" title="Ta"></div></td>
+			<td><span class="row">Ta</span><span class="row translation">Base</span></td>
+			<td>Level 1</td>
+			<td>(Base crafting value) &times; 1</td>
+			<td>(Base extracting value) &times; 1</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-8-2" title="Jejota"></div></td>
+			<td><span class="row"><span class="green">Jejota</span></span><span class="row translation">Fine</span></td>
+			<td>Level 1</td>
+			<td>(Base crafting value) &times; 2</td>
+			<td>(Base extracting value) &times; 2</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-8-3" title="Denata"></div></td>
+			<td><span class="row"><span class="blue">Denata</span></span><span class="row translation">Superior</span></td>
+			<td>Level 2</td>
+			<td>(Base crafting value) &times; 3.33</td>
+			<td>(Base extracting value) &times; 3.33</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-8-4" title="Rekuta"></div></td>
+			<td><span class="row"><span class="purple">Rekuta</span></span><span class="row translation">Artifact</span></td>
+			<td>Level 3</td>
+			<td>(Base crafting value) &times; 6</td>
+			<td>(Base extracting value) &times; 6</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-8-5" title="Kuta"></div></td>
+			<td><span class="row"><span class="yellow">Kuta</span></span><span class="row translation">Legendary</span></td>
+			<td>Level 4</td>
+			<td>(Base crafting value) &times; 16</td>
+			<td>(Base extracting value) &times; 8</td>
+		</tr>
+	</tbody>
+</table>
+
+&nbsp;
+<!--PASSIVES-->
+<h3 class="race-title">Skills</h3>
+<p>Potency Improvement is the most important passive if you want to level enchanting. Without it you can't make higher level glyphs so put your skill points into that first. I really recommend the Hireling passive is pretty convenient. I've never had to look for Kuta (Gold) runes because you receive them at a steady pace. The Aspect Improvement is only necessary for end-game and Runestone Extraction is entirely optional. I don't recommend putting any points in Keen Eye. Unlike other materials, runestones glow and are relatively big. </p>
+<table class="grid-table">
+	<colgroup>
+		<col width="10%" />
+		<col width="25%" />
+		<col width="65%" />
+	</colgroup>
+	<thead class="grid-header">
+		<tr>
+			<th>Icon</th>
+			<th>Passive Name</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><div class="grid-image grid-9-1" title="Aspect Improvement"></div></td>
+			<td>Aspect Improvement</td>
+			<td>Allows the use of [<span class="orange">QUALITY</span>] (<span class="orange">Color</span>) Aspect Runestones.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-9-2" id="potency-link" title="Potency Improvement"></div></td>
+			<td>Potency Improvement</td>
+			<td>Allows the use of [<span class="orange">ADDITIVE</span>] and [<span class="orange">SUBTRACTIVE</span>] Potency Runestones to make Glyphs of [<span class="orange">LEVEL</span>].</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-9-3" title="Keen Eye"></div></td>
+			<td>Keen Eye: Rune Stones</td>
+			<td>Reagents in the world will be easier to see when you are <span class="orange">20</span>/<span class="orange">30</span>/<span class="orange">40</span> meters or closer.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-9-4" title="Hireling"></div></td>
+			<td>Hireling</td>
+			<td>When you go offline, a hireling will find Runestones for you. Your hireling has a good chance of finding rarer Runestones. Your hireling refreshes every 12 hours.</td>
+		</tr>
+		<tr>
+			<td><div class="grid-image grid-9-5" title="Runestone Extraction"></div></td>
+			<td>Runestone Extraction</td>
+			<td> Increase the change of extracting Runestones by <span class="orange">5</span>/<span class="orange">7</span>/<span class="orange">10</span>%. Runestone extraction comes in handy when you craft/deconstruct epic/legendary glyphs.</td>
+		</tr>
+	</tbody>
+</table>

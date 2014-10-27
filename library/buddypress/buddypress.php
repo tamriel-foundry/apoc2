@@ -75,6 +75,7 @@ class Apoc_BuddyPress {
 
 		// BuddyPress extension files
 		require( LIB_DIR . 'buddypress/groups.php' );
+		require( LIB_DIR . 'buddypress/notifications.php' );
 	}
 	
 	/**

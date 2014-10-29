@@ -87,7 +87,7 @@ class Apoc_Group {
 		if ( $this->context == 'profile' ) {
 			$this->byline	= $this->byline();	
 			$this->admins 	= $this->admins();
-			$this->mods		= $this->mods();
+			$this->mods 	= $this->mods();
 		}
 	}
 
@@ -104,30 +104,26 @@ class Apoc_Group {
 		$block		.= $this->tooltip();
 		$block		.= '<p class="group-member-count">' . $this->members . '</p>';
 
-		//$icons			= $this->interest_icons();
-		$icons = "";
-
 		// Do some things differently depending on context
 		switch( $context ) {
 		
 			case 'directory' :
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$avatar					= '<div class="directory-member-avatar">' . $avatar . $icons . '</div>';
+				$avatar					= '<div class="directory-member-avatar">' . $avatar . '</div>';
 				$block 					= '<div class="directory-member-meta">' . $block . '</div>';	
 				break;
 					
 			case 'profile' :
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'full' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$block					= $block . $icons;
 				break;
 				
 			case 'widget' :
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
 				$avatar					= '<div id="featured-guild-avatar" class="group-avatar-block">' . $avatar . '</div>';
-				$block 					= '<div id="featured-guild-meta" class="member-meta user-block">' . $block . '</div>';	
+				$block 					= '<div id="featured-guild-meta" class="member-meta user-block">' . $block . '</div>';
 				break;				
 		}
 		
@@ -377,7 +373,7 @@ class Apoc_Group_Edit {
 	public $enabled 		= true;
 
 	// What are the creation requirements?
-	public $minposts		= 2;
+	public $minposts		= 25;
 	public $mintime			= '2 weeks';
 
 	// What access level does the current user have?
@@ -453,8 +449,6 @@ class Apoc_Group_Edit {
 	 * @version 2.0
 	 */
 	function save_group_fields( $group_id ) {
-
-		echo 'test';
 		
 		// Get the current BP group object
 		global $bp;

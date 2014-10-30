@@ -1250,6 +1250,63 @@ input#search + label {
 	}
 
 
+/* Notifications Menu */
+ul#notifications-menu {
+	float: left;
+	margin: 0 0.5em;
+	padding: 0;
+	list-style: none;
+	font-size: 0.875em;
+	border-left: 1px solid #333;
+	border-right: 1px solid #000;
+	position: relative;
+}
+ul#notifications-menu > li {
+	float: left;
+	border-left: 1px solid #000;
+	border-right: 1px solid #333;
+}
+ul#notifications-menu span.notification-count {
+	display: block;
+	padding: 0 5px;
+	line-height: 30px;
+	position: relative;
+	z-index: 91;
+}
+ul#notifications-menu > li.active:hover span.notification-count {
+	background: rgba(34,34,34,0.95);
+	cursor: pointer;
+	color: #F3EAD0;
+	text-shadow: 0 0 8px #EEE;
+}
+div.notification-drop {
+	width: 320px;
+	height: 0;
+	max-height: 0;
+	overflow: hidden;
+	position: absolute;
+	top: 28px;
+	right: 0;
+	background: rgba(34,34,34,0.95);
+	z-index: 90;
+	transition: max-height 0.25s ease-out;
+}
+ul#notifications-menu > li:hover div.notification-drop { 
+	height: auto;
+	max-height: 500px;
+	border: 1px solid #000;
+	box-shadow: 0 0 10px #000;
+	transition: max-height 0.25s ease-in;
+}
+div.notification-drop ul.notifications-list {
+	margin: 0;
+	padding: 0.5em 1em 0.5em 2em;
+	list-style: circle;
+	border: 1px solid #333;
+	font-size: 0.875em;
+}
+ul.notifications-list > li { padding: 0.25em 0; }
+
 
 /*--------------------------------------------------------------
 	5.0 - PRIMARY MENU

@@ -105,17 +105,15 @@ class Apoc_Notifications extends BP_Core_Notification {
 					$activities[$item_id]->count++;
 			}
 
-			// Replace activities with the grouped ones
-			$nots['activity'] = $activities;
-		}
-
-		// Loop over all notifications, apply custom formatting for activities
-		if ( count($nots['activity']) > 0 ) {
+			// Loop over grouped notifications, apply custom formatting for activities
 			foreach ( $nots['activity'] as $id => $not ) {
 
 				// Get the formatted description
 				$nots['activity'][$id]->desc = $this->format_notification( $not );
 			}
+
+			// Replace activities with the grouped ones
+			$nots['activity'] = $activities;
 		}
 
 		// Return the notifications

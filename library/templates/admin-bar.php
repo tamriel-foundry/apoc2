@@ -51,8 +51,8 @@ $search		= apoc()->search;
 		
 		<div id="top-login-message"></div>
 	</form>
-
-	<?php apoc_notifications(); ?>
+	
+	<?php if ( $logged_in ) apoc_notifications(); ?>
 	
 	<form name="top-search-form" id="top-search-form" "<?php echo SITEURL . '/advsearch/'; ?>" method="post">	
 		<fieldset>

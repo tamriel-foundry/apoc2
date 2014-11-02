@@ -111,7 +111,6 @@ class Apoc_Group {
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
 				$avatar					= '<div class="directory-member-avatar">' . $avatar . '</div>';
-				$block 					= '<div class="directory-member-meta">' . $block . '</div>';	
 				break;
 					
 			case 'profile' :
@@ -122,17 +121,15 @@ class Apoc_Group {
 			case 'widget' :
 				$avatar					= bp_get_group_avatar( $args = array( 'type' => 'thumb' , 'height' => $this->size , 'width' => $this->size ) );
 				$avatar					= '<a class="member-avatar" href="' . $this->domain . '" title="View ' . $this->fullname . ' Group Page">' . $avatar . '</a>';
-				$avatar					= '<div id="featured-guild-avatar" class="group-avatar-block">' . $avatar . '</div>';
-				$block 					= '<div id="featured-guild-meta" class="member-meta user-block">' . $block . '</div>';
+				$block 					= '<div id="featured-guild-meta" class="user-meta">' . $block . '</div>';
 				break;				
 		}
 		
 		// Prepend the avatar
 		$this->avatar 	= $avatar;
-		$block			= $avatar . $block;
 		
 		// Add the html to the object
-		$this->block 	= $block;
+		$this->block 	= $this->avatar . '<div class="user-meta">' . $block . '</div>';
 	}
 	
 	/* 
@@ -224,8 +221,8 @@ class Apoc_Group {
 			'rp' 		=> array( 
 				'name'	=> 'RP',
 				'icon'	=> '<i class="fa fa-beer fa-fw"></i>' ),
-			'crafting' 	=> array( 
-				'name'	=> 'Craft',
+			'trade' 	=> array( 
+				'name'	=> 'Trade',
 				'icon'	=> '<i class="fa fa-legal fa-fw"></i>' ),
 		);
 	
@@ -239,6 +236,7 @@ class Apoc_Group {
 		// Implode a list of interests
 		$interests = array();
 		foreach ( $inputs as $input ) {
+			if ( $input == 'crafting' ) $input = 'trade';
 			$interests[] = $style[$input]['icon'] . $style[$input]['name'];
 		}
 
@@ -295,7 +293,7 @@ class Apoc_Group {
 		
 				$list .= '<li class="directory-member">';
 					$list .= $user->avatar;
-					$list .= '<div class="directory-member-meta">';
+					$list .= '<div class="user-meta">';
 						$list .= $user->link;
 						$list .= $user->title;
 					$list .= '</div>';
@@ -320,7 +318,7 @@ class Apoc_Group {
 		
 				$list .= '<li class="directory-member">';
 					$list .= $user->avatar;
-					$list .= '<div class="directory-member-meta">';
+					$list .= '<div class="user-meta">';
 						$list .= $user->link;
 						$list .= $user->title;
 					$list .= '</div>';

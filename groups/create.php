@@ -121,8 +121,8 @@ $can_access = $group_edit->access;
 							<label for="group-interests">Roleplaying (RP)</label>
 						</li>
 						<li>
-							<input type="checkbox" name="group-interests[]" value="crafting">
-							<label for="group-interests">Crafting</label>
+							<input type="checkbox" name="group-interests[]" value="trade">
+							<label for="group-interests">Trade</label>
 						</li>
 					</ul>
 				</div>

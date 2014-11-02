@@ -334,14 +334,14 @@ class Apoc_BuddyPress {
 		global $bp;
 		
 		// Main navigation
-		$bp->bp_nav['profile']['position'] 			= 1;
-		$bp->bp_nav['activity']['position'] 		= 2;
-		$bp->bp_nav['forums']['position'] 			= 3;
-		$bp->bp_nav['friends']['position'] 			= 4;
-		$bp->bp_nav['groups']['position'] 			= 5;
-		$bp->bp_nav['messages']['position'] 		= 6;
-		$bp->bp_nav['notifications']['position'] 	= 7;
-		$bp->bp_nav['settings']['position'] 		= 8;
+		$bp->bp_nav['profile']['position'] 			= 10;
+		$bp->bp_nav['activity']['position'] 		= 20;
+		$bp->bp_nav['forums']['position'] 			= 30;
+		$bp->bp_nav['friends']['position'] 			= 40;
+		$bp->bp_nav['groups']['position'] 			= 50;
+		$bp->bp_nav['messages']['position'] 		= 60;
+		$bp->bp_nav['notifications']['position'] 	= 70;
+		$bp->bp_nav['settings']['position'] 		= 90;
 	
 		// Profile biography
 		$bp->bp_options_nav['profile']['public']['name'] 					= 'Player Biography';
@@ -377,7 +377,55 @@ class Apoc_BuddyPress {
 		}
 
 		// Remove activity favorites, because they are dumb
-		bp_core_remove_subnav_item( 'activity' , 'favorites' );		
+		bp_core_remove_subnav_item( 'activity' , 'favorites' );
+
+		// Add moderation and infraction management panel
+		if ( bp_is_user() && ( bp_is_my_profile() || current_user_can( 'moderate' ) ) ) {
+				
+			// Get the user object
+			global $user;
+			$user = new Apoc_User( bp_displayed_user_id() , 'profile' );
+			$level = $user->warnings['level'];
+			$level = ( $level > 0 ) ? '<span>' . $level . '</span>' : '';
+			$notes = $user->mod_notes['count'];
+			$notes = ( $notes > 0 ) ? '<span class="activity-count">' . $notes . '</span>' : '';
+			bp_core_new_nav_item( array(
+				'name' 					=> 'Infractions' . $level,
+				'slug' 					=> 'infractions',
+				'position' 				=> 80, 
+				'screen_function' 		=> array( $this , 'infractions_screen' ),
+				'default_subnav_slug' 	=> 'status',
+				'item_css_id' 			=> 'infractions', ) );
+		
+			// Add infraction overview screen
+			bp_core_new_subnav_item( array( 
+				'name' 					=> 'Status',
+				'slug' 					=> 'status',
+				'parent_url' 			=> $bp->displayed_user->domain . 'infractions/',
+				'parent_slug' 			=> 'infractions',
+				'screen_function' 		=> array( $this , 'infractions_screen' ),
+				'position' 				=> 10 ) );
+				
+			// Add send warning screen
+			if ( current_user_can( 'moderate' ) ) {	
+				bp_core_new_subnav_item( array( 
+					'name' 				=> 'Issue Warning',
+					'slug' 				=> 'issue',
+					'parent_url' 		=> $bp->displayed_user->domain . 'infractions/',
+					'parent_slug' 		=> 'infractions',
+					'screen_function' 	=> array( $this , 'warning_screen' ),
+					'position' 			=> 20 ) );
+			
+				// Add moderator notes screen
+				bp_core_new_subnav_item( array( 
+					'name' 				=> 'Moderator Notes' . $notes,
+					'slug' 				=> 'notes',
+					'parent_url' 		=> $bp->displayed_user->domain . 'infractions/',
+					'parent_slug' 		=> 'infractions',
+					'screen_function' 	=> array( $this , 'modnotes_screen' ),
+					'position' 			=> 30 ) );
+			}
+		}
 
 		// Group profile navigation
 		if( bp_is_group() ) {
@@ -410,19 +458,19 @@ class Apoc_BuddyPress {
 	 * Profile screen templates
 	 */
 	function edit_profile_screen() {
-		bp_core_load_template( apply_filters( 'apoc_edit_profile_template', 'members/single/profile/edit' ) );
+		bp_core_load_template( 'members/single/profile/edit' );
 	}
 	function infractions_screen() {
-		bp_core_load_template( apply_filters( 'apoc_infractions_template', 'members/single/infractions' ) );
+		bp_core_load_template( 'members/single/infractions' );
 	}
 	function warning_screen() {
-		bp_core_load_template( apply_filters( 'apoc_warning_template', 'members/single/infractions/warning' ) );
+		bp_core_load_template( 'members/single/infractions/warning' );
 	}
 	function modnotes_screen() {
-		bp_core_load_template( apply_filters( 'apoc_modnotes_template', 'members/single/infractions/notes' ) );
+		bp_core_load_template( 'members/single/infractions/notes' );
 	}
 	function group_activity_screen() {
-		bp_core_load_template( apply_filters( 'apoc_guild_activity_template', 'groups/single/home' ) );
+		bp_core_load_template( 'groups/single/home' );
 	}
 	
 

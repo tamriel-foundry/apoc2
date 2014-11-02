@@ -82,19 +82,46 @@ html{box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}
 /*---------------------------------------------
 	1.1 - Import Fonts
 ----------------------------------------------*/
+
 @font-face {
   font-family: 'Cinzel';
   font-style: normal;
   font-weight: 400;
-  src: local('Cinzel-Regular'), url(http://themes.googleusercontent.com/static/fonts/cinzel/v2/mLL0ZqnXRx3m16FnBy9gcg.woff) format('woff');
-	}
+  src: local('Cinzel-Regular'), url(http://fonts.gstatic.com/s/cinzel/v4/GUdIaltLF-l6nIaNvN3eY_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Cinzel-Bold'), url(http://fonts.gstatic.com/s/cinzel/v4/L74890HNVnUypqWjqGUt1RJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-	}
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://fonts.gstatic.com/s/opensans/v10/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://fonts.gstatic.com/s/opensans/v10/xjAJXh38I15wypJXxuGMBo4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 /*--------------------------------------------------------------
 	2.0 - NON STRUCTURAL ELEMENTS
@@ -170,6 +197,7 @@ h1 {
 	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
 	font-size: 1.5em; 
 	line-height: 1em;
+	font-weight: bold;
 	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em; 
 	}
@@ -616,7 +644,6 @@ td , th {
 	margin: 0;
 	}
 
-
 /* Errors */
 .error {
 	background: rgba(153,0,0,0.5);
@@ -721,12 +748,14 @@ div#main-container {
 
 div#content {
 	flex: 3;
+	order: 0;
 	min-width: 720px;
 	}
 
 
 div#primary-sidebar {
 	flex: 1;
+	order: 1;
 	min-width: 300px;
 	max-width: 450px;
 	margin-left: 1em;
@@ -1289,7 +1318,6 @@ div.notification-drop {
 	right: 0;
 	background: rgba(34,34,34,0.95);
 	z-index: 90;
-	transition: max-height 0.25s ease-out;
 }
 ul#notifications-menu > li:hover div.notification-drop { 
 	height: auto;
@@ -1299,13 +1327,16 @@ ul#notifications-menu > li:hover div.notification-drop {
 	transition: max-height 0.25s ease-in;
 }
 div.notification-drop ul.notifications-list {
+	list-style: none;
 	margin: 0;
-	padding: 0.5em 1em 0.5em 2em;
-	list-style: circle;
+	padding: 0.5em 1em;
 	border: 1px solid #333;
 	font-size: 0.875em;
+	line-height: 1.25em;
 }
 ul.notifications-list > li { padding: 0.25em 0; }
+ul.notifications-list > li a { color: #A29C8E; }
+ul.notifications-list > li a:hover { color: inherit; }
 
 
 /*--------------------------------------------------------------
@@ -1809,6 +1840,15 @@ li.flex-active a.slideshow-tab-title {
 	7.0 - COMMENTS
 --------------------------------------------------------------*/
 #comments {
+	flex: 4;
+	order: 9;
+	min-width: 100%;
+	margin: 0 0 1em;
+	}
+
+#respond {
+	flex: 4;
+	order: 10;
 	min-width: 100%;
 	margin: 0 0 1em;
 	}
@@ -1825,22 +1865,22 @@ ol#comment-list {
 /*---------------------------------------------
 	7.1 - Single Comments
 ----------------------------------------------*/
-.reply-author p {
-	margin: 0;
-	font-size: 0.75em;
-	}
 
-.reply-author .member-name,
+.reply-author .user-meta,
 .reply-author .member-avatar {
 	display: block;
 	width: 100%;
 	float: left;
-	font-size: 0.875em;
 	}
 
 .reply-author .member-avatar > img {
 	float: none;
 	margin: 0 auto 0.5em;
+	}
+
+.reply-author .user-meta > p { 
+	font-size: 0.75em; 
+	margin: 0;
 	}
 
 .user-title {
@@ -1870,11 +1910,6 @@ ol#comment-list {
 /*---------------------------------------------
 	7.2 - Respond Form
 ----------------------------------------------*/
-#respond {
-	width: 100%;
-	float: left;
-	margin: 0 0 1em;
-	}
 
 fieldset.reply-form {
 	padding: 0 1em;
@@ -2059,7 +2094,9 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 .topic .freshest-time {	left: 0; }
 
 /* New topic form */
+#new-topic-title { margin-top: 0.5em; }
 #new-topic-title input {
+	width: 60%;
 	height: 32px;
 	line-height: 24px;
 	font-size: 1em;
@@ -2349,15 +2386,19 @@ div.directory-content {
 	width: auto;
 	float: left;
 	}
-
-.directory-member-meta {	margin: 0 0 0 60px; }
 .directory-member .member-avatar > img { margin: 0; }
+.directory-member .user-meta {	
+	width: auto;
+	float: none;
+	margin: 0 0 0 60px; 
+	}
+.directory-member .member-name { font-size: 0.875em; }
 
 
 /* Groups Directory */
 .group.directory-entry .directory-content { flex: 3; }
 .group.directory-entry .directory-member { padding: 0 0.5em; }
-.group.directory-entry .directory-member-meta { margin-left: 110px; }
+.group.directory-entry .user-meta { margin-left: 110px; }
 
 #groups-list img {
 	display: block;
@@ -2532,7 +2573,7 @@ form.ac-form span {
 /* Widgets */
 .profile-widget {
 	flex: 1;
-	min-width: 200px;
+	min-width: 300px;
 	margin: 0 0.5em 1em;
 	}
 
@@ -2704,6 +2745,38 @@ div#character-sheet > ul li span {
 	box-shadow: 0 0 2px #000;
 }
 
+/* Infractions and Notes */
+.infraction-list {
+	width: 100%;
+	float: left;
+	list-style: none;
+	margin: 1em 0;
+	padding: 0;
+	border-bottom: 1px solid #333;
+}
+.infraction-list > li {
+	width: 100%;
+	border-bottom: 1px solid #000;
+	position: relative;
+}
+.infraction-list > li + li { border-top: 1px solid #333; }
+
+.infraction-list li > header {
+	padding: 0.5em 1em;
+	background: rgba(0,0,0,0.5);
+	border: 1px solid #000;
+	box-shadow: 0 0 3px #333 inset;
+	color: #A29C8E;
+}
+span.infraction-mod { float: right; }
+.infraction-content { padding: 1em; }
+.infraction-content > p { margin: 0; }
+a.clear-infraction {
+	position: absolute;
+	bottom: 12px;
+	right: 0;
+}
+
 
 /*---------------------------------------------
 	9.3 - Group Profiles
@@ -2722,7 +2795,6 @@ div#character-sheet > ul li span {
 
 /* Group Widgets */
 .leader-list > li { height: 50px; }
-.leader-list .directory-member-meta { padding: 0.25em 0; }
 .leader-list > li a, .leader-list > li p { 	margin: 0;	}
 
 /* Group Admin and Group Creation */
@@ -2832,33 +2904,40 @@ div.wp-editor-container .mce-statusbar {
 --------------------------------------------------------------*/
 
 
-/* Below 1080px */
-@media (max-width: 1079px) {
+/* Below 1096px */
+@media (max-width: 1096px) {
+
+	/* Hide advertisment banner */
 	div#primary-banner { display: none;}
+
+	/* Send sidebar to bottom */
+	div#content { min-width: 100%; }
+	div#primary-sidebar { 
+		order: 99;
+		margin: 0; 
+	}
 }
 
 
 
 /* Below 720px */
 @media (max-width: 719px) {
-	div#content { min-width: 100%; }
-	div#primary-sidebar { margin: 0; }
+
+	/* Full width posts */
 	.archive .post { width: 100%; }
 	#recent-discussion-widget{ margin: 0 0 1em;}
 
-
-	/* Shrink Font */
+	/* Shrink Fonts */
 	h1, h2, h3 { font-size: 1em; }
 
 
-
-/* BBPRESS */
+	/* BBPRESS */
 
 	/* Hide forum freshness */
 	.forum-freshness{ display: none; }
 
 
-/* BUDDYPRESS */
+	/* BUDDYPRESS */
 
 	/* Center profile user block */
 	#profile-title, #profile-description { padding: 0 1em; }
@@ -2889,24 +2968,31 @@ div.wp-editor-container .mce-statusbar {
 /* Less then 460px */
 @media (max-width: 459px) {
 
+	/* WORDPRESS */
+	a.post-thumbnail { 
+		width: 100%; 
+		padding: 0 0 1em;
+	}
+ 	div.post-excerpt { margin: 0; }
 
-/* NAVIGATION */
+	/* NAVIGATION */
 
 	/* Drop pagination text */
 	div.pagination-count { display: none; }
 
-/* BBPRESS */
+	/* BBPRESS */
 	
 	/* Hide forum count */
 	.forum-count { display: none; }
 
-	/* Hide some elements of the author block */
-	.reply-author > p {
-		display: inline-block;
-		line-height: 25px;
-		margin: 0 1em 0 0;
+	/* Re-configure the author block */
+	.reply-author .member-avatar,
+	.reply-author .user-meta { 
+		width: auto; 
+		margin: 0 1em;
 	}
-	.reply .member-avatar, .reply .user-exp { display: none; }
+	.reply .user-exp { display: none; }
+	.reply-author { border-bottom: 1px solid #111; }
 
 	/* Center forum headers */
 	.reply-header .reply-time,

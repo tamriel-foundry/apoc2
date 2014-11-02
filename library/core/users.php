@@ -91,6 +91,8 @@ class Apoc_User {
 			$this->first_name	= isset( $meta['first_name'] ) ? $meta['first_name'] : "";
 			$this->last_name	= isset( $meta['last_name'] ) ? $meta['last_name'] : "";
 			$this->charname		= implode( ' ' , array( $this->first_name , $this->last_name ) );
+			$this->warnings		= isset( $meta['infraction_history'] ) ? $this->warnings( $meta['infraction_history'] ) : NULL;
+			$this->mod_notes	= isset( $meta['moderator_notes'] ) ? $this->notes( $meta['moderator_notes'] ) : NULL;
 
 			// Get additional data from user object
 			$user				= get_userdata( $this->id );
@@ -135,12 +137,10 @@ class Apoc_User {
 		switch( $context ) {
 		
 			case 'directory' :
-				$block		= '<div class="directory-member-meta">' . $block;
 				if ( isset( $this->guild ) )
-					$block		.= '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>';
+				$block		.= '<p class="user-guild ' . strtolower( str_replace( ' ' , '-' , $this->guild ) ) . '">' . $this->guild . '</p>';
 				else
-					$block		.= $this->rclass;
-				$block		.= '</div>';
+				$block		.= $this->rclass;
 				break;
 		
 			case 'reply' :
@@ -164,7 +164,7 @@ class Apoc_User {
 		$this->avatar	= $avatar->avatar;
 		
 		// Add the html to the object
-		$this->block 	= $this->avatar . $block;
+		$this->block 	= $this->avatar . '<div class="user-meta">' . $block . '</div>';
 	}
 
 	/**
@@ -361,7 +361,7 @@ class Apoc_User {
 	}
 
 
-	/* 
+	/** 
 	 * Display the user's contact information
 	 * @version 2.0
 	 */
@@ -400,6 +400,47 @@ class Apoc_User {
 			echo '<li><span><i class="fa fa-circle-o fa-fw"></i>ESO Forums:</span><a href="http://forums.elderscrollsonline.com/profile/' . $contacts['oforums'] . '" target="_blank">' . $contacts['oforums'] . '</a></li>' ;
 		echo '</ul>' ;
 	}
+
+	/**
+	 * Retrieves the user's warnings and current warning level from the database
+	 * @version 2.0
+	 */
+	function warnings( $warnings ) {
+	
+		// Setup an array
+		$infractions = array();
+	
+		// Grab the infractions
+		$infractions['history'] = maybe_unserialize( $warnings );
+		
+		// Get an accurate count
+		$level = 0;
+		if ( !empty( $infractions['history'] ) ) {
+			foreach ( $infractions['history'] as $id => $warning ) {
+				$level += $warning['points'];	
+			}
+		}
+		$infractions['level'] = min( $level , 5 );
+		return $infractions;
+	}
+	
+	/**
+	 * Retrieves the user's moderator notes and notes count
+	 * @version 2.0
+	 */
+	function notes( $mod_notes ) {
+	
+		// Setup an array
+		$notes = array();
+	
+		// Grab the infractions
+		$notes['history'] = maybe_unserialize( $mod_notes );
+		
+		// Get an accurate count
+		$notes['count'] = count( $notes['history'] );	
+		return $notes;
+	}
+
 }
 
 /*--------------------------------------------------------------

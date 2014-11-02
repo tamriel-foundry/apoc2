@@ -84,8 +84,8 @@ if ( bp_is_group_admin_screen( 'edit-details' ) ) : ?>
 					<label for="group-interests">Roleplaying (RP)</label>
 				</li>
 				<li>
-					<input type="checkbox" name="group-interests[]" value="crafting" <?php checked( in_array( 'crafting' , $group->interests ) , 1 ); ?>>
-					<label for="group-interests">Crafting</label>
+					<input type="checkbox" name="group-interests[]" value="trade" <?php checked( in_array( 'trade' , $group->interests ) || in_array( 'crafting' , $group->interests ) , 1 ); ?>>
+					<label for="group-interests">Trade</label>
 				</li>
 			</ul>
 		</div>

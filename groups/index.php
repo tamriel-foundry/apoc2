@@ -39,6 +39,9 @@
 					</li>
 					<li id="groups-ebonheart" class="<?php if ( isset( $_GET['faction'] ) && $_GET['faction'] == 'ebonheart' ) echo 'selected'; ?>">
 						<a href="?faction=ebonheart">Ebonheart<span><?php echo count_groups_by_meta( 'group_faction' , 'ebonheart' ); ?></span></a>
+					</li>					
+					<li id="groups-neutral" class="<?php if ( isset( $_GET['faction'] ) && $_GET['faction'] == 'neutral' ) echo 'selected'; ?>">
+						<a href="?faction=neutral">Neutral<span><?php echo count_groups_by_meta( 'group_faction' , 'neutral' ); ?></span></a>
 					</li>
 
 					<?php if ( is_user_logged_in() && bp_get_total_group_count_for_user() ) : ?>

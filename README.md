@@ -164,7 +164,7 @@ js/ga.js							|
 js/map-control.js					| done
 js/qc.js							|
 templates/admin-bar.php				| done
-templates/admin-notifications.php 	|
+templates/admin-notifications.php 	| done
 templates/adv-search.php			| done
 templates/comment-edit.php			|
 templates/comment.php				| done

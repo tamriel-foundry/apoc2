@@ -34,7 +34,7 @@
 				<?php // Topic title ?>
 				<div id="new-topic-title">
 					<label for="bbp_topic_title"><i class="fa fa-bookmark"></i>Topic Title:</label>
-					<input type="text" id="bbp_topic_title" value="<?php bbp_form_topic_title(); ?>" tabindex="<?php bbp_tab_index(); ?>" size="100" name="bbp_topic_title" maxlength="<?php bbp_title_max_length(); ?>" />
+					<input type="text" id="bbp_topic_title" value="<?php bbp_form_topic_title(); ?>" tabindex="<?php bbp_tab_index(); ?>" name="bbp_topic_title" maxlength="<?php bbp_title_max_length(); ?>" />
 				</div>
 
 				<?php // The TinyMCE editor

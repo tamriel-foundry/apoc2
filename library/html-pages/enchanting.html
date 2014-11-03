@@ -10,10 +10,12 @@
 <form id="simulator" name="enchanting-simulator" method="post" action="">
 	<h1 id="simulator-title">Enchanting Simulator</h1>
 	<div id="glyph">
-		<h3 class="glyph-name"><span class="prefix">(select)</span> Glyph of <span class="suffix">(select)</span></h3>
+		<p class="glyph-type">Type</p>
+		<h3 class="glyph-name"><span class="prefix">(select)</span> Glyph of <span class="suffix">(select)</span></h3><hr>
 		<p class="glyph-lvl">Level 0 - 0</p>
 		<div class="glyph-img"></div>
 		<p class="glyph-desc"><span class="desc1"></span><span class="effect-value">?</span><span class="desc2"></span><span class="effect-value2"></span><span<span class="desc3"></span></p>
+		<p class="glyph-exp"><span class="glyph-crafting-exp"></span> Craft XP | <span class="glyph-extraction-exp"></span> Extract XP</p>
 	</div>
 
 	<div id="potency" class="rune-container">
@@ -182,7 +184,7 @@
 			</li>
 			<li>
 				<div class="grid-image-calc grid-1-2"></div>
-				<input class="essence-rune" id="ess-add-04" type="radio" name="essence-rune-add" value="5" data-desc="" data-suffix=" Hardening"><label for="ess-add-04">Deteri</label>
+				<input class="essence-rune" id="ess-add-04" type="radio" name="essence-rune-add" value="15" data-desc="" data-suffix=" Hardening"><label for="ess-add-04">Deteri</label>
 			</li>
 			<li>
 				<div class="grid-image-calc grid-1-3"></div>
@@ -297,7 +299,7 @@
 			</li>
 			<li>
 				<div class="grid-image-calc grid-1-1"></div>
-				<input class="essence-rune" id="ess-sub-15" type="radio" name="essence-rune-sub" value="15" data-desc=" the cooldown of Potions below this items level by " data-suffix=" Potion Speed"><label for="ess-sub-15">Oru</label>
+				<input class="essence-rune" id="ess-sub-15" type="radio" name="essence-rune-sub" value="16" data-desc=" the cooldown of Potions below this items level by " data-suffix=" Potion Speed"><label for="ess-sub-15">Oru</label>
 			</li>
 			<li>
 				<div class="grid-image-calc grid-1-4"></div>
@@ -310,6 +312,7 @@
 		</ul>
 	</div>
 </form>
+
 <p>They keep changing these values and I try to keep them as close as possible to the values in game. If you make a Glyph and the value is different, please send me a message @Vixx containg a screenshot or the Glyph name, Glyph level and Glyph value.</p>
 <div class="warning"><strong>Known Issue:</strong> When changing the potency or aspect rune of the three absorb glyphs the recovery value doesn't update.<br><strong style="padding-left:1.4em">Solution:</strong> click the essense rune again, after selecting the potency and aspect rune.</div>
 

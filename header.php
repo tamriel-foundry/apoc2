@@ -34,7 +34,7 @@
 	
 		<header id="site-header" role="banner">	
 			<a id="site-title" href="<?php echo SITEURL; ?>" title="<?php echo SITENAME; ?>"></a>
-			<div id="primary-banner">
+			<div id="primary-leaderboard-728">
 				Primary Ad: Leaderboard - 728x90
 			</div>
 		</header>

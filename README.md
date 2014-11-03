@@ -155,14 +155,14 @@ functions/pagination.php 			| on-hold
 functions/posts.php					| done
 functions/seo.php					| deprecated
 functions/users.php					| in-progress
-js/buddypress.js					|
-js/colorbox.min.js					|
-js/contactform.js					|
+js/buddypress.js					| in-progress
+js/colorbox.min.js					| on-hold
+js/contactform.js					| deprecated
 js/flexslider.min.js				| done
 js/foundry.js						| in-progress
-js/ga.js							|
+js/ga.js							| done - embedded in foundry.js
 js/map-control.js					| done
-js/qc.js							|
+js/qc.js							| done - embedded in foundry.js
 templates/admin-bar.php				| done
 templates/admin-notifications.php 	| done
 templates/adv-search.php			| done
@@ -189,7 +189,7 @@ single/friends/requests.php			| done
 single/groups.php					| done
 single/groups/invites.php			| done
 single/home.php						| done
-single/infractions.php				|
+single/infractions.php				| done
 single/infractions/notes.php		|
 single/infractions/warning.php 		|
 single/member-header.php			| done

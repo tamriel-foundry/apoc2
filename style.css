@@ -603,6 +603,16 @@ td , th {
 	padding: 0.5em 0;
 	}
 
+hr {
+	border: 0;
+	height: 2px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(255, 225, 132, 0.75), rgba(0,0,0,0));
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(255, 225, 132, 0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(255, 225, 132, 0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(255, 225, 132, 0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(255, 225, 132, 0.75), rgba(0,0,0,0)); 
+	}
+
 
 /*---------------------------------------------
 	2.5 - Notifications
@@ -771,7 +781,7 @@ div#footer-container {
 	}
 
 
-div#primary-banner {
+div#primary-leaderboard-728 {
 	width: 728px;
 	height: 90px;
 	position: absolute;
@@ -1851,6 +1861,7 @@ li.flex-active a.slideshow-tab-title {
 	order: 10;
 	min-width: 100%;
 	margin: 0 0 1em;
+	overflow: hidden;
 	}
 
 ol#comment-list {
@@ -2094,7 +2105,7 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 .topic .freshest-time {	left: 0; }
 
 /* New topic form */
-#new-topic-title { margin-top: 0.5em; }
+#new-topic-title { margin-top: 1em; }
 #new-topic-title input {
 	width: 60%;
 	height: 32px;
@@ -2908,7 +2919,7 @@ div.wp-editor-container .mce-statusbar {
 @media (max-width: 1096px) {
 
 	/* Hide advertisment banner */
-	div#primary-banner { display: none;}
+	div#primary-leaderboard-728 { display: none;}
 
 	/* Send sidebar to bottom */
 	div#content { min-width: 100%; }

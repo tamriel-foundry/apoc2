@@ -10,6 +10,40 @@ var wp_ajax 	= siteurl	+ 'wp-admin/admin-ajax.php';
 var apoc_ajax 	= themeurl	+ "library/ajax.php";
 var $			= jQuery;
 
+/*! ----------------------------------------------------------
+	1.0 - GOOGLE ANALYTICS AND GOOGLETAG ADS
+----------------------------------------------------------- */
+
+/*! Google Analytics */
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-33555290-2', 'auto');
+ga('send', 'pageview');
+
+/*! Setup GoogleTag Ads */
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + 
+	'//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+// Primary Leaderboard
+googletag.cmd.push(function() {
+	googletag.defineSlot('/1045124/_TF_Leaderboard', [728, 90], 'primary-leaderboard-728').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();
+	googletag.enableServices();
+});
+
+// Begin Document Ready
 $(document).ready(function(){
 
 /*! ----------------------------------------------------------
@@ -116,19 +150,9 @@ $( 'select#search-for' ).bind( 'change', function() {
 });
 
 
-
-
-
-
-
-
 /*! ----------------------------------------------------------
 	5.0 - BBPRESS FUNCTIONS
 ----------------------------------------------------------- */
-$('#forums #respond .forum-header .forum-content').append( '<a class="forum-collapse collapsed" href="#"><i class="fa fa-angle-double-left"></i></a>' ).parent().next().hide();
-$('#respond .forum-header .forum-content h2').click(function(event) {
-	$('#respond .forum-header .forum-collapse').trigger("click");
-});
 
 /*! Collapsing Forum Categories */
 $('.forum-archive .forum-header .forum-freshness').append( '<a class="forum-collapse" href="#"><i class="fa fa-angle-double-down"></i></a>' );
@@ -241,11 +265,5 @@ $("#comments,#forums,#bbpress-forums").on( "click" , "a.quote-link" , function( 
 		switchEditors.switchto(editor_tmce);
 });
 
-
-/*! ----------------------------------------------------------
-	5.0 - BBPRESS FUNCTIONS
------------------------------------------------------------ */
-
-
-
+// End document ready
 });

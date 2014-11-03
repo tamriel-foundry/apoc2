@@ -147,7 +147,7 @@ extensions/shortcodes.php			|
 extensions/slides.php				| done
 extensions/thumbnail.php 			| done
 extensions/widgets.php 				| done
-functions/comments.php				| in-progress
+functions/comments.php				| done
 functions/context.php				| in-progress
 functions/core.php 					| done
 functions/login.php					| deprecated
@@ -166,7 +166,7 @@ js/qc.js							| done - embedded in foundry.js
 templates/admin-bar.php				| done
 templates/admin-notifications.php 	| done
 templates/adv-search.php			| done
-templates/comment-edit.php			|
+templates/comment-edit.php			| done
 templates/comment.php				| done
 templates/comments.php				| done
 templates/loop-single-event.php 	|

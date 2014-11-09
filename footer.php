@@ -3,7 +3,7 @@
  * Apocrypha Theme Footer Template
  * Andrew Clayton
  * Version 2.0
- * 4-29-2014
+ * 11-09-2014
  */
 ?>
 	
@@ -17,8 +17,25 @@
 		</div><!-- #footer-divider -->	
 	
 		<nav id="footer-navigation">
-		
-		
+			<a class="footer-nav-item" href="<?php echo SITEURL . '/about-us/'; ?>" title="Learn more about Tamriel Foundry">
+				<img id="footer-about" class="footer-nav-image" src="<?php echo THEME_URI; ?>/images/backgrounds/about-us.png" height="180" width="180"/>
+				<h3>About Us</h3>
+			</a>
+
+			<a class="footer-nav-item" href="<?php echo SITEURL . '/activity/'; ?>" title="Browse recent Tamriel Foundry activity">
+				<img id="footer-guides" class="footer-nav-image" src="<?php echo THEME_URI; ?>/images/backgrounds/guides.png" height="180" width="180"/>
+				<h3>Activity</h3>
+			</a>
+
+			<a class="footer-nav-item" href="<?php echo SITEURL . '/forums/'; ?>" title="Browse the forums">
+				<img id="footer-forums" class="footer-nav-image" src="<?php echo THEME_URI; ?>/images/backgrounds/forums.png" height="180" width="180"/>
+				<h3>Forums</h3>
+			</a>
+
+			<a class="footer-nav-item" href="<?php echo SITEURL . '/groups/' ?>" title="Browse groups and guilds">
+				<img id="footer-guilds" class="footer-nav-image" src="<?php echo THEME_URI; ?>/images/backgrounds/guilds.png" height="180" width="180"/>
+				<h3>Guilds</h3>
+			</a>	
 		</nav><!-- #footer-navigation -->	
 		
 		<footer id="site-footer">
@@ -32,7 +49,6 @@
 	
 </body>
 </html>
-
 
 <!-- 
 	<?php echo get_num_queries(); ?> queries in <?php timer_stop(1); ?> seconds.

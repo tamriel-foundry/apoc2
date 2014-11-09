@@ -12,81 +12,174 @@
   font-family: 'Cinzel';
   font-style: normal;
   font-weight: 400;
-  src: local('Cinzel-Regular'), url(http://themes.googleusercontent.com/static/fonts/cinzel/v2/mLL0ZqnXRx3m16FnBy9gcg.woff) format('woff');
-	}
+  src: local('Cinzel-Regular'), url(http://fonts.gstatic.com/s/cinzel/v4/GUdIaltLF-l6nIaNvN3eY_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Cinzel-Bold'), url(http://fonts.gstatic.com/s/cinzel/v4/L74890HNVnUypqWjqGUt1RJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-	}
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://fonts.gstatic.com/s/opensans/v10/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://fonts.gstatic.com/s/opensans/v10/xjAJXh38I15wypJXxuGMBo4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 	
 /*--------------------------------------------------------------
 	2.0 - NON STRUCTURAL ELEMENTS
 --------------------------------------------------------------*/
  
 body {
-	background: #222;
-	font-size: 14px;
+	margin: 0;
+	padding: 1em;
+	position: relative;
 	font-family: 'Open Sans' , 'Sans-Serif';
 	font-weight: normal;
+	font-size: 14px;
 	line-height: 20px;
 	color: #D1CBBC;
+	background: #222;
 	}
 
-/* Text Elements */
- p {
+/* Paragraph */
+p {
 	margin: 0 0 1em;
 	}
 
+/* Lists */
 ul,ol {
 	margin: 0 0 1em;
 	}
 
-a {
-	position: relative;
-	color: #900;
-	text-decoration: none;
-	cursor: pointer;
+ul {
+	list-style: square;
+	padding: 0 0 0 2em;
 	}
 
-a:hover {
-	color: #C00;
+ol {
+	list-style: upper-roman;
+	padding: 0 0 0 2.5em;
+	}
+
+li > ul, li > ol {
+	margin: 0;
+	padding: 0 0 0 1.5em;
+	}
+
+/* Links */
+a {
+	color: #c5772b;
+	text-decoration: none;
+	-webkit-transition: color 0.2s;
+	-moz-transition: color 0.2s;
+	-ms-transition: color 0.2s;
+	-o-transition: color 0.2s;
+	transition: color 0.2s;
+	cursor: pointer;
+	}
+a:hover { 
+	color: #ffb14c; 
 	}
 
 /* Headers */
 h1 {
-	font-family: Cinzel , 'Book Antiqua' , Serif;
-	font-size: 1.75em; 
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.5em; 
+	line-height: 1em;
 	font-weight: bold;
-	margin-bottom: 0.5em; 	
+	text-shadow: 1px 1px #000;
+	margin-bottom: 0.5em; 
 	}
 
 h2 {
-	font-size: 1.25em; 
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.25em;
+	line-height: 1.25em;
+	font-weight: bold;
+	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em; 
-	font-weight: bold; 
 	}
 
 h3 {
-	font-family: Cinzel , 'Book Antiqua' , Serif;
-	font-size: 1.25em; 
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.25em;
+	line-height: 1.25em;
+	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em;
 	}
 
 h4 {
-	font-size: 1em;
+	font-size: 1.125em;
 	text-transform: uppercase; 
+	text-shadow: 1px 1px #000;
 	margin-bottom: 0.5em;  
 	}
 
 h5 {
-	font-size: 1em; 
-	font-weight: bold; 
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.125em; 
+	text-transform: uppercase; 
+	text-shadow: 1px 1px #000;
 	}
 
 h6 {
 	font-size: 0.875em;
 	margin-bottom: 0; 
 	}
+
+/* Inflections */
+em { font-style: italic; }
+strong{ font-weight: bold; }
+
+/* Quotes */
+blockquote {
+	width: 100%;
+	float: left;
+	position: relative;
+	margin: 0 0 1em;
+	padding: 0.5em 1em;
+	font-family: 'Palatino Linotype' , 'Book Antiqua' , serif;
+	font-size: 1em;
+	color: #A29C8E;
+	text-shadow: 1px 1px #000;
+	background: rgba(17,17,17,0.25);
+	}
+blockquote > p { margin-bottom: 0.5em; }
+blockquote > p:last-child { margin: 0; }
+
+.quote {
+	width: 50%;
+	padding: 0.5em 1em;
+	margin: 1em 0;
+	position: relative;
+	overflow: hidden;
+	background: rgba(17,17,17,0.25);
+	border: 1px solid #000;
+	border-radius: 3px;
+	box-shadow: 0 0 2px #333 inset;
+	}
+.quote > p.quote-author{ margin: 0; }
+.quote > p.quote-author + * { display: none; }

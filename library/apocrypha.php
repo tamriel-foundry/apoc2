@@ -49,8 +49,6 @@ class Apocrypha {
 			
 			// Hook actions
 			self::$instance->actions();
-			
-			// Register filters
 		}
 		
 		// Return the theme class
@@ -104,6 +102,7 @@ class Apocrypha {
 
 		// Extensions
 		require( LIB_DIR . 'extensions/search.php' );
+		require( LIB_DIR . 'extensions/shortcodes.php' );
 		require( LIB_DIR . 'extensions/slides.php' );
 		require( LIB_DIR . 'extensions/thumbnail.php' );
 		require( LIB_DIR . 'map/map.php' );

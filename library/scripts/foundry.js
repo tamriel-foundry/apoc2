@@ -3,9 +3,9 @@
  * Andrew Clayton
  * Version 2.0
  * 5-6-2014
-========================================================================== */
+----------------------------------------------------------- */
 var	siteurl		= 'http://localhost/tamrielfoundry/';
-var themeurl	= siteurl	+ 'wp-content/themes/foundry/';
+var themeurl	= siteurl	+ 'wp-content/themes/apoc2/';
 var wp_ajax 	= siteurl	+ 'wp-admin/admin-ajax.php';
 var apoc_ajax 	= themeurl	+ "library/ajax.php";
 var $			= jQuery;
@@ -15,10 +15,12 @@ var $			= jQuery;
 ----------------------------------------------------------- */
 
 /*! Google Analytics */
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+(function(i,s,o,g,r,a,m){
+	i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)		
+})
+(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-33555290-2', 'auto');
 ga('send', 'pageview');
 
@@ -264,6 +266,94 @@ $("#comments,#forums,#bbpress-forums").on( "click" , "a.quote-link" , function( 
 	editor_tmce = document.getElementById( editor + '-tmce' );
 		switchEditors.switchto(editor_tmce);
 });
+
+/*! Collapsing Quotes */
+$('div.quote').children('div.quote').addClass("subquote");
+$('div.subquote').append('<button class="quote-toggle button-dark">Expand Quote</button>');
+$('div.subquote').children().not('p.quote-author,div.subquote,button').hide();
+$('button.quote-toggle').click(function() {
+	var oldtext = newtext = '';
+	$(this).parent().children().not('p.quote-author,div.subquote,button').slideToggle();
+	oldtext = $(this).text();
+	newtext = ( oldtext == "Expand Quote" ) ? "Collapse Quote" : "Expand Quote";
+	$(this).text(newtext);
+});
+
+/*! Collapsing Spoilers */
+$('div.spoiler').append('<button class="spoiler-toggle button-dark">Reveal Spoiler</button>');
+$('div.spoiler').children().not('p.spoiler-title,button').hide();
+$('button.spoiler-toggle').click(function() {
+	var oldtext = newtext = '';
+	$(this).parent().children().not('p.spoiler-title,button').slideToggle(500,"swing");
+	oldtext = $(this).text();
+	newtext = ( oldtext == "Reveal Spoiler" ) ? "Conceal Spoiler" : "Reveal Spoiler";
+	$(this).text(newtext);
+});
+
+/*! ----------------------------------------------------------
+	6.0 - BUDDYPRESS FUNCTIONS
+----------------------------------------------------------- */
+
+/*! Buddypress Frontend Notifications */
+$("a.notification-clear").click( function( event ){
+
+	// Prevent default
+	event.preventDefault();
+	
+	// Get some info about what we are doing 
+	var button	= $(this);
+	var type 	= button.data('type');
+	var id 		= button.data('id');
+	var count	= button.data('count') || 1;
+
+	// Tooltip
+	button.html('<i class="fa fa-spinner fa-spin"></i>' );
+
+	// Submit the POST AJAX 
+	$.post( apoc_ajax, {
+			'action'	: 'apoc_clear_notification',
+			'type'		: type,
+			'id' 		: id,
+			'count'		: count,
+		},
+		function( response ) {
+			if( response ) {
+				console.log(response);
+				
+				// Change the notification count and remove the notification
+				var counter	= button.closest( 'li.notification-group' ).children('span.notification-count');
+				newcount = counter.html().split('</i>');
+
+				// Update the count and replace the counter
+				counter.html( newcount[0] + (newcount[1] - count) );
+				button.parent().slideUp();
+				
+				// Update the document title
+				title_notification_count();
+			}
+		}
+	);
+});
+
+/*! Title Notifications */
+function title_notification_count() {
+
+	// Calculate the total count
+	var count = 0;
+	$.each( ['activity','messages','groups','friends'] , function(index,type) {
+		var target = $("li#notifications-"+type+" span.notification-count");
+		count = count + parseInt( target.text() );
+	});
+	
+	// If we have notifications, add them to the title
+	if ( count > 0 ) {
+		var doctitle = $('title').text().replace(/\[.*\]/,'');
+		doctitle = "[" + count + "]" + doctitle;
+		$('title').text(doctitle);
+	}
+}
+// Run it once on document ready
+title_notification_count();
 
 // End document ready
 });

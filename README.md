@@ -125,16 +125,16 @@ guild-menu.php						|
 guild-post.php						|
 guild-roster.php					|
 guild-sidebar.php					|
+css/entropy-rising.css				|
 
 LIBRARY								| PROGRESS
 ----------------------------------- | -----------
-ajax.php							|
+ajax.php							| done
 apocrypha.php						| in-progress
 admin/ajax.php						| in-progress
 admin/postmeta.php					| done
 css/editor-buttons.css 				| done
 css/editor-content.css 				| done
-css/entropy-rising.css				|
 css/login-style.css					|
 css/map-style.css					| done	
 extensions/bbpress.php				| done
@@ -143,7 +143,7 @@ extensions/buddypress.php			| in-progress
 extensions/events.php				|
 extensions/map.php					| done
 extensions/search.php				| done
-extensions/shortcodes.php			|
+extensions/shortcodes.php			| done
 extensions/slides.php				| done
 extensions/thumbnail.php 			| done
 extensions/widgets.php 				| done

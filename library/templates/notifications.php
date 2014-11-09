@@ -9,9 +9,6 @@
 // Retrieve the user's notifications
 $nots = apoc_get_notifications();
 
-// Spoof activity for development
-$nots['counts']['activity'] = 2; 
-
 // Create existence flags
 $activity = $nots['counts']['activity'] > 0;
 $messages = $nots['counts']['messages'] > 0;
@@ -26,7 +23,10 @@ $groups   = $nots['counts']['groups'] > 0;
 		<div class="notification-drop">
 			<ul class="notifications-list">
 				<?php foreach( $nots['activity'] as $id => $not ) : ?>
-				<li><?php echo $not->desc; ?></li>
+				<li>
+					<?php echo $not->desc; ?>
+					<a class="notification-clear" data-type="<?php echo $not->component_action; ?>" data-id="<?php echo $not->id; ?>" data-count="<?php echo $not->count; ?>"><i class="fa fa-remove"></i></a>
+				</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -40,7 +40,10 @@ $groups   = $nots['counts']['groups'] > 0;
 		<div class="notification-drop">
 			<ul class="notifications-list">
 				<?php foreach( $nots['messages'] as $id => $not ) : ?>
-				<li><?php echo $not->desc; ?></li>
+				<li>
+					<?php echo $not->desc; ?>
+					<a class="notification-clear" data-type="<?php echo $not->component_action; ?>" data-id="<?php echo $not->id; ?>" data-count="<?php echo $not->count; ?>"><i class="fa fa-remove"></i></a>
+				</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -53,7 +56,10 @@ $groups   = $nots['counts']['groups'] > 0;
 		<div class="notification-drop">
 			<ul class="notifications-list">
 				<?php foreach( $nots['friends'] as $id => $not ) : ?>
-				<li><?php echo $not->desc; ?></li>
+				<li>
+					<?php echo $not->desc; ?>
+					<a class="notification-clear" data-type="<?php echo $not->component_action; ?>" data-id="<?php echo $not->id; ?>" data-count="<?php echo $not->count; ?>"><i class="fa fa-remove"></i></a>
+				</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -66,7 +72,10 @@ $groups   = $nots['counts']['groups'] > 0;
 		<div class="notification-drop">
 			<ul class="notifications-list">
 				<?php foreach( $nots['groups'] as $id => $not ) : ?>
-				<li><?php echo $not->desc; ?></li>
+				<li>
+					<?php echo $not->desc; ?>
+					<a class="notification-clear" data-type="<?php echo $not->component_action; ?>" data-id="<?php echo $not->id; ?>" data-count="<?php echo $not->count; ?>"><i class="fa fa-remove"></i></a>
+				</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>

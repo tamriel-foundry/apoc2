@@ -386,7 +386,7 @@ class Apoc_BuddyPress {
 			global $user;
 			$user = new Apoc_User( bp_displayed_user_id() , 'profile' );
 			$level = $user->warnings['level'];
-			$level = ( $level > 0 ) ? '<span>' . $level . '</span>' : '';
+			$level = ( $level > 0 ) ? '<span class="activity-count">' . $level . '</span>' : '';
 			$notes = $user->mod_notes['count'];
 			$notes = ( $notes > 0 ) ? '<span class="activity-count">' . $notes . '</span>' : '';
 			bp_core_new_nav_item( array(
@@ -399,7 +399,7 @@ class Apoc_BuddyPress {
 		
 			// Add infraction overview screen
 			bp_core_new_subnav_item( array( 
-				'name' 					=> 'Status',
+				'name' 					=> 'History' . $level,
 				'slug' 					=> 'status',
 				'parent_url' 			=> $bp->displayed_user->domain . 'infractions/',
 				'parent_slug' 			=> 'infractions',
@@ -414,16 +414,16 @@ class Apoc_BuddyPress {
 					'parent_url' 		=> $bp->displayed_user->domain . 'infractions/',
 					'parent_slug' 		=> 'infractions',
 					'screen_function' 	=> array( $this , 'warning_screen' ),
-					'position' 			=> 20 ) );
+					'position' 			=> 30 ) );
 			
 				// Add moderator notes screen
 				bp_core_new_subnav_item( array( 
-					'name' 				=> 'Moderator Notes' . $notes,
+					'name' 				=> 'Mod Notes' . $notes,
 					'slug' 				=> 'notes',
 					'parent_url' 		=> $bp->displayed_user->domain . 'infractions/',
 					'parent_slug' 		=> 'infractions',
 					'screen_function' 	=> array( $this , 'modnotes_screen' ),
-					'position' 			=> 30 ) );
+					'position' 			=> 20 ) );
 			}
 		}
 

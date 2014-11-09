@@ -1,6 +1,6 @@
 <?php 
 /**
- * Apocrypha Theme Profile Groups Component
+ * Apocrypha Theme Member Infractions Component
  * Andrew Clayton
  * Version 2.0
  * 9-30-2014
@@ -59,9 +59,8 @@ $level	= $user->warnings['level'] > 0 ? $user->warnings['level'] : 0;
 					
 					<div class="infraction-content">
 						<?php echo $entry['reason']; ?>
-						
 						<?php if ( current_user_can( 'moderate' ) ) : ?>
-							<a class="clear-infraction button" href="<?php echo bp_core_get_user_domain( $user_id ) . 'infractions?id=' . $id . '&amp;_wpnonce=' . wp_create_nonce( 'clear-single-infraction' ); ?>" title="Delete Infraction"><i class="fa fa-trash"></i>Delete</a>
+							<a class="clear-infraction button" href="<?php echo bp_core_get_user_domain( $user->id ) . 'infractions?id=' . $id . '&amp;_wpnonce=' . wp_create_nonce( 'clear-single-infraction' ); ?>" title="Delete Infraction"><i class="fa fa-trash"></i>Delete</a>
 						<?php endif; ?>
 					</div>	
 				</li>

@@ -3,8 +3,9 @@ apoc2
 
 The new Tamriel Foundry apocrypha theme!
 
-
-DATABASE CHANGES
+-----------------------------------
+	DATABASE CHANGES
+-----------------------------------
 
 group_meta {
 	group_platform -> group_server
@@ -19,7 +20,10 @@ BuddyPress options {
 	allow group creation for everyone
 }
 
-CODE HACKS
+-----------------------------------
+	CODE HACKS
+-----------------------------------
+
 bbpress/includes/extend/buddypress/groups.php
 	setup_variables()
 		$this->enable_create_step   = false;
@@ -30,13 +34,12 @@ bbpress/includes/extend/buddypress/groups.php
 
 	display_forums() - restructure, change div#forums, remove <h3>s
 
-
-
 buddypress/bp-groups/bp-groups-template.php
 	bp_group_admin_tabs() - change "Photo" to "Avatar"
 
-
-Apocrypha2 Theme File Index 
+-----------------------------------
+	FILE INDEX
+-----------------------------------
 
 ROOT THEME							| PROGRESS
 ----------------------------------- | -----------
@@ -48,7 +51,7 @@ archive.php							| deprecated
 author.php							| done
 calendar.php						|
 category.php						| done
-footer.php							| in-progress
+footer.php							| done
 functions.php						| in-progress
 header.php							| done
 home.php							| done
@@ -190,8 +193,8 @@ single/groups.php					| done
 single/groups/invites.php			| done
 single/home.php						| done
 single/infractions.php				| done
-single/infractions/notes.php		|
-single/infractions/warning.php 		|
+single/infractions/notes.php		| done
+single/infractions/warning.php 		| done
 single/member-header.php			| done
 single/messages.php					|
 single/messages/compose.php			|

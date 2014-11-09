@@ -2744,7 +2744,10 @@ div#character-sheet > ul li span {
 	border-bottom: 1px solid #000;
 	position: relative;
 	}
-.infraction-list > li + li { border-top: 1px solid #333; }
+.infraction-list > li + li { 
+	padding-top: 0.5em;
+	border-top: 1px solid #333; 
+	}
 .infraction-list li > header {
 	padding: 0.5em 1em;
 	background: rgba(0,0,0,0.5);

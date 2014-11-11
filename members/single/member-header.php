@@ -68,8 +68,14 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 			<header class="widget-header">
 				<h3 class="widget-title">User Badges</h3>
 			</header>
-			<ul id"user-badges">
-				<li>badge</li>
+			<ul id="user-badges">
+				<?php if ( !empty( $user->badges ) ) :
+				foreach ( $user->badges as $badge ) : ?>
+					<li class="user-badge <?php echo $badge['class']; ?> <?php echo $badge['tier']; ?>" title="<?php echo $badge['name']; ?>"></li>
+				<?php endforeach;
+				else : ?>
+					<li>No badges earned yet!</li>
+				<?php endif; ?>
 			</ul>
 		</div>
 

@@ -102,6 +102,9 @@ class Apoc_User {
 			// Generate profile HTML sections
 			$this->byline		= $this->byline();
 
+			// Get user badges
+			$this->badges		= $this->badges();
+
 			// Populate volunteered contact methods
 			$this->contacts		= array();
 			$contacts 			= array( 'esoacct' , 'twitter' , 'facebook' , 'gplus' , 'steam' , 'youtube' , 'twitch' , 'oforums' );
@@ -359,6 +362,111 @@ class Apoc_User {
 		// Return the byline
 		return $byline;
 	}
+
+	/**
+	 * Get the list of badges earned by the user
+	 * @version 2.0
+	 */
+	function badges() {
+		
+		// Setup array
+		$badges = array();
+
+		// Role Badges
+		if ( 'administrator' == $this->roles[0] || 'bbp_moderator' == $this->roles[1] || 'bbp_keymaster' == $this->roles[1] ) {
+			$badges['tfteam'] = array(
+				'name'		=> 'TF Team Member',
+				'class'		=> 'tfteam',
+				'tier'		=> 'gold' );
+		}
+		elseif ( 'zenimax' == $this->roles[0] ) {
+			$badges['zenimax'] = array(
+				'name'		=> 'ZeniMax Online Staff',
+				'class'		=> 'zenimax',
+				'tier'		=> 'gold' );
+		}
+
+		// Veterancy Badges
+		if( $this->regdate <= strtotime( '11/12/2012' ) ) {
+			$badges['founder']	= array(
+				'name'		=> 'Founder',
+				'class'		=> 'founder',
+				'tier'		=> 'gold' );
+		}
+		if( $this->regdate <= strtotime( '-3 years' ) ) {
+			$badges['veteran']	= array(
+				'name'		=> 'Three Year Veteran',
+				'class'		=> 'veteran',
+				'tier'		=> 'gold' );
+		}
+		elseif( $this->regdate <= strtotime( '-2 years' ) ) {
+			$badges['veteran']	= array(
+				'name'		=> 'Two	Year Veteran',
+				'class'		=> 'veteran',
+				'tier'		=> 'silver' );
+		}
+		elseif( $this->regdate <= strtotime( '-1 year' ) ) {
+			$badges['veteran']	= array(
+				'name'		=> 'One Year Veteran',
+				'class'		=> 'veteran',
+				'tier'		=> 'bronze' );
+		}
+
+		// Posting Badges
+		if( $this->posts['total'] >= 10 ) {
+			if 		( $this->posts['total'] >= 1000 ) 	$badge_tier = 'gold';
+			elseif 	( $this->posts['total'] >= 100 ) 	$badge_tier = 'silver';
+			else										$badge_tier = 'bronze';
+			$badges['posting']	= array(
+				'name'		=> $this->rank['rank_title'],
+				'class'		=> 'posting',
+				'tier'		=> $badge_tier );
+		}
+		if ( isset( $this->posts['articles'] ) && $this->posts['articles'] > 0 ) {
+			$badges['author'] = array(
+				'name'		=> 'Contributor',
+				'class'		=> 'author',
+				'tier'		=> 'gold' );
+		}		
+
+		// Social Badges
+		if ( 1 <= bp_get_total_group_count_for_user( $this->id ) ) {
+			$badges['grouped'] = array(
+				'name'		=> "It's Dangerous To Go Alone",
+				'class'		=> 'grouped',
+				'tier'		=> 'bronze', );
+		}
+		if ( groups_is_user_member( $this->id , 1 ) ) {
+			$badges['ermember'] = array(
+				'name'		=> 'Entropy Rising Member',
+				'class'		=> 'ermember',
+				'tier'		=> 'gold' );
+		}
+		if ( $this->donor >= 5 ) {
+			$badges['supporter'] = array(
+				'name'		=> 'Tamriel Foundry Supporter',
+				'class'		=> 'supporter',
+				'tier'		=> 'gold' );
+		}
+
+		// Game Badges
+		if ( '' != $this->faction ) {
+			$badges['declared'] = array(
+				'name'		=> 'Declared Allegiance',
+				'class'		=> $this->faction,
+				'tier'		=> 'bronze',
+		);}
+		if ( $this->charname && $this->race && $this->class && $this->prefrole ) {
+			$badges['character'] = array(
+				'name'		=> 'In Character!',
+				'class'		=> 'character',
+				'tier'		=> 'silver',
+		);}			
+
+		// Return badges
+		return $badges;
+	}
+	
 
 
 	/** 

@@ -940,10 +940,10 @@ nav#footer-navigation {
 	margin: 1em 0;
 	padding: 10px;
 	text-align: center;
-	background: rgba(51,51,51,0.5);
+	background: rgba(102,102,102,0.25);
 	border: 1px solid #000;
 	border-radius: 5px;
-	box-shadow: 0 0 2px #444 inset;
+	box-shadow: 0 0 2px #555 inset;
 	}
 .footer-nav-item > img.footer-nav-image {
 	position: absolute;
@@ -951,7 +951,8 @@ nav#footer-navigation {
 	}
 .footer-nav-item > h3 {
 	position: relative;
-	top: 85px;
+	font-size: 1.125em;
+	top: 88px;
 	margin: 0;
 	color: #D1CBBC;
 	}
@@ -2636,6 +2637,38 @@ form.ac-form span {
 	min-width: 300px;
 	margin-right: 1em;
 	}
+
+/* User Badges */
+#user-badges {
+	display: flex;
+	flex-flow: row wrap;
+	}
+#user-badges > li.user-badge {
+	min-width: 50px;
+	max-width: 50px;
+	height: 50px;
+	margin: 2px 4px;
+	flex: 1;
+	background-image: url("images/icons/badges.jpg?v=0.1");
+	border: 1px solid #111;
+	border-radius: 3px;
+	box-sizing: content-box;
+	}
+li.user-badge.founder 			{ background-position: 0 0; }
+li.user-badge.veteran 			{ background-position: -50px 0; }
+li.user-badge.character 		{ background-position: -150px 0; }
+li.user-badge.tfteam 			{ background-position: 0 -100px; }
+li.user-badge.posting.bronze 	{ background-position: 0 -50px; }
+li.user-badge.posting.silver 	{ background-position: -50px -50px; }
+li.user-badge.posting.gold 		{ background-position: -100px -50px; }
+li.user-badge.author 			{ background-position: -150px -50px; }
+li.user-badge.ermember 			{ background-position: -50px -100px; }
+li.user-badge.zenimax			{ background-position: -100px -100px; }
+li.user-badge.grouped 			{ background-position: -150px -100px; }
+li.user-badge.aldmeri 			{ background-position: 0 -150px; }
+li.user-badge.daggerfall 		{ background-position: -50px -150px; }
+li.user-badge.ebonheart 		{ background-position: -100px -150px; }
+li.user-badge.supporter 		{ background-position: -150px -150px; }
 
 /* Character Sheet */
 div#character-sheet {

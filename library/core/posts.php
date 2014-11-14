@@ -9,8 +9,6 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-
-
 /**
  * Generates a class for the homepage headers.
  * Randomizes between the six artistic header images.
@@ -29,7 +27,6 @@ function apoc_post_header_class( $context ) {
 	$header = array_shift( apoc()->post_headers );
 	echo $context . '-header-' . $header;
 }
-
 
 /**
  * Generates a byline for posts and pages

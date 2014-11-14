@@ -138,7 +138,7 @@ admin/ajax.php						| in-progress
 admin/postmeta.php					| done
 css/editor-buttons.css 				| done
 css/editor-content.css 				| done
-css/login-style.css					|
+css/login-style.css					| done
 css/map-style.css					| done	
 extensions/bbpress.php				| done
 extensions/breadcrumbs.php			| done
@@ -153,7 +153,7 @@ extensions/widgets.php 				| done
 functions/comments.php				| done
 functions/context.php				| in-progress
 functions/core.php 					| done
-functions/login.php					| deprecated
+functions/login.php					| done
 functions/pagination.php 			| on-hold				
 functions/posts.php					| done
 functions/seo.php					| deprecated

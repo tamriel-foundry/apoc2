@@ -96,6 +96,7 @@ class Apocrypha {
 		require( LIB_DIR . 'core/core.php' );
 		require( LIB_DIR . 'core/comments.php' );
 		require( LIB_DIR . 'core/context.php' );
+		require( LIB_DIR . 'core/login.php' );
 		require( LIB_DIR . 'core/posts.php' );
 		require( LIB_DIR . 'core/users.php' );
 		require( LIB_DIR . 'core/widgets.php' );

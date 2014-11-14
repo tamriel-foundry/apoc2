@@ -1,0 +1,220 @@
+/* 
+Apocrypha Theme Login Stylesheet
+Version: 0.1
+Author: Andrew Clayton
+Copyright (c) 2013 Andrew Clayton.  All rights reserved.
+*/
+
+
+/*---------------------------------------------
+	1.0 - IMPORT FONTS
+----------------------------------------------*/
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cinzel-Regular'), url(http://fonts.gstatic.com/s/cinzel/v4/GUdIaltLF-l6nIaNvN3eY_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Cinzel-Bold'), url(http://fonts.gstatic.com/s/cinzel/v4/L74890HNVnUypqWjqGUt1RJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://fonts.gstatic.com/s/opensans/v10/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://fonts.gstatic.com/s/opensans/v10/xjAJXh38I15wypJXxuGMBo4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/*--------------------------------------------------------------
+	2.0 - NON STRUCTURAL ELEMENTS
+--------------------------------------------------------------*/
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	box-sizing: border-box;
+	}
+
+body.login {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	background-image: url("../../images/backgrounds/bg-loop.jpg");
+	background-position: 50% 0;
+	font-family: 'Open Sans' , 'Sans-Serif';
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 20px;
+	color: #D1CBBC;
+	}
+
+/*--------------------------------------------------------------
+	2.0 - STRUCTURAL ELEMENTS
+--------------------------------------------------------------*/
+
+div#login {
+	width: 320px;
+	padding: 10% 0 0;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	}	
+
+
+div#login h1 a {
+	width: 100%;
+	height: 40px;
+	padding: 0;
+	background-image: url(../../images/headers/login-header.png);
+	background-size: auto;
+	}
+
+/*--------------------------------------------------------------
+	3.0 - LOGIN FORM
+--------------------------------------------------------------*/
+
+form#loginform, 
+form#lostpasswordform {
+	flex: 1;
+	margin: 0 0 1em;
+	padding: 0 0.5em;
+	background: none;
+	box-shadow: none;
+	overflow: visible;
+	}	
+
+
+/* Form Fields */
+#loginform input[type="text"],
+#loginform input[type="password"],
+#lostpasswordform input[type="text"] {
+	height: 2em;
+	line-height: 1.5em;
+	margin: 5px 0;
+	padding: 0 4px;
+	background: #D1CBBC;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #000;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	color: #000;
+	vertical-align: middle;
+	}	
+
+#loginform input[type="checkbox"],
+#lostpasswordform input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+	background: #D1CBBC;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #000;
+	}
+
+#loginform input[type="submit"],
+#lostpasswordform  input[type="submit"] {
+	width: 100%;
+	height: 2.5em;
+	display: block;
+	padding: 0.5em;
+	margin: 0.5em 0 0;
+	background: #dddddd;
+	background: -moz-linear-gradient(top, #dddddd 0%, #f3ead0 50%, #c1bcae 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(50%,#f3ead0), color-stop(100%,#c1bcae));
+	background: -webkit-linear-gradient(top, #dddddd 0%,#f3ead0 50%,#c1bcae 100%);
+	background: -o-linear-gradient(top, #dddddd 0%,#f3ead0 50%,#c1bcae 100%);
+	background: -ms-linear-gradient(top, #dddddd 0%,#f3ead0 50%,#c1bcae 100%);
+	background: linear-gradient(to bottom, #dddddd 0%,#f3ead0 50%,#c1bcae 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#c1bcae',GradientType=0 );
+	border: 1px solid #111;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #000;
+	font-family: 'Palatino Linotype', 'Book Antiqua' , serif;
+	font-size: 1.25em;
+	color: #111;
+	}
+
+#loginform input[type="submit"]:hover,
+#lostpasswordform input[type="submit"]:hover {
+	color: #FFB14C;
+	box-shadow: 0 0 6px #c60;
+	}
+
+
+/* Labels */
+#loginform label,
+#lostpasswordform label {
+	display: block;
+	margin: 0 0 0.5em;
+	color: #D1CBBC;
+	}
+
+
+/* Navigation */
+#login p#nav,
+#login p#backtoblog {
+	flex: 1;
+	padding: 0.25em 1em;
+	margin: 0;
+	color: #D1CBBC;
+	text-shadow: 1px 1px #000;
+	}
+
+div#login a,
+div#login p#nav a,
+div#login p#backtoblog a {
+	font-size: 1.125em;
+	color: #D1CBBC;
+	text-decoration: none;
+	}	
+div#login a:hover,
+div#login p#nav a:hover,
+div#login p#backtoblog a:hover {
+	color: #ffb14c; 
+	}
+
+
+/* Error Messages */
+div#login p.message,
+div#login div#login_error {
+	flex: 1;
+	padding: 0.5em;
+	margin: 1em 0.5em;
+	background: rgba(51,0,0,0.75);
+	border: 1px solid #900;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #000;
+	font-size: 0.875em;
+	}
+div#login p.message {
+	background: rgba(204, 153, 0, 0.75);
+	border: 1px solid #FC0;
+	color: #000;
+	}

@@ -30,17 +30,16 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 
 	<div id="profile-content">
 		<nav id="directory-nav" role="navigation">
-			<ul id="directory-actions" class="directory-tabs">
+			<ul id="directory-actions">
 				<?php bp_get_displayed_user_nav(); ?>
 			</ul>
 		</nav>
 
 		<blockquote id="profile-status" class="user-status">
-			<p><?php echo '@' . $user->nicename . ' &rarr; <span id="latest-status">' . bp_get_activity_latest_update( $user->id ); ?></span></p>
+			<?php echo '@' . $user->nicename . ' &rarr; '; ?>
+			<?php if ( !empty($user->status['content']) ) echo $user->status['content']; ?>
 			<?php if ( bp_is_my_profile() ) : ?>
 				<a class="update-status-button button-dark"><i class="fa fa-pencil"></i>What's New?</a>
-			<?php else : ?>
-				<span class="activity"><?php bp_last_activity( $user->id ); ?></span>
 			<?php endif; ?>
 		</blockquote>
 

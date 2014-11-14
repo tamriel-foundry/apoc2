@@ -7,8 +7,8 @@
  */
 ?>
 
-<nav class="reply-header" id="subnav">
-	<ul id="profile-tabs" class="tabs" role="navigation">
+<nav id="subnav" class="reply-header" >
+	<ul id="profile-tabs" role="navigation">
 		<?php bp_get_options_nav(); ?>
 	</ul>
 	<div id="activity-filter-select" class="filter">

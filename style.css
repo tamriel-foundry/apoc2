@@ -256,7 +256,7 @@ blockquote {
 	}
 blockquote:before {
 	position: absolute;
-	top: 0.5em;
+	top: 8px;
 	left: 0.5em;
 	font-family: FontAwesome;
 	color: #333;
@@ -929,7 +929,7 @@ nav#footer-navigation {
 	flex-flow: row wrap;
 	justify-content: space-around;
 	max-width: 1000px;
-	margin: 0 auto;
+	margin: -70px auto 0;
 	}
 .footer-nav-item {
 	max-width: 200px;
@@ -937,7 +937,7 @@ nav#footer-navigation {
 	height: 130px;
 	flex: 1;
 	position: relative;
-	margin: 1em 0;
+	margin: 90px 0 1em;
 	padding: 10px;
 	text-align: center;
 	background: rgba(102,102,102,0.25);
@@ -1438,7 +1438,7 @@ ul#top-menu {
 /* Top level items */
 li.top {
 	height: 38px;
-	min-width: 180px;
+	min-width: 160px;
 	flex: 1;
 	border: 1px solid rgba(0,0,0,0);
 	border-bottom:none;
@@ -1509,6 +1509,7 @@ li.top:hover span.top-label > i {
 /* Dropdown containers */
 div.dropdown {
 	width: 100%;
+	min-width: 220px;
 	height: 0;
 	max-height: 0;
 	overflow: hidden;
@@ -1959,9 +1960,7 @@ ol#comment-list {
 /*---------------------------------------------
 	7.2 - Respond Form
 ----------------------------------------------*/
-fieldset.reply-form {
-	padding: 0 1em;
-	}
+form#new-post { padding: 1em; }
 .reply-form label, 
 .topic-form label,	
 .merge-form label, 	
@@ -2053,7 +2052,6 @@ li.forum:last-child, li.topic:last-child { border-bottom: none; }
 ----------------------------------------------*/
 .forum-content {
 	flex: 6;
-	min-width: 300px;
 	margin: 0.5em;
 	float: left;
 	}
@@ -2346,6 +2344,11 @@ ul#directory-actions > li {
 #subnav #group-status-button { top: 4px; }
 
 /* Directory Content */
+.dir-list {
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	}
 ul.directory-list {
 	width: 100%;
 	float: left;
@@ -2354,7 +2357,6 @@ ul.directory-list {
 	list-style: none;
 	border-bottom: 1px solid #333;
 	}
-#activity-directory ul.directory-list { border-bottom: none; }
 ul.directory-list > li {
 	width: 100%;
 	border-bottom: 1px solid #000;
@@ -2547,15 +2549,15 @@ form.ac-form span {
 	width: 100%;
 	float: left;
 	margin: 0.5em 0;
+	position: relative;
 	}
 #profile-status > p {
-	float: left;
-	margin: 0;
+	margin: 0.5em 0;
 	}
 #profile-status a.update-status-button {
-	float: left;
-	margin: 0 1em;
-	text-shadow: none;
+	position: absolute;
+	right: 8px;
+	top: 8px;
 	}
 #profile-status span.activity { float: right; }
 
@@ -2977,6 +2979,8 @@ div.wp-editor-container .mce-statusbar {
 		padding: 0 0 1em;
 	}
  	div.post-excerpt { margin: 0; }
+
+ 	div.form-left, div.form-right { min-width: 100%; }
 
 	/* NAVIGATION */
 

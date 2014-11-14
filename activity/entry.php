@@ -64,7 +64,7 @@ $user = new Apoc_User( bp_get_activity_user_id() , 'directory' , 60 );	?>
 						</div>
 						
 						<div class="form-left">
-							<span>Reply to this activity, or press escape to cancel.</span>
+							<span>Reply to this activity, press ESC to cancel.</span>
 						</div>
 
 						<div class="form-right">

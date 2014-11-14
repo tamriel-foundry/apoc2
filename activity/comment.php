@@ -18,7 +18,7 @@
 			
 			<?php if ( bp_activity_user_can_delete() ) : ?>		
 			<div class="actions">
-				<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete acomment-delete confirm bp-secondary-action button button-dark" rel="nofollow"><i class="icon-trash"></i>Delete</a>
+				<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete acomment-delete confirm bp-secondary-action button button-dark" rel="nofollow"><i class="fa fa-trash"></i>Delete</a>
 			</div>
 			<?php endif; ?>
 		</header>

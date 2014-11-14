@@ -196,6 +196,55 @@ jq('form.ac-form').hide();
 if ( jq('.activity-comments').length )
 	bp_dtheme_hide_comments();
 
+
+/* Activity Type Tab Delegation */
+jq('.directory-tabs').click( function(event) {
+
+	// Prevent default action
+	event.preventDefault();
+
+	// Get the click target
+	var target = jq(event.target).parent();
+
+	// Only target <a> elements
+	if ( event.target.nodeName == 'STRONG' || event.target.nodeName == 'SPAN' )
+		target = target.parent();
+	else if ( event.target.nodeName != 'A' )
+		return false;
+
+	// Reset the page
+	jq.cookie( 'bp-activity-oldestpage', 1, {
+		path: '/'
+	} );
+
+	// Get the activity stream scope and filter
+	var scope = target.attr('id').substr( 9, target.attr('id').length );
+	var filter = jq("#activity-filter-select select").val();
+
+	// Retrieve activities for the specified parameters
+	bp_activity_request(scope, filter);
+});
+
+/* Activity Filter Select Delegation */
+jq('#activity-filter-select select').change( function() {
+
+	// Prevent default action
+	event.preventDefault();
+
+	// Get the selected tab
+	var selected_tab = jq( '.activity-type-tabs li.selected' );
+	if ( !selected_tab.length )
+		var scope = null;
+	else
+		var scope = selected_tab.attr('id').substr( 9, selected_tab.attr('id').length );
+
+	// Get the requested filter
+	var filter = jq(this).val();
+
+	// Retrieve activities for the specified parameters
+	bp_activity_request(scope, filter);
+});
+
 /* Activity list event delegation */
 jq('div.activity').click( function(event) {
 	
@@ -207,10 +256,11 @@ jq('div.activity').click( function(event) {
 	---------------------------------- */
 	if ( target.hasClass('delete-activity') ) {
 
-		alert('test');
-
 		// Prevent default action
 		event.preventDefault();
+
+		// Display a tooltip
+		target.children('i').toggleClass('fa-remove fa-spinner').addClass('fa-spin');
 
 		// Get data about target activity
 		var li        = target.parents('div.activity ul li');
@@ -232,6 +282,7 @@ jq('div.activity').click( function(event) {
 			if ( response[0] + response[1] == '-1' ) {
 				li.prepend( response.substr( 2, response.length ) );
 				li.children('div#message').hide().fadeIn(300);
+				target.children('i').toggleClass('fa-remove fa-spinner').removeClass('fa-spin');
 			
 			// Handle success
 			} else {
@@ -246,6 +297,9 @@ jq('div.activity').click( function(event) {
 	if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
 		if ( target.parent().hasClass('acomment-reply') )
 			target = target.parent();
+
+		// Prevent default action
+		event.preventDefault();
 
 		// Determine the target activity and appropriate form
 		var id = target.attr('id');
@@ -278,15 +332,61 @@ jq('div.activity').click( function(event) {
 		form.slideDown( 200 );	
 		jq('html, body').animate({scrollTop: form.offset().top - 200 }, 600);
 		jq('#ac-form-' + ids[2] + ' textarea').focus();
+	}
+
+	/*! ---------------------------------
+		3.3 - Load More Activities
+	---------------------------------- */
+	if ( target.parent().hasClass('load-more') ) {
+
+		// Prevent default action
+		event.preventDefault();
+
+		// Display a tooltip
+		jq("#content li.load-more").addClass('loading');
+
+		// Determine the correct "page" of activities
+		if ( null == jq.cookie('bp-activity-oldestpage') )
+			jq.cookie('bp-activity-oldestpage', 1, {
+				path: '/'
+			} );
+		var oldest_page = ( jq.cookie('bp-activity-oldestpage') * 1 ) + 1;
+
+		// Get recently posted activities
+		var just_posted = [];
+		jq('.activity-list li.just-posted').each( function(){
+			just_posted.push( jq(this).attr('id').replace( 'activity-','' ) );
+		});
+
+		// Submit the ajax request
+		jq.post( ajaxurl, {
+			action: 'activity_get_older_updates',
+			'cookie': bp_get_cookies(),
+			'page': oldest_page,
+			'exclude_just_posted': just_posted.join(',')
+		},
+		function(response)
+		{
+			jq("#content li.load-more").removeClass('loading');
+			jq.cookie( 'bp-activity-oldestpage', oldest_page, {
+				path: '/'
+			} );
+			jq("#content ul.activity-list").append(response.contents);
+
+			target.parent().hide();
+		}, 'json' );
 
 		// Prevent default action
 		return false;
 	}
 
 	/*! ---------------------------------
-		3.3 - Activity Comment
+		3.4 - Activity Comment Submit
 	---------------------------------- */
 	if ( target.attr('name') == 'ac_form_submit' ) {
+
+		// Prevent default action
+		event.preventDefault();
 		
 		// Get activity comment data
 		var form        = target.parents( 'form' );
@@ -303,7 +403,7 @@ jq('div.activity').click( function(event) {
 
 		// Hide any error messages
 		jq( 'form#' + form.attr('id') + ' div.error').hide();
-		target.addClass('loading').prop('disabled', true);
+		target.prop('disabled', true).children('i').toggleClass('fa-pencil fa-spinner').addClass('fa-spin');
 
 		// Set up Ajax
 		var ajaxdata = {
@@ -325,9 +425,12 @@ jq('div.activity').click( function(event) {
 		jq.post( ajaxurl, ajaxdata, function(response) {
 			target.removeClass('loading');
 
-			// Check for errors and append if found.
+			// Handle errors
 			if ( response[0] + response[1] == '-1' ) {
 				form.append( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+				jq(target).prop("disabled", false).children('i').toggleClass('fa-pencil fa-spinner').removeClass('fa-spin');
+			
+			// Handle success
 			} else {
 				var activity_comments = form.parent();
 				form.fadeOut( 200, function() {
@@ -359,17 +462,16 @@ jq('div.activity').click( function(event) {
 					show_all_a.html( 'Show All ' + new_count + ' Comments' );
 				}
 			}
-
-			jq(target).prop("disabled", false);
 		});
-
-		return false;
 	}
 
 	/*! ---------------------------------
-		3.4 - Delete Activity Comment
+		3.5 - Delete Activity Comment
 	---------------------------------- */
 	if ( target.hasClass('acomment-delete') ) {
+
+		// Prevent default action
+		event.preventDefault();
 		
 		// Get comment data
 		var link_href = target.attr('href');
@@ -382,6 +484,9 @@ jq('div.activity').click( function(event) {
 		var comment_id = link_href.split('cid=');
 		comment_id = comment_id[1].split('&');
 		comment_id = comment_id[0];
+
+		// Give a tooltip
+		target.children('i').toggleClass('fa-trash fa-spinner').addClass('fa-spin');
 
 		// Remove any error messages
 		jq('.activity-comments ul .error').remove();
@@ -401,6 +506,9 @@ jq('div.activity').click( function(event) {
 			// Handle errors
 			if ( response[0] + response[1] == '-1' ) {
 				comment_li.prepend( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+
+			// Restore the tooltip
+			target.children('i').toggleClass('fa-trash fa-spinner').removeClass('fa-spin');
 			
 			// Handle success
 			} else {
@@ -433,22 +541,53 @@ jq('div.activity').click( function(event) {
 				}
 			}
 		});
-
-		// Prevent default
-		return false;
 	}
 
-	// Showing hidden comments - pause for half a second
-	if ( target.parent().hasClass('show-all') ) {
+	/*! ---------------------------------
+		3.6 - Show Full Activity
+	---------------------------------- */
+	if ( target.parent().hasClass('activity-read-more') ) {
+
+		// Prevent default action
+		event.preventDefault();
+
+		// Get info about the activity
+		var link_id = target.parent().attr('id').split('-');
+		var a_id = link_id[3];
+		var type = link_id[0]; /* activity or acomment */
+		var inner_class = type == 'acomment' ? 'acomment-content' : 'activity-content';
+		var a_inner = jq('li#' + type + '-' + a_id + ' .' + inner_class );
+
+		// Display a tooltip
 		target.addClass('loading');
 
+		// Get the full comment
+		jq.post( ajaxurl, {
+			action: 'get_single_activity_content',
+			'activity_id': a_id
+		},
+		function(response) {
+			jq(a_inner).slideUp(300).html(response).slideDown(300);
+		});
+	}
+
+	/*! ---------------------------------
+		3.7 - Show Hidden Comments
+	---------------------------------- */
+	if ( target.parent().hasClass('show-all') ) {
+
+		// Prevent default action
+		event.preventDefault();
+		
+		// Add a tooltip
+		target.addClass('loading');
+
+		// Fade in the comments 
 		setTimeout( function() {
 			$('.activity-comments ul li').fadeIn(200, function() {
 				target.parent().remove();
 			});
 		}, 600 );
-
-		return false;
 	}
 });
 
@@ -477,25 +616,122 @@ jq(document).keydown( function(e) {
 });
 
 
+/*! ----------------------------------------------------------
+	5.0 - MEMBERS AND GROUPS DIRECTORY
+----------------------------------------------------------- */
 
+/* The search form on all directory pages */
+jq('.dir-search').click( function(event) {
+	if ( jq(this).hasClass('no-ajax') )
+		return;
 
+	var target = jq(event.target);
 
+	if ( target.attr('type') == 'submit' ) {
+		var css_id = jq('.item-list-tabs li.selected').attr('id').split( '-' );
+		var object = css_id[0];
 
+		bp_filter_request( object, jq.cookie('bp-' + object + '-filter'), jq.cookie('bp-' + object + '-scope') , 'div.' + object, target.parent().children('label').children('input').val(), 1, jq.cookie('bp-' + object + '-extras') );
+
+		return false;
+	}
+});
+
+/*! ---------------------------------
+	5.1 - Tabs and Filters
+---------------------------------- */
+
+/* Directory Navigation Tabs */
+jq('.directory-tabs').click( function(event) {
+	if ( jq(this).hasClass('no-ajax') )	return;
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Determine the correct target
+	var targetElem = ( event.target.nodeName == 'SPAN' ) ? event.target.parentNode : event.target;
+	var target     = jq( targetElem ).parent();
+
+	// If it's a valid directory tab, process the request
+	if ( 'LI' == target[0].nodeName && !target.hasClass('last') ) {
+
+		// Identify the tab
+		var css_id = target.attr('id').split( '-' );
+		var object = css_id[0];
+
+		// Activity has its own handling for this
+		if ( 'activity' == object )	return false;
+
+		// Determine the scope, filter, and search terms
+		var scope = css_id[1];
+		var filter = jq("#" + object + "-order-select select").val();
+		var search_terms = jq("#" + object + "_search").val();
+
+		// Filter the request
+		bp_filter_request( object, filter, scope, 'div.' + object, search_terms, 1, jq.cookie('bp-' + object + '-extras') );
+	}
+});
+
+/* Directory Navigation Filters */
+jq('.filter select').change( function() {
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Determine the selected object and scope
+	if ( jq('.directory-tabs li.selected').length )
+		var el = jq('.directory-tabs li.selected');
+	else
+		var el = jq(this);
+	var css_id = el.attr('id').split('-');
+	
+	var object = css_id[0];
+	if ( 'friends' == object )	object = 'members';
+	var scope = css_id[1];
+	var filter = jq(this).val();
+
+	// Determine the current search term
+	var search_terms = false;
+	if ( jq('.dir-search input').length )
+		search_terms = jq('.dir-search input').val();
+
+	// Process the request
+	bp_filter_request( object, filter, scope, 'div.' + object, search_terms, 1, jq.cookie('bp-' + object + '-extras') );
+});
+
+/* Clear BP cookies on logout */
+jq('#login-logout').click( function() {
+	jq.removeCookie('bp-activity-scope', {
+		path: '/'
+	});
+	jq.removeCookie('bp-activity-filter', {
+		path: '/'
+	});
+	jq.removeCookie('bp-activity-oldestpage', {
+		path: '/'
+	});
+
+	var objects = [ 'members', 'groups', 'blogs', 'forums' ];
+	jq(objects).each( function(i) {
+		jq.removeCookie('bp-' + objects[i] + '-scope', {
+			path: '/'
+		} );
+		jq.removeCookie('bp-' + objects[i] + '-filter', {
+			path: '/'
+		} );
+		jq.removeCookie('bp-' + objects[i] + '-extras', {
+			path: '/'
+		} );
+	});
+});
 
 
 // End document ready block
 });
 
 
-
-
-
-
-
-
-
 /*! ----------------------------------------------------------
-	X.0 - INITIALIZATION AND HELPER FUNCTIONS
+	10.0 - INITIALIZATION AND HELPER FUNCTIONS
 ----------------------------------------------------------- */
 
 /* Get the current query string */
@@ -519,7 +755,7 @@ function bp_init_activity() {
 		jq('.activity-type-tabs li').each( function() {
 			jq(this).removeClass('selected');
 		});
-		jq('li#activity-' + jq.cookie('bp-activity-scope') + ', .item-list-tabs li.current').addClass('selected');
+		jq('li#activity-' + jq.cookie('bp-activity-scope') + ', .directory-tabs li.current').addClass('selected');
 	}
 }
 
@@ -530,10 +766,10 @@ function bp_init_objects(objects) {
 			jq('li#' + objects[i] + '-order-select select option[value="' + jq.cookie('bp-' + objects[i] + '-filter') + '"]').prop( 'selected', true );
 
 		if ( null != jq.cookie('bp-' + objects[i] + '-scope') && jq('div.' + objects[i]).length ) {
-			jq('.item-list-tabs li').each( function() {
+			jq('.directory-tabs li').each( function() {
 				jq(this).removeClass('selected');
 			});
-			jq('.item-list-tabs li#' + objects[i] + '-' + jq.cookie('bp-' + objects[i] + '-scope') + ', div.item-list-tabs#object-nav li.current').addClass('selected');
+			jq('.directory-tabs li#' + objects[i] + '-' + jq.cookie('bp-' + objects[i] + '-scope') + ', .directory-tabs#object-nav li.current').addClass('selected');
 		}
 	});
 }
@@ -561,12 +797,12 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 	} );
 
 	/* Set the correct selected nav and filter */
-	jq('.item-list-tabs li').each( function() {
+	jq('.directory-tabs li').each( function() {
 		jq(this).removeClass('selected');
 	});
-	jq('.item-list-tabs li#' + object + '-' + scope + ', .item-list-tabs#object-nav li.current').addClass('selected');
-	jq('.item-list-tabs li.selected').addClass('loading');
-	jq('.item-list-tabs select option[value="' + filter + '"]').prop( 'selected', true );
+	jq('.directory-tabs li#' + object + '-' + scope + ', .directory-tabs#object-nav li.current').addClass('selected');
+	jq('.directory-tabs li.selected a').prepend('<i class="fa fa-spinner fa-spin"></i>');
+	jq('.directory-tabs select option[value="' + filter + '"]').prop( 'selected', true );
 
 	if ( 'friends' == object )
 		object = 'members';
@@ -603,7 +839,7 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 		 	});
 		}
 
-		jq('.item-list-tabs li.selected').removeClass('loading');
+		jq('.directory-tabs li.selected i').remove();
 	});
 }
 
@@ -621,12 +857,12 @@ function bp_activity_request(scope, filter) {
 	} );
 
 	/* Remove selected and loading classes from tabs */
-	jq('.item-list-tabs li').each( function() {
+	jq('.directory-tabs li').each( function() {
 		jq(this).removeClass('selected loading');
 	});
 	/* Set the correct selected nav and filter */
-	jq('li#activity-' + scope + ', .item-list-tabs li.current').addClass('selected');
-	jq('#object-nav.item-list-tabs li.selected, div.activity-type-tabs li.selected').addClass('loading');
+	jq('li#activity-' + scope + ', .directory-tabs li.current').addClass('selected');
+	jq('.activity-type-tabs li.selected a').prepend('<i class="fa fa-spinner fa-spin"></i>');
 	jq('#activity-filter-select select option[value="' + filter + '"]').prop( 'selected', true );
 
 	/* Reload the activity stream based on the selection */
@@ -650,15 +886,16 @@ function bp_activity_request(scope, filter) {
 			jq(this).html(response.contents);
 			jq(this).fadeIn(100);
 
-			/* Selectively hide comments */
+			// Hide comments and comment forms
 			bp_dtheme_hide_comments();
+			jq('form.ac-form').hide();
 		});
 
 		/* Update the feed link */
 		if ( null != response.feed_url )
 			jq('.directory #subnav li.feed a, .home-page #subnav li.feed a').attr('href', response.feed_url);
 
-		jq('.item-list-tabs li.selected').removeClass('loading');
+			jq('.activity-type-tabs li.selected a i').remove();
 
 	}, 'json' );
 }

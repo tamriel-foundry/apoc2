@@ -8,22 +8,25 @@
 
 // Get the default querystring
 $query = bp_ajax_querystring( 'groups' );
+parse_str($query , $args);
 
-// First check to see if an alliance was passed with a GET request
-if ( isset( $_GET['faction'] ) ) :
+// Determine if a specific faction is requested
+$factions = array( 'aldmeri' , 'daggerfall' , 'ebonheart' , 'neutral' );
+if ( isset( $args['scope'] ) && in_array( $args['scope'] , $factions ) ) 
+	$faction = $args['scope'];
+elseif ( isset( $_GET['faction'] ) && in_array( $_GET['faction'] , $factions ) )
+	$faction = $_GET['faction'];
 
-	// Get the current querystring
-	$query = wp_parse_args( $query , array() );
-	$query['meta_query'] = array(
-	    array(
-	        'key'     => 'group_faction',
-	        'value'   => $_GET['faction'],
-	        'compare' => '='
-	    )
-	);
+// If a specific faction was requested, filter for it
+if ( isset( $faction ) ) :
+	$args['meta_query'] = array( array(
+        'key'     => 'group_faction',
+        'value'   => $faction,
+        'compare' => '='
+    ) );
 endif; ?>
 
-<?php  if ( bp_has_groups( $query ) ) : ?>
+<?php  if ( bp_has_groups( $args ) ) : ?>
 	<ul id="groups-list" class="directory-list" role="main">
 
 	<?php // Loop through all members

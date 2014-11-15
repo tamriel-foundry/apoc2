@@ -29,7 +29,7 @@ $type = ( $group->guild ) ? 'Guild' : 'Group'; ?>
 	<div id="profile-content">
 		
 		<nav id="directory-nav" role="navigation">
-			<ul id="directory-actions" class="directory-tabs">
+			<ul id="directory-actions">
 				<?php bp_get_options_nav(); ?>
 			</ul>
 		</nav>

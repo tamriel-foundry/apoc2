@@ -17,7 +17,7 @@ $user	= new Apoc_User( $comment->user_id , 'reply' );
 	
 	<header class="reply-header">
 		<time class="reply-time" datetime="<?php echo date( 'Y-m-d\TH:i' , strtotime($comment->comment_date) ); ?>"><?php echo bp_core_time_since( $comment->comment_date_gmt , current_time( 'timestamp' , true ) )?></time>
-		<?php // apoc_report_post_button( 'comment' ); ?>
+		<?php apoc_report_post_button( 'comment' ); ?>
 		<div class="reply-admin-links">
 			<?php apoc_comment_admin_links(); ?>
 			<span><a class="reply-permalink" href="<?php echo get_comment_link( $comment->comment_ID ); ?>" title="Link directly to this comment">#<?php echo $count; ?></a></span>

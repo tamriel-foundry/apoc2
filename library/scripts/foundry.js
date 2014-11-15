@@ -151,6 +151,49 @@ $( 'select#search-for' ).bind( 'change', function() {
 	target.addClass( 'active' ).fadeIn();
 });
 
+/*! Post Reporting */
+$("a.report-post").click(function( event ) {
+
+	// Prevent default
+	event.preventDefault();
+
+	// Confirm the user's desire to report
+	var confirmation = confirm("Are you sure you wish to report this message?");
+	if(confirmation){
+		
+		// Get the reason for reporting
+		var reason = prompt( "Reason For Report" , "Please provide the reason for your report:" );
+		if ( "Please provide the reason for your report:" == reason ) {
+			reason = "No reason given by reporter.";
+		}
+	
+		// Get the arguments
+		var type 	= $(this).data('type');
+		var postid 	= $(this).data('id');
+		var postnum	= $(this).data('number');
+		var user	= $(this).data('user');
+		
+		// Remove the button
+		$(this).remove();
+		
+		// Submit the POST AJAX
+		$.post( apoc_ajax, { 
+				'action'	: 'apoc_report_post',
+				'type'		: type,
+				'id' 		: postid,
+				'num'		: postnum,
+				'user'		: user,
+				'reason'	: reason,
+				},
+			function(resp){
+				if( resp == 1 ){
+					alert('Report sent successfully, thank you.');
+				}
+			}
+		);
+	}
+});
+
 
 /*! ----------------------------------------------------------
 	5.0 - BBPRESS FUNCTIONS

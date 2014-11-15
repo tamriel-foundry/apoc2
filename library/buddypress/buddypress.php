@@ -85,12 +85,14 @@ class Apoc_BuddyPress {
 	
 		// Unhook default actions
 		remove_action( 'wp_head' 					, 'bp_core_add_ajax_url_js' 			);		
+		remove_action( 'wp_head' 					, 'messages_add_autocomplete_css' 		);		
 
 		// Prevent BuddyPress from loading scripts or styles
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_register_common_scripts' 	);
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_register_common_styles' 		);
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_core_confirmation_js' 			);
 		remove_action( 'bp_enqueue_scripts' 		, 'bp_activity_mentions_script' 		);
+		remove_action( 'bp_enqueue_scripts' 		, 'messages_add_autocomplete_js' 		);
 
 		// Load additional BuddyPress customizations
 		add_action( 'bp_init'						, array( $this , 'init' )				 );
@@ -113,6 +115,9 @@ class Apoc_BuddyPress {
 		// User registration
 		add_action( 'bp_signup_pre_validate'		, array( $this , 'pre_registration' ) 	);
 		add_action( 'bp_signup_validate'			, array( $this , 'post_registration' ) 	);
+
+		// Private Messages
+		add_action( 'bp_actions' 					, array( $this , 'pm_tinymce' ) , 1 );
 
 	}
 	
@@ -508,19 +513,28 @@ class Apoc_BuddyPress {
 		if ( apoc()->humanity != trim( strtolower ( $_POST['confirm_humanity'] ) ) )
 			$bp->signup->errors['confirm_humanity'] = 'That is incorrect. Hover on the image if you require a hint.';
 	}
+	
+	/*------------------------------------------
+		7.0 - PRIVATE MESSAGES
+	------------------------------------------*/
 
+	/** 
+	 * Copies 'message_content' from TinyMCE into the form's 'content' field (required hack)
+	 */
+	function pm_tinymce() {
+		if ( bp_is_messages_component() && isset( $_POST['send'] ) && empty( $_POST['content'] ) && !empty( $_POST['message_content'] ) ) {
+			$_POST['content'] = $_POST['message_content'];
+		}
+	}
 }
 
 // Automatically invoke the class
 new Apoc_BuddyPress();
 
 
-
-
 /*--------------------------------------------------------------
 	REGISTRATION
 --------------------------------------------------------------*/
-
 
 /**
  * Display the humanity confirmation image set in Apocrypha theme settings

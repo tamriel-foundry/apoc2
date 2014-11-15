@@ -343,6 +343,7 @@ jq('div.activity').click( function(event) {
 		event.preventDefault();
 
 		// Display a tooltip
+		target.children('i').toggleClass('fa-remove fa-spinner').addClass('fa-spin');
 		jq("#content li.load-more").addClass('loading');
 
 		// Determine the correct "page" of activities
@@ -364,17 +365,19 @@ jq('div.activity').click( function(event) {
 			'cookie': bp_get_cookies(),
 			'page': oldest_page,
 			'exclude_just_posted': just_posted.join(',')
-		},
-		function(response)
-		{
-			jq("#content li.load-more").removeClass('loading');
-			jq.cookie( 'bp-activity-oldestpage', oldest_page, {
-				path: '/'
-			} );
-			jq("#content ul.activity-list").append(response.contents);
+			}, 
 
-			target.parent().hide();
-		}, 'json' );
+			// Handle success
+			function(response) {
+				jq("#content li.load-more").removeClass('loading');
+				jq.cookie( 'bp-activity-oldestpage', oldest_page, {
+					path: '/'
+				} );
+				jq("#content ul.activity-list").append(response.contents);
+				target.parent().hide();
+				target.children('i').toggleClass('fa-remove fa-spinner').removeClass('fa-spin');
+			}, 
+		'json' );
 
 		// Prevent default action
 		return false;
@@ -449,7 +452,8 @@ jq('div.activity').click( function(event) {
 					activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ).css('display','') );
 
 					// De-populate the comment form
-					form.children('textarea').val('');
+					form.find('textarea').val('');
+					jq(target).prop("disabled", false).children('i').toggleClass('fa-pencil fa-spinner').removeClass('fa-spin');
 				} );
 
 				// Increase the "Reply (X)" button count
@@ -723,6 +727,222 @@ jq('#login-logout').click( function() {
 			path: '/'
 		} );
 	});
+});
+
+/*! ----------------------------------------------------------
+	6.0 - PRIVATE MESSAGES
+----------------------------------------------------------- */
+
+/* Search messages */
+jq('#search-message-form').submit( function(event) {
+	
+	// Prevent default action
+	event.preventDefault();	
+
+	// Filter the request
+	bp_filter_request( 'messages', jq.cookie('bp-messages-filter'), jq.cookie('bp-messages-scope') , 'div#private-messages', $(this).children('input').val(), 1, jq.cookie('bp-messages-extras') );
+});
+
+/* AJAX send reply functionality */
+jq("#send_reply_button").click(	function() {
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Get the button and display a tooltip
+	var button = jq(this);
+	jq(button).children('i').toggleClass('fa-envelope fa-spinner').addClass('fa-spin');
+
+	// Get order and offset
+	var order = jq('#messages_order').val() || 'ASC',
+	offset = jq('#message-recipients').offset();
+
+	// Save content from TinyMCE into the hidden form textarea
+	tinyMCE.triggerSave();
+
+	// Submit the ajax
+	jq.post( ajaxurl, {
+		action: 'apoc_private_message_reply',
+		'cookie': bp_get_cookies(),
+		'_wpnonce': jq("input#send_message_nonce").val(),
+		'content': jq("#message_content").val(),
+		'send_to': jq("input#send_to").val(),
+		'subject': jq("input#subject").val(),
+		'thread_id': jq("input#thread_id").val()
+	}, function(response) {
+
+		// Handle Failure
+		if ( response[0] + response[1] == "-1" ) {
+			jq('form#send-reply').prepend( response.substr( 2, response.length ) );
+		
+		// Handle Success
+		} else {
+
+			// Hide the message form
+			jq('form#send-reply').slideUp();
+			jq("#message_content").val('');
+
+			// Add the new message to the appropriate place
+			if ( 'ASC' == order ) {
+				jq('ol#message-thread').append( response );
+			} else {
+				jq('ol#message-thread').prepend( response );
+				jq(window).scrollTop(offset.top);
+			}
+
+			// Reveal the new message
+			jq(".new-message").hide().slideDown( 200, function() {
+				jq('.new-message').removeClass('new-message');
+			});
+		}
+
+		// Restore the button		
+		jq(button).children('i').toggleClass('fa-envelope fa-spinner').removeClass('fa-spin');
+	});
+});
+
+/*! Bulk select read/unread messages */
+jq( '#private-messages' ).on( 'change', '#message-type-select', function() {
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Get the requested selection
+	var selection = this.value;
+
+	// Loop through messages
+	var checkboxes = jq( "#message-threads input[type='checkbox']" );
+	checkboxes.each( function(i) {
+		checkboxes[i].checked = "";
+	});
+
+	// Get messages of that type
+	var checked_value = "checked";
+	switch ( selection ) {
+		case 'unread' :
+			checkboxes = jq("li.unread input[type='checkbox']");
+			break;
+		case 'read' :
+			checkboxes = jq("li.read input[type='checkbox']");
+			break;
+		case '' :
+			checked_value = "";
+			break;
+	}
+	checkboxes.each( function(i) {
+		checkboxes[i].checked = checked_value;
+	});
+});
+
+/*! Marking private messages as read and unread */
+jq("a#mark_as_read, a#mark_as_unread").click(function() {
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Get checked messages
+	var checkboxes_tosend = '';
+	var checkboxes = jq("#message-threads input[type='checkbox']");
+
+	if ( 'mark_as_unread' == jq(this).attr('id') ) {
+		var currentClass = 'read'
+		var newClass = 'unread'
+		var unreadCount = 1;
+		var inboxCount = 0;
+		var unreadCountDisplay = 'inline';
+		var action = 'messages_markunread';
+	} else {
+		var currentClass = 'unread'
+		var newClass = 'read'
+		var unreadCount = 0;
+		var inboxCount = 1;
+		var unreadCountDisplay = 'none';
+		var action = 'messages_markread';
+	}
+
+	// Handle HTML
+	checkboxes.each( function(i) {
+		if(jq(this).is(':checked')) {
+			if ( jq('li#m-' + jq(this).attr('value')).hasClass(currentClass) ) {
+				checkboxes_tosend += jq(this).attr('value');
+				jq('li#m-' + jq(this).attr('value')).removeClass(currentClass);
+				jq('li#m-' + jq(this).attr('value')).addClass(newClass);
+				var thread_count = jq('li#m-' + jq(this).attr('value') + ' span.unread-count').html();
+
+				jq('li#m-' + jq(this).attr('value') + ' span.unread-count').html("&rarr; " + unreadCount + " Unread");
+				jq('li#m-' + jq(this).attr('value') + ' span.unread-count').css('display', unreadCountDisplay);
+
+				// Count unread messages
+				var inboxcount = jq('li.unread').length;
+
+				// Add the new count to the tab
+				jq('a#user-messages span').html( inboxcount );
+
+				// Add checkboxes to the array for ajax
+				if ( i != checkboxes.length - 1 ) {
+					checkboxes_tosend += ','
+				}
+			}
+		}
+	});
+
+	// Send the ajax request
+	jq.post( ajaxurl, {
+		action: action,
+		'thread_ids': checkboxes_tosend
+	});
+});
+
+
+/*! Bulk delete messages */
+jq( '#private-messages' ).on( 'click', 'a.bulk-delete-messages', function() {
+	
+	// Get checkboxes
+	checkboxes_tosend = '';
+	checkboxes = jq("#message-threads input[type='checkbox']");
+
+
+
+	// Determine which messages should be deleted
+	jq(checkboxes).each( function(i) {
+		if( jq(this).is(':checked') )
+			checkboxes_tosend += jq(this).attr('value') + ',';
+	});
+	if ( '' == checkboxes_tosend ) {
+		return false;
+	}
+
+	// Display a tooltip
+	jq('#message').remove();
+	jq(this).children('i').toggleClass('fa-trash fa-spinner').addClass('fa-spin');
+	
+	// Submit the AJAX request
+	jq.post( ajaxurl, {
+		action: 'messages_delete',
+		'thread_ids': checkboxes_tosend
+	}, function(response) {
+
+		// Handle failure
+		if ( response[0] + response[1] == "-1" ) {
+			jq('#message-threads').prepend( response.substr( 2, response.length ) );
+		
+		// Handle success
+		} else {
+			jq('#message-threads').before( '<div id="message" class="updated"><p>' + response + '</p></div>' );
+			jq(checkboxes).each( function(i) {
+				if( jq(this).is(':checked') ) {
+					jq(this).attr( 'checked', false );
+					jq(this).parent().parent().fadeOut(150);
+				}
+			});
+		}
+
+		// Success tooltip
+		jq('#message').hide().slideDown(150);
+		jq(this).children('i').toggleClass('fa-trash fa-spinner').removeClass('fa-spin');
+	});
+
+	return false;
 });
 
 

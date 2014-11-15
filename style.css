@@ -54,6 +54,7 @@
 	9.3 - Group Profiles
 	9.4 - Activity
 	9.5 - Registration
+	9.6 - Private Messages
 ----------------------------------------------------------------
 
 COLOR PALETTE:
@@ -138,6 +139,7 @@ body {
 	margin: 0;
 	padding: 0;
 	position: relative;
+	background: #222;
 	background-image: url("images/backgrounds/bg-loop.jpg");
 	background-position: 50% 0;
 	font-family: 'Open Sans' , 'Sans-Serif';
@@ -334,6 +336,7 @@ fieldset > ol, fieldset > ul {
 .form-full {
 	width: 100%;
 	float: left;
+	margin: 0.5em 0;
 	}
 form .hidden { display: none; }
 
@@ -1290,7 +1293,6 @@ form#top-search-form {
 
 /* Login Form */
 form#top-login-form fieldset > * { float: left; }
-
 input#username,
 input#password {
 	width: 150px;
@@ -1307,7 +1309,6 @@ input#password + label {
 	line-height: 14px;
 	color: #000;
 	}
-
 input#rememberme { top: 4px; }
 input#rememberme + label {
 	margin: 0 3px;
@@ -1319,7 +1320,6 @@ input#rememberme + label:before {
 	left: -2px;
 	margin-left: -16px;
 	}
-
 button#login-submit,
 a.admin-bar-button { margin: 0 3px 0 0;	}
 
@@ -1337,7 +1337,6 @@ input#search {
 	height: 24px;
 	margin: 0;
 	}
-
 input#search + label {
 	position: absolute;
 	top: 1px;
@@ -1361,14 +1360,16 @@ ul#notifications-menu > li {
 	float: left;
 	border-left: 1px solid #000;
 	border-right: 1px solid #333;
+	color: #A29C8E;
 	}
 ul#notifications-menu span.notification-count {
 	display: block;
-	padding: 0 5px;
+	padding: 0 8px;
 	line-height: 30px;
 	position: relative;
 	z-index: 91;
 	}
+ul#notifications-menu > li.active {	color: #D1CBBC; }
 ul#notifications-menu > li.active:hover span.notification-count {
 	background: rgba(34,34,34,0.95);
 	cursor: pointer;
@@ -1422,7 +1423,6 @@ div#menu-container {
 	border-top: 1px solid #222;
 	border-bottom: 1px solid #222;
 	}
-
 ul#top-menu {
 	max-width: 1200px;
 	height: 100%;
@@ -1659,7 +1659,7 @@ a#footer-scroll-top > i {
 	margin: 0;
 	padding: 0 1em 0 70px;
 	background: rgba(17,17,17,0.9);
-	border-top: 1px solid #000
+	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	box-shadow: 0 0 5px #000;
 	font-size: 0.75em;
@@ -2209,6 +2209,17 @@ li.reply {
 	line-height: 24px;
 	margin-left: 3px;
 	}
+
+a.report-post {
+	margin: 0 0.5em;
+	color: #A29C8E;
+	text-shadow: 1px 1px #000;
+	}
+a.report-post:hover { 
+	color: #FFB14C; 
+	text-shadow: 0 0 10px #c60;
+	}
+
 a.bbp-topic-super-sticky-link { margin-left: -4px; }
 
 /* Revision Log */
@@ -2336,7 +2347,8 @@ ul#directory-actions > li {
 	border-radius: 3px;
 	line-height: 28px;
 	}
-#subnav .filter {
+#subnav .filter,
+#subnav .search {
 	position: absolute;
 	top: 4px;
 	right: 8px;
@@ -2366,7 +2378,7 @@ ul.directory-list > li + li {
 	}
 ul.directory-list li.load-more { 
 	padding: 0.5em 0; 
-	border-bottom: none;
+	text-align: center;
 	}
 li.directory-entry {
 	width: 100%;
@@ -2423,80 +2435,6 @@ box-shadow: 0 0 5px #000;
 	font-size: 0.875em;
 	}
 
-/* Activity Entries */
-header.activity-header,
-footer.activity-footer {
-	width: 100%;
-	float: left;
-	font-size: 0.75em;
-	}
-.activity-header > div.actions { float: right; }
-.activity-header div.actions > a {	
-	margin: 0; 
-	}
-header.activity-header > p {
-	float: left;
-	position: relative; 
-	margin: 0;
-	color: #A29C8E;
-	}
-blockquote.activity-content {
-	float: left;
-	margin: 0.25em 0 0;
-	font-size: 0.875em;
-	}
-span.activity-quote-mention { 
-	color: #A29C8E;
-	font-size: 0.875em; 
-	}
-
-/* New Status Form */
-#whats-new-form div { margin-top: 0; }
-#whats-new-form label {
-	margin: 0.5em 0; 
-	font-size: 0.75em; 
-	color: #A29C8E;;
-	}
-#whats-new-form textarea { margin: 0;}
-#whats-new-form button { font-size: 0.75em; }
-
-/* Activity Comments */
-.activity-comments > ul {
-	width: 100%;
-	float: left;
-	list-style: none;
-	margin: 0.5em 0 0;
-	padding: 0;
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #333;
-	}
-li.activity-comment {
-	display: flex;
-	flex-flow: row-wrap;
-	padding: 0.5em;
-	border-bottom: 1px solid #000;
-	}
-li + li.activity-comment { border-top: 1px solid #333;}
-li.activity-comment:first-child { border-top: 1px solid #333; }
-.acomment-avatar { min-width: 60px; }
-.acomment-body { flex: 1; }
-.acomment-content > p { 
-	float: left;
-	font-size: 0.875em;
-	margin: 0;
-	}
-
-/* Activity Comment Reply Form */
-form.ac-form {
-	margin: 0.5em 0 0;
-	font-size: 0.75em; 
-	}
-form.ac-form div, form.ac-form textarea { margin: 0; }
-form.ac-form span { 
-	color: #A29C8E;
-	line-height: 32px; 
-	}
-
 /*---------------------------------------------
 	9.2 - User Profiles
 ----------------------------------------------*/
@@ -2536,7 +2474,6 @@ form.ac-form span {
 #profile-content {
 	flex: 3; 
 	min-width: 320px;
-	margin: 0 0 1em;
 	display: flex;
 	flex-flow: row wrap;
 	align-content: flex-start;
@@ -2844,7 +2781,83 @@ a.clear-infraction {
 }
 
 /*---------------------------------------------
-	9.4 - Registration
+	9.4 - Activity
+----------------------------------------------*/
+header.activity-header,
+footer.activity-footer {
+	width: 100%;
+	float: left;
+	font-size: 0.75em;
+	}
+.activity-header > div.actions { float: right; }
+.activity-header div.actions > a {	
+	margin: 0; 
+	}
+header.activity-header > p {
+	float: left;
+	position: relative; 
+	margin: 0;
+	color: #A29C8E;
+	}
+blockquote.activity-content {
+	float: left;
+	margin: 0.25em 0 0;
+	font-size: 0.875em;
+	}
+span.activity-quote-mention { 
+	color: #A29C8E;
+	font-size: 0.875em; 
+	}
+
+/* New Status Form */
+#whats-new-form div { margin-top: 0; }
+#whats-new-form label {
+	margin: 0.5em 0; 
+	font-size: 0.75em; 
+	color: #A29C8E;;
+	}
+#whats-new-form textarea { margin: 0;}
+#whats-new-form button { font-size: 0.75em; }
+
+/* Activity Comments */
+.activity-comments > ul {
+	width: 100%;
+	float: left;
+	list-style: none;
+	margin: 0.5em 0 0;
+	padding: 0;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #333;
+	}
+li.activity-comment {
+	display: flex;
+	flex-flow: row-wrap;
+	padding: 0.5em;
+	border-bottom: 1px solid #000;
+	}
+li + li.activity-comment { border-top: 1px solid #333;}
+li.activity-comment:first-child { border-top: 1px solid #333; }
+.acomment-avatar { min-width: 60px; }
+.acomment-body { flex: 1; }
+.acomment-content > p { 
+	float: left;
+	font-size: 0.875em;
+	margin: 0;
+	}
+
+/* Activity Comment Reply Form */
+form.ac-form {
+	margin: 0.5em 0 0;
+	font-size: 0.75em; 
+	}
+form.ac-form div, form.ac-form textarea { margin: 0; }
+form.ac-form span { 
+	color: #A29C8E;
+	line-height: 32px; 
+	}
+
+/*---------------------------------------------
+	9.5 - Registration
 ----------------------------------------------*/
 #signup-form fieldset, #signup-form .instructions { margin: 0.5em 0; }
 #registration-basic-details > div { margin: 0.5em 0; }
@@ -2859,9 +2872,67 @@ div#humanity-fields {
 	padding: 30px 0;
 	}
 
+/*---------------------------------------------
+	9.6 - Private Messages
+----------------------------------------------*/
+#send_message_form { padding: 0.5em; }
+
+#send_message_form .form-full { display: flex; }
+#send_message_form label { 
+	min-width: 120px; 
+	flex: 1;
+	}
+#send_message_form input[type="text"] { flex: 7; }
+
+
+/* Single Message */
+#private-message { 
+	width: 98%;
+	float: left;
+	margin: 1em 1%; 
+	}
+
+ol#message-thread,
+ol#message-threads {
+	width: 100%;
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+
+/* Message Loop */
+#private-messages { 
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	}
+#message-threads .forum-content { position: relative; }
+.message-actions {
+	flex: 1;
+	line-height: 64px;
+	}
+.message-actions > a { 
+	margin: 0;
+	top: -2px; 
+	}
+
+#messages-options-nav {
+	width: 100%;
+	float: left;
+	text-align: right;
+	font-size: 0.875em;
+	}
+
 /*--------------------------------------------------------------
 	Y.0 - TINYMCE
 --------------------------------------------------------------*/
+.wp-editor-wrap {
+	width: 100%;
+	float: left;
+	margin: 0.5em 0;
+	}
+
 div.wp-editor-container {
 	border: 1px solid #000;
 	}

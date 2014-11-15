@@ -179,6 +179,49 @@ function apoc_comment_delete_button() {
 }
 
 
+/**
+ * Generate post report buttons
+ * @version 2.0
+ */
+function apoc_report_post_button( $type ) {
+	
+	// Only let members report stuff
+	if ( !is_user_logged_in() ) return false;
+	
+	// Get the data by context
+	switch( $type ) {
+		
+		// Forum reply
+		case 'reply' :
+			$post_id		= bbp_get_reply_id();
+			$reported_user	= bbp_get_reply_author();
+			$post_number 	= bbp_get_reply_position();
+			break;
+		
+		// Article comment
+		case 'comment' :
+			global $comment, $comment_count;
+			$post_id		= $comment->comment_ID;
+			$reported_user	= $comment->comment_author;
+			$post_number 	= $comment_count['count'];
+			break;
+		
+		// Private message
+		case 'message' :
+			global $thread_template;
+			$post_id		= $thread_template->message->thread_id;
+			$reported_user	= $thread_template->message->sender_id;
+			$post_number	= $thread_template->current_message + 1;
+			break;
+	}
+	
+	// Echo the button
+	$button = '<a class="report-post" title="Report This Post" data-id="' . $post_id . '" data-number="' . $post_number . '" data-user="' . $reported_user . '" data-type="' . $type . '"><i class="fa fa-warning"></i></a>';
+	echo $button;
+}
+
+
+
 
 /*---------------------------------------------
 	3.0 - COMMENT EDIT CLASS

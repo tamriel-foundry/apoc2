@@ -196,10 +196,10 @@ single/infractions.php				| done
 single/infractions/notes.php		| done
 single/infractions/warning.php 		| done
 single/member-header.php			| done
-single/messages.php					|
-single/messages/compose.php			|
-single/messages/messages-loop.php	|
-single/messages/single.php			|
+single/messages.php					| done
+single/messages/compose.php			| done
+single/messages/messages-loop.php	| done
+single/messages/single.php			| done
 single/notifications.php			|
 single/notifications/notifications-loop.php	|
 single/notifications/read.php		|

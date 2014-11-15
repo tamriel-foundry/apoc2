@@ -10,6 +10,7 @@
  * 2.0 - Apoc Avatar Class
  * 3.0 - Edit Profile Class
  * 4.0 - Post Counts
+ * 5.0 - Moderation
  */
  
 // Exit if accessed directly
@@ -402,7 +403,7 @@ class Apoc_User {
 		}
 		elseif( $this->regdate <= strtotime( '-2 years' ) ) {
 			$badges['veteran']	= array(
-				'name'		=> 'Two	Year Veteran',
+				'name'		=> 'Two Year Veteran',
 				'class'		=> 'veteran',
 				'tier'		=> 'silver' );
 		}
@@ -895,4 +896,37 @@ function get_user_article_count( $user_id ) {
 
 
 
-	
+/*--------------------------------------------------------------
+	5.0 - MODERATION
+--------------------------------------------------------------*/
+
+/** 
+ * Get an array of moderator usernames and emails
+ * @version 2.0
+ */
+function get_moderator_emails() {
+
+	// Roles to include as moderators
+	$roles 	= array( 'administrator' , 'bbp_moderator');
+
+	// Setup the placeholder moderator role
+	$mods 	= array();
+
+	// Loop over roles, getting an array of usernames and emails
+	foreach ( $roles as $role ) {
+
+		// Get users having the role
+		$users = get_users( array( 'role' => $role ) );
+
+		// Insert returned users into an array
+		foreach ( $users as $user ) {
+			$mods[] = $user->data->user_email;
+		}
+	}
+
+	// Only keep uniques
+	$mods = array_unique($mods);
+
+	// Return the moderators
+	return $mods;
+}

@@ -86,3 +86,101 @@ function apoc_clear_notification() {
 	die("Notifications Cleared!");
 }
 
+/*---------------------------------------------
+	3.0 - POST REPORTS
+----------------------------------------------*/
+
+/**
+ * Process post reports using AJAX
+ * @version 2.0
+ */
+add_action( 'apoc_ajax_apoc_report_post' , 'apoc_report_post' );
+function apoc_report_post() {
+	
+	/* Get the needed data */
+	$userid = get_current_user_id();
+	$from	= bp_core_get_user_displayname( $userid );
+	
+	/* Get AJAX data */
+	$type	= $_POST['type'];
+	$postid = $_POST['id'];
+	$number	= $_POST['num'];
+	$user 	= $_POST['user'];
+	$reason	= $_POST['reason'];
+	
+	/* Get the post URL */
+	if( 'reply' == $type ) :
+		$link = bbp_get_reply_url( $postid );
+	elseif ( 'comment' == $type ) :
+		$link = get_comment_link( $postid );
+	elseif( 'message' == $type ) :
+		$link 	= bp_core_get_user_domain( $user ) . 'messages/view/' . trailingslashit( $postid );
+		$user	= bp_core_get_user_displayname( $user );
+	endif;
+	
+	/* Set the email headers */
+	$subject 	= "Reported Post From $from";
+	$headers 	= "From: Post Report Bot <noreply@tamrielfoundry.com>\r\n";
+	$headers	.= "Content-Type: text/html; charset=UTF-8";
+	
+	/* Construct the message */
+	$body = '<h3>' . $from . ' has reported a post violating the Code of Conduct.</h3>';
+	$body .= '<ul><li>Report URL: <a href="' . $link . '" title="View Post" target="_blank">' . $link . '</a></li>';
+	$body .= '<li>Post Number: ' . $number . '</li>';
+	$body .= '<li>User Reported: ' . $user . '</li>';
+	$body .= '<li>Reason: ' . $reason . '</li></ul>';
+	
+	/* Send the email */
+	$emailto = get_moderator_emails();
+	wp_mail( $emailto , $subject , $body , $headers );
+	
+	echo "1";
+	exit(0);
+}
+
+
+/*---------------------------------------------
+	4.0 - PRIVATE MESSAGES
+----------------------------------------------*/
+
+/**
+ * Send a private message reply to a thread via a POST request.
+ * @version 2.0
+ */
+add_action( 'wp_ajax_apoc_private_message_reply' , 'apoc_private_message_reply' );
+function apoc_private_message_reply() {
+	
+	// Bail if not a POST action
+	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+		return;
+
+	// Check the nonce and register the new message
+	check_ajax_referer( 'messages_send_message' );
+	$result = messages_new_message( array( 'thread_id' => (int) $_REQUEST['thread_id'], 'content' => $_REQUEST['content'] ) );
+
+	// If the new message was registered successfully
+	if ( $result ) :
+	$user = new Apoc_User( get_current_user_id() , 'reply' ); ?>
+	<li class="reply new-message">
+
+		<header class="reply-header">
+			<time class="reply-time">Right Now</time>
+		</header>	
+
+		<section class="reply-body">	
+			<div class="reply-author">
+				<?php echo $user->block; ?>
+			</div>
+			<div class="reply-content">
+				<?php echo wpautop( stripslashes( $_REQUEST['content'] ) ); ?>
+			</div>
+			<?php $user->signature(); ?>
+		</section>				
+	</li>
+	
+	<?php // Otherwise, process errors
+	else :
+		echo '<p class="error">There was a problem sending that reply. Please try again.</p>';
+	endif;
+	exit;
+}

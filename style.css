@@ -2541,7 +2541,7 @@ box-shadow: 0 0 5px #000;
 	}
 #profile-tabs li {
 	flex: 1;
-	max-width: 200px;
+	max-width: 250px;
 	min-width: 100px;
 	text-align: center;
 	}
@@ -2764,6 +2764,27 @@ div.notification-actions {
 	text-align: right;
 	font-size: 0.875em;
 	}
+
+/* Settings */
+#settings-form { padding: 1em 0.5em; }
+#settings-form label { min-width: 250px; }
+
+table.notification-settings { width: 100%; }
+.notification-settings tr td { 
+	text-align: left; 
+	padding: 0.5em 1em;
+	}
+.notification-settings th.icon,
+.notification-settings tr > td:first-child { width: 0; }
+.notification-settings th.title { width: 70%; }
+.notification-settings .yes,
+.notification-settings .no { 
+	width: 15%; 
+	text-align: center;
+	}
+.notification-settings input[type="radio"] { opacity: 1; }
+
+
 
 /*---------------------------------------------
 	9.3 - Group Profiles

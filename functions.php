@@ -40,6 +40,29 @@ function apoc_setup() {
 	if ( class_exists( 'Apocrypha' ) ) apoc();
 }
 
+/**
+ * Initiates "Maintenance Mode"
+ * @version 2.0
+ */
+add_action( 'after_setup_theme' , 'maintenance_redirect' , 0 );
+function maintenance_redirect() {
+
+	// Get the current page
+	global $pagenow;
+
+	// Get the current user
+	$user_id = get_current_user_id();
+
+	// Allowed users
+	$allowed = array( 1 );
+
+	// Redirect non-allowed users except on wp-login.php
+	if ( $pagenow != 'wp-login.php' && !in_array( $user_id , $allowed ) ) {
+		header( 'Location: http://localhost/tamrielfoundry/maintenance.html' );
+		die();
+	}
+}
+
 /*--------------------------------------------------------------
 	2.0 - SCRIPTS AND STYLES
 --------------------------------------------------------------*/

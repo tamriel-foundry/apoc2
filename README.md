@@ -207,11 +207,11 @@ single/notifications/unread.php		| done
 single/profile.php					| done
 single/profile/change-avatar.php	| done
 single/profile/edit.php				| done
-single/settings.php					|
-single/settings/capabilities.php	|
-single/settings/delete-account.php	|
-single/settings/general.php			|
-single/settings/notifications.php	|
+single/settings.php					| unused
+single/settings/capabilities.php	| unused
+single/settings/delete-account.php	| unused
+single/settings/general.php			| done
+single/settings/notifications.php	| done
 
 PAGES								| PROGRESS
 ----------------------------------- | -----------

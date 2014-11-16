@@ -1578,7 +1578,7 @@ ul.submenu > li:last-child {
 	}
 ul.submenu a {
 	color: #A29C8E;
-	text-shadow: 0 0 4px #000;
+	text-shadow: 1px 1px #000;
 	}
 ul.submenu a:hover {
 	color: #F3EAD0;
@@ -2186,6 +2186,7 @@ li.reply {
 .reply-header {
 	width: 100%;
 	float: left;
+	position: relative;
 	padding: 0.5em 1em;
 	font-size: 0.875em;
 	background: rgba(0,0,0,0.1);
@@ -2736,6 +2737,34 @@ a.clear-infraction {
 	right: 0;
 	}
 
+/* Notifications */
+ol#notifications-list {
+	width: 98%;
+	float: left;
+	list-style: none;
+	margin: 0 1%;
+	padding: 0;
+}
+li.notification {
+	width: 100%;
+	float: left;
+	padding: 0.5em 0;
+	border-bottom: 1px solid #000;
+}
+li + li.notification {	border-top: 1px solid #333; }
+li.notification:last-child {	border-bottom: none; }
+
+div.notification-content {
+	width: 75%;
+	float: left;
+	}
+div.notification-actions {
+	width: 25%;
+	float: right;
+	text-align: right;
+	font-size: 0.875em;
+	}
+
 /*---------------------------------------------
 	9.3 - Group Profiles
 ----------------------------------------------*/
@@ -3051,7 +3080,10 @@ div.wp-editor-container .mce-statusbar {
 	}
  	div.post-excerpt { margin: 0; }
 
- 	div.form-left, div.form-right { min-width: 100%; }
+ 	div.form-left, div.form-right { 
+ 		min-width: 100%; 
+ 		text-align: left;
+ 	}
 
 	/* NAVIGATION */
 
@@ -3059,6 +3091,7 @@ div.wp-editor-container .mce-statusbar {
 	div.pagination-count { display: none; }
 
 	/* BBPRESS */
+	form#new-post { padding: 0; }
 	
 	/* Hide forum count */
 	.forum-count { display: none; }
@@ -3072,13 +3105,25 @@ div.wp-editor-container .mce-statusbar {
 	.reply .user-exp { display: none; }
 	.reply-author { border-bottom: 1px solid #111; }
 
-	/* Center forum headers */
+	/* Forum Headers */
+	.reply-header { background: rgba(0,0,0,0.25); }
 	.reply-header .reply-time,
 	.reply-header .reply-admin-links {
 		width: 100%;
 		text-align: center;
 	}
-	.reply-header .reply-admin-links > a {
-		margin: 3px 0;
+	.reply-header .reply-admin-links > a {margin: 3px 0; }
+	a.report-post {
+		position: absolute;
+		top: 8px;
+		left: 4px;
 	}
+	a.reply-permalink { 		
+		position: absolute;
+		top: 6px;
+		right: 8px;
+	}
+
+	/* Hide subquotes */
+	div.subquote { display: none; }
 }

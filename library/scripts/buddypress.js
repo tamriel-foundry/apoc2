@@ -896,12 +896,13 @@ jq("a#mark_as_read, a#mark_as_unread").click(function() {
 
 /*! Bulk delete messages */
 jq( '#private-messages' ).on( 'click', 'a.bulk-delete-messages', function() {
-	
+
+	// Prevent default action
+	event.preventDefault();	
+
 	// Get checkboxes
 	checkboxes_tosend = '';
 	checkboxes = jq("#message-threads input[type='checkbox']");
-
-
 
 	// Determine which messages should be deleted
 	jq(checkboxes).each( function(i) {
@@ -941,13 +942,60 @@ jq( '#private-messages' ).on( 'click', 'a.bulk-delete-messages', function() {
 		jq('#message').hide().slideDown(150);
 		jq(this).children('i').toggleClass('fa-trash fa-spinner').removeClass('fa-spin');
 	});
-
-	return false;
 });
 
 
 // End document ready block
 });
+
+/*! ----------------------------------------------------------
+	7.0 - NOTIFICATIONS
+----------------------------------------------------------- */
+
+/*! Bulk delete or mark read notifications */
+jq('#notifications-actions a').click( function(){
+
+	// Prevent default action
+	event.preventDefault();	
+
+	// Save the original button html
+	var button = jq(this);
+	var orgHtml = button.html();
+
+	// Add a tooltip
+	button.children('i').removeClass().addClass('fa fa-spinner fa-spin');
+	
+	// Get the context
+	var context = jq(this).attr('id');
+	
+	// Get data
+	var userid = jq(this).data('id');
+	
+	// Configure action by context
+	if ( 'mark_as_read' == context ) {
+		action	= 'apoc_mark_notifications_read';
+		success	= 'All notifications marked as read!';
+	} else if ( 'delete_all_notifications' == context ) {
+		action = 'apoc_delete_all_notifications';	
+		success	= 'All notifications deleted!';			
+	}
+	
+	// Submit the POST AJAX
+	jq.post( ajaxurl, { 
+		'action'	: action,
+		'id'		: userid
+		}, 
+		function(response){
+			if ( response == 1 ) {
+				jq('div#notifications-dir-list').slideUp().html('<div class="updated">' + success + '</div>').slideDown();
+			}
+
+			// Restore the button
+			button.html(orgHtml);
+		}
+	);
+});
+
 
 
 /*! ----------------------------------------------------------

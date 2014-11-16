@@ -86,6 +86,38 @@ function apoc_clear_notification() {
 	die("Notifications Cleared!");
 }
 
+/**
+ * Mark all notifications as read
+ * @version 2.0
+ */
+add_action( 'wp_ajax_apoc_mark_notifications_read' , 'apoc_mark_notifications_read' );
+function apoc_mark_notifications_read() {
+
+	// Get the user data
+	$user_id = $_POST['id'];	
+	
+	// Mark all notifications as read
+	BP_Notifications_Notification::mark_all_for_user( $user_id );
+
+	die("1");
+}
+
+/**
+ * Delete all notifications for user
+ * @version 2.0
+ */
+add_action( 'wp_ajax_apoc_delete_all_notifications' , 'apoc_delete_all_notifications' );
+function apoc_delete_all_notifications() {
+
+	// Get the user data
+	$user_id = $_POST['id'];	
+	
+	// Delete all notifications
+	BP_Notifications_Notification::delete( array( 'user_id' => $user_id ) );
+
+	die("1");
+}
+
 /*---------------------------------------------
 	3.0 - POST REPORTS
 ----------------------------------------------*/

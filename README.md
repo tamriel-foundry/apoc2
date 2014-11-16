@@ -200,10 +200,10 @@ single/messages.php					| done
 single/messages/compose.php			| done
 single/messages/messages-loop.php	| done
 single/messages/single.php			| done
-single/notifications.php			|
-single/notifications/notifications-loop.php	|
-single/notifications/read.php		|
-single/notifications/unread.php		|
+single/notifications.php			| done
+single/notifications/notifications-loop.php	| done
+single/notifications/read.php		| done
+single/notifications/unread.php		| done
 single/profile.php					| done
 single/profile/change-avatar.php	| done
 single/profile/edit.php				| done

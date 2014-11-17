@@ -16,7 +16,15 @@
 
 	// Construct the class
 	function __construct() {
-		add_action( 'template_redirect', array( &$this , 'map_template' ) );
+		add_action( 'init', array( &$this, 'rewrite_rules' ) );  
+		add_action( 'template_redirect', array( &$this , 'map_template' ) , 1 );
+	}
+
+	// Define the rule for identifying comment edits
+	function rewrite_rules() {
+		$rule	= '^map/?';
+		$query	= 'index.php?name=esomap';
+		add_rewrite_rule( $rule , $query , 'top' );
 	}
 	
 	
@@ -24,7 +32,7 @@
 	function map_template() {
 		
 		global $wp_query;
-		if ( $wp_query->query_vars['pagename'] == 'map' ) {
+		if ( $wp_query->query_vars['name'] == 'esomap' ) {
 
 			// Set wp_query parameters
 			$wp_query->is_404 = false;
@@ -47,6 +55,7 @@
 		// Set theme objects
 		$apoc = apoc();
 		$apoc->classes 		= array_merge( $apoc->classes , array( 'singular','page','map' ) );
+		$apoc->crumbs[]		= "Interactive Map";
 		$apoc->title 		= "Interactive Map of Tamriel";
 		$apoc->description 	= "A richly interactive map of the entirety of Tamriel which is available in The Elder Scrolls Online.";
 		

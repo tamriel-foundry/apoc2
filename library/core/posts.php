@@ -3,11 +3,37 @@
  * Apocrypha Theme Posts Functions
  * Andrew Clayton
  * Version 2.0
- * 4-29-2014
+ * 11-16-2014
  */
  
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
+
+/**
+ * Tamriel Foundry homepage have_posts query
+ * @version 2.0
+ */
+function homepage_have_posts() {
+
+	// Get the page and offset
+	$posts_per_page = 6;
+	$paged 			= ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+	$offset 		= ( $posts_per_page * $paged ) - $posts_per_page;
+	
+	// Format query arguments
+	$args = array( 
+		'paged'=> $paged, 
+		'posts_per_page'=> $posts_per_page,
+		'offset' => $offset,
+		'cat' => '-' . get_cat_ID( 'guild news' ),
+		);
+		
+	// Retrieve posts
+	query_posts( $args );
+
+	// Return whether there are posts
+	return have_posts();
+}
 
 /**
  * Generates a class for the homepage headers.

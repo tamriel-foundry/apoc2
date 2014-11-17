@@ -163,6 +163,10 @@ class Apoc_BuddyPress {
 			global $group_edit;
 			$group_edit = new Apoc_Group_Edit();
 		}
+
+		// Groups extensions
+		if ( class_exists( 'BP_Group_Extension' ) )
+			bp_register_group_extension( 'Apoc_Group_Add_Leader' );
 	}
 
 	/*------------------------------------------
@@ -270,30 +274,30 @@ class Apoc_BuddyPress {
 
 			// Set email headers
 			$emailto 	= 'admin@tamrielfoundry.com';
-			$subject 	= "Guild Creation Request From $username";
+			$subject 	= 'Guild Creation Request From ' . $username;
 			$headers[] 	= "From: $username <$user_email>\r\n";
 			$headers[] 	= "Content-Type: text/html; charset=UTF-8";
 
 			// User Information
 			$body = "<h3>Submitting User</h3>";
 			$body .= "<ul>";
-				$body .= "<li>Guild Leader: $profile";
-				$body .= "<li>Email: $user_email</li>";
+				$body .= '<li>Guild Leader: ' . $profile . '</li>';
+				$body .= '<li>Email: ' . $user_email . '</li>';
 			$body .= "</ul>";
 
 			// Guild Information
 			$body .= "<h3>Guild Information</h3>";
 			$body .= "<ul>";
-				$body .= "<li>Guild Name: $group->name";
-				$body .= "<li>Website: $group->website";
-				$body .= "<li>Server: $group->server";
-				$body .= "<li>Faction: $group->faction";
-				$body .= "<li>Interests: $group->interests";
+				$body .= '<li>Guild Name: ' . $group->name . '</li>';
+				$body .= '<li>Website: ' . $group->website . '</li>';
+				$body .= '<li>Server: ' . $group->server . '</li>';
+				$body .= '<li>Faction: ' . $group->faction . '</li>';
+				$body .= '<li>Interests: ' . $group->interests . '</li>';
 			$body .= "</ul>";
 
 			// Guild Description
 			$body .= "<h3>Guild Description</h3>";
-			$body .= "<div>$group->description</div>";
+			$body .= '<div>' . $group->description . '</div>';
 
 			// Send the mail!
 			wp_mail( $emailto , $subject , $body , $headers );

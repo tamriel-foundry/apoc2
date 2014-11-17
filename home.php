@@ -15,10 +15,8 @@
 			<?php apoc_recent_discussion(); ?>
 		</div>
 
-
-		
 		<div id="posts">
-			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+			<?php if ( homepage_have_posts() ) : while ( have_posts() ) : the_post(); ?>
 				<?php apoc_single_post(); ?>
 			<?php endwhile; endif; ?>
 		</div>

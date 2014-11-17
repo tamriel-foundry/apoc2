@@ -44,7 +44,7 @@ function apoc_setup() {
  * Initiates "Maintenance Mode"
  * @version 2.0
  */
-add_action( 'after_setup_theme' , 'maintenance_redirect' , 0 );
+//add_action( 'after_setup_theme' , 'maintenance_redirect' , 0 );
 function maintenance_redirect() {
 
 	// Get the current page
@@ -54,11 +54,11 @@ function maintenance_redirect() {
 	$user_id = get_current_user_id();
 
 	// Allowed users
-	$allowed = array( 1 );
+	$allowed = array( 1 , 2 , 8 , 24496 );
 
 	// Redirect non-allowed users except on wp-login.php
 	if ( $pagenow != 'wp-login.php' && !in_array( $user_id , $allowed ) ) {
-		header( 'Location: http://localhost/tamrielfoundry/maintenance.html' );
+		header( 'Location: http://tamrielfoundry.com/maintenance.html' );
 		die();
 	}
 }
@@ -89,19 +89,31 @@ function apoc_scripts() {
 	wp_deregister_script( 'jquery' );
 	
 	// Register Scripts
-	wp_register_script( 'jquery' , 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' ,'jquery' , $ver ='1.11.1' , true );
-	wp_register_script( 'foundry' , THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.02' , true	);
-	wp_register_script( 'buddypress' , THEME_URI.'/library/scripts/buddypress.js' , 'jquery' , $ver='0.01' 	, true 	);	
+	wp_register_script( 'jquery' , 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' ,'jquery' , $ver ='2.1.1' , true );
+	wp_register_script( 'foundry' , THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.1' , true	);
+	wp_register_script( 'buddypress' , THEME_URI.'/library/scripts/buddypress.js' , 'jquery' , $ver='0.1' 	, true 	);
+	wp_register_script( 'googletag'	, THEME_URI.'/library/scripts/gpt.js' , 'jquery' , $ver='0.1' , false );	
 	
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'foundry' );
 	wp_enqueue_script( 'buddypress' );
-	
+	wp_enqueue_script( 'googletag' );
+
 	// FlexSlider
 	if ( is_home() ) {
-		wp_register_script( 'flexslider' 	, THEME_URI.'/library/scripts/flexslider.js' , 'jquery' , $ver='0.1' , true  );
+		wp_register_script( 'flexslider' 	, THEME_URI.'/library/scripts/flexslider.js' , 'jquery' , $ver='0.1' , true );
 		wp_enqueue_script( 'flexslider' );
+	}
+
+	// Enchanting Guide
+	elseif ( is_page( 'enchanting' )) {
+		wp_register_script( 'enchanting'	, THEME_URI.'/library/scripts/enchanting.js' , 'jquery' , $ver='0.7' , true );
+		wp_enqueue_script( 'enchanting' );
+		
+		// Enqueue CSS
+		wp_register_style( 'enchanting' 	, THEME_URI.'/library/css/enchanting.css'  , 'foundry' , $ver='0.7' );
+		wp_enqueue_style( 'enchanting' );
 	}
 }
 

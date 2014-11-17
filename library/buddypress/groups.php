@@ -480,6 +480,118 @@ class Apoc_Group_Edit {
 }
 
 
+/*--------------------------------------------------------------
+6.0 - GROUP CREATION
+--------------------------------------------------------------*/
+class Apoc_Group_Add_Leader extends BP_Group_Extension {
+
+	// Define the slug
+	public $slug = 'leader';
+
+	function __construct() {
+		
+		// Provide arguments used by the groups API
+		$args = array(
+		
+			// Where is the component used
+			'visibility' => 'private',		
+			
+			// Set the details of where the component is used
+			'screens'	=> array (
+				'create' => array (
+					'enabled'					=> true,
+					'name'						=> 'Guild Leader',
+					'slug'						=> 'leader',
+					'create_step_position'		=> 99 ),
+				'edit'	=> array (
+					'enabled'					=> false ),
+				'admin'	=> array (
+					'enabled'					=> false ),
+			),		
+		);
+		
+		// Pass the args back to the groups API
+		parent::init( $args );
+	}
+	
+	/*
+	 * Generates markup for the create/edit/admin screens
+	 */
+	function settings_screen( $group_id = NULL ) {
+	
+		// Make sure we are in the right place
+		global $bp, $groups_template;
+		if ( !bp_is_group_creation_step( $this->slug ) )
+		return false; 
+		
+		
+		// Display the form fields ?>
+		<div class="instructions">
+			<h3 class="double-border bottom">Step 6 - Appoint Guild Leader</h3>
+			<ul>
+				<li>Enter the exact email address of the user you wish to promote to guild leader.</li>
+				<li>Please be careful to precisely enter this field, as errors in the email address may have unintended consequences.</li>
+			</ul>
+		</div>
+		
+		<ol id="group-create-list">
+			<li class="text">
+				<label for="editable-guild-leader">Guild Leader's Email (&#9734;) :</label>
+				<input type="text" id="editable-guild-leader" name="editable-guild-leader" title="Leader email address" value="" size="50" />
+			</li>
+			
+			<li class="hidden">
+				<?php wp_nonce_field( 'groups_create_save_' . $this->slug ); ?>
+			</li><?php			
+	}
+	
+	/*
+	 * Save the data and assign the new leader
+	 */
+	function settings_screen_save( $group_id = NULL ) {
+		global $bp;
+		
+		// Make sure we have the group ID
+		$group_id = $_POST['group_id'];
+		if ( !$group_id )
+			$group_id = $bp->groups->current_group->id;	
+			
+		// Set error redirect based on save method
+		$redirect_url = $bp->root_domain . '/' . $bp->groups->slug . '/create/step/' . $this->slug;
+		
+		// Email cannot be empty
+		if ( empty( $_POST['editable-guild-leader'] ) ) {
+			bp_core_add_message( 'You must enter a valid email address.' , 'error' );
+			bp_core_redirect( $redirect_url );
+			exit();
+		}
+		
+		// Make sure the nonce checks
+		check_admin_referer( 'groups_create_save_' . $this->slug );
+		
+		// Get the leader by email
+		$leader_email 	= sanitize_email ( $_POST['editable-guild-leader'] );
+		$leader			= get_user_by( 'email' , $leader_email );
+		
+		// If we don't recognize the email, bail out
+		if( empty( $leader ) ) {
+			bp_core_add_message( 'This email address is not recognized.' , 'error' );
+			bp_core_redirect( $redirect_url );
+			exit();
+		}
+
+		// Otherwise, set the group leader, and remove the creator
+		$leader_id	= $leader->ID;
+		if ( $leader_id != get_current_user_id() ) { 
+			groups_accept_invite( $leader_id , $group_id );	
+			$member = new BP_Groups_Member( $leader_id , $group_id );
+			$member->promote( 'admin' );
+			groups_leave_group( $group_id , $creator_id	);
+		}		
+	}
+}
+
+
 /**
  * Modify the way checkboxes are rendered on the invite screen
  * @version 2.0

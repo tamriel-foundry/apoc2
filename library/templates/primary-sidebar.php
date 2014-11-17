@@ -17,10 +17,12 @@
 	
 	<?php apoc_sidebar_members(); ?>
 
+	<?php /*
 	<div id="sidebar-banner">
 		Sidebar Ad:<br/>
 		Medium Rectangle - 300x250
 	</div>
+	*/ ?>
 
 	<?php apoc_donate_box(); ?>
 

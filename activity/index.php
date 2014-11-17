@@ -41,7 +41,8 @@
 
 		<?php if ( is_user_logged_in() ) : $user = apoc()->user; ?>
 		<blockquote id="profile-status" class="user-status">
-			<p><?php echo '@' . $user->display_name . ' &rarr;</p><p><span id="latest-status">' . bp_get_activity_latest_update( $user->ID ); ?></span></p>
+			<?php echo '@' . $user->display_name . ' &rarr; '; ?>
+			<div id="latest-status"><?php echo wpautop( bp_get_activity_latest_update( $user->ID ) ); ?></div>
 			<a class="update-status-button button-dark"><i class="fa fa-pencil"></i>What's New?</a>
 		</blockquote>
 		<?php locate_template( array( 'activity/post-form.php'), true ); ?>

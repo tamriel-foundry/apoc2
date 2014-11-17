@@ -4,14 +4,14 @@
  * Version 2.0
  * 5-6-2014
 ----------------------------------------------------------- */
-var	siteurl		= 'http://localhost/tamrielfoundry/';
+var siteurl		= ( "localhost" == window.location.host ) ? "http://localhost/tamrielfoundry/" : "http://tamrielfoundry.com/";
 var themeurl	= siteurl	+ 'wp-content/themes/apoc2/';
 var wp_ajax 	= siteurl	+ 'wp-admin/admin-ajax.php';
 var apoc_ajax 	= themeurl	+ "library/ajax.php";
 var $			= jQuery;
 
 /*! ----------------------------------------------------------
-	1.0 - GOOGLE ANALYTICS AND GOOGLETAG ADS
+	1.0 - GOOGLE ANALYTICS
 ----------------------------------------------------------- */
 
 /*! Google Analytics */
@@ -23,27 +23,6 @@ var $			= jQuery;
 (window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-33555290-2', 'auto');
 ga('send', 'pageview');
-
-/*! Setup GoogleTag Ads */
-var googletag = googletag || {};
-googletag.cmd = googletag.cmd || [];
-(function() {
-	var gads = document.createElement('script');
-	gads.async = true;
-	gads.type = 'text/javascript';
-	var useSSL = 'https:' == document.location.protocol;
-	gads.src = (useSSL ? 'https:' : 'http:') + 
-	'//www.googletagservices.com/tag/js/gpt.js';
-	var node = document.getElementsByTagName('script')[0];
-	node.parentNode.insertBefore(gads, node);
-})();
-
-// Primary Leaderboard
-googletag.cmd.push(function() {
-	googletag.defineSlot('/1045124/_TF_Leaderboard', [728, 90], 'primary-leaderboard-728').addService(googletag.pubads());
-	googletag.pubads().enableSingleRequest();
-	googletag.enableServices();
-});
 
 // Begin Document Ready
 $(document).ready(function(){
@@ -368,7 +347,7 @@ $("a.notification-clear").click( function( event ){
 				newcount = counter.html().split('</i>');
 
 				// Update the count and replace the counter
-				counter.html( newcount[0] + (newcount[1] - count) );
+				counter.html( newcount[0] + " " + (newcount[1] - count) );
 				button.parent().slideUp();
 				
 				// Update the document title

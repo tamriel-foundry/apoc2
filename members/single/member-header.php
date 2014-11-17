@@ -24,7 +24,7 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 		</div>
 	</header><!-- #profile-header -->
 	
-	<div id="profile-user" class="reply-author">
+	<div id="profile-user" class="reply-author user-<?php echo $user->id; ?>">
 		<?php echo $user->block; ?>	
 	</div>
 
@@ -37,7 +37,9 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 
 		<blockquote id="profile-status" class="user-status">
 			<?php echo '@' . $user->nicename . ' &rarr; '; ?>
+			<div id="latest-status">
 			<?php if ( !empty($user->status['content']) ) echo $user->status['content']; ?>
+			</div>
 			<?php if ( bp_is_my_profile() ) : ?>
 				<a class="update-status-button button-dark"><i class="fa fa-pencil"></i>What's New?</a>
 			<?php endif; ?>

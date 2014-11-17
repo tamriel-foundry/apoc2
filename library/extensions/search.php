@@ -66,7 +66,7 @@ class Apoc_Search {
 		// Get extra fields
 		$this->author	= isset( $_REQUEST['author'] ) && $_REQUEST['author'] != -1 ? $_REQUEST['author'] : NULL;
 		$this->cat		= isset( $_REQUEST['cat'] ) && $_REQUEST['cat'] != -1 ? $_REQUEST['cat'] : NULL;
-		$this->forum	= ( isset( $_POST['forum'] ) && $_POST['forum'] != '' ) ? $_POST['forum'] : 'any';
+		$this->forum	= ( isset( $_POST['inforum'] ) && $_POST['inforum'] != '' ) ? $_POST['inforum'] : 'any';
 		$this->faction	= ( isset( $_POST['faction'] ) ) ? $_POST['faction'] : 'any';
 
 		// Get the current search request

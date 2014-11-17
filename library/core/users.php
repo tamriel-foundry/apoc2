@@ -136,6 +136,7 @@ class Apoc_User {
 			'size' 		=> $this->size,
 			'link'		=> true,
 			'url'		=> $this->profile,
+			'donor'		=> ( $this->donor >= 10 ) ? true : false,
 		);
 		
 		// Do some things differently depending on context
@@ -458,7 +459,7 @@ class Apoc_User {
 				'class'		=> $this->faction,
 				'tier'		=> 'bronze',
 		);}
-		if ( $this->charname && $this->race && $this->class && $this->prefrole ) {
+		if ( $this->server && $this->charname && $this->race && $this->class && $this->prefrole ) {
 			$badges['character'] = array(
 				'name'		=> 'In Character!',
 				'class'		=> 'character',
@@ -575,6 +576,7 @@ class Apoc_Avatar {
 			'size'			=> 100,
 			'link'			=> false,
 			'url'			=> '',
+			'donor'			=> false,
 			);
 		
 		// Parse with supplied params
@@ -627,6 +629,16 @@ class Apoc_Avatar {
 			// If the user has not uploaded an avatar, choose one using their profile settings
 			if ( strrpos( $avatar , BP_AVATAR_DEFAULT ) || strpos( $avatar , BP_AVATAR_DEFAULT_THUMB ) ) {
 				$avatar = $this->dynamic_avatar();
+			}
+
+			// Add the user's faction to the avatar class
+			if ( $this->donor ) {
+				$avatar = str_replace( 'class="' , 'class="' . $this->alliance . ' ' , $avatar );
+			}	
+
+			// Maybe add a donor flag to the avatar class for avatars larger than 50px
+			if ( $this->size >= 50 && $this->donor ) {
+				$avatar = str_replace( 'class="' , 'class="supporter ' , $avatar );
 			}
 			
 			// Maybe wrap the image in a profile link

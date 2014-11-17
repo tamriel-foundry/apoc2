@@ -183,3 +183,38 @@ blockquote > p:last-child { margin: 0; }
 	}
 .quote > p.quote-author{ margin: 0; }
 .quote > p.quote-author + * { display: none; }
+
+/* Images */
+img {
+	display: block;
+	box-sizing: content-box;
+	max-width: 100%;
+	max-height: 600px;
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	padding: 2px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #111;
+	background: rgba(51,51,51,0.5);
+	}
+
+img.alignright, .wp-caption.alignright {
+	float:right;
+	clear: right;
+	margin: 0 0 1em 1.5em;
+	}
+img.alignleft, .wp-caption.alignleft {
+	float: left;
+	clear: left;
+	margin: 0 1.5em 1em 0;
+	}
+img.aligncenter, .wp-caption.aligncenter {
+	margin: 0 auto 1em;
+	}
+img.noborder {
+	background: none;
+	border: none;
+	box-shadow: none;
+	}

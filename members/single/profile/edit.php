@@ -109,7 +109,7 @@ $user = new Edit_Profile( bp_displayed_user_id() );
 							<label for="guild"><i class="fa fa-group fa-fw"></i>Primary Guild:</label>
 							<select name="guild" id="guild">
 								<option value="">No Guild</option>
-								<?php if ( bp_has_groups( array( 'type' => 'alphabetical', 'user_id' => $user_id ) ) ) : while ( bp_groups() ) : bp_the_group(); ?>
+								<?php if ( bp_has_groups( array( 'type' => 'alphabetical', 'user_id' => $user->id ) ) ) : while ( bp_groups() ) : bp_the_group(); ?>
 									<?php if ( group_is_guild( bp_get_group_id() ) ) : ?>
 									<option value="<?php bp_group_name(); ?>" <?php selected( $user->guild , bp_get_group_name() , true ); ?>><?php bp_group_name();?></option>
 								<?php endif; endwhile; endif; ?>

@@ -40,10 +40,35 @@ function apoc_comment_form() {
 }
 
 
+/**
+ * Adds additional supported tags to the allowed kses tags, giving users more freedom in comments and forum posts
+ * @version 2.0
+ */	
+// Support more allowed tags in KSES
+add_action( 'init' , 'apoc_extra_kses' );
+function apoc_extra_kses() {
+
+	// Define the newly allowed tags
+	global $allowedtags;	
+	$newtags = array( 'div' , 'ol' , 'ul' , 'li' , 'p' , 'h1' , 'h2' , 'h3' , 'h4' , 'h5' , 'h6' , 'span' , 'pre' , 'img' );
+	
+	// Register each tag with style and class properties
+	foreach ( $newtags as $tag )
+	$allowedtags[$tag] = array(
+		'style'	=> true,
+		'class'	=> true,
+	);
+	
+	// Register extra properties for certain tags
+	$allowedtags['a']['target'] = true;
+	$allowedtags['img']['src'] = true;
+	$allowedtags['img']['height'] = true;
+	$allowedtags['img']['width'] = true;
+	$allowedtags['img']['alt'] = true;
+}
 
 
-
-/* 
+/** 
  * Custom text sanitization and filtering
  * @version 2.0
  */

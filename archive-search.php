@@ -90,12 +90,12 @@ $context = $search->context;
 			<?php // Topics options ?>
 			<fieldset id="adv-search-topics" class="adv-search-fields <?php if ( $context == 'topics' ) echo 'active'; ?>">
 				<div class="form-left">
-					<label for="forum"><i class="fa fa-list fa-fw"></i>In Forum: </label>
+					<label for="inforum"><i class="fa fa-list fa-fw"></i>In Forum: </label>
 					<?php bbp_dropdown( $args = array(
 						'post_type'				=> 'forum',
 						'show_none'          	=> 'Any Forum',
 						'selected'				=> isset( $search->forum ) ? $search->forum : NULL,
-						'select_id'          	=> 'forum',
+						'select_id'          	=> 'inforum',
 					) ); ?>
 				</div>
 			</fieldset>

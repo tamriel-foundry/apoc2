@@ -54,7 +54,7 @@ $search		= apoc()->search;
 	
 	<?php if ( $logged_in ) apoc_notifications(); ?>
 	
-	<form name="top-search-form" id="top-search-form" "<?php echo SITEURL . '/advsearch/'; ?>" method="post">	
+	<form name="top-search-form" id="top-search-form" action="<?php echo SITEURL . '/advsearch/'; ?>" method="post">	
 		<fieldset>
 			<input type="text" name="s" id="search" value="<?php echo $search; ?>" placeholder="Search Articles" />
 			<label for="search"><i class="fa fa-search"></i></label>

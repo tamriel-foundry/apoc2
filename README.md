@@ -16,6 +16,15 @@ group_meta {
 	delete rows where meta_value = 'blank'
 }
 
+usermeta {
+	delete rows where meta_value = 'blank'
+	delete contact method bethforums
+}
+
+-----------------------------------
+	CONFIGURATION OPTIONS
+-----------------------------------
+
 BuddyPress options {
 	allow group creation for everyone
 }

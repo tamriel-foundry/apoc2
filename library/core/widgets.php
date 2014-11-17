@@ -3,7 +3,7 @@
  * Apocrypha Theme Widgets
  * Andrew Clayton
  * Version 2.0
- * 7-28-2014
+ * 11-16-2014
  */
  
 /*--------------------------------------------------------------
@@ -83,6 +83,7 @@ class Apoc_Recent_Discussion {
 		// Try to retrieve the widget from the cache
 		$widget = wp_cache_get( 'recent_discussion' , 'apoc' );
 		if ( $widget ) {
+			$this->html = $widget;
 			$this->cached = true;
 		}
 		
@@ -126,25 +127,27 @@ class Apoc_Recent_Discussion {
 				$user = new Apoc_User( bp_get_activity_user_id() , 'directory' , 40 );
 
 				// Get the activity type
-				$post_id 	= bp_get_activity_secondary_item_id();
 				$type 		= bp_get_activity_type();
 
 				// Format activity based on context
 				switch( $type ) {
 					case 'bbp_topic_create' :
-						$link =  '<a href="' . bbp_get_topic_permalink( $post_id )  . '" title="Read topic" target="_blank">' . bbp_get_topic_title( $post_id ) . '</a>';
-						$verb = 'created topic';	
+						$topic_id 	= bp_get_activity_item_id();
+						$link 		=  '<a href="' . bbp_get_topic_permalink( $topic_id )  . '" title="Read topic" target="_blank">' . bbp_get_topic_title( $topic_id ) . '</a>';
+						$verb 		= 'created topic';	
 						break;
 
 					case 'bbp_reply_create' :
-						$link =  '<a href="' . bbp_get_topic_last_reply_url( $post_id ) . '" title="Read reply" target="_blank">' . bbp_get_topic_title( $post_id ) . '</a>';
-						$verb = 'replied to';
+						$reply_id 	= bp_get_activity_secondary_item_id();
+						$link 		=  '<a href="' . bbp_get_topic_last_reply_url( $reply_id ) . '" title="Read reply" target="_blank">' . bbp_get_topic_title( $reply_id ) . '</a>';
+						$verb 		= 'replied to';
 						break;
 
 					case 'new_blog_comment' :
-						$comment = get_comment( $post_id );
-						$link =  '<a href="' . get_comment_link( $post_id ) . '" title="Read reply" target="_blank">' . get_the_title( $comment->comment_post_ID ) . '</a>';
-						$verb = 'commented on';
+						$comment_id = bp_get_activity_secondary_item_id();
+						$comment 	= get_comment( $comment_id );
+						$link 		=  '<a href="' . get_comment_link( $comment_id ) . '" title="Read reply" target="_blank">' . get_the_title( $comment->comment_post_ID ) . '</a>';
+						$verb 		= 'commented on';
 						break;
 				}
 				
@@ -211,6 +214,7 @@ class Apoc_Online_Members {
 		// Try to retrieve the widget from the cache
 		$widget = wp_cache_get( 'online_members' , 'apoc' );
 		if ( $widget ) {
+			$this->html = $widget;
 			$this->cached = true;
 		}
 		
@@ -234,7 +238,7 @@ class Apoc_Online_Members {
 		}		
 	}
 	
-	// Format the topics into a widget
+	// Format the members into a widget
 	function build_html() {
 	
 		// Get the total member count
@@ -315,6 +319,7 @@ class Apoc_Featured_Stream {
 		// Try to retrieve the widget from the cache
 		$widget = wp_cache_get( 'featured_stream' , 'apoc' );
 		if ( $widget ) {
+			$this->html = $widget;
 			$this->cached = true;
 		}
 		
@@ -324,8 +329,9 @@ class Apoc_Featured_Stream {
 			// List of valid streams as username => twitch name
 			$streams = array(
 				'atropos' 			=> 'atropos_nyx', 
-				'testuser' 			=> 'erlexx', 
-				'moderator' 		=> 'phazius', 
+				'erlexx' 			=> 'erlexx', 
+				'vylaer'			=> 'vylaer', 
+				'deltia'			=> 'deltiasgaming', 
 			);
 			
 			// Shuffle the array
@@ -518,6 +524,7 @@ class Apoc_Sidebar_Stats {
 		// Try to retrieve the stats from the cache
 		$stats = wp_cache_get( 'community_stats' , 'apoc' );
 		if ( $stats ) {
+			$this->html = $widget;
 			$this->cached = true;
 		}
 		
@@ -586,19 +593,16 @@ class Apoc_Sidebar_Stats {
 
 				<div id="stats-banner">
 					<div class="banner-top aldmeri" style="height:<?php echo $ah; ?>px">
-						<div class="banner-bottom aldmeri">
-							<a class="banner-count" href="<?php echo $groups; ?>aldmeri-dominion" title="Aldmeri Dominion - <?php echo round( $a * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $a , 0 , '' , ',' ); ?></a>
-						</div>
+						<div class="banner-bottom aldmeri"></div>
+						<a class="banner-count" href="<?php echo $groups; ?>aldmeri-dominion" title="Aldmeri Dominion - <?php echo round( $a * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $a , 0 , '' , ',' ); ?></a>
 					</div>
 					<div class="banner-top daggerfall" style="height:<?php echo $dh; ?>px">
-						<div class="banner-bottom daggerfall">
-							<a class="banner-count" href="<?php echo $groups; ?>daggerfall-covenant" title="Daggerfall Covenant - <?php echo round( $d * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $d , 0 , '' , ',' ); ?></a>
-						</div>
+						<div class="banner-bottom daggerfall"></div>
+						<a class="banner-count" href="<?php echo $groups; ?>daggerfall-covenant" title="Daggerfall Covenant - <?php echo round( $d * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $d , 0 , '' , ',' ); ?></a>
 					</div>
 					<div class="banner-top ebonheart" style="height:<?php echo $eh; ?>px">
-						<div class="banner-bottom ebonheart">
-							<a class="banner-count" href="<?php echo $groups; ?>ebonheart-pact" title="Ebonheart Pact - <?php echo round( $e * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $e , 0 , '' , ',' ); ?></a>
-						</div>
+						<div class="banner-bottom ebonheart"></div>
+						<a class="banner-count" href="<?php echo $groups; ?>ebonheart-pact" title="Ebonheart Pact - <?php echo round( $e * 100 / $a + $d + $e ); ?>%"><?php echo number_format( $e , 0 , '' , ',' ); ?></a>
 					</div>
 				</div>
 			</div><?php

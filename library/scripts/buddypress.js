@@ -154,7 +154,7 @@ jq("#aw-whats-new-submit").click( function(event) {
 			// If we are on a user profile page, add the new update to their recent status
 			if ( 0 != jq("#profile-status").length ) {
 				jq("#profile-status").slideUp(300,function(){				
-					jq("#profile-status span#latest-status").html( content );
+					jq("#latest-status").html( '<p>' + content + '<p>' );
 					jq("#profile-status").slideDown(300);
 				});
 			}

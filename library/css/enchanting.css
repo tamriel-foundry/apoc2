@@ -131,7 +131,6 @@ div.runestone.grid-10-3 {background-position: -104px   0px;}
 	box-shadow: 0 0 20px #000;
 	position: relative;
 }
-#simulator * { 	box-sizing: border-box; }
 #simulator-title {
 	width: 400px;
 	position: absolute;
@@ -156,7 +155,7 @@ div.runestone.grid-10-3 {background-position: -104px   0px;}
 }
 #glyph .glyph-name { 
 	height: 50px;
-	margin: 32px 0 20px 0; 
+	margin: 32px 0 0;
 }
 #glyph .glyph-desc,
 #glyph .glyph-lvl {
@@ -220,13 +219,13 @@ select#selector {
 }
 .display-runes p {
 	margin: 0;
-	font-size: 1.125em;
 	line-height: 28px;
 }
+#simulator input[type="radio"],
+#simulator input[type="radio"] + label:before { display: none; }
 #simulator .display-runes label {
 	display: block;
 	padding: 0 0 0 40px;
-	background: none;
 }
 .display-runes input:checked + label {
 	color: #FFF;

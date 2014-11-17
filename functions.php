@@ -137,7 +137,7 @@ function apoc_mce_options( $init ) {
 	
 	// TinyMce initialization options
 	if( !is_admin() )
-			$init['content_css']				= $stylesheet . '/editor-content.css?v=1.0.0';
+			$init['content_css']				= $stylesheet . 'editor-content.css?v=1.1';
 	$init['wordpress_adv_hidden'] 				= false;
 	$init['height']								= 250;
 	$init['theme_advanced_resizing_use_cookie'] = false;

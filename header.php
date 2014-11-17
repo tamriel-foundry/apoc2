@@ -21,6 +21,8 @@
 	<meta name="description" content="<?php apoc_description(); ?>"/>
  	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="SHORTCUT ICON" href="<?php echo THEME_URI . '/images/icons/favicon.ico'; ?>">
+	<link href='http://fonts.googleapis.com/css?family=Cinzel:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<?php wp_head(); ?>	
 </head>
 

@@ -1,4 +1,4 @@
-h/* 	-----------------------------
+/* 	-----------------------------
 	Foundry Theme Stylesheet
 	-----------------------------
 	Theme Name: 	Apocrypha2
@@ -66,7 +66,6 @@ Light-text:				#D1CBBC
 Lighter-text:			#F3EAD0
 Dark-text:				#A29C8E
 darker-text:			#6F6B60;
-
 */
 
 /*--------------------------------------------------------------
@@ -79,50 +78,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 /* Border-Box */
 html{box-sizing:border-box;}*,*:before,*:after{box-sizing: inherit;}
 
-
-/*---------------------------------------------
-	1.1 - Import Fonts
-----------------------------------------------*/
-
-@font-face {
-  font-family: 'Cinzel';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Cinzel-Regular'), url(http://fonts.gstatic.com/s/cinzel/v4/GUdIaltLF-l6nIaNvN3eY_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Cinzel';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Cinzel-Bold'), url(http://fonts.gstatic.com/s/cinzel/v4/L74890HNVnUypqWjqGUt1RJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://fonts.gstatic.com/s/opensans/v10/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://fonts.gstatic.com/s/opensans/v10/xjAJXh38I15wypJXxuGMBo4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
 
 /*--------------------------------------------------------------
 	2.0 - NON STRUCTURAL ELEMENTS
@@ -142,7 +97,7 @@ body {
 	background: #222;
 	background-image: url("images/backgrounds/bg-loop.jpg");
 	background-position: 50% 0;
-	font-family: 'Open Sans' , 'Sans-Serif';
+	font-family: 'Open Sans' , 'Verdana' , 'sans-serif';
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 20px;
@@ -1928,14 +1883,6 @@ li.flex-active a.slideshow-tab-title {
 	margin: 0 0 1em;
 	}
 
-#respond {
-	flex: 4;
-	order: 10;
-	min-width: 100%;
-	margin: 0 0 1em;
-	overflow: hidden;
-	}
-
 ol#comment-list {
 	width: 100%;
 	margin: 0;
@@ -1944,6 +1891,12 @@ ol#comment-list {
 	list-style: none;
 	}
 
+#respond {
+	width: 100%;
+	float: left;
+	margin: 0 0 1em;
+	overflow: hidden;
+	}
 
 /*---------------------------------------------
 	7.1 - Single Comments

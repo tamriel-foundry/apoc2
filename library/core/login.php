@@ -70,7 +70,7 @@ class Apoc_Security {
 	 * @since 1.0
 	 */
 	function login_styles() {
-		echo '<link rel="stylesheet" href="' . THEME_URI . '/library/css/login.css" type="text/css" media="all" />';
+		echo '<link rel="stylesheet" href="' . THEME_URI . '/library/css/login.css?ver=1.0" type="text/css" media="all" />';
 	}
 	function login_redirect() {
 		return SITEURL;

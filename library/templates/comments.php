@@ -35,6 +35,6 @@ if ( !defined( 'ABSPATH' ) ) exit; ?>
 	</nav>
 	<?php endif; ?>
 
-</div><!-- #comments -->
+	<?php apoc_comment_form(); ?>
 
-<?php apoc_comment_form(); ?>
+</div><!-- #comments -->

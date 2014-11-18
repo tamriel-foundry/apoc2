@@ -80,9 +80,13 @@ function apoc_scripts() {
 	// Register Styles
 	wp_register_style( 'primary' , THEME_URI . '/style.css' , false , $ver=filemtime( THEME_DIR . "/style.css" ) );
 	wp_register_style( 'font-awesome' , 'http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' , false , $ver='4.1.0' );
+	wp_register_style( 'cinzel' , 'http://fonts.googleapis.com/css?family=Cinzel:400,700' , false  );
+	wp_register_style( 'open-sans' , 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' , false );
 	
 	// Enqueue Styles
 	wp_enqueue_style( 'font-awesome' );
+	wp_enqueue_style( 'cinzel' );
+	wp_enqueue_style( 'open-sans' );
 	wp_enqueue_style( 'primary' );
 	
 	// Deregister Scripts

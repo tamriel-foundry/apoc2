@@ -354,6 +354,7 @@ class Apoc_Featured_Stream {
 			
 			// Get the user
 			$user = get_user_by( 'slug' , $username );
+			if ( empty($user) ) return false;
 			
 			// Construct data array
 			$stream_data	= array(

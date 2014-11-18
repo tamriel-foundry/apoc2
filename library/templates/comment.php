@@ -20,7 +20,7 @@ $user	= new Apoc_User( $comment->user_id , 'reply' );
 		<?php apoc_report_post_button( 'comment' ); ?>
 		<div class="reply-admin-links">
 			<?php apoc_comment_admin_links(); ?>
-			<span><a class="reply-permalink" href="<?php echo get_comment_link( $comment->comment_ID ); ?>" title="Link directly to this comment">#<?php echo $count; ?></a></span>
+			<a class="reply-permalink" href="<?php echo get_comment_link( $comment->comment_ID ); ?>" title="Link directly to this comment">#<?php echo $count; ?></a>
 		</div>
 	</header>
 	

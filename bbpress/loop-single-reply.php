@@ -17,7 +17,7 @@ $author = new Apoc_User( bbp_get_reply_author_id() , 'reply' );
 		<?php apoc_report_post_button( 'reply' ); ?>		
 		<div class="reply-admin-links">
 			<?php apoc_reply_admin_links( bbp_get_reply_id() ); ?>
-			<span><a class="reply-permalink" href="<?php bbp_reply_url(); ?>">#<?php echo bbp_get_reply_position(); ?></a></span>
+			<a class="reply-permalink" href="<?php bbp_reply_url(); ?>">#<?php echo bbp_get_reply_position(); ?></a>
 		</div>
 	</header>
 	

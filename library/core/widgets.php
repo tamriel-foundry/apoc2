@@ -575,9 +575,9 @@ class Apoc_Sidebar_Stats {
 
 		// Compute Banner Heights - normalize max to 150px 
 		$l = max( $a , $d , $e );
-		$ah = round( ( $a / $l ) * 100 ) + 50;
-		$dh = round( ( $d / $l ) * 100 ) + 50;
-		$eh = round( ( $e / $l ) * 100 ) + 50;
+		$ah = round( ( $a / $l ) * 130 ) + 50;
+		$dh = round( ( $d / $l ) * 130 ) + 50;
+		$eh = round( ( $e / $l ) * 130 ) + 50;
 
 		// Get the groups slug
 		$groups = SITEURL . '/groups/';

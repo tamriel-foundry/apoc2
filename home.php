@@ -8,6 +8,7 @@
 ?>
 
 <?php get_header(); ?>
+
 	<div id="content" role="main">
 
 		<div id="showcase-container">
@@ -26,8 +27,7 @@
 				<?php echo paginate_links( array('prev_text' => '&larr;', 'next_text' => '&rarr;') ); ?>
 			</div>
 		</nav>
+
 	</div>
-
 	<?php apoc_primary_sidebar(); ?>
-
 <?php get_footer(); ?>

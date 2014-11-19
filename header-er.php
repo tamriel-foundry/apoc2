@@ -5,15 +5,14 @@
  * Version 2.0
  * 4-29-2014
  */
+
+// Load the Entropy Rising group
+global $er;
+$er = new Entropy_Rising();
 ?>
-<!doctype html>
-<!-- 
-	<?php echo SITENAME; ?> 
-	Theme Version <?php echo THEMEVER; ?> 
-	Copyright <?php echo date( 'm-d-Y' ); ?> 
--->
 
 <!-- Begin Header -->
+<!doctype html>
 <html dir="ltr" lang="en-US">
 <head>
 	<meta charset="UTF-8">

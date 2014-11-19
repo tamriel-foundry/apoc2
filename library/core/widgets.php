@@ -114,7 +114,7 @@ class Apoc_Recent_Discussion {
 
 		// Store everything in an output buffer
 		ob_start(); ?>	
-		<div id="recent-discussion-widget" class="widget">
+		<div class="widget showcase-widget">
 			<header class="widget-header">
 				<h3 class="widget-title">Recent Discussion</h3>
 			</header>

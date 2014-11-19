@@ -10,7 +10,7 @@
 <?php get_header(); ?>
 
 	<div id="content" role="main">
-
+	
 		<div id="showcase-container">
 			<?php get_slideshow(); ?>
 			<?php apoc_recent_discussion(); ?>
@@ -28,6 +28,6 @@
 			</div>
 		</nav>
 
-	</div>
+	</div><!-- #content -->
 	<?php apoc_primary_sidebar(); ?>
 <?php get_footer(); ?>

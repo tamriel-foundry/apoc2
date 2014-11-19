@@ -6,3 +6,85 @@
 	Updated:		11-20-2014
 	Copyright(c):	2014 Andrew Clayton.  All rights reserved.
 */
+
+/*--------------------------------------------------------------
+	1.0 - HEADER
+--------------------------------------------------------------*/
+
+
+
+
+/*--------------------------------------------------------------
+	3.0 - APPLICATION
+--------------------------------------------------------------*/
+#showcase.er-application-video { 
+	-webkit-flex: 2 1 640px;
+	flex: 2 1 640px;
+	max-width: 640px;
+	height: auto;
+	margin: 0 1em 1em;
+	background: none; 
+	border: none;
+	box-shadow: none;
+	}
+.er-application-video > iframe {
+	box-sizing: border-box;
+	border: 1px solid #000;
+	box-shadow: none;
+	margin: 0.5em 0;
+	padding: 0;
+	}
+
+.er-application-widgets { 
+	max-width: 600px; 
+	margin: 0;
+	}
+ul.recruitment-status-list {
+	margin: 0;
+	padding: 0 0.5em;
+	list-style: none;
+	}
+ul.recruitment-status-list > li { 
+	padding: 0.5em 0; 
+	border-bottom: 1px solid #000;
+	}
+ul.recruitment-status-list > li + li { border-top: 1px solid #222; }
+ul.recruitment-status-list > li:last-child { border-bottom: none; }
+ul.recruitment-status-list span { 
+	float: right; 
+	}
+
+span.status-open, span.status-high { color: green; }
+span.status-medium { color: #F90; }
+span.status-low { color: #A00; }
+
+/* Application Form */
+#er-application-form div.form-flex {
+	display: -webkit-flex;
+	-webkit-flex-flow: row wrap;
+	display: flex;
+	flex-flow: row wrap;
+	width: 100%;
+	margin: 0.5em 0;
+}
+
+#er-application-form div.form-flex > label { 
+	-webkit-flex: 1 1 250px;
+	flex: 1 1 250px;
+	max-width: 320px;
+	line-height: 30px;
+}
+
+#er-application-form div.form-flex > input, 
+#er-application-form div.form-flex > select { 
+	-webkit-flex: 1 1 200px;
+	flex: 1 1 200px;
+	max-width: 320px;
+}
+
+#er-application-form ul.checkbox-list { padding-left: 2em; }
+#er-application-form #confirm-rules > label {
+	position: relative;
+	top: -1em;
+	left: 1em;
+}

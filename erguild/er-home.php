@@ -6,9 +6,7 @@
  * Version 2.0
  * 11-16-2014
  */
-
-// Load up the ER group
-$group = groups_get_group( array( 'group_id' => 1 , 'populate_extras' => true ) ); ?>
+?>
 
 <?php get_header('er'); ?>
 

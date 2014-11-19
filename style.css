@@ -1165,7 +1165,7 @@ div#showcase {
 	position: relative;
 	overflow: hidden;
 	}
-#recent-discussion-widget {
+.showcase-widget {
     -webkit-flex: 1 1 auto;
 	flex: 1 1 250px;
 	max-width: 512px;
@@ -3099,7 +3099,7 @@ div.wp-editor-container .mce-statusbar {
 	h1, h2, h3 { font-size: 1em; }
 
 	/* Showcase */
-	#recent-discussion-widget{ margin: 0 0 1em;}
+	.showcase-widget{ margin: 0 0 1em;}
 
 	/* Full width posts */
 	.archive .post { min-width: 100%; }

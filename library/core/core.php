@@ -39,6 +39,14 @@ function apoc_comment_form() {
 	include( THEME_DIR . '/library/templates/respond.php' );
 }
 
+// Entropy Rising Components
+function entropy_rising_menu() {
+	locate_template( array( 'erguild/er-menu.php' ), true );
+}
+function entropy_rising_sidebar() {
+	locate_template( array( 'erguild/er-sidebar.php' ), true );
+}
+
 
 /**
  * Adds additional supported tags to the allowed kses tags, giving users more freedom in comments and forum posts

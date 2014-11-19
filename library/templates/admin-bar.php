@@ -44,7 +44,7 @@ $search		= apoc()->search;
 			<?php wp_nonce_field( 'top-login-nonce', 'security' ); ?>			
 			<button type="submit" name="wp-submit" id="login-submit" class="admin-bar-login-link" tabindex="1"><i class="fa fa-lock"></i>Log In</button>
 			
-			<a id="register" class="admin-bar-button button" href="<?php echo trailingslashit(SITEURL) . 'register'; ?>" title="Register a new user account!"><i class="fa fa-user"></i>Register</a>
+			<a id="register" class="admin-bar-button button" href="<?php echo trailingslashit(SITEURL) . bp_get_signup_slug(); ?>" title="Register a new user account!"><i class="fa fa-user"></i>Register</a>
 			<a id="lostpass" class="admin-bar-button button" href="<?php echo wp_lostpassword_url(); ?>" title="Lost your password?"><i class="fa fa-question"></i>Lost Password</a>			
 		</fieldset>
 		<?php endif; ?>

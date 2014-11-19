@@ -113,7 +113,7 @@
 		</li>
 		
 		<li class="top single">
-			<span class="top-label"><i class="fa fa-angle-down"></i><a href="<?php echo get_post_type_archive_link( 'forum' ) ?>">Forums</a></span>
+			<span class="top-label"><i class="fa fa-angle-down"></i><a href="#">Forums</a></span>
 			<div class="dropdown">
 				<div class="dropdown-content">
 					<div class="col1">

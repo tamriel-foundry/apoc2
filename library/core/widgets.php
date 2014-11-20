@@ -260,7 +260,7 @@ class Apoc_Online_Members {
 
 		// Store everything in an output buffer
 		ob_start(); ?>	
-		<div class="widget">
+		<div id="sidebar-members-widget" class="widget">
 			<header class="widget-header">
 				<h3 class="widget-title">Online Members</h3>
 			</header>
@@ -466,7 +466,7 @@ class Apoc_Sidebar_Group {
 		
 		// Store everything in an output buffer
 		ob_start(); ?>	
-		<div class="widget">
+		<div id="featured-group-widget" class="widget">
 			<header class="widget-header">
 				<h3 class="widget-title">Featured Guild</h3>
 			</header>
@@ -585,7 +585,7 @@ class Apoc_Sidebar_Stats {
 		// Store everything in an output buffer
 		ob_start(); ?>	
 	
-			<div class="widget community-stats">
+			<div id="community-stats-widget" class="widget">
 				<header class="widget-header">
 					<h3 class="widget-title">Foundry Stats</h3>
 				</header>

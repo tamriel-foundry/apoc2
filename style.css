@@ -795,16 +795,12 @@ div#primary-leaderboard-728 {
 	z-index: 0;
 	}
 
-div#sidebar-banner {
+div#sidebar-banner-300 {
 	width: 300px;
-	height: 250px;
+	height: auto;
 	clear: both;
-	margin: 0 auto 0.5em;
-	padding-top: 100px;
-	background: rgba(17,17,17,0.75);
-	border: 1px solid #000;
-	text-align: center;
-}
+	margin: 0 auto 1em;
+	}
 	
 /*---------------------------------------------
 	3.1 - Header
@@ -1027,6 +1023,7 @@ footer#site-footer {
 .online .featured-stream-count { color: green; }
 
 /* Online members */
+#sidebar-members-widget { margin-bottom: 0.5em; }
 .online-members {
 	margin: 0 0.5em;
 	font-size: 0.75em;

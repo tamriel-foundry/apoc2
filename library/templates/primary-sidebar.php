@@ -17,12 +17,9 @@
 	
 	<?php apoc_sidebar_members(); ?>
 
-	<?php /*
-	<div id="sidebar-banner">
-		Sidebar Ad:<br/>
-		Medium Rectangle - 300x250
+	<div id="sidebar-banner-300">
+		<script type='text/javascript'>googletag.cmd.push(function() { googletag.display('sidebar-banner-300'); });</script>
 	</div>
-	*/ ?>
 
 	<?php apoc_donate_box(); ?>
 

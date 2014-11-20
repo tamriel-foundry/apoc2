@@ -104,8 +104,13 @@ $('a#login-logout').click(function(event) {
 	4.0 - WORDPRESS FUNCTIONS
 ----------------------------------------------------------- */
 if ( $( '.single-post ').length > 0 ) {
-	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 750 ) $( '.widget.group-widget' ).remove();
-	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 500 ) $( '.widget.community-stats' ).remove();
+	if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 500 ) {
+		$( '#featured-group-widget' ).remove();
+		$( '#community-stats-widget' ).remove();
+	}
+	else if ( $( '#primary-sidebar').height() - $( '.post-content').height() > 300 ) {
+		$( '#community-stats-widget' ).remove();
+	}
 }
 
 /*! Advanced Search */

@@ -7,6 +7,8 @@
 	Copyright(c):	2014 Andrew Clayton.  All rights reserved.
 */
 
+span.er-name {	text-shadow: 0 0 10px #3F6;	}
+
 /*--------------------------------------------------------------
 	1.0 - HEADER
 --------------------------------------------------------------*/
@@ -19,6 +21,95 @@ a#site-title {
 	background-image: url("../images/headers/er-banner.png?ver=0.1");
 	}
 
+/*--------------------------------------------------------------
+	2.0 - HOMEPAGE
+--------------------------------------------------------------*/
+.entropy-rising #showcase { margin: 0; }
+#er-home-stats { margin-bottom: 0; }
+#er-recruitment-status { margin: 1em 0; }
+
+/* Guild Progression */
+#er-progression-widget { 
+	max-width: 300px; 
+	float: none;
+	overflow: hidden;
+	margin: 0 auto 1em;
+	}
+ol.er-progression-list { 
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	}
+li.progression-item {
+	width: 100%;
+	height: 80px;
+	position: relative;
+	margin: 0.5em 0;
+	border: 1px solid #000;
+	border-radius: 2px;
+	background-image: url("../images/backgrounds/er-progression.jpg?ver=0.1");
+	box-shadow: 0 0 10px #000 inset;
+	}
+li.progression-item.aetherian { background-position: 0 0 ; }
+li.progression-item.hel-ra { background-position: 0 -80px; }
+li.progression-item.sanctum { background-position: 0 -160px; }
+li.progression-item.dragonstar { background-position: 0 -240px; }
+span.progression-name {
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 70%;
+	margin: 0 15%;
+	padding: 0.25em 0.5em;
+	font-family: 'Cinzel' , 'Palatino Linotype', 'Book Antiqua' , serif;
+	text-align: center;
+	text-shadow: 0 0 5px #000;
+	background: rgba(0,0,0,0.7);
+	border: 1px solid #000;
+	border-top: none;
+	box-shadow: 0 0 2px #333 inset;
+	}
+p.progression-status {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+	}
+p.progression-status > span { 
+	padding: 2px 0.5em;
+	font-size: 0.875em;
+	background: rgba(0,0,0,0.5);
+	border-top: 1px solid #000;
+	text-shadow: 1px 1px #000;
+	box-shadow: 0 0 4px #000 inset;
+	}
+p.progression-status > span:first-child {
+	float: left;
+	text-align: left;
+	border-right: 1px solid #000;
+	}
+p.progression-status > span + span {
+	float: right;
+	text-align: right;
+	border-left: 1px solid #000;
+	}
+p.progression-status > span.complete { 
+	color: #D1CBBC;
+	background: #030;
+	}
+p.progression-status > span.incomplete {
+	color: #A29C8E;
+	background: #300;
+	}
+
+/* Calendar Widget */
+
+
+/* Recruitment Widget */
+#er-recruitment-widget ul {	
+	font-size: 0.875em; 
+	padding: 0 0.5em;
+	}
 
 
 /*--------------------------------------------------------------
@@ -29,7 +120,7 @@ a#site-title {
 	flex: 2 1 640px;
 	max-width: 640px;
 	height: auto;
-	margin: 0 1em 1em;
+	margin: 0 1em;
 	background: none; 
 	border: none;
 	box-shadow: none;
@@ -46,22 +137,22 @@ a#site-title {
 	max-width: 600px; 
 	margin: 0;
 	}
-ul.recruitment-status-list {
+ul.er-status-list {
 	margin: 0;
-	padding: 0 0.5em;
+	padding: 0;
 	list-style: none;
 	}
-ul.recruitment-status-list > li { 
+ul.er-status-list > li { 
 	padding: 0.5em 0; 
 	border-bottom: 1px solid #000;
 	}
-ul.recruitment-status-list > li + li { border-top: 1px solid #222; }
-ul.recruitment-status-list > li:last-child { border-bottom: none; }
-ul.recruitment-status-list span { 
+ul.er-status-list > li + li { border-top: 1px solid #222; }
+ul.er-status-list > li:last-child { border-bottom: none; }
+ul.er-status-list span { 
 	float: right; 
 	}
 
-span.status-open, span.status-high { color: green; }
+span.status-open, span.status-high { color: #0A0; }
 span.status-medium { color: #F90; }
 span.status-low { color: #A00; }
 

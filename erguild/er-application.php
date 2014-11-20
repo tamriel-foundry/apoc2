@@ -32,9 +32,9 @@
 				<div class="widget">				
 					<header class="widget-header"><h3 class="widget-title">Current Priorities</h3></header>
 					<div class="instructions">
-						<ul class="recruitment-status-list">
+						<ul class="er-status-list">
 							<?php foreach ( er_recruitment_priorities() as $class => $status ) {
-							echo '<li class="recruitment-status">' . ucfirst($class) . ': <span class="status-' . $status . '">' . ucfirst($status) . '</span></li>';
+							echo '<li class="er-status">' . ucfirst($class) . ': <span class="status-' . $status . '">' . ucfirst($status) . '</span></li>';
 							} ?>
 						</ul>
 					</div>

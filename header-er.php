@@ -37,7 +37,7 @@ $er = new Entropy_Rising();
 		</header>
 		
 		<nav id="primary-menu">	
-			<?php apoc_primary_menu(); ?>
+			<?php er_guild_menu(); ?>
 			<a id="menu-scroll-bottom" class="scroll-bottom" href="#site-footer"><i class="fa fa-long-arrow-down"></i></a>
 		</nav><!-- #primary-menu -->
 		

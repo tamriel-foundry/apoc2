@@ -68,3 +68,37 @@ function er_recruitment_priorities() {
 	global $er;
 	return $er->priorities;
 }
+
+
+/**
+ * Entropy Rising homepage have_posts query
+ * @version 2.0
+ */
+function er_have_posts() {
+
+	// Get the page and offset
+	$posts_per_page = 6;
+	$paged 			= ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+	$offset 		= ( $posts_per_page * $paged ) - $posts_per_page;
+	
+	// Format query arguments
+	$args = array( 
+		'paged'=> $paged, 
+		'posts_per_page'=> $posts_per_page,
+		'offset' => $offset,
+		'cat' => get_cat_ID( 'guild news' ) . ',' . get_cat_ID('entropy rising'),
+		);
+		
+	// Retrieve posts
+	query_posts( $args );
+
+	// Return whether there are posts
+	return have_posts();
+}
+
+function er_guild_sidebar() {
+	include( THEME_DIR . '/erguild/er-sidebar.php' );
+}
+function er_guild_menu() {
+	include( THEME_DIR . '/erguild/er-menu.php' );
+}

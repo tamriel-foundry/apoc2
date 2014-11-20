@@ -71,15 +71,24 @@ function apoc_clear_notification() {
 	
 	// Clear all mentions at once
 	if ( $type == "new_at_mention" ) :
-		$wpdb->query( $wpdb->prepare( "DELETE FROM " . $bp->core->table_name_notifications . " WHERE user_id = %d AND component_action = %s", $user_id , $type ) );	
-	
+		BP_Notifications_Notification::delete( array( 
+			'user_id' 			=> $user_id,
+			'component_action' 	=> $type,
+		) );
+
 	// Delete all reply notifications for a single topic
 	elseif ( $type == "bbp_new_reply" ) :
-		$wpdb->query( $wpdb->prepare( "DELETE FROM " . $bp->core->table_name_notifications . " WHERE user_id = %d AND item_id = %d", $user_id , $id ) );	
-	
+		BP_Notifications_Notification::delete( array( 
+			'user_id' 			=> $user_id,
+			'item_id' 			=> $id,
+		) );
+
 	// Otherwise, delete the single notification	
 	else :
-		$wpdb->query( $wpdb->prepare( "DELETE FROM " . $bp->core->table_name_notifications . " WHERE user_id = %d AND id = %d", $user_id , $id ) );
+		BP_Notifications_Notification::delete( array( 
+			'user_id' 			=> $user_id,
+			'id' 				=> $id,
+		) );
 	endif;
 	
 	// Send a response

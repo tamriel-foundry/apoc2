@@ -363,16 +363,25 @@ function title_notification_count() {
 	// Calculate the total count
 	var count = 0;
 	$.each( ['activity','messages','groups','friends'] , function(index,type) {
+
+		// Get the span and increment the count
 		var target = $("li#notifications-"+type+" span.notification-count");
-		count = count + parseInt( target.text() );
+		var newCount = parseInt( target.text() );
+		count = count + newCount;
+
+		// If a component has been reduced to zero, remove the active class and dropdown
+		if ( newCount == 0 ) {
+			target.parent().removeClass('active');
+			target.next('.notification-drop').remove();
+		}
 	});
-	
+
 	// If we have notifications, add them to the title
+	var doctitle = $('title').text().replace(/\[.*\]/,'');
 	if ( count > 0 ) {
-		var doctitle = $('title').text().replace(/\[.*\]/,'');
 		doctitle = "[" + count + "]" + doctitle;
-		$('title').text(doctitle);
 	}
+	$('title').text(doctitle);
 }
 // Run it once on document ready
 title_notification_count();

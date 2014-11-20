@@ -96,10 +96,11 @@ class Apoc_Notifications extends BP_Core_Notification {
 			for ( $i = 0; $i < count($acts); $i++ ) {
 
 				// Mentions get grouped, other activities use their item_id
-				$item_id = ( $acts[$i]->component_action == 'new_at_mention' ) ? -999 : $acts[$i]->item_id;					
+				$item_id = ( $acts[$i]->component_action == 'new_at_mention' ) ? 0 : $acts[$i]->item_id;	
+				$acts[$i]->id = $item_id;					
 				
 				// Add the activity, or increment the count
-				if ( !isset( $activities[$item_id] ) )	
+				if ( !isset( $activities[$item_id] ) )
 					$activities[$item_id] = $acts[$i];
 				else
 					$activities[$item_id]->count++;

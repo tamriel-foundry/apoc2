@@ -94,7 +94,7 @@ function apoc_scripts() {
 	
 	// Register Scripts
 	wp_register_script( 'jquery' , 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' ,'jquery' , $ver ='2.1.1' , true );
-	wp_register_script( 'foundry' , THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.1' , true	);
+	wp_register_script( 'foundry' , THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.2' , true	);
 	wp_register_script( 'buddypress' , THEME_URI.'/library/scripts/buddypress.js' , 'jquery' , $ver='0.1' 	, true 	);
 	wp_register_script( 'googletag'	, THEME_URI.'/library/scripts/gpt.js' , 'jquery' , $ver='0.1' , false );	
 	

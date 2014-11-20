@@ -33,7 +33,6 @@ $groups   = $nots['counts']['groups'] > 0;
 		<?php endif; ?>
 	</li>
 
-
 	<li id="notifications-messages" class="notification-group <?php if ( $messages ) echo 'active'; ?>">
 		<span class="notification-count"><i class="fa fa-envelope"></i><?php echo $nots['counts']['messages']; ?></span>
 		<?php if ( $nots['counts']['messages'] > 0 ) : ?>

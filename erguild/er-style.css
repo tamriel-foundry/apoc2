@@ -72,7 +72,7 @@ span.status-low { color: #A00; }
 	-webkit-flex: 1 1 250px;
 	flex: 1 1 250px;
 	max-width: 320px;
-	line-height: 30px;
+	line-height: 32px;
 	}
 
 #er-application-form div.form-flex > input, 

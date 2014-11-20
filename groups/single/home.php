@@ -8,9 +8,11 @@
 
 // Load the requested group
 if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); 
-?>
 
-<?php get_header(); ?>
+// Specific group overrides
+$header = ( 'entropy-rising' == bp_get_current_group_slug() ) ? 'er' : ''; ?>
+
+<?php get_header($header); ?>
 	
 	<div id="content" role="main">
 		<?php apoc_breadcrumbs(); ?>

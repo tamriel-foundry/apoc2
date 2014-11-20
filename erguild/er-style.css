@@ -10,7 +10,14 @@
 /*--------------------------------------------------------------
 	1.0 - HEADER
 --------------------------------------------------------------*/
+div#header-container {
+	background-image: url("../images/backgrounds/er-bg-header.jpg");
+	}
 
+a#site-title {
+	width: 540px;
+	background-image: url("../images/headers/er-banner.png?ver=0.1");
+	}
 
 
 
@@ -59,6 +66,7 @@ span.status-medium { color: #F90; }
 span.status-low { color: #A00; }
 
 /* Application Form */
+#er-application-form { padding: 0 0.5em; }
 #er-application-form div.form-flex {
 	display: -webkit-flex;
 	-webkit-flex-flow: row wrap;
@@ -67,22 +75,36 @@ span.status-low { color: #A00; }
 	width: 100%;
 	margin: 0.5em 0;
 	}
-
 #er-application-form div.form-flex > label { 
 	-webkit-flex: 1 1 250px;
-	flex: 1 1 250px;
-	max-width: 320px;
-	line-height: 32px;
+	flex: 1 1 240px;
+	max-width: 280px;
 	}
-
+#er-application-form label { line-height: 32px; }
 #er-application-form div.form-flex > input, 
 #er-application-form div.form-flex > select { 
 	-webkit-flex: 1 1 200px;
-	flex: 1 1 200px;
-	max-width: 320px;
+	flex: 1 1 240px;
+	max-width: 280px;
 	}
-
-#er-application-form ul.checkbox-list { padding-left: 2em; }
+#er-application-form input[type="radio"] { margin-left: 0.5em; }
+#er-application-form ul.checkbox-list { padding-left: 1.5em; }
 #er-application-form #confirm-rules { position: relative; }
-#er-application-form #confirm-rules > label { padding-left: 1em; }
+#er-application-form #confirm-rules > label { 
+	padding-left: 1.25em; 
+	line-height: inherit;
+	}
 #er-application-form #confirm-rules > input[type="checkbox"] { position: absolute; }
+
+
+/*--------------------------------------------------------------
+	Z.0 - RESPONSIVE TWEAKS
+--------------------------------------------------------------*/
+
+/* Less then 460px */
+@media (max-width: 619px) {
+a#site-title {
+	background-image: url("../images/headers/er-mini.png");
+	background-position: 50% 50%;
+	}
+}

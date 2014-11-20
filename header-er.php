@@ -34,9 +34,6 @@ $er = new Entropy_Rising();
 	
 		<header id="site-header" role="banner">	
 			<a id="site-title" href="<?php echo SITEURL . '/entropy-rising/'; ?>" title="<?php echo SITENAME; ?>"></a>
-			<div id="primary-leaderboard-728">
-				<script type='text/javascript'>googletag.cmd.push(function() { googletag.display('primary-leaderboard-728'); });</script>	
-			</div>
 		</header>
 		
 		<nav id="primary-menu">	

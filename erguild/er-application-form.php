@@ -277,7 +277,7 @@ if( isset( $_POST['submitted']) ) {
 		</div>
 		
 		<div id="confirm-rules" class="form-full">
-			<input type="checkbox" name="readrules" value="read"><label for="readrules">I have read the Entropy Rising <a href="http://tamrielfoundry.com/entropy-rising/charter" title="Read the charter" target="_blank">guild charter</a>, and understand what will be expected of me if my application is approved.</label></p>
+			<input type="checkbox" name="readrules" value="read"><label for="readrules">I have read the Entropy Rising <a href="http://tamrielfoundry.com/entropy-rising/charter" title="Read the charter" target="_blank">guild charter</a>, and understand what will be expected of me if my application is approved.</label>
 			<?php if( isset( $readrulesError ) && $readrulesError ) echo '<p class="error">' . $readrulesError . '</p>'; ?> 
 		</div>
 		

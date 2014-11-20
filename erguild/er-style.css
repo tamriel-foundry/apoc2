@@ -66,25 +66,23 @@ span.status-low { color: #A00; }
 	flex-flow: row wrap;
 	width: 100%;
 	margin: 0.5em 0;
-}
+	}
 
 #er-application-form div.form-flex > label { 
 	-webkit-flex: 1 1 250px;
 	flex: 1 1 250px;
 	max-width: 320px;
 	line-height: 30px;
-}
+	}
 
 #er-application-form div.form-flex > input, 
 #er-application-form div.form-flex > select { 
 	-webkit-flex: 1 1 200px;
 	flex: 1 1 200px;
 	max-width: 320px;
-}
+	}
 
 #er-application-form ul.checkbox-list { padding-left: 2em; }
-#er-application-form #confirm-rules > label {
-	position: relative;
-	top: -1em;
-	left: 1em;
-}
+#er-application-form #confirm-rules { position: relative; }
+#er-application-form #confirm-rules > label { padding-left: 1em; }
+#er-application-form #confirm-rules > input[type="checkbox"] { position: absolute; }

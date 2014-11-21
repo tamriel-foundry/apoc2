@@ -28,7 +28,7 @@ $er_group = SITEURL . '/groups/entropy-rising/';
 					<div class="col1">
 						<ul class="submenu noheader">
 							<li><a href="<?php echo $er_home . 'charter'; ?>">Guild Charter</a></li>
-							<li><a href="<?php echo $er_home . 'roster'; ?>">Roster</a></li>
+							<li><a href="<?php echo $er_group . 'members'; ?>">Roster</a></li>
 							<li><a href="<?php echo $er_home . 'application'; ?>">Application Form</a></li>
 						</ul>
 					</div>

@@ -1271,6 +1271,7 @@ form#top-login-form {
 form#top-search-form {
 	width: 180px;
 	float: right;
+	margin-top: 1px;
 	}
 
 /* Login Form */
@@ -1288,7 +1289,10 @@ input#search {
 	width: 150px;
 	height: 24px;
 	}
-input#search { width: 180px; }
+input#search { 
+	width: 180px;
+	margin-top: 3px;
+	}
 input#username + label,
 input#password + label,
 input#search + label {

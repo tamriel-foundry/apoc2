@@ -212,7 +212,8 @@ $("#comments,#forums,#bbpress-forums").on( "click" , "a.quote-link" , function( 
 	// Declare some variables
 	var quoteParent = '';
 	var quoteSource = '';
-	var posttext 	= '';
+	var selection	= '';
+	var quote		= '';
 	
 	// Get the passed arguments
 	var context		= $(this).data('context');
@@ -233,17 +234,17 @@ $("#comments,#forums,#bbpress-forums").on( "click" , "a.quote-link" , function( 
 	
 	// Look first for a specific text selection		
 	if (window.getSelection) {
-		posttext = window.getSelection().toString();
+		selection = window.getSelection().toString();
 	} else if (document.selection && document.selection.type != "Control") {
-		posttext = document.selection.createRange().text;
+		selection = document.selection.createRange().text;
 	}
 	else return;
 			
 	// If there is a selection, make sure it came from the right place
-	if ( '' !== posttext ) {
+	if ( '' !== selection ) {
 		
 		// Split the selection to grab the first and last lines
-		postlines = posttext.split(/\r?\n/);
+		postlines	= selection.split(/\r?\n/);
 		firstline 	= postlines[0];
 		lastline 	= postlines[postlines.length-1];
 		
@@ -255,31 +256,35 @@ $("#comments,#forums,#bbpress-forums").on( "click" , "a.quote-link" , function( 
 	}
 		
 	// Otherwise, if there's no selection, grab the whole post
-	if ( '' === posttext )
-		posttext = $( quoteSource ).html();
-		
+	if ( '' === selection )
+		selection = $( quoteSource ).html();
+
+
 	// Remove revision log
-	posttext = posttext.replace(/<ul id="bbp-reply-revision((.|\n)*?)(<\/ul>)/,"");
+	selection = selection.replace(/<ul id="bbp-reply-revision((.|\n)*?)(<\/ul>)/,"");
+
+	// Strip out subquotes to prevent excessive nesting
+	selection = selection.replace(/<div class="quote subquote((.|\n)*?)(<\/div>)/g,"");
 	
 	// Remove spoilers (greedily)
-	posttext = posttext.replace(/<div class="spoiler">((.|\n)*?)(<\/div>)/g,"");
+	selection = selection.replace(/<div class="spoiler">((.|\n)*?)(<\/div>)/g,"");
 	
 	// Remove images (greedily)
-	posttext = posttext.replace(/<img((.|\n)*?)(>)/g,"");
+	selection = selection.replace(/<img((.|\n)*?)(>)/g,"");
 	
 	// Remove extra line-breaks and spaces
-	posttext = posttext.replace(/<br>/g,"");
-	posttext = posttext.replace(/&nbsp;/g,"");
-	
-	// Strip out quote-toggle buttons from deep threads (greedily)
-	posttext = posttext.replace(/<button class="quote-toggle((.|\n)*?)(<\/button>)/g,"");
+	selection = selection.replace(/<br>/g,"");
+	selection = selection.replace(/&nbsp;/g,"");
+
+	// Strip out icons
+	selection = selection.replace(/<i class="fa((.|\n)*?)(<\/i> )/g,"");
 	
 	// Make collapsed content visible in the editor
-	posttext = posttext.replace(/display: none;/g,"");
+	selection = selection.replace(/display: none;/g,"");
 
 	// Build the quote
 	var quote = '\r\n\r\n[quote author="' + author + '|' +quoteParent.substring(1)+ '|' +date+ '"]';
-	quote += '\r\n' +posttext;
+	quote += '\r\n' +selection;
 	quote += '\r\n[/quote]\r\n\r\n&nbsp;';
 	
 	// Switch to the html editor to embed the quote

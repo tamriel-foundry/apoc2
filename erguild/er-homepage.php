@@ -1,7 +1,7 @@
 <?php 
 /** 
  * Entropy Rising Guild Homepage
- * Template Name: Entropy Rising Home
+ * Template Name: Entropy Rising Homepage
  * Andrew Clayton
  * Version 2.0
  * 11-16-2014
@@ -9,9 +9,7 @@
 ?>
 
 <?php get_header('er'); 
-global $er;
-?>
-
+global $er; ?>
 	<div id="content" role="main">
 
 		<div id="showcase-container">

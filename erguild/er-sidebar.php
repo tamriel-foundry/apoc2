@@ -47,9 +47,7 @@
 		</ol>
 	</div>
 
-	<div id="er-events-widget" class="widget">
-		<header class="widget-header"><h3 class="widget-title">Upcoming Events</h3></header>
-	</div>
+	<?php er_events_widget(); ?>
 
 	<div id="er-recruitment-widget" class="widget">
 		<header class="widget-header"><h3 class="widget-title">Recruitment Priorities</h3></header>

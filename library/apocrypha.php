@@ -103,6 +103,7 @@ class Apocrypha {
 
 		// Extensions
 		require( LIB_DIR . 'extensions/entropy-rising.php' );
+		require( LIB_DIR . 'extensions/events.php' );
 		require( LIB_DIR . 'extensions/search.php' );
 		require( LIB_DIR . 'extensions/shortcodes.php' );
 		require( LIB_DIR . 'extensions/slides.php' );

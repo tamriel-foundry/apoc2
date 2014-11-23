@@ -32,7 +32,7 @@
 						<h3 class="double-border">Guides</h3>
 						<ul class="submenu">
 								<li><a href="<?php echo SITEURL . '/races/' ?>">Racial Comparison</a></li>
-							<li><a href="<?php echo SITEURL . '/guides/' ?>">PvE Guides</a></li>
+							<li><a href="<?php echo SITEURL . '/dungeon-sets/' ?>">Dungeon Sets</a></li>
 						</ul>
 					</div>
 

@@ -46,6 +46,10 @@ bbpress/includes/extend/buddypress/groups.php
 buddypress/bp-groups/bp-groups-template.php
 	bp_group_admin_tabs() - change "Photo" to "Avatar"
 
+buddypress/bp-groups/bp-groups-notifications.php | LINE 609
+	case 'new_calendar_event' :
+		return apply_filters( 'calendar_event_notification' , $item_id, $secondary_item_id );
+
 -----------------------------------
 	FILE INDEX
 -----------------------------------

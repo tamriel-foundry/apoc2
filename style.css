@@ -40,6 +40,7 @@
 	6.4 - 404
 	6.5 - Slideshow
 	6.6 - Search
+	6.7 - Events
 7.0 - Comments
 	7.1 - Single Comments
 	7.2 - Respond Form
@@ -732,6 +733,26 @@ hr {
 p.aldmeri { color: #C90; }
 p.daggerfall { color: #33C; }
 p.ebonheart { color: #900; }
+
+/* Grids */
+.item-grid {
+	display: -webkit-flex;
+	-webkit-flex-flow: row wrap;
+	display: flex;
+	flex-flow: row wrap;
+}
+.grid-item {
+	-webkit-flex: 1 1 260px;
+	flex: 1 1 260px;
+	margin: 0.5em 0.25em;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	box-shadow: 0 0 2px #444 inset;
+	text-align: center;
+	font-size: 0.875em;
+}
+.grid-item:hover { box-shadow: 0 0 2px #c60 inset; }
+
 
 /*--------------------------------------------------------------
 	3.0 - PRIMARY STRUCTURE
@@ -1873,6 +1894,63 @@ li.flex-active a.slideshow-tab-title {
 	margin: 1em 0; 
 	}
 	
+/*---------------------------------------------
+	6.7 - Events
+----------------------------------------------*/
+ol.calendar {
+	margin: 0 0 1em;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+	float: left;
+	}
+li.event {
+	display: -webkit-flex;
+	-webkit-flex-flow: row wrap;
+	-webkit-justify-content: center;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	width: 100%;
+	}
+
+.event-datetime {
+	-webkit-flex: 1 1 140px;
+	flex: 1 1 140px;
+	max-width: 140px;
+	margin: 1em 0.5em;
+	padding: 1em;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid #000;
+	border-radius: 2px;
+	text-align: center;
+	}
+.event-datetime > span, .event-meta > span { display: block; }
+.event-datetime > span.event-date { 
+	font-size: 1.5em; 
+	margin: 0.5em 0;
+	}
+	
+.event-content {
+	-webkit-flex: 2 2 300px;
+	flex: 2 2 300px;
+	margin: 1em 0;
+	padding: 1em;
+	}
+
+.event-meta {
+	-webkit-flex: 1 1 140px;
+	flex: 1 1 140px;
+	max-width: 140px;
+	padding: 1em;
+	margin: 1em 0;
+	text-align: center;
+	}
+.event-meta > span.event-attendance { 
+	font-size: 1.5em;
+	margin: 0.5em 0;
+	}
+
 /*--------------------------------------------------------------
 	7.0 - COMMENTS
 --------------------------------------------------------------*/
@@ -1896,7 +1974,7 @@ ol#comment-list {
 #respond {
 	width: 100%;
 	float: left;
-	margin: 0 0 1em;
+	margin: 1em 0;
 	overflow: hidden;
 	}
 

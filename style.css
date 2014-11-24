@@ -2684,6 +2684,7 @@ box-shadow: 0 0 5px #000;
 #user-character {
     -webkit-flex: 1 1 300px;
 	flex: 1 1 300px;
+	max-width: 300px;
 	}
 #user-biography {
     -webkit-flex: 3 3 300px;

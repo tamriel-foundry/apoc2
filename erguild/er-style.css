@@ -103,7 +103,6 @@ p.progression-status > span.incomplete {
 	}
 
 /* Calendar Widget */
-#er-events-widget ol.calendar { font-size: 0.875em; }
 #er-events-widget ol.calendar > li.event { padding: 0.25em 0; }
 #er-events-widget .event-datetime {
 	-webkit-flex: 1 1 120px;

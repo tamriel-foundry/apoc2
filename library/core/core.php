@@ -25,8 +25,9 @@ function apoc_primary_menu() {
 }
 
 // Sidebar
-function apoc_primary_sidebar() {
-	include( THEME_DIR . '/library/templates/primary-sidebar.php' );
+function apoc_primary_sidebar( $group = '' ) {
+	if ( 'er' == $group ) er_guild_sidebar();
+	else include( THEME_DIR . '/library/templates/primary-sidebar.php' );
 }
 
 // Single Post

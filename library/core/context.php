@@ -382,6 +382,18 @@ class Apoc_Context {
 						// Otherwise, viewing the page
 						$crumbs[] = get_the_title();
 					break;
+
+					// Events
+					case 'event' :
+
+						// Get the calendar the event belongs to
+						$calendar 	= get_the_terms( $object->ID , 'calendar' );
+						$calendar 	= array_shift( $calendar );
+						
+						$desc	 	= 'Upcoming event on the ' . $calendar->name . ' calendar.';
+						$crumbs[] 	= '<a href="' . SITEURL . '/calendar/' . $calendar->slug . '" title="' . $calendar->name . ' Calendar">' . $calendar->name . ' Calendar</a>';
+						$crumbs[] 	= get_the_title();
+					break;
 				}
 			
 			// Archives
@@ -411,6 +423,12 @@ class Apoc_Context {
 					$desc		= "Search for a variety of content types throughout " . SITENAME;
 					$crumbs[] 	= 'Advanced Search';
 					$classes[] 	= 'page';
+				
+				// Calendar
+				elseif( is_calendar() ) :
+					$title 		= $object->name . " Calendar";
+					$desc		= "Upcoming events on the " . $object->name . " calendar.";
+					$crumbs[] 	= $object->name . " Calendar";
 				endif;
 
 			// 404

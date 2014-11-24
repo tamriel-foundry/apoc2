@@ -25,7 +25,7 @@ if ( !empty($_POST) ) :
 		$lng			= round( $lng , 3 );
 
 		// Get the requested zone file
-		$file 			= THEME_DIR . '/library/map/zones/' . $zone . '.js';
+		$file 			= 'zones/' . $zone . '.js';
 			
 		// Switch the context
 		switch ( $context ) {
@@ -67,9 +67,9 @@ if ( !empty($_POST) ) :
 		}
 
 		// Redirect back to the map if a merker was successfully added/edited/deleted
-		//header('Location: '.$_SERVER['PHP_SELF'] . '?zone=' . $zone );
-		//header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
-		//header("Cache-Control: post-check=0, pre-check=0", false);
+		header('Location: '. 'http://tamrielfoundry.com/map' . '?zone=' . $zone );
+		header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
+		header("Cache-Control: post-check=0, pre-check=0", false);
 	}	
 endif;
 
@@ -90,7 +90,7 @@ $zone = isset( $_GET['zone'] ) ? $_GET['zone'] : '';
 		<div id="map-container">
 			<div id="map-canvas"></div>
 
-			<form method="post" id="map-controls">
+			<form method="post" id="map-controls" action="<?php echo THEME_URI . '/library/map/interactive-map.php'; ?>">
 				<fieldset>
 					<h2 class="double-border">Select Zone</h2>
 						<select name="zone" id="zone-select" class="ebonheart" onchange="get_markers()">

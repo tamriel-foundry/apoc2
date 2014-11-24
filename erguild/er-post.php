@@ -39,8 +39,8 @@
 			
 		<?php endwhile; endif; ?>
 	</div>
-
-	<?php er_guild_sidebar(); ?>
+	
+	<?php apoc_primary_sidebar('er'); ?>
 	
 	<?php if ( 'post' == get_post_type() ) comments_template( '/library/templates/comments.php', true ); ?>
 

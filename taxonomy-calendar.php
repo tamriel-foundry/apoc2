@@ -14,10 +14,13 @@ $calendar 	= get_queried_object();
 $term_id 	= $calendar->term_id;
 $slug 		= $calendar->slug;
 
-/* Does it belong to a specific group? */
-$is_group	= is_group_calendar( $term_id ); ?>
+// Does it belong to a specific group?
+$is_group	= is_group_calendar( $term_id ); 
 
-<?php get_header(); ?>
+// Maybe use a different header or sidebar
+$group		= ( $calendar->slug == 'entropy-rising' ) ? "er" : ""; ?>
+
+<?php get_header($group); ?>
 	
 	<div id="content" role="main">
 		<?php apoc_breadcrumbs(); ?>
@@ -29,6 +32,9 @@ $is_group	= is_group_calendar( $term_id ); ?>
 		
 		<?php // Upcoming events found
 		if ( calendar_have_events( $slug ) ) : ?>
+		<header class="forum-header">
+			<div class="forum-content"><h2>Upcoming Events</h2></div>
+		</header>
 		<ol class="calendar">
 			<?php while ( have_posts() ) : the_post(); 
 				apoc_single_event(); 
@@ -41,5 +47,5 @@ $is_group	= is_group_calendar( $term_id ); ?>
 		<?php endif; ?>
 	</div>
 
-	<?php apoc_primary_sidebar(); ?>
+	<?php apoc_primary_sidebar($group); ?>
 <?php get_footer(); ?>

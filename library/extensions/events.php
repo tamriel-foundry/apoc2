@@ -464,7 +464,7 @@ class Apoc_Events {
 		$post 	= get_post( $secondary_item_id );
 
 		// Format the notification
-		return sprintf( '<a href="%1$s">%2$s added to the %3$s group calendar.</a>' , $post->post_permalink , $post->post_title , $group->name );		
+		return sprintf( '<a href="%1$s">%2$s added to the %3$s group calendar.</a>' , SITEURL . '/event/' . $post->post_name , $post->post_title , $group->name );		
 	}
 }
 $apoc_events = new Apoc_Events();
@@ -472,6 +472,16 @@ $apoc_events = new Apoc_Events();
 /*---------------------------------------------
 	2.0 - CALENDAR TAXONOMY FUNCTIONS
 ----------------------------------------------*/
+
+/**
+ * Helper function to set context on calendar and event pages
+ * @version 2.0
+*/
+function is_calendar() {
+	global $wp_query;
+	if ( 'calendar' == $wp_query->queried_object->taxonomy )
+		return true;
+}
 
 /**
  * Query upcoming events
@@ -515,6 +525,210 @@ function calendar_have_events( $calendar = '' ) {
 /*---------------------------------------------
 	3.0 - APOC EVENT CLASS
 ----------------------------------------------*/
+
+/**
+ * Registers the "Event" custom post type.
+ * Events are used with the taxonomy "Calendar" to display a list of upcoming events.
+ *
+ * @author Andrew Clayton
+ * @version 2.0
+ */
+class Apoc_Event {
+
+	/**
+	 * Register the custom post and taxonomy with WordPress on init
+	 * @version 2.0
+	 */
+	function __construct() {
+		
+		// Get the displayed event
+		$this->post 		= get_queried_object();
+		$this->post_id 		= $this->post->ID;
+
+		// Get the event's calendars
+		$this->get_calendars();
+
+		// Get the event meta
+		$this->get_meta();
+
+		// Process calendar replies
+		if ( isset ( $_POST['submit'] ) && wp_verify_nonce( $_POST['event_rsvp_nonce'] , 'event-rsvp' ) )
+			$this->new_rsvp();
+	}
+
+
+	/**
+	 * Check whether the current user can view the event
+	 * @version 2.0
+	 */
+	function get_calendars() {
+
+		// Get the attached calendars
+		$calendars = wp_get_post_terms( $this->post_id , 'calendar' );
+		$this->calendars = $calendars;
+		
+		// Loop through calendars, checking permissions
+		foreach ( $calendars as $calendar ) {
+			
+			// Is it a group calendar?
+			if ( is_group_calendar( $calendar->term_id ) ) :
+				$group_id	= groups_get_id( $calendar->slug );
+				$can_view 	= groups_is_user_member( get_current_user_id() , $group_id ) ? true : false;
+			else :
+				$can_view = true;
+			endif;
+			
+			// If we find a calendar for which the user is authorized, go ahead and display it
+			if( $can_view ) :
+				$this->calendar = $calendar;
+				$this->can_view = true;
+				break;
+			endif;
+		}
+
+		// If the user is not allowed to view any calendar, redirect them to the group
+		if ( !$can_view ) {
+			$redirect = SITEURL . '/groups/' . $this->calendar->slug;
+			bp_core_add_message( 'You cannot access events on this calendar.' , 'error' );
+			bp_core_redirect( $redirect );
+		}
+	}
+
+	/**
+	 * Check whether the current user can view the event
+	 * @version 2.0
+	 */
+	function get_meta() {
+
+		// Get meta fields
+		$post_id			= $this->post_id;
+		$capacity			= get_post_meta( $post_id , 'event_capacity' , true );
+		$this->capacity		= ( '' == $capacity ) ? 9999 : $capacity;
+		$this->req_rsvp		= get_post_meta( $post_id , 'event_rsvp' , true );
+		$this->req_role		= get_post_meta( $post_id , 'event_role' , true );
+		$rsvps				= get_post_meta( $post_id , 'event_rsvps' , true );
+
+		// Sort responses alphabetically by name
+		if( !empty( $rsvps ) ) :
+			$names = array();
+			
+			// Get user information
+			foreach ($rsvps as $user_id => $info) {
+				$name = bp_core_get_user_displayname( $user_id );
+				$link = bp_core_get_userlink( $user_id );
+				$rsvps[$user_id]['id']		= $user_id;
+				$rsvps[$user_id]['name'] 	= $name;
+				$rsvps[$user_id]['link'] 	= $link;
+				$names[$user_id] 			= strtolower( $name );
+			}
+			
+			// Sort the array alphabetically
+			array_multisort($names, SORT_STRING, $rsvps);
+			
+			// Restore the user_id keys
+			$temp = array();
+			for ( $i = 0; $i < count( $rsvps ); $i++ )
+				$temp[$rsvps[$i]['id']] = $rsvps[$i];	
+			$rsvps = $temp;
+		else :
+			$rsvps = array();
+		endif;
+
+		// Add the array of RSVPS to the object
+		$this->rsvps = $rsvps;
+
+		// Count Attendance
+		$confirmed 	= 0;
+		$maybe 		= 0;
+		$declined 	= 0;
+		foreach ( $rsvps as $response ) {
+			if ( 'yes' == $response['rsvp'] )		$confirmed++;
+			elseif ( 'maybe' == $response['rsvp'] ) $maybe++;
+			elseif ( 'no' == $response['rsvp'] )	$declined++;
+		}
+
+		// Add response counts to the object
+		$this->confirmed = $confirmed;
+		$this->maybe = $maybe;
+		$this->declined = $declined;
+
+		// Check the user's response
+		if ( isset( $rsvps[get_current_user_id()] ) ) {
+			switch ( $rsvps[get_current_user_id()]['rsvp'] ) {
+				case "yes" :
+					$rsvp = "Attending";
+					break;
+				case "no" :
+					$rsvp = "Absent";
+					break;
+				case "maybe" :
+					$rsvp = "Maybe";
+					break;
+			}
+		}
+		else $rsvp = "RSVP";
+		$this->rsvp = $rsvp;
+
+		// Get date information
+		$this->time	= get_the_date( 'g:ia' );
+		$this->day	= get_the_date( 'l' );
+		$this->date	= get_the_date( 'M j' );
+
+		// Has it passed?
+		$this->is_past = ( strtotime( get_the_date( "Y-m-d\TH:i" ) ) < time() ) ? true : false;
+	}
+
+	/**
+	 * Process new event RSVPs
+	 * @version 2.0
+	 */
+	function new_rsvp() {
+		$rsvps		= $this->rsvps;
+		$new_rsvp 	= array();
+
+		// Clean each field individually
+		if( !isset ( $_POST['attendance'] ) )
+			$error = 'You must select your expected attendance!';
+		else
+			$new_rsvp['rsvp'] = $_POST['attendance'];
+			
+		if( $this->req_role && empty( $_POST['rsvp-role'] ) && $_POST['attendance'] != 'no' )
+			$error = 'You must select your preferred role!';
+		elseif( $this->req_role )
+			$new_rsvp['role'] = $_POST['rsvp-role'];
+			
+		if( isset ( $_POST['rsvp-comment'] ) )
+			$new_rsvp['comment'] = sanitize_text_field( $_POST['rsvp-comment'] );
+
+		// If there are no errors, we can save the stuff
+		if ( !isset( $error ) ) :
+			
+			// Update the postmeta
+			$user_id = get_current_user_id();
+			$rsvps[$user_id] = $new_rsvp;
+			update_post_meta( $this->post_id, 'event_rsvps' , $rsvps );
+			bp_core_add_message( 'Thank you for responding!' );
+
+			// Clear notifications on each group calendar
+			foreach ( $this->calendars as $calendar ) {
+				if ( is_group_calendar( $calendar->term_id ) ) :
+					
+					global $bp;
+					$group_id	= groups_get_id( $calendar->slug );
+					bp_notifications_delete_notifications_by_item_id( $user_id , $group_id , $bp->groups->id , 'new_calendar_event' , $this->post_id );
+				endif;
+			}
+
+			// Redirect
+			wp_redirect(get_the_permalink());
+		
+		// Otherwise, throw the error message
+		else :
+			bp_core_add_message( $error	, 'error' );
+		endif;
+	}
+
+}
 
 /**
  * Display a single event

@@ -1903,8 +1903,9 @@ ol.calendar {
 	list-style: none;
 	width: 100%;
 	float: left;
+	font-size: 0.875em;
 	}
-li.event {
+.event {
 	display: -webkit-flex;
 	-webkit-flex-flow: row wrap;
 	-webkit-justify-content: center;
@@ -1949,6 +1950,28 @@ li.event {
 .event-meta > span.event-attendance { 
 	font-size: 1.5em;
 	margin: 0.5em 0;
+	}
+
+.event-attendance {
+	width: 100%;
+	float: left;
+	}
+h2.calendar-header {
+	width: 100%;
+	float: left;
+	background: rgba(0,0,0,0.25);
+	padding: 0.5em 1em;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #333 inset;
+	}
+#calendar-rsvp-form {
+	padding: 0.5em;
+	}
+ul.respondent-list {
+	width: 100%;
+	float: left;
+	font-size: 0.875em;
 	}
 
 /*--------------------------------------------------------------

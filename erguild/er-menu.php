@@ -9,6 +9,7 @@
 // Declare ER Home URL
 $er_home = SITEURL . '/entropy-rising/';
 $er_group = SITEURL . '/groups/entropy-rising/';
+$er_calendar = SITEURL . '/calendar/entropy-rising/';
 ?>
 
 <div id="menu-container">
@@ -44,7 +45,7 @@ $er_group = SITEURL . '/groups/entropy-rising/';
 						<ul class="submenu noheader">
 							<li><a href="<?php echo $er_group . 'forum'; ?>">Guild Forum</a></li>
 							<li><a href="<?php echo $er_group . 'activity'; ?>">Guild Activity</a></li>
-							<li><a href="#">Calendar</a></li>
+							<li><a href="<?php echo $er_calendar; ?>">Calendar</a></li>
 						</ul>
 					</div>
 				</div>

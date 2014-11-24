@@ -58,5 +58,5 @@ global $er; ?>
 		</nav>
 
 	</div><!-- #content -->
-	<?php er_guild_sidebar(); ?>
+	<?php apoc_primary_sidebar('er'); ?>
 <?php get_footer(); ?>

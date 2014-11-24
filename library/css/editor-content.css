@@ -16,8 +16,9 @@
 --------------------------------------------------------------*/
  
 body {
+	min-height: 220px;
 	margin: 0;
-	padding: 1em;
+	padding: 15px 10px;
 	position: relative;
 	font-family: 'Verdana' , 'sans-serif';
 	font-weight: normal;

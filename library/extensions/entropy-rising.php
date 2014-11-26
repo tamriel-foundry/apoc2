@@ -160,7 +160,7 @@ class ER_Events_Widget {
 				// Restrict to future dates
 				'date_query'		=> array(
 					array(
-						'after'		=> date('Y-m-d'),
+						'after'		=> date('Y-m-d',strtotime('yesterday')),
 						'inclusive'	=> true,
 					) ),
 				'orderby'			=> 'date',

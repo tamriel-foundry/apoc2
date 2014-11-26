@@ -41,7 +41,7 @@
 				<span class="progression-name">Dragonstar Arena</span>
 				<p class="progression-status">
 					<span class="complete">Normal</span>
-					<span class="incomplete">Veteran</span>
+					<span class="complete">Veteran</span>
 				</p>
 			</li>
 		</ol>

@@ -675,7 +675,7 @@ class Apoc_Event {
 		$this->date	= get_the_date( 'M j' );
 
 		// Has it passed?
-		$this->is_past = ( strtotime( get_the_date( "Y-m-d\TH:i" ) ) < time() ) ? true : false;
+		$this->is_past = ( strtotime( get_the_date( "Y-m-d\TH:i \E\S\T" ) ) < time() ) ? true : false;
 	}
 
 	/**

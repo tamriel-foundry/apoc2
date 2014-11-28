@@ -55,7 +55,7 @@ $group = ( $event->calendar->slug == 'entropy-rising' ) ? "er" : ""; ?>
 				<ul class="respondent-list attending">
 					<?php foreach ( $rsvps as $uid => $response ) :
 						if ( 'yes' == $response['rsvp'] ) :						
-							echo '<li class="event-respondent">' . implode( ' | ' , array( $response['link']  , $response['role'] , stripslashes( $response['comment'] ) ) ) . '</li>';
+							echo '<li class="event-respondent">' . implode( ' | ' , array_filter( array( $response['link']  , $response['role'] , stripslashes( $response['comment'] ) ) ) ) . '</li>';
 						endif;
 					endforeach; ?>
 				</ul>
@@ -66,7 +66,7 @@ $group = ( $event->calendar->slug == 'entropy-rising' ) ? "er" : ""; ?>
 				<ul class="respondent-list attending">
 					<?php foreach ( $rsvps as $responder => $response ) :
 						if ( 'maybe' == $response['rsvp'] ) :
-							echo '<li class="event-respondent">' . implode( ' | ' , array( $response['link']  , $response['role'] , stripslashes( $response['comment'] ) ) ) . '</li>';
+							echo '<li class="event-respondent">' . implode( ' | ' , array_filter( array( $response['link']  , $response['role'] , stripslashes( $response['comment'] ) ) ) ) . '</li>';
 						endif;
 					endforeach; ?>
 				</ul>
@@ -77,7 +77,7 @@ $group = ( $event->calendar->slug == 'entropy-rising' ) ? "er" : ""; ?>
 				<ul class="respondent-list attending">
 					<?php foreach ( $rsvps as $responder => $response ) :
 						if ( 'no' == $response['rsvp'] ) :
-							echo '<li class="event-respondent">' . implode( ' | ' , array( $response['link']  , $response['role'] , stripslashes( $response['comment'] ) ) ) . '</li>';
+							echo '<li class="event-respondent">' . implode( ' | ' , array( $response['link']  , stripslashes( $response['comment'] ) ) ) . '</li>';
 						endif;
 					endforeach; ?>
 				</ul>

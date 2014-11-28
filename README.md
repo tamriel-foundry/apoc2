@@ -4,33 +4,16 @@ apoc2
 The new Tamriel Foundry apocrypha theme!
 
 -----------------------------------
-	DATABASE CHANGES
+	OUTSTANDING ISSUES
 -----------------------------------
-
-group_meta {
-	group_platform -> group_server
-	group_server = pcmac -> pcna
-	group_server = playstation -> ps4
-	group_region (DELETE)
-
-	delete rows where meta_value = 'blank'
-}
-
-usermeta {
-	delete rows where meta_value = 'blank'
-	delete contact method bethforums
-}
+1) Delete comment JS
+2) Delete reply JS
+3) Delete infraction JS bugged?
+4) Send Private Message button bugs
+5) Guild Submission form
 
 -----------------------------------
-	CONFIGURATION OPTIONS
------------------------------------
-
-BuddyPress options {
-	allow group creation for everyone
-}
-
------------------------------------
-	CODE HACKS
+	CORE HACKS
 -----------------------------------
 
 bbpress/includes/extend/buddypress/groups.php

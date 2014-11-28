@@ -13,8 +13,8 @@
 
 // Define constants
 var	siteurl = ( window.location.host == 'localhost' ) ? 'http://localhost/tamrielfoundry/' : 'http://tamrielfoundry.com/';
-var ajaxurl 	= siteurl + 'wp-admin/admin-ajax.php';
-var jq 			= jQuery;
+var ajaxurl = siteurl + 'wp-admin/admin-ajax.php';
+var jq 		= jQuery;
 
 // Global variable to prevent multiple AJAX requests
 var bp_ajax_request = null;
@@ -30,13 +30,12 @@ jq(document).ready( function() {
 bp_init_activity();
 
 /* Object filter and scope set. */
-var objects = [ 'members', 'groups', 'blogs', 'forums' ],
-	$whats_new = jq('#whats-new');
+var objects = [ 'members', 'groups', 'blogs', 'forums' ];
 bp_init_objects( objects );
 
 /* @mention Compose Scrolling */
+$whats_new = jq('.activity #whats-new');
 if ( $whats_new.length && bp_get_querystring('r') ) {
-	var $member_nicename = $whats_new.val();
 
 	jq('#whats-new-options').animate({
 		height:'40px'
@@ -46,20 +45,21 @@ if ( $whats_new.length && bp_get_querystring('r') ) {
 		height:'50px'
 	});
 
-	jq.scrollTo( $whats_new, 500, {
-		offset:-125,
-		easing:'swing'
-	} );
+	jq('html, body').animate({scrollTop: $whats_new.offset().top - 150 }, 600);
+	$whats_new.focus();
+}
 
-	$whats_new.val('').focus().val( $member_nicename );
+/* Otherwise, hide the what's new form by default */
+else jq( '#whats-new-form' ).hide();
+
+/* Private messaging scroll to form */
+if ( jq('#send_message_form').length && bp_get_querystring('r') ) {
+	jq('html, body').animate({scrollTop: jq('#send_message_form').offset().top - 150 }, 600);
 }
 
 /*! ----------------------------------------------------------
 	2.0 - ACTIVITY POSTING
 ----------------------------------------------------------- */
-
-/* Hide the new status form by default */
-jq( '#whats-new-form' ).hide();
 
 /*! ---------------------------------
 	2.1 - Form Visibility

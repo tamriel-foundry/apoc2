@@ -12,7 +12,7 @@
 
 		<div class="form-full">
 			<label for="send-to-input"><i class="fa fa-users fa-fw"></i>Send To:</label>
-			<input type="text" name="send-to-input" class="send-to-input" id="send-to-input" placeholder="Separate multiple usernames with commas."/>
+			<input type="text" name="send-to-input" class="send-to-input" id="send-to-input" placeholder="Separate multiple usernames with commas." value="<?php if ( isset( $_GET['r'] ) ) echo esc_attr( $_GET['r'] ); ?>"/>
 		</div>
 
 		<div class="form-full">
@@ -49,4 +49,4 @@
 	</fieldset>
 </form>
 
-<script type="text/javascript">document.getElementById("send-to-input").focus();</script>
+<script type="text/javascript">document.getElementById("subject").focus();</script>

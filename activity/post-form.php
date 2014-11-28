@@ -17,9 +17,7 @@ $user = apoc()->user;
 		<?php // The status update textarea ?>
 		<div class="form-full">
 			<?php $placeholder = bp_is_group() ? "What's new in " . bp_get_group_name() . ', ' . $user->display_name . '?' : "What's on your mind " . $user->display_name . '?'; ?>
-			<textarea name="whats-new" id="whats-new" placeholder="<?php echo $placeholder; ?>" rows="1">
-				<?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_attr( $_GET['r'] ); ?> <?php endif; ?>
-			</textarea>
+			<textarea name="whats-new" id="whats-new" placeholder="<?php echo $placeholder; ?>" rows="1"><?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_attr( $_GET['r'] ); ?> <?php endif; ?></textarea>
 		</div>
 	
 		<div class="form-left">	

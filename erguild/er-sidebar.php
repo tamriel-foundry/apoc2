@@ -20,7 +20,7 @@
 				<span class="progression-name">Aetherian Archive</span>
 				<p class="progression-status">
 					<span class="complete">Normal</span>
-					<span class="incomplete">Hard Mode</span>
+					<span class="complete">Hard Mode</span>
 				</p>
 			</li>
 			<li class="progression-item hel-ra">

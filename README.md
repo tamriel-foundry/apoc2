@@ -8,9 +8,8 @@ The new Tamriel Foundry apocrypha theme!
 -----------------------------------
 1) Delete comment JS
 2) Delete reply JS
-3) Delete infraction JS bugged?
-4) Send Private Message button bugs
-5) Guild Submission form
+3) Delete infraction JS
+4) Guild Submission form
 
 -----------------------------------
 	CORE HACKS

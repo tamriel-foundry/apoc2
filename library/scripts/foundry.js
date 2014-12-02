@@ -354,11 +354,11 @@ $("a.notification-clear").click( function( event ){
 				
 				// Change the notification count and remove the notification
 				var counter	= button.closest( 'li.notification-group' ).children('span.notification-count');
-				newcount = counter.html().split('</i>');
+				var newcount = counter.html().split('</i>');
 
 				// Update the count and replace the counter
-				counter.html( newcount[0] + " " + (newcount[1] - count) );
-				button.parent().slideUp();
+				counter.html( newcount[0] + "</i>" + (newcount[1] - count) );
+				button.parent().slideUp().remove();
 				
 				// Update the document title
 				title_notification_count();

@@ -122,10 +122,10 @@ strong{ font-weight: bold; }
 
 /* Quotes */
 blockquote {
-	width: 100%;
+	width: 95%;
 	float: left;
 	position: relative;
-	margin: 0 0 1em;
+	margin: 0 5% 1em 0;
 	padding: 0.5em 1em;
 	font-family: 'Palatino Linotype' , 'Book Antiqua' , serif;
 	font-size: 1em;

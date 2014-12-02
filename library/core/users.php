@@ -256,6 +256,8 @@ class Apoc_User {
 			$title = 'Administrator';
 		elseif ( 'bbp_moderator' == $forum_role || 'bbp_keymaster' == $forum_role ) :
 			$title = 'Moderator'; 
+		elseif ( 'zenimax' == $site_role ) :
+			$title = "ZeniMax Online";
 		elseif ( 'banned' == $site_role ) :
 			$title = 'Banned';
 		

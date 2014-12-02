@@ -1334,6 +1334,7 @@ input#rememberme + label:before {
 	left: -2px;
 	margin-left: -16px;
 	}
+#top-login-message > a { float:none; }
 
 /* Logged-in Users */
 span#user-welcome {
@@ -2021,6 +2022,8 @@ ol#comment-list {
 .user-title {
 	font-style: italic;
 	}
+.user-title.administrator, .user-title.moderator { text-shadow: 1px 0 10px #F30; }
+.user-title.zenimax-online { text-shadow: 1px 0 10px #F00; }
 .user-exp {
 	width: 100px;
 	height: 10px;

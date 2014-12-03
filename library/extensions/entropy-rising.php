@@ -3,7 +3,7 @@
  * Entropy Rising Guild Functions
  * Andrew Clayton
  * Version 2.0
- * 11-14-2014
+ * 12-02-2014
  */
  
 // Exit if accessed directly
@@ -17,7 +17,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * Configures login, authentication, and security features
  *
  * @author Andrew Clayton
- * @version 1.0.1
+ * @version 2.0
  */
 class Entropy_Rising {
 
@@ -30,7 +30,7 @@ class Entropy_Rising {
 	// Assign recruitment priorities
 	public $priorities = array(
 		'dragonknight' 	=> 'low',
-		'templar' 		=> 'high',
+		'templar' 		=> 'low',
 		'sorcerer' 		=> 'medium',
 		'nightblade' 	=> 'high',
 	);

@@ -371,7 +371,7 @@ class Apoc_Group_Edit {
 	public $enabled 		= true;
 
 	// What are the creation requirements?
-	public $minposts		= 25;
+	public $minposts		= 10;
 	public $mintime			= '2 weeks';
 
 	// What access level does the current user have?

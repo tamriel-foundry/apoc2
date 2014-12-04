@@ -267,10 +267,10 @@ class Apoc_BuddyPress {
 		else {
 
 			// Get the current user
-			$user 		= new Apoc_User( get_current_user_id() , 'profile' );
+			$user 		= new WP_User( get_current_user_id() );
 			$username	= $user->display_name;
 			$user_email	= $user->user_email;
-			$profile	= $user->link;
+			$profile	= bp_core_get_userlink( $user->ID );
 
 			// Set email headers
 			$emailto 	= 'admin@tamrielfoundry.com';

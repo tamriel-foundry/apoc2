@@ -730,9 +730,9 @@ hr {
 .double-border.top:before {	top: 0; }
 
 /* Alliances */
-p.aldmeri { color: #C90; }
-p.daggerfall { color: #33C; }
-p.ebonheart { color: #900; }
+p.aldmeri, span.aldmeri { color: #C90; }
+p.daggerfall, span.daggerfall { color: #33C; }
+p.ebonheart, span.ebonheart { color: #900; }
 
 /* Grids */
 .item-grid {

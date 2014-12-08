@@ -125,37 +125,37 @@ class Apoc_Events {
 		
 		/* Calendar */
 		$calendar_tax_labels = array(			
-			'name'							=> 'Calendars',
-			'singular_name'					=> 'Calendar',
-			'search_items'					=> 'Search Calendars',
-			'popular_items'					=> 'Popular Calendars',
-			'all_items'						=> 'All Calendars',
-			'edit_item'						=> 'Edit Calendar',
-			'update_item'					=> 'Update Calendar',
-			'add_new_item'					=> 'Add New Calendar',
-			'new_item_name'					=> 'New Calendar Name',
-			'menu_name'						=> 'Calendars',
-			'separate_items_with_commas'	=> 'Separate calendars with commas',
-			'choose_from_most_used'			=> 'Choose from the most used calendars',
+			'name'						=> 'Calendars',
+			'singular_name'				=> 'Calendar',
+			'search_items'				=> 'Search Calendars',
+			'popular_items'				=> 'Popular Calendars',
+			'all_items'					=> 'All Calendars',
+			'edit_item'					=> 'Edit Calendar',
+			'update_item'				=> 'Update Calendar',
+			'add_new_item'				=> 'Add New Calendar',
+			'new_item_name'				=> 'New Calendar Name',
+			'menu_name'					=> 'Calendars',
+			'separate_items_with_commas'=> 'Separate calendars with commas',
+			'choose_from_most_used'		=> 'Choose from the most used calendars',
 		);
 		
 		$calendar_tax_caps = array(
-			'manage_terms'	=> 'manage_categories',
-			'edit_terms'	=> 'manage_categories',
-			'delete_terms'	=> 'manage_categories',
-			'assign_terms'	=> 'edit_posts'
+			'manage_terms'				=> 'manage_categories',
+			'edit_terms'				=> 'manage_categories',
+			'delete_terms'				=> 'manage_categories',
+			'assign_terms'				=> 'edit_posts'
 		);
 		
 		$calendar_tax_args = array(
-			'labels'				=> $calendar_tax_labels,
-			'public'				=> true,
-			'show_ui'				=> true,
-			'show_in_nav_menus'		=> false,
-			'show_tagcloud'			=> false,
-			'hierarchical'			=> true,
-			'rewrite'				=> array( 'slug' => 'calendar' ),
-			'capabilities'    	  	=> $calendar_tax_caps,
-		);		
+			'labels'					=> $calendar_tax_labels,
+			'public'					=> true,
+			'show_ui'					=> true,
+			'show_in_nav_menus'			=> false,
+			'show_tagcloud'				=> false,
+			'hierarchical'				=> true,
+			'rewrite'					=> array( 'slug' => 'calendar' ),
+			'capabilities'    	  		=> $calendar_tax_caps,
+		);
 
 		/* Register the Calendar post taxonomy! */
 		register_taxonomy( 'calendar', 'event', $calendar_tax_args );
@@ -220,6 +220,7 @@ class Apoc_Events {
 
 		// Retrieve the event time
 		$event_time = date( 'Y-m-d H:i:s' , strtotime($_POST['event-time']) );
+		$prior_time	= $post->post_date;
 
 		// Update the post object
 		$post->post_date 		= $event_time;
@@ -257,7 +258,11 @@ class Apoc_Events {
 			// If the new meta value does not match the old value, update it.
 			elseif ( current_user_can( 'edit_post_meta', $post_id, $meta_key ) && $new_meta_value && $new_meta_value != $meta_value )
 				update_post_meta( $post_id, $meta_key, $new_meta_value );
-		}		
+		}
+
+		// Delete the RSVP meta if the date has changed
+		if ( $event_time != $prior_time )
+			delete_post_meta( $post_id , 'event_rsvps' );
 
 		/* -----------------------------------
 			BUDDYPRESS NOTIFICATION

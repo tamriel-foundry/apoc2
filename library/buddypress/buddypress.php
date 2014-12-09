@@ -236,7 +236,7 @@ class Apoc_BuddyPress {
 	function submit_guild( &$group ) {
 
 		// If the user is allowed to delete posts, then they can also create guilds and bypass validation requirements
-		if ( current_user_can( 'delete_others_posts' ) ) return;
+		if ( !bp_is_group_create() || current_user_can( 'delete_others_posts' ) ) return;
 
 		// Get the BP object
 		global $bp;

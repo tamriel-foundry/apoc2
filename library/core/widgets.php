@@ -329,9 +329,7 @@ class Apoc_Featured_Stream {
 			// List of valid streams as username => twitch name
 			$streams = array(
 				'atropos' 			=> 'atropos_nyx', 
-				'erlexx' 			=> 'erlexx', 
-				'vylaer'			=> 'vylaer', 
-				'deltia'			=> 'deltiasgaming', 
+				'erlexx' 			=> 'erlexx',
 			);
 			
 			// Shuffle the array

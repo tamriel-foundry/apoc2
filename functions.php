@@ -112,7 +112,7 @@ function apoc_scripts() {
 
 	// Enchanting Guide
 	elseif ( is_page( 'enchanting' )) {
-		wp_register_script( 'enchanting'	, THEME_URI.'/library/scripts/enchanting.js' , 'jquery' , $ver='0.7' , true );
+		wp_register_script( 'enchanting'	, THEME_URI.'/library/scripts/enchanting.js' , 'jquery' , $ver='0.8' , true );
 		wp_enqueue_script( 'enchanting' );
 		
 		// Enqueue CSS

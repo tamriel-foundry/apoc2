@@ -909,7 +909,6 @@ function get_user_article_count( $user_id ) {
 }
 
 
-
 /*--------------------------------------------------------------
 	5.0 - MODERATION
 --------------------------------------------------------------*/
@@ -921,7 +920,7 @@ function get_user_article_count( $user_id ) {
 function get_moderator_emails() {
 
 	// Roles to include as moderators
-	$roles 	= array( 'administrator' , 'bbp_moderator');
+	$roles 	= array( 'administrator' , 'bbp_moderator' , 'bbp_keymaster' );
 
 	// Setup the placeholder moderator role
 	$mods 	= array();

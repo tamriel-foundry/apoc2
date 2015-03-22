@@ -3,7 +3,7 @@
  * Apocrypha Theme User Profile Header
  * Andrew Clayton
  * Version 2.0
- * 9-24-2014
+ * 12-12-2014
  */
 
 // Get the currently displayed user
@@ -55,6 +55,7 @@ $user 	= new Apoc_User( bp_displayed_user_id() , 'profile' , 200 ); ?>
 			</header>
 			<ul id="detail-post-count">
 				<?php $posts = $user->posts; 
+				foreach ( array('comments','topics','replies') as $ptype ) if ( !isset($posts[$ptype]) ) $posts[$ptype] = 0;
 				if ( isset( $posts['articles'] ) && $posts['articles'] > 0 ) : ?>
 					<li><i class="fa fa-tag fa-fw"></i>Articles <span class="activity-count"><?php echo $posts['articles']; ?></span></li>
 				<?php endif; ?>

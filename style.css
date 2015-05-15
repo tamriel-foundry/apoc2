@@ -788,6 +788,7 @@ div#content {
  	-webkit-order: 0;   
 	flex: 3 1 800px;
 	order: 0;
+	max-width: 100%;
 	}
 
 div#primary-sidebar {

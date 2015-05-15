@@ -67,7 +67,7 @@ switch ( $response ) {
 
 	<div class="event-content">
 		<h2><a href="<?php the_permalink(); ?>" title="View Event" ><?php the_title(); ?></a></h2>
-		<div class="event-description entry-content"><?php the_content(); ?></div>
+		<div class="event-description post-content"><?php the_content(); ?></div>
 	</div>
 
 

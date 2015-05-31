@@ -197,6 +197,14 @@ h6 {
 /* Inflections */
 em { font-style: italic; }
 strong{ font-weight: bold; }
+sup {
+	vertical-align: super;
+	font-size: 0.75em;
+}
+sub {
+	vertical-align: sub;
+	font-size: 0.75em;
+}
 
 /* Quotes */
 blockquote {
@@ -255,6 +263,13 @@ button.spoiler-toggle {
 i.fa {
 	margin: 0 3px 0 0;
 	}
+
+/* Code */
+pre,
+code {
+	font-family: Monaco , 'MonacoRegular' , monospace;
+	font-size: 0.875em;
+}
 	
 /*---------------------------------------------
 	2.2 - Forms

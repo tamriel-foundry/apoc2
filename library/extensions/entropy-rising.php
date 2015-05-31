@@ -25,14 +25,14 @@ class Entropy_Rising {
 	public $group_id 	= 1;
 
 	// Assign recruitment status
-	public $recruiting 	= true;
+	public $recruiting 	= false;
 
 	// Assign recruitment priorities
 	public $priorities = array(
-		'dragonknight' 	=> 'low',
-		'templar' 		=> 'low',
+		'dragonknight' 	=> 'medium',
+		'templar' 		=> 'medium',
 		'sorcerer' 		=> 'medium',
-		'nightblade' 	=> 'high',
+		'nightblade' 	=> 'medium',
 	);
 
  	/**

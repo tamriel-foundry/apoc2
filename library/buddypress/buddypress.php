@@ -293,11 +293,12 @@ class Apoc_BuddyPress {
 				$body .= '<li>Server: ' . $group->server . '</li>';
 				$body .= '<li>Faction: ' . $group->faction . '</li>';
 				$body .= '<li>Interests: ' . $group->interests . '</li>';
+				$body .= '<li>Style: ' . $group->style . '</li>';
 			$body .= "</ul>";
 
 			// Guild Description
 			$body .= "<h3>Guild Description</h3>";
-			$body .= '<div>' . $group->description . '</div>';
+			$body .= '<div>' . stripslashes($group->description) . '</div>';
 
 			// Send the mail!
 			wp_mail( $emailto , $subject , $body , $headers );

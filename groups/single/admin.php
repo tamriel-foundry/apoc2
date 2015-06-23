@@ -104,7 +104,7 @@ if ( bp_is_group_admin_screen( 'edit-details' ) ) : ?>
 		<div class="form-right">
 			<label for="group-style"><i class="fa fa-shield fa-fw"></i>Guild Playstyle:</label>
 			<select name="group-style">
-				<option value="blank"></option>
+				<option value=""></option>
 				<option value="casual" <?php selected( $group->style, 'casual' ); ?>>Casual</option>
 				<option value="moderate" <?php selected( $group->style, 'moderate' ); ?>>Moderate</option>
 				<option value="hardcore" <?php selected( $group->style, 'hardcore' ); ?>>Hardcore</option>

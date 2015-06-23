@@ -2,8 +2,8 @@
 /**
  * Apocrypha Theme Topics Archive
  * Andrew Clayton
- * Version 2.0
- * 9-15-2014
+ * Version 2.1
+ * 6-22-2015
  */
 ?>
 
@@ -15,6 +15,7 @@
 
 		<?php // Recent topics found
 		if ( bbp_has_topics( array( 
+			'post_parent__not_in' => array( 5459 ),
 			'meta_value'		=> date( 'Y-m-d' , strtotime( '-30 days' )),
 			'meta_compare'		=> '>=',
 		) ) ) : ?>

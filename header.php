@@ -34,8 +34,8 @@
 	
 		<header id="site-header" role="banner">	
 			<a id="site-title" href="<?php echo SITEURL; ?>" title="<?php echo SITENAME; ?>"></a>
-			<div id="primary-leaderboard-728">
-				<script type='text/javascript'>googletag.cmd.push(function() { googletag.display('primary-leaderboard-728'); });</script>	
+			<div id='primary-leaderboard-728'>
+				<script type='text/javascript'>googletag.cmd.push(function() { googletag.display('primary-leaderboard-728'); });</script>
 			</div>
 		</header>
 		

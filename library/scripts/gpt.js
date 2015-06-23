@@ -15,8 +15,8 @@ googletag.cmd = googletag.cmd || [];
 
 // Primary Leaderboard
 googletag.cmd.push(function() {
-	googletag.defineSlot('/1045124/_TF_Leaderboard', [728, 90], 'primary-leaderboard-728').addService(googletag.pubads());
-	googletag.defineSlot('/1045124/_TF_Sidebar', [300, 250], 'sidebar-banner-300').addService(googletag.pubads());
+	googletag.defineSlot('/1045124/TamrielFoundry', [728, 90], 'primary-leaderboard-728').addService(googletag.pubads());
+	googletag.defineSlot('/1045124/TamrielFoundry', [300, 250], 'sidebar-banner-300').addService(googletag.pubads());
 	googletag.pubads().enableSingleRequest();
 	googletag.enableServices();
 });

@@ -17,9 +17,13 @@
 	
 	<?php apoc_sidebar_members(); ?>
 
-	<div id="sidebar-banner-300">
-		<script type='text/javascript'>googletag.cmd.push(function() { googletag.display('sidebar-banner-300'); });</script>
+	<!-- Beginning Sync AdSlot 2 for Ad unit TamrielFoundry ### size: [[300,250]]  -->
+	<div id='div-gpt-ad-821545701545728213-2'>
+		<script type='text/javascript'>
+			googletag.display('div-gpt-ad-821545701545728213-2');
+		</script>
 	</div>
+	<!-- End AdSlot 2 -->
 
 	<?php apoc_donate_box(); ?>
 

@@ -96,13 +96,13 @@ function apoc_scripts() {
 	wp_register_script( 'jquery' , 		'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' ,'jquery' , $ver ='2.1.1' , true );
 	wp_register_script( 'foundry' , 	THEME_URI.'/library/scripts/foundry.js' , 'jquery' , $ver='0.6' , true	);
 	wp_register_script( 'buddypress' , 	THEME_URI.'/library/scripts/buddypress.js' , 'jquery' , $ver='0.2' 	, true 	);
-	wp_register_script( 'googletag'	, 	THEME_URI.'/library/scripts/gpt.js' , false , $ver='0.37' , false );	
+	wp_register_script( 'googletag'	, 	THEME_URI.'/library/scripts/gpt.js' , 'gpt' , $ver='0.42' , false );	
 	
 	// Enqueue Scripts
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'foundry' );
 	wp_enqueue_script( 'buddypress' );
-	wp_enqueue_script( 'googletag' );
+	//wp_enqueue_script( 'googletag' );
 
 	// FlexSlider
 	if ( is_home() || is_page( 'entropy-rising' ) ) {

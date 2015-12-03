@@ -65,11 +65,27 @@
 		//Adslot 4 declaration
 		//gptadslots[4]= googletag.defineSlot('/1045124/TamrielFoundry_Interstitial', [[1,1]],'div-gpt-ad-821545701545728213-4').addService(googletag.pubads());
 
-		googletag.pubads().setTargeting('section',['VALUE']).setTargeting('subsection',['VALUE']).setTargeting('GS_Game',['ESO']).setTargeting('GS_Genre',['MMORPG']).setTargeting('URL',['<?php echo apoc()->url; ?>']);
+		googletag.pubads().setTargeting('section',['<?php echo apoc()->classes[1]; ?>']).setTargeting('platform',['<?php if ( apoc()->user->ID != 0 ) echo get_user_meta( apoc()->user->ID , "server" , true ); ?>']).setTargeting('GS_Game',['TF_Game']).setTargeting('GS_Genre',['TF_Genre']).setTargeting('URL',['<?php echo str_replace( SITEURL , '' , apoc()->url ); ?>']);
 		googletag.pubads().enableSyncRendering();
 		googletag.enableServices();
 	</script>
 	<!-- End: GPT -->
+
+
+	<!-- Begin comScore Tag -->
+	<script>
+	  var _comscore = _comscore || [];
+	  _comscore.push({ c1: "2", c2: "20676402" });
+	  (function() {
+	    var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+	    s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+	    el.parentNode.insertBefore(s, el);
+	  })();
+	</script>
+	<noscript>
+	  <img src="http://b.scorecardresearch.com/p?c1=2&c2=20676402&cv=2.0&cj=1" />
+	</noscript>
+	<!-- End comScore Tag -->
 </head>
 
 <body class="<?php apoc_body_class(); ?>">
